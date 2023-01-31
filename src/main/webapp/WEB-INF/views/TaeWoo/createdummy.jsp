@@ -15,7 +15,7 @@
 				list-style-type : none;
 				cursor : pointer;
 			}
-			#schemaarea {
+			.row > * {
 				width :80%;
 				margin : 0 auto;
 			}
@@ -77,10 +77,26 @@
 						</ul>
 					</div>
 					<div class="row">
-	
+						<button id="adbtn">추가하기</button>
+					</div>
+					<!--  -->
+					<div class="row">
+						<div>
+							<div class="col-sm-auto col-md-auto col-lg-auto">
+								<span>#데이터수:</span><input type="text" name="row" id="row" value="1000">
+							</div>
+							<div class="col-sm-auto col-md-auto col-lg-auto">
+								<span>형식:</span>
+								<select name="" id="format">
+									<option value="1">옵션1</option>
+									<option value="2">옵션2</option>
+									<option value="3">옵션3</option>
+								</select>
+							</div>
+						</div>
 					</div>
 					<div class="row">
-	
+						
 					</div>
 			</div>
 		</section>
@@ -97,15 +113,13 @@
 		let pickedIndex = null;
 		list.on({
 		    'dragstart':(e)=>{
-		    	console.log(e);
-		    	console.log(e.target);
 		    	if($(e.target).attr('data-type') != 'click'){
 		    		console.log('클릭 아님!')
 		    	}
-		        const obj = $(e.target).closest('li');
+		        const obj = $(e.target).closest('l6i');
 		        pickedIndex = [...obj[0].parentNode.children].indexOf(obj[0]);
 		        picked = obj[0];
-		    },
+		    }, 
 		    'dragover':(e)=>{
 		        e.preventDefault()
 		    },
