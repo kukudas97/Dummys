@@ -84,8 +84,8 @@
                 <div class="header-menu">
                     <div class="header-left">
                     
-                    <li><a href="${pageContext.request.contextPath}/users/login.do">로그인</a></li>
-				    <li><a href="${pageContext.request.contextPath}/join/join.do">회원가입</a></li>
+                    <li><a href="${pageContext.request.contextPath}/member/login.do">로그인</a></li>
+					<li><a href="${pageContext.request.contextPath}/join/join.do">회원가입</a></li>
                     
                         <button class="search-trigger"><i class="fa fa-search"></i></button>
                         <div class="form-inline">
