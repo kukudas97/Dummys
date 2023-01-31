@@ -11,9 +11,9 @@
  <security:http auto-config="true">
 		<security:csrf disabled="true" />
 		<security:form-login 
-								login-page="/joinus/login.htm" 
-								default-target-url="/index.htm"
-								authentication-failure-url="/joinus/login.htm?error"/>
+								login-page="/joinus/login.do" 
+								default-target-url="/index.do"
+								authentication-failure-url="/joinus/login.do?error"/>
 								
 		<!-- login.do login login.htm -->
 		
@@ -24,15 +24,13 @@
 	<security:authentication-manager>
 		<security:authentication-provider>
 				<security:jdbc-user-service data-source-ref="driverManagerDataSource"
-		   users-by-username-query="SELECT USERID, PASSWORD, enabled FROM USER where userid=?" 
+		   users-by-username-query="SELECT ID, PASSWORD, nickname, enabled FROM users where id=?" 
 		
-		   authorities-by-username-query="select u.USERID , r.ROLE_NAME  
-		           from user u join roll r 
-		           on u.userid = r.userid 
-		           where u.userid=?" />
+		   authorities-by-username-query="select u.ID , r.ROLE_NAME  
+		           from users u join role r 
+		           on u.id = r.id 
+		           where u.id=?" />
 		           <security:password-encoder ref="bCryptPasswordEncoder"/> <!-- 암호화 된 비밀번호 처리 -->
 		</security:authentication-provider>
 	</security:authentication-manager>
 </beans>
-
-
