@@ -23,8 +23,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="kr.or.dummys.dao.UserDao">
 	<insert id = "insertUser" parameterType="kr.or.dummys.dto.Users">
-		insert into users(id, password, nickname, enabled) 
-        values(#{id}, #{password}, #{nickname}, 1)
+		insert into users(userid, password, nickname, enabled) 
+        values(#{userid}, #{password}, #{nickname}, 1)
 	</insert>
 
 </mapper>

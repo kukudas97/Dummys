@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Type {
 	private int type_no;
-	private String id;
+	private String userid;
 	private int process_no;
 	private String type_name;
 	private String type_reason;
