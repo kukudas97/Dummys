@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Alarm {
 	private int alarm_no;
-	private String id;
+	private String userid;
 	private String alarm_type;
 	private int alarm_type_no;
 	private String alarm_name;
