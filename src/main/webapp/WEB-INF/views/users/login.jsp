@@ -39,11 +39,8 @@
                     </a> -->
                 </div>
                 <div class="login-form">
-                
-                	<h3><c:out value="${error }"/></h3>
-                    <h3><c:out value="${logout }"/></h3>
                     
-                    <form method="post" action="/login">
+                    <form method="post" action="${pageContext.request.contextPath}/login">
                     	
                         <div class="form-group">
                             <label>Email address</label>
