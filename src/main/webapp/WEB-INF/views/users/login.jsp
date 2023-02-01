@@ -39,12 +39,15 @@
                     </a> -->
                 </div>
                 <div class="login-form">
-                    <form method="post" action="login.do">
-                    	<h3><c:out value="${error }"/></h3>
-                    	<h3><c:out value="${logout }"/></h3>
+                
+                	<h3><c:out value="${error }"/></h3>
+                    <h3><c:out value="${logout }"/></h3>
+                    
+                    <form method="post" action="/login">
+                    	
                         <div class="form-group">
                             <label>Email address</label>
-                            <input type="email" name="id" class="form-control" placeholder="Email">
+                            <input type="text" name="userid" class="form-control" placeholder="Email">
                         </div>
                         <div class="form-group">
                             <label>Password</label>

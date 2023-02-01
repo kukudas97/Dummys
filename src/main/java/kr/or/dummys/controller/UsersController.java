@@ -33,6 +33,7 @@ public class UsersController {
 		return "users/login";
 	}
 	
+	/*
 	@PostMapping("/login.do")
 	public String login(Principal pri) {
 		
@@ -40,6 +41,7 @@ public class UsersController {
 		System.out.println("안녕");
 		return "redirect:/admin/test";
 	}
+	*/
 	
 	@GetMapping("/logout.do")
 	public String logout() {

@@ -9,23 +9,21 @@
 	
 <bean id="customLoginSuccess" class="kr.or.dummys.security.CustomLoginSuccessHandler"/>
 <bean id="customAccessDenied" class="kr.or.dummys.security.CustomAccessDeniedHandler"/>
- <security:http auto-config="true">
-		<security:csrf disabled="true" />
-		
-		
-		<security:form-login login-page="/users/login.do" 
-								authentication-success-handler-ref="customLoginSuccess"
-								username-parameter="id"
-								password-parameter="password"/>
+ <security:http>
+
+		<security:form-login login-page="/users/login.do" authentication-success-handler-ref="customLoginSuccess"/>
 		<security:access-denied-handler ref="customAccessDenied"/>
 								
 		<!-- login.do login login.htm -->
 		
-		<security:logout logout-success-url="/"/>
+		<!-- <security:csrf disabled="true" /> -->
+		<security:logout logout-success-url="/users/logout" invalidate-session="true"/>
+		
 		<security:intercept-url pattern="/TaeWoo/**" access="permitAll"/>
 		<security:intercept-url pattern="/users/**" access="permitAll"/>
 	  	<!-- <security:intercept-url pattern="/users/**" access="hasRole('ROLE_USER')" /> -->
 		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/join/**" access="hasRole('ROLE_USER')"/>
 	</security:http>
 	<security:authentication-manager>
 		<security:authentication-provider>
