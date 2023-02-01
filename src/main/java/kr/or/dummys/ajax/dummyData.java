@@ -14,27 +14,26 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.or.dummys.dao.testDao;
 
 @RestController
-//@RequestMapping("/api/dummydata")
 public class dummyData {
-	
-	@Autowired
-	private SqlSession session;
 	
 //	@GetMapping("")
 //	public ResponseEntity<Map<String, Object>> getDummyData(){
 //		
 //		return null;
 //	}
-	@GetMapping("/api/dummydata/test")
-	public ResponseEntity<Map<String, Object>> test(){
-		System.out.println("ㅎㅇㅎㅇ");
+	@RequestMapping("dummydata.do")
+	public ResponseEntity<String> test(){
+//		public ResponseEntity<Map<String, Object>> test(){
+		System.out.println("안녕!");
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
-			map.put("result",  "안녕");
-			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+			map.put("result",  "안녕"); 
+//			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+			return new ResponseEntity<String>("hello",HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.BAD_REQUEST);
+//			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("hello",HttpStatus.BAD_REQUEST);
 		}
 	}
 }

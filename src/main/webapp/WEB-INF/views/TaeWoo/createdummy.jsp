@@ -100,7 +100,7 @@
 										<div data-type="click" class="col-sm-1 col-md-1 col-lg-1">클릭3</div>
 										<div data-type="name"  class="col-sm-3 col-md-3 col-lg-3"><input type="text" value="3"></div>
 										<div data-type="type"  class="col-sm-3 col-md-3 col-lg-3">타입3</div>
-										<div data-type="selectoptions"  class="col-sm-3 col-md-3 col-lg-3">선<input type="text" value="3">택옵션3</div>
+										<div data-type="selectoptions"  class="col-sm-3 col-md-3 col-lg-3"><input type="text" value="3"></div>
 										<div data-type="options"  class="col-sm-2 col-md-2 col-lg-2"><input type="text" value="3"></div>
 									</div>
 								</div>
@@ -137,19 +137,20 @@
 			<div class="createnav">
 				<div class="btnArea">
 					<div class="navbtn" id="btn1">버튼1</div>
-					<div class="navbtn">버튼2</div>
-					<div class="navbtn">버튼3</div>
+					<div class="navbtn" id="btn2">버튼2</div>
+					<div class="navbtn" id="btn3">버튼3</div>
 				</div>
 			</div>
 		</section>
 	</body>
 	<script>
 	// ===== event setting =====
-		$("#adbtn").on({
+		$("#btn1").on({
 			click:()=>{
 				$.ajax({
-					url : "api/dummydata/test",
-					dataType:"json",
+					type:"get",
+					url : "dummydata.do",
+					contentType:'application/json',
 					success : (data)=>{
 						console.log(data);
 					},
