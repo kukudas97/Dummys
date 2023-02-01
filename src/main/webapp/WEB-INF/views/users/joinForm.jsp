@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Ela Admin - HTML5 Admin Template</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,34 +33,39 @@
         <div class="container">
             <div class="login-content">
                 <div class="login-logo">
-                    <!-- <a href="index.html">
+                    <a href="index.html">
                         <img class="align-content" src="images/logo.png" alt="">
-                    </a> -->
+                    </a>
                 </div>
                 <div class="login-form">
-                    <form method="post" action="/login">
+                    <form action="" method="post">
+                        <div class="form-group">
+                            <label>Nickname</label>
+                            <input type="text" class="form-control" placeholder="Nickname" name="nickname">
+                        </div>
                         <div class="form-group">
                             <label>Email address</label>
-                            <input type="email" class="form-control" placeholder="Email">
+                            <input type="email" class="form-control" placeholder="Email" name="id">
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input type="password" class="form-control" placeholder="Password" name="password">
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox"> 로그인 유지하기
+                                <input type="checkbox"> 회원 정책에 동의합니다
                             </label>
-                            <label class="pull-right">
-                                <a href="#">비밀번호를 잊으셨습니까?</a>
-                            </label>
-
                         </div>
-                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
+                        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">등록</button>
+                        <div class="social-login-content">
+                            <!-- <div class="social-button">
+                                <button type="button" class="btn social facebook btn-flat btn-addon mb-3"><i class="ti-facebook"></i>Register with facebook</button>
+                                <button type="button" class="btn social twitter btn-flat btn-addon mt-2"><i class="ti-twitter"></i>Register with twitter</button>
+                            </div> -->
+                        </div>
                         <div class="register-link m-t-15 text-center">
-                            <p>계정이 없으십니까? <a href="${pageContext.request.contextPath}/join/join.do"> 회원가입하기</a></p>
+                            <p>이미 계정이 있으십니까? <a href="${pageContext.request.contextPath}/users/login.do"> 로그인</a></p>
                         </div>
-                        <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
                     </form>
                 </div>
             </div>
