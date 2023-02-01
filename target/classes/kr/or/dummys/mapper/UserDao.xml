@@ -8,13 +8,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	public int insertUser(Users users);
 	
 	//아이디 체크
-	public int idCheck(String id);
+	public int idCheck(String userid);
 	
 	//로그인 체크
-	public int loginCheck(String id, String password);
+	public int loginCheck(String userid, String password);
 	
 	//회원 상세
-	public Users userDetail(String id);
+	public Users userDetail(String userid);
 	
 	//회원 수정
 	public int updateUser(Users users);
@@ -26,5 +26,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into users(userid, password, nickname, enabled) 
         values(#{userid}, #{password}, #{nickname}, 1)
 	</insert>
+	
+	<select id="idCheck" resultType="int">
+		select count(*) from users where userid=#{userid}
+	</select>
+	
+	<select id="loginCheck" resultType="int">
+		select count(*) from users where userid=#{param1} and pwd =#{param2}
+	</select>
+	
+	<select id="userDetail" resultType="kr.or.dummys.dto.Users">
+		select userid, password, nickname, enabled where userid = #{userid}
+	</select>
+	
+	<update id="updateUser">
+		update users
+		set password = #{password}, nickname=#{nickname} where userid = #{userid}
+	</update>
 
 </mapper>
