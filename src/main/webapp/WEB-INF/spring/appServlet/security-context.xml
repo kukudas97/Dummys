@@ -8,14 +8,16 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	
 <bean id="customLoginSuccess" class="kr.or.dummys.security.CustomLoginSuccessHandler"/>
+<bean id="customAccessDenied" class="kr.or.dummys.security.CustomAccessDeniedHandler"/>
  <security:http auto-config="true">
 		<security:csrf disabled="true" />
 		
 		
-		<security:form-login 
-								login-page="/users/login.do" 
+		<security:form-login login-page="/users/login.do" 
 								authentication-success-handler-ref="customLoginSuccess"
-								authentication-failure-url="/error"/>
+								username-parameter="id"
+								password-parameter="password"/>
+		<security:access-denied-handler ref="customAccessDenied"/>
 								
 		<!-- login.do login login.htm -->
 		
@@ -27,14 +29,18 @@
 	</security:http>
 	<security:authentication-manager>
 		<security:authentication-provider>
-				<security:jdbc-user-service data-source-ref="driverManagerDataSource"
-		   users-by-username-query="select id, password, nickname, enabled from users where id=?" 
+				<!-- <security:jdbc-user-service data-source-ref="driverManagerDataSource"
+		   users-by-username-query="select id, password, enabled from users where id=?" 
 		
 		   authorities-by-username-query="select u.id , r.role_name  
 		           from users u join users_role r 
 		           on u.id = r.id 
-		           where u.id=?" />
-		           <security:password-encoder ref="bCryptPasswordEncoder"/> <!-- 암호화 된 비밀번호 처리 -->
+		           where u.id=?" /> -->
+		           <!-- <security:password-encoder ref="bCryptPasswordEncoder"/> --> <!-- 암호화 된 비밀번호 처리 -->
+			<security:user-service>
+				<security:user name="admin@test.com" password="{noop}admin" authorities="ROLE_ADMIN"/>
+				<security:user name="user@test.com" password="{noop}user" authorities="ROLE_USER"/>
+			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>
 </beans>
