@@ -15,6 +15,9 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication auth) throws IOException, ServletException {
+		
+		System.out.println("login success");
+		
 		List<String> roleNames = new ArrayList<String>();
 		
 		auth.getAuthorities().forEach(authority -> {
@@ -27,7 +30,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
 		}
 		
 		if(roleNames.contains("ROLE_USER")) {
-			response.sendRedirect("/TaeWoo/createdummy");
+			response.sendRedirect("/join/join");
 			return;
 		}
 		
