@@ -20,17 +20,14 @@ public class JoinService {
 		return result;
 	}
 	
-	public int idCheck(String id) {
-		UserDao userDao = sqlsession.getMapper(UserDao.class);
-		int result = userDao.idCheck(id);
-		return result;
-	}
-	
-	public int loginCheck(String id, String password) {
-		UserDao userDao = sqlsession.getMapper(UserDao.class);
-		int result = userDao.loginCheck(id, password);
-		return result;
-	}
-	
+	/*
+	 * public int idCheck(String id) { UserDao userDao =
+	 * sqlsession.getMapper(UserDao.class); int result = userDao.idCheck(id); return
+	 * result; }
+	 * 
+	 * public int loginCheck(String id, String password) { UserDao userDao =
+	 * sqlsession.getMapper(UserDao.class); int result = userDao.loginCheck(id,
+	 * password); return result; }
+	 */
 
 }
