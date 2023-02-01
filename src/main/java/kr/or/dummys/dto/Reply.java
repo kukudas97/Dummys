@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Reply {
 	private int reply_no;
-	private String id;
+	private String userid;
 	private int board_no;
 	private String reply_content;
 	private int reply_activate;

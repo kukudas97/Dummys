@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class Scrap {
-	private String id;
+	private String userid;
 	private int schema_no;
 }

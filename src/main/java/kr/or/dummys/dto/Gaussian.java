@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Gaussian {
 	private int gaussian_no;
-	private String id;
+	private String userid;
 	private String gaussian_col;
 	private String gaussian_name;
 }
