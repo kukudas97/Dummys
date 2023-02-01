@@ -1,5 +1,7 @@
 package kr.or.dummys.dto;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -11,8 +13,5 @@ public class Col {
 	private int col_blank;
 	private String col_function;
 	private int col_order;
-	
-	//옵션 테이블
-	private int option_no;
-	private String option_result;
+	private List<Integer> options;
 }
