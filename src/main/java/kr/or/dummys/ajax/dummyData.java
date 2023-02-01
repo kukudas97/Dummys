@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.or.dummys.dao.testDao;
 
 @RestController
-@RequestMapping("/api/dummydata/")
+//@RequestMapping("/api/dummydata")
 public class dummyData {
 	
 	@Autowired
 	private SqlSession session;
 	
-	@GetMapping("")
-	public ResponseEntity<Map<String, Object>> getDummyData(){
-		
-		return null;
-	}
-	@GetMapping("test")
+//	@GetMapping("")
+//	public ResponseEntity<Map<String, Object>> getDummyData(){
+//		
+//		return null;
+//	}
+	@GetMapping("/api/dummydata/test")
 	public ResponseEntity<Map<String, Object>> test(){
 		System.out.println("ㅎㅇㅎㅇ");
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -136,7 +136,7 @@
 		<section>
 			<div class="createnav">
 				<div class="btnArea">
-					<div class="navbtn">버튼1</div>
+					<div class="navbtn" id="btn1">버튼1</div>
 					<div class="navbtn">버튼2</div>
 					<div class="navbtn">버튼3</div>
 				</div>
@@ -149,6 +149,7 @@
 			click:()=>{
 				$.ajax({
 					url : "api/dummydata/test",
+					dataType:"json",
 					success : (data)=>{
 						console.log(data);
 					},
