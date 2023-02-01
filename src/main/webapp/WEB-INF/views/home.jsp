@@ -14,7 +14,9 @@
 
 	</head>
 	<body>
+		<div id="right-panel" class="right-panel">
 		<jsp:include page="/WEB-INF/views/include/header.jsp" />
+		<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
 		
 		
 		
@@ -57,6 +59,8 @@
 			
 		</div>
 		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+		
+		</div>
 	</body>
 	<script>
 
