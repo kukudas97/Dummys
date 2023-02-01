@@ -6,7 +6,7 @@ public interface UserDao {
 	
 	//회원가입
 	public int insertUser(Users users);
-	
+/*	
 	//아이디 체크
 	public int idCheck(String id);
 	
@@ -18,5 +18,5 @@ public interface UserDao {
 	
 	//회원 수정
 	public int updateUser(Users users);
-
+*/
 }
