@@ -9,8 +9,7 @@
 
 <!-- 모든 컨트롤러가 공통 사용 DAO 빈 객체  참조-->
 <context:annotation-config />
-<context:component-scan base-package="kr.or.dummys.service" />
-<context:component-scan base-package="kr.or.dummys.controller"/>
+<context:component-scan base-package="kr.or.dummys.controller"  />
 <context:component-scan base-package="kr.or.dummys.ajax"  />
 <!-- <mvc:resources location="/resources/" mapping="/resources/**"/> -->
 
