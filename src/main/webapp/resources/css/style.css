@@ -2507,6 +2507,8 @@ footer.site-footer {
     right: 20px !important; }
 
 /*# sourceMappingURL=style.css.map */
+
+/*  다영 추가   */
 #main_content{
 }
 
@@ -2558,3 +2560,7 @@ footer.site-footer {
   background: #96F56E ;
   color: #006400 ;
 } 
+
+.no-session-form a{
+	margin: 15px;
+}
