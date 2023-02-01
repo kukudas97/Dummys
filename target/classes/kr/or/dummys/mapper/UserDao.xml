@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+	//회원가입
+	public int insertUser(Users users);
+	
+	//아이디 체크
+	public int idCheck(String id);
+	
+	//로그인 체크
+	public int loginCheck(String id, String password);
+	
+	//회원 상세
+	public Users userDetail(String id);
+	
+	//회원 수정
+	public int updateUser(Users users);
+
+ -->
+
+<mapper namespace="kr.or.dummys.dao">
+	<insert id = "insertUser" parameterType="kr.or.dummys.dto.Users">
+		insert into users(id, password, nickname, enabled) 
+        values(#{id}, #{password}, #{nickname}, 1);
+	</insert>
+
+</mapper>
