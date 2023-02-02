@@ -72,7 +72,6 @@
 
 </head>
 <body>
-<div id="right-panel" class="right-panel">
 
 <header id="header" class="header">
             <div class="top-left">
@@ -184,7 +183,6 @@
             </div>
         </header>
         
-        </div>
 
 
 
