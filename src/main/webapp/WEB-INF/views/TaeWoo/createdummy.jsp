@@ -146,19 +146,7 @@
 	<script>
 	// ===== event setting =====
 		$("#btn1").on({
-			click:()=>{
-				$.ajax({
-					type:"get",
-					url : "dummydata.do",
-					contentType:'application/json',
-					success : (data)=>{
-						console.log(data);
-					},
-					error : (error)=>{
-						console.log(error);
-					}
-				})
-			}
+			click: createDummy
 		})
 	// ===== drag and drop set =====
 		$('.schema').attr('draggable','true');
@@ -196,22 +184,47 @@
 	private List<Integer> options;
 */
 	function createDummy(){
-		let columnData;
-
-
-		// $.ajax({
-		// 	"url" : "",
-		// 	"type" : "",
-		// 	"data" : {
-
-		// 	},
-		// 	"success" : (data)=>{
-
-		// 	},//success end
-		// 	"error" : (error)=>{
-
-		// 	}//error end
-		// })//ajax end
+		// {
+		// 	col_no : 2,
+		// 	schema_no : 2,
+		// 	col_name : '테스트이름2',
+		// 	col_blank : 0,
+		// 	col_function : '테스트함수2',
+		// 	col_order : 2,
+		// 	col_options : [2,200]
+		// }
+		let colData = [
+			{
+				"col_no" : 1,
+				"schema_no" : 1,
+				"col_name" : "테스트이름",
+				"col_blank" : 0,
+				"col_function" : "테스트함수",
+				"col_order" : 1,
+				"col_options" : [1,100]
+			},{
+				"col_no" : 2,
+				"schema_no" : 2,
+				"col_name" : "테스트이름2",
+				"col_blank" : 0,
+				"col_function" : "테스트함수2",
+				"col_order" : 2,
+				"col_options" : [2,200]
+			}
+		];
+		console.log(colData);
+		$.ajax({
+			type:"post",
+			url : "dummydata.do",
+			data : JSON.stringify(colData),
+			contentType:'application/json',
+			success : (data)=>{
+				console.log(data);
+			},
+			error : (error)=>{
+				console.log(error);
+			}
+		})
 	}// createDummy function end
 	</script>
 </html>
