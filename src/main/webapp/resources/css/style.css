@@ -2290,7 +2290,7 @@ footer.site-footer {
       opacity: 0;
       padding: 0; }
     aside.left-panel .menutoggle {
-      display: none; }
+      display: block; }
     aside.left-panel.open-menu {
       max-width: 280px;
       width: 280px; }
@@ -2510,6 +2510,8 @@ footer.site-footer {
 
 /*  다영 추가   */
 #main_content{
+	margin: 20px;
+	padding: 10px;
 }
 
 .HomepageTop{
