@@ -22,9 +22,35 @@ public class BoardService {
 	}
 	
 	//글목록보기 서비스(DB)
-	public List<Board> boardList(){
-		List<Board> boardList = null;
+	public List<Board> boardList(String pg, String f, String q){
 		
+		//default 값 설정
+				int page = 1;
+				String field = "TITLE";
+				String query = "%%";
+				
+				if(pg !=null && ! pg.contentEquals("")) {
+					page = Integer.parseInt(pg);
+				}
+				
+				if(f != null && ! f.contentEquals("")) {
+					field = f;
+				}
+				
+				if(q !=null && ! q.contentEquals("")) {
+					query = q;
+				}
+		
+		//DAO 작업
+		List<Board> boardList = null;
+		try {
+			//동기화
+			BoardDao boardDao = sqlsession.getMapper(BoardDao.class);
+			//////////////////////////////////
+			boardList = boardDao.boardList(page, field, query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return boardList;
 	}
 		
