@@ -30,5 +30,10 @@ public class BoardController {
 		 model.addAttribute("boardList", boardList);	 	 
 		  return "board/boardList"; 
 	 }
+	  
+	  @GetMapping("boardWrite.do")
+	  public String boardWrite() {
+		  return "board/boardWrite";
+	  }
 	 
 }
