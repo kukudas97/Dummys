@@ -46,8 +46,8 @@
 							<div class="createnav">
 								<div class="btnArea">
 									<button type="submit" class="navbtn btn btn-outline-secondary">저장</button>
-									<button class="navbtn btn btn-outline-secondary"><a href="index.do">메인화면</button>
-									<button class="navbtn btn btn-outline-secondary"><a href="javascript:window.history.go(-1);">뒤로가기</button>
+									<button class="navbtn btn btn-outline-secondary"><a href="index.do">메인화면</a></button>
+									<button class="navbtn btn btn-outline-secondary"><a href="javascript:window.history.go(-1);">뒤로가기</a></button>
 								</div>
 							</div>
 						</form>

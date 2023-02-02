@@ -19,58 +19,6 @@
 				width :80%;
 				margin : 0 auto;
 			}
-			.schema div[data-type]{
-				padding: 2px 2px 2px 2px;
-				-ms-user-select: none; 
-				-moz-user-select: -moz-none;
-				-khtml-user-select: none;
-				-webkit-user-select: none;
-				user-select: none;
-			}
-			.schema input{
-				width : 100%;
-				border : none;
-			}
-			.datasection, #adbtn{
-			    border: 3px solid #086200;
-			    padding: 5px;
-			    border-radius: 10px;
-			}
-			#adbtn{
-				margin-left:6%;
-			}
-			.dataSet >div , .createnav .navbtn, .inlineSet, .datasection{
-				display: inline-block;
-			}
-			.createnav{
-				position: fixed;
-				background-color: green;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				height: 4rem;
-				padding : 1rem;
-			}
-			.createnav > .btnArea {
-			    display: flex;
-			    justify-content: center;
-			}
-			.createnav .navbtn {
-				border: 1px solid white;
-				color:white;
-				border-radius: 5px;
-				padding : 5px;
-				margin-left : 1rem;
-				margin-right : 1rem;
-			}
-			div[data-type="click"] > .datasection{
-				float: right;
-			}
-			div[data-type="name"] > .datasection, div[data-type="type"] > .datasection, div[data-type="options"] > .datasection, div[data-type="selectoptions"] > .datasection{
-				width: 90%;
-			}
-			
-			#a > .b
 		</style>
 	</head>
 	<body>
@@ -164,10 +112,10 @@
 		<section>
 			<div class="createnav">
 				<div class="btnArea">
-					<div class="navbtn" id="btn1">미리보기</div>
-					<div class="navbtn" id="btn2">생성하기</div>
-					<div class="navbtn" id="btn3">저장하기</div>
-					<div class="navbtn" id="btn4">홈</div>
+					<div class="navbtn btn btn-outline-success" id="btn1">미리보기</div>
+					<div class="navbtn btn btn-outline-success" id="btn2">생성하기</div>
+					<div class="navbtn btn btn-outline-success" id="btn3">저장하기</div>
+					<div class="navbtn btn btn-outline-success" id="btn4">홈</div>
 				</div>
 			</div>
 		</section>
