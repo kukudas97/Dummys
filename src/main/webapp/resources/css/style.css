@@ -1203,9 +1203,8 @@ header .form-inline {
   width: 100%; }
 
 .card {
-  margin-bottom: 1.875em;
+  margin: 15px;
   border-radius: 5px;
-  padding: 0;
   border: 0px solid transparent;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.08); }
@@ -2560,6 +2559,10 @@ footer.site-footer {
 
 .no-session-form a{
 	margin: 15px;
+}
+
+.boardWriteButton {
+	padding: 15px;
 }
 
 /*재홍*/
