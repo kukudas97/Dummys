@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+//게시물 개수
+	int getBoardCount(String field, String query) throws ClassNotFoundException, SQLException;
+		
+	//전체 게시물
+	List<Board> boardList(int page, String field, String query) throws ClassNotFoundException, SQLException;
+
+ -->
+
+<mapper namespace="kr.or.dummys.dao.BoardDao">
+
+ <select id="getBoardCount" resultType="int">
+ 	select count(*) from board where ${param1} like '%${param2}%'
+ </select>
+ 
+ <select id="boardList" resultType="kr.or.dummys.dto.Board">
+select BOARD_NO, users.USERID, users.NICKNAME, BOARD_KIND, BOARD_NAME, BOARD_CONTENT, TO_CHAR(BOARD_DATE, 'YYYY-MM-DD') as board_date
+    from users inner join board
+                on board.userid=users.userid
+ </select>
+ 
+</mapper>

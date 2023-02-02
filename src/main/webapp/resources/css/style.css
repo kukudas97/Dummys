@@ -2290,7 +2290,7 @@ footer.site-footer {
       opacity: 0;
       padding: 0; }
     aside.left-panel .menutoggle {
-      display: none; }
+      display: block; }
     aside.left-panel.open-menu {
       max-width: 280px;
       width: 280px; }
