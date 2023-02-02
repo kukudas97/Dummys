@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>타입 생성 페이지</title>
 <style type="text/css">
 	#check{
 		width: 100px
@@ -16,10 +17,6 @@
 		border: 3px solid;
 		min-height: 525px;
 		border-radius: 10px;
-	}
-	.updatebtn {
-		padding-bottom: 1px;
-		padding-top: 1px;
 	}
 </style>
 </head>
@@ -41,7 +38,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<button class="btn btn-outline-secondary" style="margin-bottom: 15px">새로운 타입!</button>
+						<button class="btn btn-outline-secondary newbtn">새로운 타입!</button>
 					</div>
 				</div>
 			</div>
@@ -73,7 +70,7 @@
 								<td>안녕.txt</td>
 								<td>싫어!!!</td>
 								<td>X</td>
-								<td><button class="btn btn-outline-secondary updatebtn">수정</button></td>
+								<td><button class="btn tablebtn btn-outline-secondary ">수정</button></td>
 							</tr>
 							<tr>
 								<td><input type="checkbox"/></td>
@@ -81,15 +78,15 @@
 								<td>불편해?.txt</td>
 								<td>그러면 자세를 고쳐앉아</td>
 								<td>O</td>
-								<td><button class="btn btn-outline-secondary">수정</button></td>
+								<td><button class="btn tablebtn btn-outline-secondary">수정</button></td>
 							</tr>
 							<tr>
 								<td><input type="checkbox"/></td>
-								<td>불편?</td>
-								<td>불편해?.txt</td>
-								<td>그러면 자세를 고쳐앉아</td>
-								<td>O</td>
-								<td><button class="btn btn-outline-secondary">수정</button></td>
+								<td>김재홍</td>
+								<td>날리지큐브.txt</td>
+								<td>서류탈락자</td>
+								<td>X</td>
+								<td><button class="btn tablebtn btn-outline-secondary">수정</button></td>
 							</tr>
 						</tbody>
 						<tfoot>
@@ -99,7 +96,7 @@
 								<td></td>
 								<td></td>
 								<td></td>
-								<td><button class="btn btn-outline-secondary">삭제</button></td>
+								<td><button class="btn tablebtn btn-outline-secondary">삭제</button></td>
 							</tr>
 						</tfoot>
 					</table>
@@ -107,6 +104,9 @@
 				<div id="datasection" class="col-md-3">
 					<section id="values">
 						<h3>&nbsp;values</h3>
+						<div id="scrolltext">
+						
+						</div>
 					</section>
 				</div>
 			</div>
