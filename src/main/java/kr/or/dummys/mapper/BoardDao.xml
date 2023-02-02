@@ -18,9 +18,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </select>
  
  <select id="boardList" resultType="kr.or.dummys.dto.Board">
-select BOARD_NO, users.USERID, users.NICKNAME, BOARD_KIND, BOARD_NAME, BOARD_CONTENT, TO_CHAR(BOARD_DATE, 'YYYY-MM-DD') as board_date
+select BOARD_NO, users.USERID, users.NICKNAME, BOARD_KIND, BOARD_NAME, BOARD_CONTENT, BOARD_DATE
     from users inner join board
                 on board.userid=users.userid
+                order by board.board_no desc
  </select>
  
 </mapper>
