@@ -14,7 +14,7 @@
                     
                     <li class="menu-title">Dummy Data</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="${pageContext.request.contextPath}/board/boardList.do" class="dropdown-toggle" > <i class="menu-icon fa fa-cogs"></i>Schemas!!</a>
+                        <a href="#" class="dropdown-toggle" > <i class="menu-icon fa fa-cogs"></i>Schemas!!</a>
 <!--                         <ul class="sub-menu children dropdown-menu">                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Buttons</a></li>
                             <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
                             <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Tabs</a></li>
@@ -46,7 +46,7 @@
                     <li class="menu-title">커뮤니티</li><!-- /.menu-title -->
 
                     <li class="menu-item-has-children">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>자유게시판</a>
+                        <a href="${pageContext.request.contextPath}/board/boardList.do" class="dropdown-toggle" > <i class="menu-icon fa fa-tasks"></i>자유게시판</a>
                     </li>
                     <li>
                         <a href="widgets.html"> <i class="menu-icon ti-email"></i>질문게시판</a>

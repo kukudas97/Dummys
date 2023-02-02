@@ -27,7 +27,7 @@ public class BoardController {
 	  public String boardList(String pg, String f, String q, Model model) { 
 		 List<Board> boardList = boardService.boardList(pg, f, q);
 		 System.out.println(boardList.toString());
-		 model.addAttribute("boardList", boardList); //자동으로 board.jsp forward		 	 
+		 model.addAttribute("boardList", boardList);	 	 
 		  return "board/boardList"; 
 	 }
 	 
