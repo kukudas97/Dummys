@@ -1,14 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<!DOCTYPE html>
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Ela Admin - HTML5 Admin Template</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Forget your password?</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -25,45 +22,25 @@
     <link rel="stylesheet" href="/resources/css/style.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 </head>
-<body class="bg-flat-color-6">
+<body class="bg-dark">
 
     <div class="sufee-login d-flex align-content-center flex-wrap">
         <div class="container">
             <div class="login-content">
                 <div class="login-logo">
-                    <!-- <a href="index.html">
+                   <!--  <a href="index.html">
                         <img class="align-content" src="images/logo.png" alt="">
                     </a> -->
                 </div>
                 <div class="login-form">
-                    
-                    <form method="post" action="${pageContext.request.contextPath}/login">
-                    	
+                    <form>
                         <div class="form-group">
                             <label>Email address</label>
-                            <input type="text" name="userid" class="form-control" placeholder="Email">
+                            <input type="email" class="form-control" placeholder="Email">
                         </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" name="password" class="form-control" placeholder="Password">
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> 로그인 유지하기
-                            </label>
-                            <label class="pull-right">
-                                <a href="${pageContext.request.contextPath}/users/forgetPassword.do">비밀번호를 잊으셨습니까?</a>
-                            </label>
-
-                        </div>
-                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
-                        <div class="register-link m-t-15 text-center">
-                            <p>계정이 없으십니까? <a href="${pageContext.request.contextPath}/join/join.do"> 회원가입하기</a></p>
-                        </div>
-                        <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
+                        <button type="submit" class="btn btn-primary btn-flat m-b-15">Submit</button>
                     </form>
                 </div>
             </div>

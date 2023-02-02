@@ -61,5 +61,11 @@ public class UsersController {
 	public String error() {
 		return "error";
 	}
+	
+	@GetMapping("/forgetPassword.do")
+	public String forgetPassword() {
+
+		return "users/forgetPassword";
+	}
 
 }
