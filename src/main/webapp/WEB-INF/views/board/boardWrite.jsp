@@ -20,16 +20,14 @@
 		  <!-- /header -->
         <!-- Header-->
         
-        <h3>Hi this is boardWrite page</h3>
-        
 					<div class="card">
                           <div class="card-header">
-                            <strong>Normal</strong> Form
+                            <strong>자유게시판 글쓰기</strong>
                         </div>
                         <div class="card-body card-block">
-                            <form action="#" method="post" class="">
-                                <div class="form-group"><label for="nf-email" class=" form-control-label">Email</label><input type="email" id="nf-email" name="nf-email" placeholder="Enter Email.." class="form-control"><span class="help-block">Please enter your email</span></div>
-                                <div class="form-group"><label for="nf-password" class=" form-control-label">Password</label><input type="password" id="nf-password" name="nf-password" placeholder="Enter Password.." class="form-control"><span class="help-block">Please enter your password</span></div>
+                            <form action="" method="post">
+                                <div class="form-group"><label class=" form-control-label">작성자</label><input type="text" placeholder="Enter Email.." class="form-control"></div>
+                                <div class="form-group"><label class=" form-control-label">제목</label><input type="text" placeholder="제목을 입력하세요" class="form-control"><span class="help-block">제목</span></div>
                             </form>
                         </div>
                         <div class="card-footer">

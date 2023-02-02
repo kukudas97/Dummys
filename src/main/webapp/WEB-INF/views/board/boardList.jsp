@@ -58,24 +58,26 @@
                                        <c:forEach items="${boardList}" var="boardList">
 										<tr>
 											<td><c:out value="${boardList.board_no}" /></td>
-											<%-- <td><a href='/board/get?board=<c:out value="${boardList.board_name}"/>'><c:out value="${board.title}" /> </a></td> --%>
-											<td><c:out value="${boardList.board_name}" /></td>
+											<td><a href='/board/get?board=<c:out value="${boardList.board_name}"/>'><c:out value="${boardList.board_name}" /> </a></td>
+											<%-- <td><c:out value="${boardList.board_name}" /></td> --%>
 											<td><c:out value="${boardList.nickname}" /></td>
 											<td><c:out value="${boardList.board_date}" /></td>
 										</tr>
 									</c:forEach>
                                     </tbody>
+                                    
                                 </table>
+                    <div class="boardWriteButton">
+                    <a href="${pageContext.request.contextPath}/board/boardWrite.do"><input class="btn btn-outline-success" type="button" value="글쓰기"></a>
+                    </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class>
-                    
+                        
                     </div>
 
 
                 </div>
+                
             </div><!-- .animated -->
         </div><!-- .content -->
 
@@ -107,7 +109,6 @@
         $(document).ready(function() {
           $('#boardListTable').DataTable({
         	  order:[[0, "desc"]]
-        	  
           });
       } );
   </script>
