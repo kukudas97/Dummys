@@ -69,9 +69,15 @@
 			div[data-type="name"] > .datasection, div[data-type="type"] > .datasection, div[data-type="options"] > .datasection, div[data-type="selectoptions"] > .datasection{
 				width: 90%;
 			}
+			
+			#a > .b
 		</style>
 	</head>
 	<body>
+	
+	<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
+	
+    <div id="right-panel" class="right-panel">
 		<section id="header">
 			<jsp:include page="/WEB-INF/views/include/header.jsp" />
 		</section>
@@ -94,7 +100,7 @@
 										<div data-type="click" class="col-sm-1 col-md-1 col-lg-1"><div class="datasection">::</div></div>
 										<div data-type="name" class="col-sm-2 col-md-2 col-lg-2"><div class="datasection"><input type="text" value="1"></div></div>
 										<div data-type="type" data-value="1" class="col-sm-2 col-md-2 col-lg-2"><div class="datasection">타입1</div></div>
-										<div data-type="selectoptions"  class="col-sm-3 col-md-3 col-lg-3"><div class="datasection"><input type="text" value="1"></div></div>
+										<div data-type="selectoptions"  class="col-sm-3 col-md-3 col-lg-3"><div class="datasection"><input type="text" value="1"><input type="text" value="100"></div></div>
 										<div data-type="options"  class="col-sm-3 col-md-3 col-lg-3"><div class="datasection"><input type="text" value="1"></div></div>
 										<div data-type="close"  class="col-sm-1 col-md-1 col-lg-1"><div class="datasection">닫기</div></div>
 									</div>
@@ -106,7 +112,7 @@
 									<div class="row">
 										<div data-type="click" class="col-sm-1 col-md-1 col-lg-1"><div class="datasection">::</div></div>
 										<div data-type="name" class="col-sm-2 col-md-2 col-lg-2"><div class="datasection"><input type="text" value="2"></div></div>
-										<div data-type="type" data-value="1" class="col-sm-2 col-md-2 col-lg-2"><div class="datasection">타입2</div></div>
+										<div data-type="type" data-value="2" class="col-sm-2 col-md-2 col-lg-2"><div class="datasection">타입2</div></div>
 										<div data-type="options"  class="col-sm-3 col-md-3 col-lg-3"><div class="datasection"><input type="text" value="2"></div></div>
 										<div data-type="close"  class="col-sm-1 col-md-1 col-lg-1"><div class="datasection">닫기</div></div>
 										<div data-type="selectoptions"  class="col-sm-3 col-md-3 col-lg-3"></div>
@@ -119,7 +125,7 @@
 									<div class="row">
 										<div data-type="click" class="col-sm-1 col-md-1 col-lg-1"><div class="datasection">::</div></div>
 										<div data-type="name" class="col-sm-2 col-md-2 col-lg-2"><div class="datasection"><input type="text" value="3"></div></div>
-										<div data-type="type" data-value="1" class="col-sm-2 col-md-2 col-lg-2"><div class="datasection">타입3</div></div>
+										<div data-type="type" data-value="3" class="col-sm-2 col-md-2 col-lg-2"><div class="datasection">타입3</div></div>
 										<div data-type="selectoptions"  class="col-sm-3 col-md-3 col-lg-3"><div class="datasection"><input type="text" value="3"></div></div>
 										<div data-type="options"  class="col-sm-3 col-md-3 col-lg-3"><div class="datasection"><input type="text" value="3"></div></div>
 										<div data-type="close"  class="col-sm-1 col-md-1 col-lg-1"><div class="datasection">닫기</div></div>
@@ -165,6 +171,8 @@
 				</div>
 			</div>
 		</section>
+	</div>
+	
 	</body>
 	<script>
 	// ===== setting =====
@@ -187,24 +195,24 @@
 			click : adColumn
 		})
 	// ===== drag and drop set =====
-		list.on({
-			'dragstart':(e)=>{
-				if($(e.target).attr('data-type') != 'click'){
-					console.log('클릭 아님!')
-				}
-				const obj = $(e.target).closest('li');
-				pickedIndex = [...obj[0].parentNode.children].indexOf(obj[0]);
-				picked = obj[0];
-			}, 
-			'dragover':(e)=>{
-				e.preventDefault()
-			},
-			'drop':(e)=>{
-				const obj = $(e.target).closest('li');
-				const index = [...obj[0].parentNode.children].indexOf(obj[0]);
-				index > pickedIndex ? obj[0].after(picked) : obj[0].before(picked)
+	list.on({
+		'dragstart':(e)=>{
+			if($(e.target).attr('data-type') != 'click'){
+				console.log('클릭 아님!')
 			}
-		});// list on end
+			const obj = $(e.target).closest('li');
+			pickedIndex = [...obj[0].parentNode.children].indexOf(obj[0]);
+			picked = obj[0];
+		}, 
+		'dragover':(e)=>{
+			e.preventDefault()
+		},
+		'drop':(e)=>{
+			const obj = $(e.target).closest('li');
+			const index = [...obj[0].parentNode.children].indexOf(obj[0]);
+			index > pickedIndex ? obj[0].after(picked) : obj[0].before(picked)
+		}
+	});// list on end
 	function createDummy(){
 		// colData : 컬럼의 정보들
 		let colData = [
@@ -247,6 +255,8 @@
 			}
 		}) // ajax end
 	}// createDummy function end
+	
+	//컬럼 추가 함수
 	function adColumn(){
 		let txt = '<li data-index="0" class="schema" draggable="true">'+
 						'<div class="col">'+
@@ -261,9 +271,49 @@
 						'</div>'+
 						'</li>';
 		$("#schemaarea").append(txt);
-	}
+	}// adColumn Function end
 	function delColumn(event){
 		$(event.target).closest('li').remove();
+	}
+
+	//==================test===============
+	/* "col_blank" : 0,
+	"col_function" : "테스트함수",
+	"col_order" : 1,
+	"col_options" : [1,100] */
+	$('#btn3').on({
+		click: readColumn
+	})
+	
+	function readColumn(){
+		const read = $('.schema');
+		/* console.log(read); */
+		let colList = [];
+		colList.push($(read).map((index,data)=>{
+			const col_no = $(data).attr('data-index');
+			const schema_no = 1;
+			const type_no = $(data).find('div[data-type="type"]').attr('data-value');
+			const col_name = $(data).find('div[data-type="name"] > .datasection > input').val();
+			const col_blank = $(data).find('div[data-type="options"] > .datasection > input').val();
+			const col_function = '';
+			const col_order = index;
+			let col_options = [];
+			col_options.push($(data).find('div[data-type="selectoptions"] > .datasection > input').map((index,data)=>{
+				return $(data).val();
+			}));
+			const result = {
+				"col_no" : col_no,
+				"schema_no" : schema_no,
+				"type_no" : type_no,
+				"col_name" : col_name,
+				"col_blank" : col_blank,
+				"col_function" : col_function,
+				"col_order" : col_order,
+				"col_options" : [...col_options[0]]
+			}
+			return result;
+		}))
+		return colList;
 	}
 	</script>
 </html>
