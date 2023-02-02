@@ -2510,6 +2510,8 @@ footer.site-footer {
 
 /*  다영 추가   */
 #main_content{
+	margin: 20px;
+	padding: 10px;
 }
 
 .HomepageTop{

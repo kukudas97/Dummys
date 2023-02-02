@@ -20,7 +20,7 @@
 		
 		
 		
-		<div id="main_content">
+		<div>
 			<section class="HomepageTop">
 				<div class="HomepageTopTitle">
 				<h2>쉽고 빠르게 더미데이터를 생성하세요!</h2>
