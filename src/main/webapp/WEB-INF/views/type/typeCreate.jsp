@@ -27,16 +27,16 @@
 			<div class="row">
 				<div class="col">
 					<div class="typecreate">
-						<form action="#" method="post" enctype="multipart/form-data" name="fileForm">
+						<form action="/type/typecreate.do" method="post" enctype="multipart/form-data" name="fileForm">
 							<h4 class="margin5">제목</h4>
-							<input type="text" class="margin15">
+							<input type="text" class="margin15" name="title">
 							
 							<h4>파일</h4>
-							<input type="text" readonly="readonly" name="src">
+							<input type="text" readonly="readonly" name="fileName" id="fileName">
 							
 							<label class="btn btn-secondary btn-file">
 								파일 올리기
-								<input type="file" style="display: none;">
+								<input type="file" style="display: none;" id="file" name="file">
 							</label>
 							
 							<div>
@@ -45,7 +45,7 @@
 							<div class="createnav">
 								<div class="btnArea">
 									<button type="submit" class="navbtn btn btn-outline-success">저장</button>
-									<button class="navbtn btn btn-outline-success"><a href="index.do">메인화면</a></button>
+									<button class="navbtn btn btn-outline-success"><a href="/index.do">메인화면</a></button>
 									<button class="navbtn btn btn-outline-success"><a href="javascript:window.history.go(-1);">뒤로가기</a></button>
 								</div>
 							</div>
@@ -57,4 +57,36 @@
 		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	</div>
 </body>
+<script type="text/javascript">
+	// $(document).ready(()=>{
+	// 	let file = document.getElementById("file");	
+	// 	file.addEventListener("change", (event)=>{
+	// 		document.getElementById("fileName").value = this.value;
+	// 	})
+	// })
+
+	// onchange="javascript:document.getElementById('fileName').value = this.value"
+
+	$("#file").change(()=>{
+		let fileobj = document.getElementById("file").value; 
+		
+		let slashfile = fileobj.split("\\").reverse()[0];
+		let commafile = fileobj.split(".").reverse()[0];
+		
+		if(fileobj != null && fileobj !=""){
+			if(commafile == "txt"){
+				if(slashfile != null && commafile != ""){
+					document.getElementById("fileName").value = slashfile;
+					alert('성공');
+				}else{
+					alert("파일을 확인해주세요")
+				}
+			}else{
+				alert("파일 형식이 잘못되었습니다.")
+			}
+		}else{
+			alert("파일을 넣어주세요.");
+		}
+	})
+</script>
 </html>
