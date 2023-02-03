@@ -25,10 +25,22 @@
                             <strong>자유게시판 글쓰기</strong>
                         </div>
                         <div class="card-body card-block">
-                            <form action="" method="post">
-                                <div class="form-group"><label class=" form-control-label">작성자</label><input type="text" placeholder="Enter Email.." class="form-control"></div>
-                                <div class="form-group"><label class=" form-control-label">제목</label><input type="text" placeholder="제목을 입력하세요" class="form-control"><span class="help-block">제목</span></div>
-                            </form>
+                            <form role="form" action="/board/register" method="post">
+                        		<div class="form-group">
+                        			<label>Title</label> <input class="form-control" name='title'>   		
+                        		</div>
+                        		<div class="form-group">
+                        			<label>Text area</label>
+                        			<textarea class="form-control" rows="3" name='content'></textarea>
+                        		</div>
+                        		
+                        		<div class="form-group">
+                        			<label>Writer</label> <input class="form-control" name="writer">
+                        		</div>
+                        		
+                        		<input class="btn btn-success" type="submit" value="Submit">
+                        		<input class="btn btn-warning" type="reset" value="Reset">
+                        	</form>
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary btn-sm">
