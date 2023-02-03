@@ -5,11 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		    <link rel="stylesheet" href="resources/css/cs-skin-elastic.css">
-    		<link rel="stylesheet" href="resources/css/style.css">
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<title>index</title>
+<jsp:include page="/WEB-INF/views/include/head.jsp" />
 		<style>
 			ul li {
 				list-style-type : none;
