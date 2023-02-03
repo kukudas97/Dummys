@@ -37,7 +37,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<button class="btn btn-outline-secondary newbtn">새로운 타입!</button>
+						<button class="btn btn-outline-secondary newbtn"><a href="/type/typecreate.do">새로운 타입!</a></button>
 					</div>
 				</div>
 			</div>
