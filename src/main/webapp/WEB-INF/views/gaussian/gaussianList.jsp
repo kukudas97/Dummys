@@ -4,8 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>타입 생성 페이지</title>
+<jsp:include page="/WEB-INF/views/include/head.jsp" />
 <style type="text/css">
 	#check{
 		width: 100px

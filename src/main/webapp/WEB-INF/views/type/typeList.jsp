@@ -4,8 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>타입 생성 페이지</title>
+<jsp:include page="/WEB-INF/views/include/head.jsp" />
 <style type="text/css">
 	#check{
 		width: 100px
@@ -24,7 +23,7 @@
 	<div id="right-panel" class="right-panel">
 		<jsp:include page="/WEB-INF/views/include/header.jsp" />
 		<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
-		<div id="main_content">
+		<div id="main_content" class="main_content_height">
 			<div class="row">
 				<div class="col">
 					<div class="row">
