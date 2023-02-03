@@ -36,6 +36,14 @@
 
 .bg-flat-color-6 {
   background: #5c6bc0; }
+  
+.bg-flat-color-7{
+	background: #E6FFE6;
+}
+
+.bg-flat-color-8{
+	background: #BEF5BE;
+}
 
 .bg-transparent {
   background-color: transparent; }
