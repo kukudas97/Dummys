@@ -25,9 +25,10 @@
                             <strong>자유게시판 글쓰기</strong>
                         </div>
                         <div class="card-body card-block">
-                            <form role="form" action="/board/register" method="post">
+                            <form role="form" action="/board/boardWrite" method="post">
                         		<div class="form-group">
-                        			<label>Title</label> <input class="form-control" name='title'>   		
+                        			<label>Title</label> 
+                        			<input class="form-control" name='title'>   		
                         		</div>
                         		<div class="form-group">
                         			<label>Text area</label>
@@ -35,21 +36,22 @@
                         		</div>
                         		
                         		<div class="form-group">
-                        			<label>Writer</label> <input class="form-control" name="writer">
+                        			<label>Writer</label> 
+                        			<input class="form-control" name="writer">
                         		</div>
                         		
                         		<input class="btn btn-success" type="submit" value="Submit">
                         		<input class="btn btn-warning" type="reset" value="Reset">
                         	</form>
                         </div>
-                        <div class="card-footer">
+                        <!-- <div class="card-footer">
                             <button type="submit" class="btn btn-primary btn-sm">
                                 <i class="fa fa-dot-circle-o"></i> Submit
                             </button>
                             <button type="reset" class="btn btn-danger btn-sm">
                                 <i class="fa fa-ban"></i> Reset
                             </button>
-                        </div>
+                        </div> -->
                     </div>
 </body>
 </html>

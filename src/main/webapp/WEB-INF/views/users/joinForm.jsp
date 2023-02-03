@@ -21,23 +21,43 @@
                 <div class="login-form">
                     <form action="" method="post">
                         <div class="form-group">
-                            <label>Nickname</label>
-                            <input type="text" class="form-control" placeholder="Nickname" name="nickname">
+                            <label>닉네임</label>
+                            <input type="text" class="form-control" placeholder="닉네임" name="nickname">
                         </div>
                         <div class="form-group">
-                            <label>Email address</label>
-                            <input type="email" class="form-control" placeholder="Email" name="userid">
+                            <label>이메일</label>
+                            <input type="email" class="form-control" placeholder="이메일" name="userid">
+                        </div>
+                       <!-- 방법1 --> 
+                       <div class="form-group">
+                            <label>비밀번호</label>
+                            <input type="password" id="password" class="form-control" placeholder="비밀번호" name="password">
                         </div>
                         <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" placeholder="Password" name="password">
-                        </div>
+                            <label>비밀번호 확인</label>
+                            <input type="password" name="confirm_Password" id="confirm_Password" class="form-control" placeholder="비밀번호 확인" onkeyup="confirmPassword()">
+                            <span id="confirmMsg"></span>
+                        </div> 
+                        
+                        <!-- 방법2 -->
+                       <!--  <div class="form-group">
+                        <fieldset>
+       					 <label>비밀번호</label>
+        				<input type="password" placeholder="Password" id="password" required>
+        				</div>
+        				<div class="form-group">
+        				<label>비밀번호 확인</label>
+        				<input type="password" placeholder="Confirm Password" id="confirm_password" required>
+       					 <button type="submit" class="pure-button pure-button-primary">Confirm</button>
+    					</fieldset>                       
+                        </div> -->
+                        
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox"> 회원 정책에 동의합니다
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">가입하기</button>
+                        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30" id="joinBtn" disabled>가입하기</button>
                         <div class="social-login-content">
                             <!-- <div class="social-button">
                                 <button type="button" class="btn social facebook btn-flat btn-addon mb-3"><i class="ti-facebook"></i>Register with facebook</button>
@@ -51,13 +71,59 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-    <script src="/resources/js/main.js"></script>
+    </div>  
+    
 
 </body>
+
+  <script>
+
+/*비밀번호 확인 처리 (다영)*/
+ function confirmPassword(){
+	var password = document.getElementById("password");
+	var confirmPassword = document.getElementById("confirm_Password");
+	var confirmMsg = document.getElementById("confirmMsg");
+	var correctColor = "#4AB34A"; //비밀번호 맞았을 때 출력되는 색깔
+	var wrongColor = "#ff0000"; //틀렸을 때 출력되는 색깔
+	var joinBtn = document.getElementById("joinBtn");
+	
+	if(password.value == confirmPassword.value){ //password의 변수 값과 confirmPassword의 값니?
+			//true
+			confirmMsg.style.color = correctColor;
+			confirmMsg.innerHTML = "비밀번호 일치";
+			joinBtn.removeAttribute("disabled");
+			
+	} else{
+		//false
+		confirmMsg.style.color = wrongColor;
+		confirmMsg.innerHTML = "비밀번호 불일치";
+		joinBtn.setAttribute("disabled", "disabled");
+	}
+}
+
+
+/* Regular Expression 다영 */
+function validate(){
+	var nicknameRE = /^[a-zA-Z0-9]{6,10}$ ; //닉네임 6~10개의 영,숫자
+	var passwordRE = /^[a-zA-Z0-9]{8,20}$ ; //비밀번호 8~20개의 영,숫자
+	
+	var nickname = document.getElementById("nickname");
+	var password = document.getElementById("password");
+	
+	if(!check(nicknameRE, nickname, "닉네임은 6~10자의 영문 대소문자와 숫자로만 입력")){
+		return false;
+	}
+	
+	if(!check(passwordRe, password, "패스워드는 8~20자의 영문대소문자와 숫자로만 입력")){
+		return false;
+	}
+	
+}
+ 
+
+
+
+</script>
+
+
 </html>

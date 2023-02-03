@@ -2577,7 +2577,7 @@ footer.site-footer {
 }
 
 .DataTypeOn {
-  background: #96F56E ;
+  background: #9EF048 ;
   color: #006400 ;
 } 
 
@@ -2588,6 +2588,11 @@ footer.site-footer {
 .boardWriteButton {
 	padding: 15px;
 }
+
+#confirmMsg{
+	padding: 4px;
+}
+
 
 /*재홍*/
 #main_content{
