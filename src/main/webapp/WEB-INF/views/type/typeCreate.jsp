@@ -10,7 +10,7 @@
 	<div id="right-panel" class="right-panel">
 		<jsp:include page="/WEB-INF/views/include/header.jsp" />
 		<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
-		<div id="main_content">
+		<div id="main_content" class="main_content_height">
 			<div class="row">
 				<div class="col">
 					<div class="row">
@@ -45,9 +45,9 @@
 							</div>
 							<div class="createnav">
 								<div class="btnArea">
-									<button type="submit" class="navbtn btn btn-outline-secondary">저장</button>
-									<button class="navbtn btn btn-outline-secondary"><a href="index.do">메인화면</a></button>
-									<button class="navbtn btn btn-outline-secondary"><a href="javascript:window.history.go(-1);">뒤로가기</a></button>
+									<button type="submit" class="navbtn btn btn-outline-success">저장</button>
+									<button class="navbtn btn btn-outline-success"><a href="index.do">메인화면</a></button>
+									<button class="navbtn btn btn-outline-success"><a href="javascript:window.history.go(-1);">뒤로가기</a></button>
 								</div>
 							</div>
 						</form>
