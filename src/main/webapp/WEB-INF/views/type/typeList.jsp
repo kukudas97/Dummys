@@ -24,7 +24,7 @@
 	<div id="right-panel" class="right-panel">
 		<jsp:include page="/WEB-INF/views/include/header.jsp" />
 		<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
-		<div id="main_content">
+		<div id="main_content" class="main_content_height">
 			<div class="row">
 				<div class="col">
 					<div class="row">

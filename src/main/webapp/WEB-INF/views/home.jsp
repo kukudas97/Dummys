@@ -21,7 +21,7 @@
 	  <!-- Header-->
 		
 		
-		<div class="content">
+		<div>
 			<section class="HomepageTop">
 				<div class="HomepageTopTitle">
 				<h1>쉽고 빠르게 더미데이터를 생성하세요!</h1>

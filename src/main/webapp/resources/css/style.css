@@ -835,7 +835,7 @@ font-family: 'Roboto', sans-serif;
 
 /* Right panel */
 .right-panel {
-  background: #f1f2f7;
+  background: white;
   margin-left: 280px;
   margin-top: 55px; }
   .right-panel .top-left {
@@ -2585,6 +2585,10 @@ footer.site-footer {
 #main_content{
 	margin: 20px;
 	padding: 10px;
+}
+
+.main_content_height{
+	height: 1000px;
 }
 
 table .tablebtn{
