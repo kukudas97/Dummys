@@ -22,6 +22,9 @@ import kr.or.dummys.dto.CreateData;
 
 @RestController
 public class dummyData {
+	@Autowired
+	SqlSession session;
+	
 	@PostMapping("dummydata.do")
 	public ResponseEntity<Map<String, Object>> createDatas(@RequestBody CreateData data){
 		System.out.println(data);
@@ -37,5 +40,17 @@ public class dummyData {
 			e.printStackTrace();
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.BAD_REQUEST);
 		}
+	}
+	@PostMapping("cloudtest.do")
+	public ResponseEntity<List<String>> cloudTest(){
+		System.out.println("클라우드 DB 접속 테스트...");
+			List<String> list = null;
+			try {
+				testDao dao = session.getMapper(testDao.class);
+				list = dao.getTest();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return new ResponseEntity<List<String>>(list,HttpStatus.OK);
 	}
 }
