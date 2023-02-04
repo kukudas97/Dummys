@@ -55,24 +55,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       <%-- <c:forEach items="${boardList}" var="boardList">
+                                        <c:forEach items="${boardList}" var="boardList">
 										<tr>
 											<td><c:out value="${boardList.board_no}" /></td>
-											<td><a href='/board/get?board=<c:out value="${boardList.board_name}"/>'><c:out value="${boardList.board_name}" /> </a></td>
+											<%-- <td><a href='/board/get?board=<c:out value="${boardList.board_name}"/>'><c:out value="${boardList.board_name}" /> </a></td> --%>
 											<td><c:out value="${boardList.board_name}" /></td>
 											<td><c:out value="${boardList.nickname}" /></td>
 											<td><c:out value="${boardList.board_date}" /></td>
 										</tr>
-									</c:forEach> --%>
+									</c:forEach> 
 									
-									<c:forEach items="${boardList}" var="board">
+					<%-- 				<c:forEach items="${boardList}" var="board">
 							<tr>
 								<td class="seq">${board.BOARD_NO}</td>
-								<%-- <td class="title"><a href="boardDetail.do?seq=${board.BOARD_NO}">${board.BOARD_NAME}</a></td> --%>
+								<td class="title"><a href="boardDetail.do?seq=${board.BOARD_NO}">${board.BOARD_NAME}</a></td>
 								<td class="writer">${board.NICKNAME}</td>
 								<td class="writeDate">${board.BOARD_DATE}</td>
 							</tr>
-							</c:forEach>
+							</c:forEach> --%>
 									
                                     </tbody>
                                     
