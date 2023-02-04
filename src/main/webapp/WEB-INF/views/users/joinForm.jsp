@@ -22,41 +22,31 @@
                     <form action="" method="post">
                         <div class="form-group">
                             <label>닉네임</label>
-                            <input type="text" class="form-control" placeholder="닉네임" name="nickname">
+                            <input type="text" class="form-control" placeholder="닉네임" name="nickname" id="nickname" onkeyup="validate()">
+                            <span id="confirmNicknameREMsg"></span>
                         </div>
                         <div class="form-group">
                             <label>이메일</label>
-                            <input type="email" class="form-control" placeholder="이메일" name="userid">
+                            <input type="email" class="form-control" placeholder="이메일" name="userid" id="email" onkeyup="validate()">
+                        	<span id="confirmEmailREMsg"></span>
                         </div>
                        <!-- 방법1 --> 
                        <div class="form-group">
                             <label>비밀번호</label>
-                            <input type="password" id="password" class="form-control" placeholder="비밀번호" name="password">
+                            <input type="password" id="password" class="form-control" placeholder="비밀번호" name="password" id="password" onkeyup="validate()">
+                            <span id="confirmPasswordREMsg"></span>
                         </div>
                         <div class="form-group">
                             <label>비밀번호 확인</label>
                             <input type="password" name="confirm_Password" id="confirm_Password" class="form-control" placeholder="비밀번호 확인" onkeyup="confirmPassword()">
                             <span id="confirmMsg"></span>
                         </div> 
-                        
-                        <!-- 방법2 -->
-                       <!--  <div class="form-group">
-                        <fieldset>
-       					 <label>비밀번호</label>
-        				<input type="password" placeholder="Password" id="password" required>
-        				</div>
-        				<div class="form-group">
-        				<label>비밀번호 확인</label>
-        				<input type="password" placeholder="Confirm Password" id="confirm_password" required>
-       					 <button type="submit" class="pure-button pure-button-primary">Confirm</button>
-    					</fieldset>                       
-                        </div> -->
-                        
-                        <div class="checkbox">
+
+<!--                         <div class="checkbox">
                             <label>
                                 <input type="checkbox"> 회원 정책에 동의합니다
                             </label>
-                        </div>
+                        </div> -->
                         <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30" id="joinBtn" disabled>가입하기</button>
                         <div class="social-login-content">
                             <!-- <div class="social-button">
@@ -78,6 +68,12 @@
 
   <script>
 
+  let checkNickname = false;
+  let checkPassword = false;
+  let checkEmail = false;
+  let checkPasswordMatch = false;
+  
+  
 /*비밀번호 확인 처리 (다영)*/
  function confirmPassword(){
 	var password = document.getElementById("password");
@@ -91,33 +87,86 @@
 			//true
 			confirmMsg.style.color = correctColor;
 			confirmMsg.innerHTML = "비밀번호 일치";
-			joinBtn.removeAttribute("disabled");
+			checkPasswordMatch = true;
 			
 	} else{
 		//false
 		confirmMsg.style.color = wrongColor;
 		confirmMsg.innerHTML = "비밀번호 불일치";
-		joinBtn.setAttribute("disabled", "disabled");
+		checkPasswordMatch = false;
 	}
+	activateBtn()
 }
 
 
 /* Regular Expression 다영 */
 function validate(){
-	var nicknameRE = /^[a-zA-Z0-9]{6,10}$ ; //닉네임 6~10개의 영,숫자
-	var passwordRE = /^[a-zA-Z0-9]{8,20}$ ; //비밀번호 8~20개의 영,숫자
+	var nicknameRE = /^[a-zA-Z0-9]{6,10}$/  //닉네임 6~10개의 영,숫자
+	var emailRE= /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
+	var passwordRE = /^[a-zA-Z0-9]{8,20}$/ //비밀번호 8~20개의 영,숫자
 	
-	var nickname = document.getElementById("nickname");
-	var password = document.getElementById("password");
+	var nickname = $('#nickname').val() //document.getElementById("nickname");
+	var password = $('#password').val() 
+	var email = $('#email').val()
 	
-	if(!check(nicknameRE, nickname, "닉네임은 6~10자의 영문 대소문자와 숫자로만 입력")){
-		return false;
+	var confirmNicknameMsg = document.getElementById("confirmNicknameREMsg")
+	var confirmPasswordMsg = document.getElementById("confirmPasswordREMsg")
+	var confirmEmailMsg = document.getElementById("confirmEmailREMsg")
+	var correctColor = "#4AB34A"; //비밀번호 맞았을 때 출력되는 색깔
+	var warningColor = "#FF9B00";
+	
+	
+	//닉네임 정규표현식 함수
+	if(nickname.match(nicknameRE)){
+		confirmNicknameMsg.style.color = correctColor;
+		confirmNicknameMsg.innerHTML = "사용가능한 닉네임";
+		checkNickname = true;
+		
+	} else{
+		confirmNicknameMsg.innerHTML = "닉네임 6~10개의 영,숫자";
+		confirmNicknameMsg.style.color = warningColor;
+		checkNickname = false;
 	}
 	
-	if(!check(passwordRe, password, "패스워드는 8~20자의 영문대소문자와 숫자로만 입력")){
-		return false;
+	//이메일 정규표현식 함수
+	if(email.match(emailRE)){
+		confirmEmailMsg.style.color = correctColor;
+		confirmEmailMsg.innerHTML = "사용가능한 이메일 형식"
+			checkEmail = true;
+	} else{
+		confirmEmailMsg.style.color = warningColor;
+		confirmEmailMsg.innerHTML = "이메일 형식을 맞춰주세요";
+		checkEmail = false;
 	}
 	
+	
+	//비밀번호 정규표현식 함수
+	if(password.match(passwordRE)){
+		confirmPasswordMsg.style.color = correctColor;
+		confirmPasswordMsg.innerHTML = "사용가능한비밀번호"
+			checkPassword = true;
+	} else{
+		confirmPasswordMsg.style.color = warningColor;
+		confirmPasswordMsg.innerHTML = "비밀번호 8~20개의 영,숫자";
+		checkPassword = false;
+	}
+	activateBtn()
+}
+
+/*
+ 
+  let checkNickname = false;
+  let checkPassword = false;
+  let checkEmail = false;
+  let checkPasswordMatch = false;
+ */
+
+function activateBtn(){
+	if(checkNickname&&checkPassword&&checkEmail&&checkPasswordMatch){
+		document.getElementById("joinBtn").removeAttribute("disabled");
+	} else{
+		document.getElementById("joinBtn").setAttribute("disabled", "disabled");
+	}
 }
  
 
