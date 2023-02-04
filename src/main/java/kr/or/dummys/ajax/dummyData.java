@@ -41,16 +41,4 @@ public class dummyData {
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.BAD_REQUEST);
 		}
 	}
-	@PostMapping("cloudtest.do")
-	public ResponseEntity<List<String>> cloudTest(){
-		System.out.println("클라우드 DB 접속 테스트...");
-			List<String> list = null;
-			try {
-				testDao dao = session.getMapper(testDao.class);
-				list = dao.getTest();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return new ResponseEntity<List<String>>(list,HttpStatus.OK);
-	}
 }
