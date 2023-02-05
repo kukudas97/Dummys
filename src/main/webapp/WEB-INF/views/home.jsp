@@ -35,11 +35,11 @@
 					<div class="DataTypeToggle">EMAIL</div>
 					<div class="DataTypeToggle" >도로명주소</div>
 					<div class="DataTypeToggle" >지역</div>
-					<div class="DataTypeToggle" >우편번호/국가코드</div>
+					<div class="DataTypeToggle" >우편번호 /<br>국가코드</div>
 					<div class="DataTypeToggle" >단어</div>
 					<div class="DataTypeToggle" >숫자열</div>
 					<div class="DataTypeToggle" >환율</div>
-					<div class="DataTypeToggle" >영문자+숫자열</div>
+					<div class="DataTypeToggle" >영문자 /<br>숫자열</div>
 				</section>
 				 
 				<section class="DataFormatSelection col-sm-6 col-md-6 col-lg-6">
