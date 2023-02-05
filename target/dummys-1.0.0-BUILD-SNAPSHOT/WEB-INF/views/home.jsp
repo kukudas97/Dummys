@@ -1,27 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		    <link rel="stylesheet" href="resources/css/cs-skin-elastic.css">
-		    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-    		<link rel="stylesheet" href="resources/css/style.css?after">
-
-		<title>index</title>
-
-	</head>
+        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<!DOCTYPE html>
+<html>
+<head>
+<jsp:include page="/WEB-INF/views/include/head.jsp" />
+</head>
 	<body>
-		<jsp:include page="/WEB-INF/views/include/header.jsp" />
+    <!-- Left Panel -->
+	<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
+    <!-- /#left-panel -->
+    <!-- Left Panel -->
+
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+    
+	  <!-- Header-->
+	  <jsp:include page="/WEB-INF/views/include/header.jsp" />
+	  <!-- /header -->
+	  <!-- Header-->
 		
 		
-		
-		<div id="main_content">
+		<div>
 			<section class="HomepageTop">
 				<div class="HomepageTopTitle">
-				<h2>쉽고 빠르게 더미데이터를 생성하세요!</h2>
+				<h1>쉽고 빠르게 더미데이터를 생성하세요!</h1>
 				</div>
 			</section>
 			
@@ -56,12 +59,15 @@
 			
 			
 		</div>
+		
 		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+		
+		</div>
 	</body>
-	<script>
 
 
-</script>
+
+
 	<script> 	
  	$(".DataTypeToggle").on({
  		click : (event)=>{
