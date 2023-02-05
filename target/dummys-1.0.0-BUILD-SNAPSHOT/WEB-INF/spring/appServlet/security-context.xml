@@ -7,30 +7,35 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	
-
  <security:http auto-config="true">
-		<security:csrf disabled="true" />
-		<security:form-login 
-								login-page="/joinus/login.do" 
-								default-target-url="/index.do"
-								authentication-failure-url="/joinus/login.do?error"/>
-								
-		<!-- login.do login login.htm -->
+ 
+ 		<security:csrf disabled="true"/>
+
+		<security:form-login login-page="/users/login.do"
+		default-target-url="/index.do"
+		authentication-failure-url="/users/login.do?error"
+		username-parameter="userid"
+		password-parameter="password"/>
 		
-		<security:logout logout-success-url="/"/>
-	  	<security:intercept-url pattern="/customer/*Reg.htm" access="hasRole('ROLE_USER')" />
+		<security:logout logout-success-url="/index.do"/>
+		
+		
+		<security:intercept-url pattern="/TaeWoo/**" access="permitAll"/>
+		<security:intercept-url pattern="/users/**" access="permitAll"/>
+		<security:intercept-url pattern="/join/**" access="permitAll"/>
 		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/type/**" access="hasRole('ROLE_USER')"/>
 	</security:http>
 	<security:authentication-manager>
 		<security:authentication-provider>
-				<security:jdbc-user-service data-source-ref="driverManagerDataSource"
-		   users-by-username-query="SELECT ID, PASSWORD, nickname, enabled FROM users where id=?" 
-		
-		   authorities-by-username-query="select u.ID , r.ROLE_NAME  
-		           from users u join role r 
-		           on u.id = r.id 
-		           where u.id=?" />
-		           <security:password-encoder ref="bCryptPasswordEncoder"/> <!-- 암호화 된 비밀번호 처리 -->
+			<security:jdbc-user-service data-source-ref="driverManagerDataSource"
+			   users-by-username-query="select userid, password, 1 enabled from users where userid=?" 
+			
+			   authorities-by-username-query="select u.userid , r.role_name  
+			           from users u join users_role r 
+			           on u.userid = r.userid 
+			           where u.userid=?" />
+			<security:password-encoder ref="bCryptPasswordEncoder"/> <!-- 암호화 된 비밀번호 처리 -->
 		</security:authentication-provider>
 	</security:authentication-manager>
 </beans>
