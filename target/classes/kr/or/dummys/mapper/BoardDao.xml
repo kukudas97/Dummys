@@ -24,4 +24,19 @@ select BOARD_NO, users.USERID, users.NICKNAME, BOARD_KIND, BOARD_NAME, BOARD_CON
                 order by board.board_no desc
  </select>
  
+ <insert id="boardWrite" parameterType="kr.or.dummys.dto.Board">
+ insert into board (board_no, userid, board_kind, board_name, board_content, board_date)
+ values(board_no_seq.nextval, #{userid}, 'free', #{board_name}, #{board_content}, sysdate)
+ </insert>
+ 
+ <select id="boardDetail" resultType="kr.or.dummys.dto.Board">
+ SELECT board_no,
+ 		board_name,
+ 		users.nickname,
+ 		board_content,
+ 		board_date
+ from users inner join board
+                on board.userid=users.userid		
+ </select>
+ 
 </mapper>

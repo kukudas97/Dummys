@@ -58,8 +58,7 @@
                                         <c:forEach items="${boardList}" var="boardList">
 										<tr>
 											<td><c:out value="${boardList.board_no}" /></td>
-											<%-- <td><a href='/board/get?board=<c:out value="${boardList.board_name}"/>'><c:out value="${boardList.board_name}" /> </a></td> --%>
-											<td><c:out value="${boardList.board_name}" /></td>
+											<td><a href="boardDetail.do?board_no=${boardList.board_no}">${boardList.board_name}</a></td>
 											<td><c:out value="${boardList.nickname}" /></td>
 											<td><c:out value="${boardList.board_date}" /></td>
 										</tr>

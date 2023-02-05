@@ -25,20 +25,20 @@
                             <strong>자유게시판 글쓰기</strong>
                         </div>
                         <div class="card-body card-block">
-                            <form role="form" action="/board/boardWrite" method="post">
+                            <form role="form" action="/board/boardWrite.do" method="post">
                         		<div class="form-group">
                         			<label>Title</label> 
-                        			<input class="form-control" name='title'>   		
+                        			<input class="form-control" name='board_name'>   		
                         		</div>
                         		<div class="form-group">
                         			<label>Text area</label>
-                        			<textarea class="form-control" rows="3" name='content'></textarea>
+                        			<textarea class="form-control" rows="3" name='board_content'></textarea>
                         		</div>
-                        		
+                        	<!-- 	
                         		<div class="form-group">
                         			<label>Writer</label> 
                         			<input class="form-control" name="writer">
-                        		</div>
+                        		</div> -->
                         		
                         		<input class="btn btn-success" type="submit" value="Submit">
                         		<input class="btn btn-warning" type="reset" value="Reset">
