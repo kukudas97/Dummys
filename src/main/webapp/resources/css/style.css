@@ -1679,7 +1679,7 @@ font-family: 'Roboto', sans-serif;
   overflow: hidden; }
 
 .icon-container {
-  width: 240px;
+  /* width: 240px; */
   padding: .7em 0;
   float: left;
   position: relative;
