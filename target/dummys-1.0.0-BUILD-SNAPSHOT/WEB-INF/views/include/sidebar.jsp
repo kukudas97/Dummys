@@ -10,7 +10,7 @@
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                
+                    
                     <li class="menu-title">Dummy Data</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="/schema/createdummys.do" class="dropdown-toggle" > <i class="menu-icon fa fa-cogs"></i>Schemas</a>
@@ -41,7 +41,7 @@
                             <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
                         </ul> -->
                     </li>
-					
+
                     <li class="menu-title">커뮤니티</li><!-- /.menu-title -->
 
                     <li class="menu-item-has-children">

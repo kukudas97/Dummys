@@ -1,7 +1,10 @@
 package kr.or.dummys.service.board;
 
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +55,36 @@ public class BoardService {
 			e.printStackTrace();
 		}
 		return boardList;
+	}
+	
+	//글쓰기 처리 서비스
+	public String boardWrite(Board board, HttpServletRequest request, Principal principal) {
+		//인증 객체
+		board.setUserid(principal.getName().trim());
+		
+		try {
+			//동기화
+			BoardDao boardDao = sqlsession.getMapper(BoardDao.class);
+			boardDao.boardWrite(board); //DB insert
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:boardList.do";
+	}
+	
+	//게시글 상세보기 서비스
+	public Board boardDetail(String seq) {
+		Board board = null;
+		try {
+			//동기화
+			BoardDao boardDao = sqlsession.getMapper(BoardDao.class);
+			////
+			board = boardDao.boardDetail(seq);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return board;
 	}
 		
 

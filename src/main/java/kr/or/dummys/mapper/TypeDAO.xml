@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.dummys.dao.TypeDAO">
+	<!-- 
+	//type생성
+	public int insertType(Type type);
+	
+	//id로 타입 찾기
+	public List<Type> getTypeUserId(String userid);
+	
+	//타입 전체
+	public List<Type> getTypeAll();
+	
+	//카테고리 별 조회
+	public List<Type> getTypeCategory(int category);
+	
+	//type상세
+	public Type typeDetail(int type_no);
+	
+	//type수정
+	public int updateType(Type type);
+	
+	//type삭제
+	public int deleteType(int type_no);
+	
+	//더미데이터 받아오기
+	public int insertDummy(Dummy_data dummy_data);
+	 -->
+	 
+	 <select id="seq" resultType="int">
+	 	select type_no_seq.nextval from dual
+	 </select>
+	 
+	 <insert id="insertType" parameterType="kr.or.dummys.dto.Type">
+	 	insert into type(type_no, userid, process_no, type_name, type_reason, type_category)
+	 	values(${type_no}, #{userid}, ${process_no}, #{type_name}, #{type_reason}, ${type_category})
+	 </insert>
+	 
+	 <insert id="insertDummy" parameterType="kr.or.dummys.dto.Dummy_data">
+	 	insert into dummy_data(dummy_data_no, type_no, dummy_data_word)
+	 	values(dummy_data_no_seq.nextval, ${type_no}, #{dummy_data_word})
+	 </insert>
+	 
+	 <select id="getTypeUserId" resultType="kr.or.dummys.dto.Type">
+	 	select * from type where userid = #{userid} 
+	 </select>
+	 
+	 <select id="getTypeAll" resultType="kr.or.dummys.dto.Type">
+	 	select * from type
+	 </select>
+	 
+	 <select id="getTypeCategory" resultType="kr.or.dummys.dto.Type">
+	 	select * from type where type_category = ${type_category}
+	 </select>
+	 
+	 <select id="typeDetail" resultType="kr.or.dummys.dto.Type">
+	 	
+	 </select>
+</mapper>

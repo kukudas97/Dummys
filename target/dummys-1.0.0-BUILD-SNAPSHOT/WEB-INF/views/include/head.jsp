@@ -34,15 +34,15 @@
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
  
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
-</style>
+    
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
    <style>
     #weatherWidget .currentDesc {
         color: #ffffff!important;
-font-family: 'Hahmlet', serif;
-font-family: 'Lato', sans-serif;
+        font-family: 'Roboto', sans-serif;
     }
         .traffic-chart {
             min-height: 335px;
@@ -63,8 +63,7 @@ font-family: 'Lato', sans-serif;
             text-align: left;
             padding-top: 10px;
             padding-bottom: 10px;
-            font-family: 'Hahmlet', serif;
-			font-family: 'Lato', sans-serif;
+            font-family: 'Roboto', sans-serif;
         }
         #flotLine5  {
              height: 105px;

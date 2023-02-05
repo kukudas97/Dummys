@@ -11,12 +11,17 @@
 <!-- properties -->
 <context:property-placeholder location="/resources/xml.properties"/>	
 
-<bean id="driverManagerDataSource"  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
- 	<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
- 	<property name="url" ><value>${oracle.url}</value></property>
- 	<property name="username" ><value>${oracle.username}</value></property>
- 	<property name="password" ><value>${oracle.password}</value></property>
- </bean> 
+ <!-- 히카리 + log4j -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+		<property name="jdbcUrl" ><value>${oraclecloud.url}</value></property>
+		<property name="username"><value>${oraclecloud.username}</value></property>
+		<property name="password" ><value>${oraclecloud.password}</value></property>
+	</bean>
+	<bean id="driverManagerDataSource"
+		class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg ref="hikariConfig"></constructor-arg>
+	</bean>
  <!-- JDBC Template -->
  <bean id=""  class="org.springframework.jdbc.core.JdbcTemplate">
  	<property name="dataSource"  ref="driverManagerDataSource" />
@@ -26,7 +31,7 @@
  <!-- MyBatis 설정 START  -->
  <bean id="sqlSessionFactoryBean"  class="org.mybatis.spring.SqlSessionFactoryBean">
     <property name="dataSource" ref="driverManagerDataSource"></property>
-    <property name="mapperLocations" value="classpath*:mapper/*xml" />
+    <property name="mapperLocations" value="classpath*:kr/or/dummys/mapper/*xml" />
 </bean>
 
  <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">

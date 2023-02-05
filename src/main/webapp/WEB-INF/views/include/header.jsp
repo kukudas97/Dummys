@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,9 +20,18 @@
                 <div class="header-menu">
                     <div class="header-left">
                     
-                    <div class="no-session-form">
-                    <a href="${pageContext.request.contextPath}/users/login.do">로그인</a>
-				    <a href="${pageContext.request.contextPath}/join/join.do">회원가입</a>
+                    <div class="session-form">
+                    
+                    <se:authentication property="name" var="userid" />
+	                    <se:authorize access="!hasRole('ROLE_USER')">
+		                    <a href="${pageContext.request.contextPath}/users/login.do">로그인</a>
+						    <a href="${pageContext.request.contextPath}/join/join.do">회원가입</a>
+					    </se:authorize>
+					    <se:authorize access="hasAnyRole('ROLE_USER')">
+					    	<span>반갑습니다 ${userid}님 :) </span>
+					    	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
+					    	<a href="#">마이페이지</a>
+					    </se:authorize>
 				    </div>
                     
                    <!--      <button class="search-trigger"><i class="fa fa-search"></i></button>
