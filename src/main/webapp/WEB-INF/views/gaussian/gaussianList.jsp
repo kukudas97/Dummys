@@ -37,7 +37,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<button class="btn btn-outline-secondary newbtn">정규분포 만들기</button>
+						<button class="btn btn-outline-secondary newbtn" id="createBtn">정규분포 만들기</button>
 					</div>
 				</div>
 			</div>
@@ -48,51 +48,23 @@
 							<tr>
 								<th id="check">체크박스</th>
 								<th>이름</th>
-								<th>파일이름</th>
 								<th>설명</th>
-								<th>공개여부</th>
-								<th>수정</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td><input type="checkbox"/></td>
 								<td>멀봐</td>
-								<td>멀봐.txt</td>
 								<td>남들이 보는게 부끄러워요</td>
-								<td>O</td>
-								<td><button class="btn btn-outline-secondary" style="padding-bottom: 2px; padding-top: 2px">수정</button></td>
-							</tr>
+								</tr>
 							<tr>
 								<td><input type="checkbox"/></td>
 								<td>안녕</td>
-								<td>안녕.txt</td>
 								<td>싫어!!!</td>
-								<td>X</td>
-								<td><button class="btn tablebtn btn-outline-secondary ">수정</button></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"/></td>
-								<td>불편?</td>
-								<td>불편해?.txt</td>
-								<td>그러면 자세를 고쳐앉아</td>
-								<td>O</td>
-								<td><button class="btn tablebtn btn-outline-secondary">수정</button></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"/></td>
-								<td>김재홍</td>
-								<td>날리지큐브.txt</td>
-								<td>서류탈락자</td>
-								<td>X</td>
-								<td><button class="btn tablebtn btn-outline-secondary">수정</button></td>
 							</tr>
 						</tbody>
 						<tfoot>
 							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
 								<td></td>
 								<td></td>
 								<td><button class="btn tablebtn btn-outline-secondary">삭제</button></td>
@@ -106,4 +78,11 @@
 		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	</div>
 </body>
+<script>
+	$('#createBtn').on({
+		click : ()=>{
+			location.href = "/gaussian/gaussianCreate.do"
+		}
+	})
+</script>
 </html>
