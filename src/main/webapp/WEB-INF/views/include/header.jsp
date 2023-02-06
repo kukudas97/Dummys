@@ -28,7 +28,7 @@
 						    <a href="${pageContext.request.contextPath}/join/join.do">회원가입</a>
 					    </se:authorize>
 					    <se:authorize access="hasAnyRole('ROLE_USER')">
-					    	<span>반갑습니다 ${userid}님 :) </span>
+					    	<span>반갑습니다 &nbsp;&nbsp; ${userid} 님 :) </span>
 					    	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
 					    	<a href="#">마이페이지</a>
 					    </se:authorize>

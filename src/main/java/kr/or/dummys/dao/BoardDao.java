@@ -18,4 +18,10 @@ public interface BoardDao {
 	
 	//게시글 상세보기
 	Board boardDetail(String seq) throws ClassNotFoundException, SQLException;
+	
+	//게시물 수정(update)
+	int boardUpdate(Board board) throws ClassNotFoundException, SQLException;
+	
+	//게시물 삭제(delete)
+	int boardDelete(String seq) throws ClassNotFoundException, SQLException;
 }

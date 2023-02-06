@@ -59,9 +59,39 @@ public class BoardController {
 	 
 	  //게시글 상세보기
 	  @RequestMapping("boardDetail.do")
-	  public String boardDetail(String seq, Model model) {
-		  Board board = boardService.boardDetail(seq);
+	  public String boardDetail(String board_no, Model model) {
+		  System.out.println(board_no);	  
+		  Board board = boardService.boardDetail(board_no);
+		  model.addAttribute("board", board);
+		  System.out.println("board: " + board);
 		  return "board/boardDetail";
+	  }
+	  
+	  //수정페이지 호출
+	  @GetMapping(value="boardUpdate.do")
+	  public String boardEdit(String board_no, Model model) {
+		  Board board = null;
+		  
+		  try {
+			board = boardService.boardUpdate(board_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		  model.addAttribute("board", board);
+		  return "board/boardUpdate";
+	  }
+	  
+	  //수정 처리
+	  @PostMapping(value="boardUpdate.do")
+	  public String boardUpdate(Board board, HttpServletRequest request) {
+		  System.out.println("boardUpdate.do: " + board.toString());
+		  return boardService.boardUpdate(board,  request);
+	  }
+	  
+	  //게시글 삭제
+	  @RequestMapping("boardDelete.do")
+	  public String boardDelete(String board_no) {
+		  return boardService.boardDelete(board_no);
 	  }
 	 
 }
