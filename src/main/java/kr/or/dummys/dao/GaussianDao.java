@@ -12,4 +12,6 @@ public interface GaussianDao {
 	public int insertGaussian_result(Gaussian_result gaussian);
 	
 	public List<Gaussian> getGaussianListById(String userid);
+	
+	public int deleteGaussianByNo(int no);
 }
