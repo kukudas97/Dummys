@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.dummys.dao.TypeDao;
 import kr.or.dummys.dto.Dummy_data;
 import kr.or.dummys.dto.Type;
 
+@Service
 public class TypeService {
 	
 	@Autowired
@@ -24,9 +26,9 @@ public class TypeService {
 		int typeresult =0;
 		int dummy_dataresult = 0;
 		typeresult = insertType(type);
-		for() {
-			
-		}
+//		for() {
+//			
+//		}
 
 		return 0;
 	}
