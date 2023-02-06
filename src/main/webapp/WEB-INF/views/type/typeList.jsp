@@ -48,45 +48,26 @@
 							<tr>
 								<th id="check">체크박스</th>
 								<th>이름</th>
-								<th>파일이름</th>
 								<th>설명</th>
 								<th>공개여부</th>
 								<th>수정</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td><input type="checkbox"/></td>
-								<td>멀봐</td>
-								<td>멀봐.txt</td>
-								<td>남들이 보는게 부끄러워요</td>
-								<td>O</td>
-								<td><button class="btn btn-outline-secondary" style="padding-bottom: 2px; padding-top: 2px">수정</button></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"/></td>
-								<td>안녕</td>
-								<td>안녕.txt</td>
-								<td>싫어!!!</td>
-								<td>X</td>
-								<td><button class="btn tablebtn btn-outline-secondary ">수정</button></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"/></td>
-								<td>불편?</td>
-								<td>불편해?.txt</td>
-								<td>그러면 자세를 고쳐앉아</td>
-								<td>O</td>
-								<td><button class="btn tablebtn btn-outline-secondary">수정</button></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"/></td>
-								<td>김재홍</td>
-								<td>날리지큐브.txt</td>
-								<td>서류탈락자</td>
-								<td>X</td>
-								<td><button class="btn tablebtn btn-outline-secondary">수정</button></td>
-							</tr>
+							<c:forEach var="typelist" items="${typelist}" >
+								<tr>
+									<td><input type="checkbox" value="${typelist.type_no}" name="delete_check"/></td>
+									<td>${typelist.type_name}</td>
+									<td>${typelist.type_reason}</td>
+									<td>
+										<c:choose>
+											<c:when test="${typelist.type_open eq 0}">O</c:when>
+											<c:otherwise>X</c:otherwise>
+										</c:choose>
+									</td>
+									<td><button class="btn btn-outline-secondary" style="padding-bottom: 2px; padding-top: 2px">수정</button></td>
+								</tr>
+							</c:forEach>
 						</tbody>
 						<tfoot>
 							<tr>
@@ -94,8 +75,7 @@
 								<td></td>
 								<td></td>
 								<td></td>
-								<td></td>
-								<td><button class="btn tablebtn btn-outline-secondary">삭제</button></td>
+								<td><button class="btn tablebtn btn-outline-secondary" id="delete">삭제</button></td>
 							</tr>
 						</tfoot>
 					</table>
@@ -113,4 +93,28 @@
 		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	</div>
 </body>
+<script type="text/javascript">
+
+	document.getElementById("delete").onclick = function() {
+		let checklist = [];
+		$("input[name=delete_check]:checked").each((index, data)=>{
+			let check = $(data).val();
+			checklist.push(check);
+		})
+
+		$.ajax({
+			type : "POST",
+			url : "/type/delete.do",
+			data : JSON.stringify({"list" : checklist}),
+			"contentType":"application/json",
+			success : function(checklist){
+
+			},
+			error : function(){
+				alert("삭제 실패")
+			}
+		})
+	}
+	
+</script>
 </html>
