@@ -1,7 +1,7 @@
 package kr.or.dummys.service.board;
 
+import java.net.URLEncoder;
 import java.security.Principal;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +25,7 @@ public class BoardService {
 	}
 	
 	//글목록보기 서비스(DB)
-	public List<Board> boardList(String pg, String f, String q){
+	public List<Board> boardList(String board_kind, String pg, String f, String q){
 		
 		//default 값 설정
 				int page = 1;
@@ -50,7 +50,7 @@ public class BoardService {
 			//동기화
 			BoardDao boardDao = sqlsession.getMapper(BoardDao.class);
 			//////////////////////////////////
-			boardList = boardDao.boardList(page, field, query);
+			boardList = boardDao.boardList(board_kind, page, field, query);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -61,15 +61,17 @@ public class BoardService {
 	public String boardWrite(Board board, HttpServletRequest request, Principal principal) {
 		//인증 객체
 		board.setUserid(principal.getName().trim());
+		String encodedParam = null;
 		
 		try {
 			//동기화
 			BoardDao boardDao = sqlsession.getMapper(BoardDao.class);
 			boardDao.boardWrite(board); //DB insert
+			encodedParam = URLEncoder.encode(board.getBoard_kind(), "UTF-8");
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:boardList.do";
+		return "redirect:boardList.do?board_kind=" + encodedParam;
 	}
 	
 	//게시글 상세보기 서비스

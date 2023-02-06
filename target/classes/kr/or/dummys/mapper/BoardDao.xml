@@ -2,14 +2,6 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 
-//게시물 개수
-	int getBoardCount(String field, String query) throws ClassNotFoundException, SQLException;
-		
-	//전체 게시물
-	List<Board> boardList(int page, String field, String query) throws ClassNotFoundException, SQLException;
-
- -->
 
 <mapper namespace="kr.or.dummys.dao.BoardDao">
 
@@ -21,16 +13,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 select BOARD_NO, users.USERID, users.NICKNAME, BOARD_KIND, BOARD_NAME, BOARD_CONTENT, BOARD_DATE
     from users inner join board
                 on board.userid=users.userid
+                where board_kind=#{board_kind}
                 order by board.board_no desc
  </select>
  
  <insert id="boardWrite" parameterType="kr.or.dummys.dto.Board">
  insert into board (board_no, userid, board_kind, board_name, board_content, board_date)
- values(board_no_seq.nextval, #{userid}, 'free', #{board_name}, #{board_content}, sysdate)
+ values(board_no_seq.nextval, #{userid}, #{board_kind}, #{board_name}, #{board_content}, sysdate)
  </insert>
  
  <select id="boardDetail" resultType="kr.or.dummys.dto.Board">
  SELECT board_no,
+ 		board_kind,
  		board_name,
  		users.nickname,
  		board_content,
