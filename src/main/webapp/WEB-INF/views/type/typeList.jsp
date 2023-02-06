@@ -43,7 +43,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-9">
-					<table class="table table-hover table-striped">
+					<table id="typeListTable" class="table table-hover table-striped data-table">
 						<thead class="table-light">
 							<tr>
 								<th id="check">체크박스</th>
@@ -65,7 +65,10 @@
 											<c:otherwise>X</c:otherwise>
 										</c:choose>
 									</td>
-									<td><button class="btn btn-outline-secondary" style="padding-bottom: 2px; padding-top: 2px">수정</button></td>
+									<td>
+									<button class="btn btn-outline-secondary" style="padding-bottom: 2px; padding-top: 2px" value="${typelist.type_no}" name="update">
+									수정
+									</button></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -93,6 +96,18 @@
 		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	</div>
 </body>
+
+    <script src="/resources/js/lib/data-table/datatables.min.js"></script>
+    <script src="/resources/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="/resources/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="/resources/js/lib/data-table/jszip.min.js"></script>
+    <script src="/resources/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="/resources/js/init/datatables-init.js"></script>
+
 <script type="text/javascript">
 
 	document.getElementById("delete").onclick = function() {
@@ -105,16 +120,23 @@
 		$.ajax({
 			type : "POST",
 			url : "/type/delete.do",
-			data : JSON.stringify({"list" : checklist}),
+			data : JSON.stringify(checklist),
 			"contentType":"application/json",
-			success : function(checklist){
-
+			success : function(result){
+				alert("총 " + result.msg + "개가 삭제되었습니다.")
+				location.reload(); 
 			},
 			error : function(){
 				alert("삭제 실패")
 			}
 		})
 	}
+	
+	$(document).ready(function() {
+        $('#typeListTable').DataTable({
+      	  order:[[0, "desc"]]
+        });
+    } );
 	
 </script>
 </html>

@@ -30,8 +30,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 -->
 
 	 <insert id="insertType" parameterType="kr.or.dummys.dto.Type">
-	 	insert into type(type_no, userid, process_no, type_name, type_reason, type_category)
-	 	values(type_no_seq.nextval, #{userid}, ${process_no}, #{type_name}, #{type_reason}, ${type_category})
+	 	insert into type(type_no, userid, process_no, type_name, type_reason, type_category, type_open)
+	 	values(type_no_seq.nextval, #{userid}, ${process_no}, #{type_name}, #{type_reason}, ${type_category}, ${type_open})
 	 	<selectKey keyProperty="type_no" resultType="Integer" order="AFTER">
 	 		select type_no_seq.currval from dual
 	 	</selectKey>
