@@ -48,25 +48,25 @@ public class TypeController {
 	}
 	
 	@PostMapping("/typecreate.do")
-	public String insertType(@RequestParam("file") MultipartFile file, @RequestParam("title") String title,@RequestParam("reason") String reason,
-			Principal principal, HttpServletRequest request) {
+	public String insertType(@RequestParam("file") MultipartFile file, @RequestParam("title") String title,
+			@RequestParam("reason") String reason, @RequestParam("process_no")int process_no, 
+			@RequestParam("type_open")int type_open, Principal principal, HttpServletRequest request) {
 		
 		String result ="";
 		//권한가져오기
-		String process = principal.getName();
-				
+		String userid = principal.getName();
 		Type type = new Type();
 		type.setType_name(title);
-		type.setProcess_no(0);
+		type.setProcess_no(process_no);
 		type.setType_reason(reason);
-		if(process != null && !process.equals("")) {
-			type.setUserid(process);
+		type.setType_open(type_open);
+		if(userid != null && !userid.equals("")) {
+			type.setUserid(userid);
 		}else {
 			result = "redirect:/error";
 		}
 		
 		type.setType_category(request.isUserInRole("ROLE_ADMIN")? 0 : 1);
-		
 		File f = new File(file.getOriginalFilename());
 		List<String> dummy= new ArrayList<String>();
 		try {
@@ -77,15 +77,17 @@ public class TypeController {
 				String str =sc.nextLine();
 				dummy.add(str);
 			}
+		
+			int insert = typeservice.insert(type, dummy);
+		
+			if(insert >= 1) {
+				result = "redirect:/type/typelist.do";
+			}else {
+				result = "redirect:/error";
+			}
+			sc.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-		int insert = typeservice.insert(type, dummy);
-		
-		if(insert >= 1) {
-			result = "redirect:/type/typelist.do";
-		}else {
 			result = "redirect:/error";
 		}
 				
