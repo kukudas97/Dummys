@@ -2,6 +2,7 @@ package kr.or.dummys.ajax;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,8 +26,7 @@ public class ajaxGaussian {
 	private GaussianService service;
 	
 	@PostMapping("saveGaussian.do")
-	public ResponseEntity<Map<String, Object>> createDatas(@RequestBody GaussianCreate data, Principal pri){
-		System.out.println("saveGaussian.do 컨트롤러");
+	public ResponseEntity<Map<String, Object>> createGaussian(@RequestBody GaussianCreate data, Principal pri){
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		//로그인 안되어있으면 실패처리 
@@ -36,17 +36,25 @@ public class ajaxGaussian {
 		} else {
 			data.getGaussian().setUserid(pri.getName());
 		}
-		
-		
+
 		// 서비스 불러서 처리하고...
 		try {
-//			service.insertGaussian(data);
-			map.put("result","result");
+			int result = service.insertGaussian(data);
+			System.out.println("result row : " + result);
+			map.put("result","success");
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		} catch (Exception e) {
-			map.put("result","result");
+			map.put("result","fail");
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.BAD_REQUEST);
 			
 		}
+	}
+	@PostMapping("deleteGaussian.do")
+	public ResponseEntity<Map<String, Object>> deleteDatas(@RequestBody List<String> list){
+		System.out.println("실행됨");
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println(list);
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.BAD_REQUEST);
+		
 	}
 }

@@ -18,32 +18,36 @@ public class GaussianService {
 	@Autowired
 	private SqlSession session;
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public int insertGaussian(GaussianCreate data) {
-		
-		int gaussian_row = 0;
 		int gaussian_result_row = 0;
 		Gaussian gaussian = data.getGaussian();
 		List<Gaussian_result> list = data.getList();
 		
 		GaussianDao dao = session.getMapper(GaussianDao.class);
 		
-		// 시퀸스 읽기
-		int seq = dao.getGaussianSeq();
+		dao.insertGaussian(gaussian);
+		int seq = gaussian.getGaussian_no();
 		
-		// Gaussian 설정 및 insert
-		gaussian.setGaussian_no(seq);
-		gaussian_row += dao.insertGaussian(gaussian);
 		
 		// Gaussian_result 설정 및 insert
 		for(Gaussian_result gaussian_result : list) {
 			gaussian_result.setGaussian_no(seq);
+			System.out.println("데이터 DTO : " + gaussian_result);
 			gaussian_result_row += dao.insertGaussian_result(gaussian_result);
 		}
-
-		System.out.println("gaussian row : " + gaussian_row);
-		System.out.println("gaussian_result row : " + gaussian_result_row);
 		
-		return gaussian_row + gaussian_result_row;
+		return gaussian_result_row;
+	}
+	
+	public List<Gaussian> getGaussianList(String userid){
+		List<Gaussian> list = null;
+		try {
+			GaussianDao dao = session.getMapper(GaussianDao.class);
+			list = dao.getGaussianListById(userid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

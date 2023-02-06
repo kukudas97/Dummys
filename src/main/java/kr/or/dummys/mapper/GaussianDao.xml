@@ -3,14 +3,18 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.dummys.dao.GaussianDao">
-	<select id="getGaussianSeq">
-		select gaussian_no_seq.nextval from dual
-	</select>
 	<insert id="insertGaussian" parameterType="kr.or.dummys.dto.Gaussian">
-		insert into gaussian(gaussian_no,userid,gaussian_col,gaussian_name) values(${gaussian_no}, #{user_id},#{gaussian_col},#{gaussian_name})
+		<!-- insert into gaussian(gaussian_no,userid,gaussian_col,gaussian_name) values(${gaussian_no}, #{user_id},#{gaussian_col},#{gaussian_name}) -->
+		insert into gaussian(gaussian_no,userid,gaussian_col,gaussian_name) values(gaussian_no_seq.nextval, #{userid},#{gaussian_col},#{gaussian_name})
+		<selectKey keyProperty="gaussian_no" resultType="Integer" order="AFTER">
+			select gaussian_no_seq.currval from dual
+		</selectKey>
 	</insert>
 	<insert id="insertGaussian_result" parameterType="kr.or.dummys.dto.Gaussian_result">
 		insert into gaussian_result(gaussian_result_no,gaussian_no,gaussian_result,gaussian_result_avg,standard_deviation)
-		values(gaussian_result_no_seq.nextval, ${gaussian_no},#{gaussian_result},#{gaussian_result_avg},#{standard_deviation})
+		values(GAUSSAIN_RESULT_NO_SEQ.nextval, ${gaussian_no},#{gaussian_result},#{gaussian_result_avg},#{standard_deviation})
 	</insert>
+	<select id="getGaussianListById" resultType="kr.or.dummys.dto.Gaussian">
+		select gaussian_no, userid, gaussian_col, gaussian_name from gaussian where userid = #{param1}
+	</select>
 </mapper>

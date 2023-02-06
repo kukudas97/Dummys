@@ -102,7 +102,7 @@
 	})
 	$('#listBtn').on({
 		click : ()=>{
-			location.href="/gaussian/gaussianList.do";
+		 	location.href="/gaussian/gaussianList.do";
 		}
 	})
 	$('#homeBtn').on({
@@ -135,6 +135,10 @@
 		$(event.target).closest('tr').remove();
 	}
 	function saveGaussian(){
+		if(!checkInputBox()){
+			alert('빈값있음');
+			return;
+		}
 		const gaussianNameVal = $('#gaussianName').val();
 		const gaussianColumnVal = $('#gaussianColumnName').val();
 		const list = $('.gaussianDatas > tr');
@@ -167,12 +171,35 @@
 			"data" : JSON.stringify(datas),
 			"contentType":"application/json",
 			success : (result)=>{
-				console.log(result)
+				if(result.result == 'success'){
+					alert('성공!');
+					location.href = "/gaussian/gaussianList.do";
+				} else {
+					alert('실패...');
+				}
 			},
 			error : (error)=>{
 				console.log(error);
 			}
 		})//ajax end
 	}//saveGaussian() end
+	function checkInputBox(){
+		let result = true;
+		const gN = $('#gaussianName').val();
+		const gCN = $('#gaussianColumnName').val();
+		if(gN == '' || gCN == '') {
+			result = false
+		}
+		const list = $('.gaussianDatas > tr');
+		$(list).each((index,data)=>{
+				const name = $(data).find('input[data-type=name]').val().trim()
+				const avg = $(data).find('input[data-type=average]').val().trim()
+				const deviation = $(data).find('input[data-type=deviation]').val().trim()
+				if(name == '' || avg == '' || deviation == '') {
+					result = false;
+				}
+		}) // list.foreach end
+		return result;
+	}//checkInputBox function end
 </script>
 </html>
