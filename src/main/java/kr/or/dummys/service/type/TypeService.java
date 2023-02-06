@@ -1,5 +1,6 @@
 package kr.or.dummys.service.type;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.dummys.dao.TypeDao;
-import kr.or.dummys.dto.Dummy_data;
 import kr.or.dummys.dto.Type;
 
 @Service
@@ -17,48 +17,45 @@ public class TypeService {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	@Transactional
+	//타입 생성
+	@Transactional(rollbackFor = Exception.class)
 	public int insert(Type type, List<String> dummy) {
 		
-		//seq생성
-		int seq = seq();
-		
+		TypeDao typedao = sqlsession.getMapper(TypeDao.class);
 		int typeresult =0;
 		int dummy_dataresult = 0;
-		typeresult = insertType(type);
-//		for() {
-//			
-//		}
-
-		return 0;
+		typeresult = typedao.insertType(type);
+		int seq = type.getType_no();
+		for(String word : dummy) {
+			dummy_dataresult += typedao.insertDummy(seq, word);
+		}
+		
+		return (typeresult + dummy_dataresult >= 2) ? 1 : 0;
 	}
 	
-	public int insertType(Type type) {
+	//아이디 별 타입 찾아오기
+	public List<Type> getTypeUserId(String userid){
 		
-		int result = 0;
+		List<Type> typelist = new ArrayList<Type>();
 		
 		TypeDao typedao = sqlsession.getMapper(TypeDao.class);
-		result = typedao.insertType(type);
+		typelist = typedao.getTypeUserId(userid);
 		
-		return result;
+		return typelist;
 	}
 	
-	public int insertDummy(Dummy_data dummy_data){
-		
-		int result = 0;
+	//타입 삭제
+	@Transactional(rollbackFor = Exception.class)
+	public int deleteType(List<Integer> type_no_list) {
 		
 		TypeDao typedao = sqlsession.getMapper(TypeDao.class);
-		result = typedao.insertDummy(dummy_data);
 		
-		return result;
-	}
-	
-	//seq생성
-	public int seq() {
-	
-		TypeDao typedao = sqlsession.getMapper(TypeDao.class);
-		int seq = typedao.seq();
+		int result_all = 0;
 		
-		return seq;
+		for(int type_no : type_no_list) {
+			result_all += typedao.deleteType(type_no);
+		}
+		
+		return result_all;
 	}
 }

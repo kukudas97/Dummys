@@ -34,8 +34,8 @@
 							<h4 class="margin5">설명</h4>
 							<input type="text" class="margin15" name="reason">
 							
-							<h4 class="margin5">처리방법</h4>
-							<input type="" class="margin15" name="reason">
+							<!-- <h4 class="margin5">처리방법</h4>
+							<input type="" class="margin15" name="reason"> -->
 							<!-- <select onchange="">
 								<option value="0">더미데이터</option>
 								<option value="1">랜덤문자</option>
@@ -87,7 +87,6 @@
 			if(commafile == "txt"){
 				if(slashfile != null && commafile != ""){
 					document.getElementById("fileName").value = slashfile;
-					alert('성공');
 				}else{
 					alert("파일을 확인해주세요")
 				}

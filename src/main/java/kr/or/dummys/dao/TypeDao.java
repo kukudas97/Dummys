@@ -2,14 +2,10 @@ package kr.or.dummys.dao;
 
 import java.util.List;
 
-import kr.or.dummys.dto.Dummy_data;
 import kr.or.dummys.dto.Type;
 
 public interface TypeDao {
 //create, selectuserid, selectall, update, delete
-	
-	//type_no_seq생성
-	public int seq();
 	
 	//type생성
 	public int insertType(Type type);
@@ -33,5 +29,5 @@ public interface TypeDao {
 	public int deleteType(int type_no);
 	
 	//더미데이터 받아오기
-	public int insertDummy(Dummy_data dummy_data);
+	public int insertDummy(int seq, String word);
 }
