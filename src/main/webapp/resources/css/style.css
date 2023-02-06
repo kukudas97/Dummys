@@ -649,7 +649,7 @@ font-family: 'IBM Plex Sans KR', sans-serif;
         background: none !important;
         color: #607d8b;
         display: inline-block;
-        font-size: 17px;
+        font-size: 18px;
         line-height: 26px;
         padding: 10px 0;
         position: relative;
@@ -2613,6 +2613,14 @@ font-size: 17px;
 	padding: 4px;
 }
 
+  .card-header .board_kind {
+  color: #28b745;
+  font-size: 23px;
+  }
+  
+  .card .card-body .board_detail {
+  background: #f3f8f4;
+  }
 
 /*재홍*/
 #main_content{

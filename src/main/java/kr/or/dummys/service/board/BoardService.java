@@ -73,18 +73,55 @@ public class BoardService {
 	}
 	
 	//게시글 상세보기 서비스
-	public Board boardDetail(String seq) {
+	public Board boardDetail(String board_no) {
 		Board board = null;
 		try {
 			//동기화
 			BoardDao boardDao = sqlsession.getMapper(BoardDao.class);
 			////
-			board = boardDao.boardDetail(seq);
+			board = boardDao.boardDetail(board_no);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		
 		return board;
+	}
+	
+	//글 수정하기 서비스
+	public Board boardUpdate(String board_no) {
+		Board board = null;
+		try {
+			//동기화
+			BoardDao boardDao = sqlsession.getMapper(BoardDao.class);
+			board = boardDao.boardDetail(board_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return board;
+	}
+	
+	//글 수정처리 서비스
+	public String boardUpdate(Board board, HttpServletRequest request) {
+		try {
+			//동기화
+			BoardDao boardDao = sqlsession.getMapper(BoardDao.class);
+			boardDao.boardUpdate(board);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//처리가 끝나면 상페 페이지로 이동: redirect 글번호를 가지고
+		return "redirect:boardDetail.do?board_no=" + board.getBoard_no(); //서버에게 새 요청
+	}
+	
+	//글 삭제 서비스
+	public String boardDelete(String board_no) {
+		BoardDao boardDao = sqlsession.getMapper(BoardDao.class);
+		try {
+			boardDao.boardDelete(board_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:boardList.do";
 	}
 		
 
