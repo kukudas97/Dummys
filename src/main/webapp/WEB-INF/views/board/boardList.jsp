@@ -42,7 +42,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Data Table</strong>
+                                <strong class="card-title" name='board_kind'><c:out value="${board_kind}"/></strong>
                             </div>
                             <div class="card-body">
                                 <table id="boardListTable" class="table table-striped table-bordered">
@@ -77,7 +77,7 @@
                                     
                                 </table>
                     <div class="boardWriteButton">
-                    <a href="${pageContext.request.contextPath}/board/boardWrite.do"><input class="btn btn-outline-success" type="button" value="글쓰기"></a>
+                    <a href="${pageContext.request.contextPath}/board/boardWrite.do?board_kind=${board_kind}"><input class="btn btn-outline-success" type="button" value="글쓰기"></a>
                     </div>
                             </div>
                         </div>

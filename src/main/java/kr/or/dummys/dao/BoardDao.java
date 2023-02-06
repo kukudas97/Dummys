@@ -3,6 +3,8 @@ package kr.or.dummys.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import kr.or.dummys.dto.Board;
 
 public interface BoardDao {
@@ -11,7 +13,7 @@ public interface BoardDao {
 	int getBoardCount(String field, String query) throws ClassNotFoundException, SQLException;
 		
 	//전체 게시물
-	List<Board> boardList(int page, String field, String query) throws ClassNotFoundException, SQLException;
+	List<Board> boardList(@Param("board_kind") String board_kind, int page, String field, String query) throws ClassNotFoundException, SQLException;
 	
 	//게시글 작성(insert)
 	int boardWrite(Board n) throws ClassNotFoundException, SQLException;

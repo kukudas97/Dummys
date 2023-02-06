@@ -22,12 +22,13 @@
         
 					<div class="card">
                           <div class="card-header">
-                            <strong>자유게시판 글쓰기</strong>
+                            <strong>${param.board_kind} 글쓰기</strong>
                         </div>
                         <div class="card-body card-block">
                             <form role="form" action="/board/boardWrite.do" method="post">
                         		<div class="form-group">
                         			<label>Title</label> 
+                        			<input type="hidden" value="${param.board_kind}" name="board_kind">
                         			<input class="form-control" name='board_name'>   		
                         		</div>
                         		<div class="form-group">

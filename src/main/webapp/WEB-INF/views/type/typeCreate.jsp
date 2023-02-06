@@ -28,18 +28,35 @@
 				<div class="col">
 					<div class="typecreate">
 						<form action="/type/typecreate.do" method="post" enctype="multipart/form-data" name="fileForm">
+						<table class="table">
+								<thead>
+									<tr>
+										<th>처리방법</th>
+										<th>공개여부</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<select name="process_no" id="kindSelect">
+												<option value="0" selected>더미데이터</option>
+												<option value="1">랜덤문자</option>
+											</select>
+										</td>
+										<td>
+											<select name="type_open" id="openSelect">
+												<option value="0" selected>공개</option>
+												<option value="1">비공개</option>
+											</select>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 							<h4 class="margin5">제목</h4>
 							<input type="text" class="margin15" name="title">
 							
 							<h4 class="margin5">설명</h4>
 							<input type="text" class="margin15" name="reason">
-							
-							<!-- <h4 class="margin5">처리방법</h4>
-							<input type="" class="margin15" name="reason"> -->
-							<!-- <select onchange="">
-								<option value="0">더미데이터</option>
-								<option value="1">랜덤문자</option>
-							</select> -->
 							
 							<h4>파일</h4>
 							<input type="text" readonly="readonly" name="fileName" id="fileName">
@@ -63,20 +80,14 @@
 					</div>
 				</div>
 			</div>
+			<div>
+				<h1>설명칸</h1>
+			</div>
 		</div>
 		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	</div>
 </body>
 <script type="text/javascript">
-	// $(document).ready(()=>{
-	// 	let file = document.getElementById("file");	
-	// 	file.addEventListener("change", (event)=>{
-	// 		document.getElementById("fileName").value = this.value;
-	// 	})
-	// })
-
-	// onchange="javascript:document.getElementById('fileName').value = this.value"
-
 	$("#file").change(()=>{
 		let fileobj = document.getElementById("file").value; 
 		
@@ -96,6 +107,14 @@
 		}else{
 			alert("파일을 넣어주세요.");
 		}
+	})
+	
+	$('#kindSelect').change(()=>{
+		let target = $('#kindSelect option:selected').val();
+	})
+	
+	$('#openSelect').change(()=>{
+		let target = $('#openSelect option:selected').val();
 	})
 </script>
 </html>

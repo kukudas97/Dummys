@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.dummys.dto.Board;
 import kr.or.dummys.service.board.BoardService;
@@ -28,9 +29,11 @@ public class BoardController {
 	
 	  //게시글 목록 페이지 호출
 	  @GetMapping("boardList.do") 
-	  public String boardList(String pg, String f, String q, Model model) { 
-		 List<Board> boardList = boardService.boardList(pg, f, q);
-		 model.addAttribute("boardList", boardList);	 	 
+	  public String boardList(@RequestParam String board_kind, String pg, String f, String q, Model model) { 
+		  List<Board> boardList = boardService.boardList(board_kind, pg, f, q);
+		  model.addAttribute("boardList", boardList);
+		  model.addAttribute("board_kind", board_kind);
+			 
 		  return "board/boardList"; 
 	 }
 	  
@@ -46,7 +49,6 @@ public class BoardController {
 		  System.out.println("boardWrite.do 컨트롤러 탔다");
 		  String url = null;
 		  System.out.println("principal: " + principal.toString());
-			
 			try {
 				url = boardService.boardWrite(board, request, principal);
 				System.out.println("url: " + url);

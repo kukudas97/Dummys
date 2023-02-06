@@ -2672,32 +2672,6 @@ table .tablebtn{
     display: block;
 }
 
-/* .createnav{
-	position: fixed;
-	background-color:#B7C0C7;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	height: 4rem;
-	padding : 1rem;
-}
-
-.createnav > .btnArea {
-	display: flex;
-	justify-content: center;
-}
-
-.createnav .navbtn {
-	display: inline-block;
-	border: 1px solid white;
-	color:black;
-	border-radius: 5px;
-	padding : 5px;
-	margin-left : 1rem;
-   	margin-right : 1rem;
-} */
-
-
 .schema div[data-type]{
 	padding: 2px 2px 2px 2px;
 	-ms-user-select: none; 

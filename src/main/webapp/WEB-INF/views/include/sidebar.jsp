@@ -29,33 +29,27 @@
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="/type/typelist.do" class="dropdown-toggle" > <i class="menu-icon fa fa-table"></i>Datasets</a>
-<!--                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
-                        </ul> -->
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Scenarios</a>
-<!--                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
-                        </ul> -->
-                    </li>
-					
+                    </li>	
+                    
+                    		
                     <li class="menu-title">커뮤니티</li><!-- /.menu-title -->
 
                     <li class="menu-item-has-children">
-                        <a href="${pageContext.request.contextPath}/board/boardList.do" class="dropdown-toggle" > <i class="menu-icon fa fa-tasks"></i>자유게시판</a>
+                       <a href="/board/boardList.do?board_kind=자유게시판" class="dropdown-toggle" > <i class="menu-icon fa fa-tasks"></i>자유게시판</a>
+                    	<!-- <a href="boardList.user?boardname=트러블슈팅">트러블슈팅</a> -->
                     </li>
                     <li>
-                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>질문게시판</a>
+                        <a href="/board/boardList.do?board_kind=질문게시판" class="dropdown-toggle"> <i class="menu-icon ti-email"></i>질문게시판</a>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>공유게시판</a>
+                        <a href="/board/boardList.do?board_kind=공유게시판" class="dropdown-toggle"> <i class="menu-icon fa fa-bar-chart"></i>공유게시판</a>
                     </li>
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>공지사항</a>
+                        <a href="/board/boardList.do?board_kind=공지사항" class="dropdown-toggle" ></i>공지사항</a>
                     </li>
                   
                 </ul>

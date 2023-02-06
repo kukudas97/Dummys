@@ -37,7 +37,7 @@
                         		
                         		<div class="form-group">
                         			<label>내용</label> 
-                        			<textarea class="form-control board_detail" rows="3" name='content' readonly="readonly" ><c:out value="${board.board_content}"/></textarea>  		
+                        			<textarea class="form-control board_detail" rows="3" name='board_content' readonly="readonly" ><c:out value="${board.board_content}"/></textarea>  		
                         		</div>
                         		
                         		<div class="form-group">
