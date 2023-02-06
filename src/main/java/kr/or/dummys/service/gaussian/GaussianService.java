@@ -50,4 +50,14 @@ public class GaussianService {
 		}
 		return list;
 	}
+	@Transactional(rollbackFor = Exception.class)
+	public int deleteGaussiansByNo(List<Integer> list) {
+		int result = 0;
+		GaussianDao dao = session.getMapper(GaussianDao.class);
+		for(int no : list) {
+			result += dao.deleteGaussianByNo(no);
+		}
+		
+		return result;
+	}
 }

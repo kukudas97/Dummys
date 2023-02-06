@@ -50,11 +50,17 @@ public class ajaxGaussian {
 		}
 	}
 	@PostMapping("deleteGaussian.do")
-	public ResponseEntity<Map<String, Object>> deleteDatas(@RequestBody List<String> list){
+	public ResponseEntity<Map<String, Object>> deleteDatas(@RequestBody List<Integer> list){
 		System.out.println("실행됨");
-		Map<String, Object> map = new HashMap<String, Object>();
 		System.out.println(list);
-		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.BAD_REQUEST);
+		Map<String, Object> map = new HashMap<String, Object>();
+		int result = 0;
+		try {
+			result = service.deleteGaussiansByNo(list);
+		} catch (Exception e) {
+			
+		}
 		
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 	}
 }

@@ -107,15 +107,17 @@
 		// }));
 		// console.log(datas);
 		// console.log(datas[0]);
+		
 		$.ajax({
-			"type" : "",
-			"url" : "",
-			"data" : {},
+			"type" : "post",
+			"url" : "deleteGaussian.do",
+			"data" : JSON.stringify([...list[0]]),
+			"contentType":"application/json",
 			"success" : (data)=>{
-
+				console.log(data)
 			},
 			"error" : (error)=>{
-
+				console.log(error)
 			}
 		})// $ajax end
 	}
