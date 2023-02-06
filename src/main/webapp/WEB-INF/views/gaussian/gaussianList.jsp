@@ -48,26 +48,34 @@
 							<tr>
 								<th id="check">체크박스</th>
 								<th>이름</th>
-								<th>설명</th>
+								<th>적용 컬럼</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+							
+							<c:forEach items="${list }" var="data">
+								<tr>
+									<td><input type="checkbox" value="${data.gaussian_no }"/></td>
+									<td>${data.gaussian_name }</td>
+									<td>${data.gaussian_col }</td>
+								</tr>
+							</c:forEach>
+<!-- 							<tr>
 								<td><input type="checkbox"/></td>
 								<td>멀봐</td>
 								<td>남들이 보는게 부끄러워요</td>
-								</tr>
+							</tr>
 							<tr>
 								<td><input type="checkbox"/></td>
 								<td>안녕</td>
 								<td>싫어!!!</td>
-							</tr>
+							</tr> -->
 						</tbody>
 						<tfoot>
 							<tr>
 								<td></td>
 								<td></td>
-								<td><button class="btn tablebtn btn-outline-secondary">삭제</button></td>
+								<td><button class="btn tablebtn btn-outline-secondary" id="delBtn">삭제</button></td>
 							</tr>
 						</tfoot>
 					</table>
@@ -84,5 +92,32 @@
 			location.href = "/gaussian/gaussianCreate.do"
 		}
 	})
+	$('#delBtn').on({
+		click : deleteGaussian
+	})
+	function deleteGaussian(){
+		let list =[]; 
+		list.push($('input[type=checkbox]:checked').map((index,data)=>$(data).val()));
+		let listdata = [...list[0]];
+		// console.log(listdata);
+		
+		// let datas = [];
+		// datas.push($(listdata).map((index,data)=>{
+		// 	return {"list" : data}
+		// }));
+		// console.log(datas);
+		// console.log(datas[0]);
+		$.ajax({
+			"type" : "",
+			"url" : "",
+			"data" : {},
+			"success" : (data)=>{
+
+			},
+			"error" : (error)=>{
+
+			}
+		})// $ajax end
+	}
 </script>
 </html>
