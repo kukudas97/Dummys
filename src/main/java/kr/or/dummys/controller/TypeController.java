@@ -10,13 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.or.dummys.dto.Dummy_data;
 import kr.or.dummys.dto.Type;
 import kr.or.dummys.service.type.TypeService;
 
@@ -29,7 +30,14 @@ public class TypeController {
 	
 	//타입 리스트로 이동
 	@GetMapping("/typelist.do")
-	public String listTypes() {
+	public String listTypes(Model model, Principal principal) {
+		
+		String userid = principal.getName();
+		
+		List<Type> typelist = typeservice.getTypeUserId(userid);
+		
+		model.addAttribute("typelist", typelist);
+		
 		return "type/typeList";
 	}
 	
@@ -46,18 +54,15 @@ public class TypeController {
 		String result ="";
 		//권한가져오기
 		String process = principal.getName();
-		
-		String fileRealName = file.getOriginalFilename(); //파일명을 얻어낼 수 있는 메서드!
-		long size = file.getSize(); //파일 사이즈
-		
-		Type type = null;
+				
+		Type type = new Type();
 		type.setType_name(title);
 		type.setProcess_no(0);
 		type.setType_reason(reason);
 		if(process != null && !process.equals("")) {
 			type.setUserid(process);
 		}else {
-			result = "redirect:error";
+			result = "redirect:/error";
 		}
 		
 		type.setType_category(request.isUserInRole("ROLE_ADMIN")? 0 : 1);
@@ -69,18 +74,19 @@ public class TypeController {
 			Scanner sc = new Scanner(f);
 			
 			while(sc.hasNextLine()) {
-				dummy.add(sc.nextLine());
+				String str =sc.nextLine();
+				dummy.add(str);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		int insert = typeservice.insert(type, dummy);
 		
-		if(insert >1) {
+		if(insert >= 1) {
 			result = "redirect:/type/typelist.do";
 		}else {
-			result = "redirect:error";
+			result = "redirect:/error";
 		}
 				
 		return result;

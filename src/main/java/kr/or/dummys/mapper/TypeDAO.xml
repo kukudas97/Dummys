@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.or.dummys.dao.TypeDAO">
+<mapper namespace="kr.or.dummys.dao.TypeDao">
 	<!-- 
 	//type생성
 	public int insertType(Type type);
@@ -28,34 +28,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	//더미데이터 받아오기
 	public int insertDummy(Dummy_data dummy_data);
 	 -->
-	 
-	 <select id="seq" resultType="int">
-	 	select type_no_seq.nextval from dual
-	 </select>
-	 
+
 	 <insert id="insertType" parameterType="kr.or.dummys.dto.Type">
 	 	insert into type(type_no, userid, process_no, type_name, type_reason, type_category)
-	 	values(${type_no}, #{userid}, ${process_no}, #{type_name}, #{type_reason}, ${type_category})
+	 	values(type_no_seq.nextval, #{userid}, ${process_no}, #{type_name}, #{type_reason}, ${type_category})
+	 	<selectKey keyProperty="type_no" resultType="Integer" order="AFTER">
+	 		select type_no_seq.currval from dual
+	 	</selectKey>
 	 </insert>
 	 
-	 <insert id="insertDummy" parameterType="kr.or.dummys.dto.Dummy_data">
+	 <insert id="insertDummy">
 	 	insert into dummy_data(dummy_data_no, type_no, dummy_data_word)
-	 	values(dummy_data_no_seq.nextval, ${type_no}, #{dummy_data_word})
+	 	values(dummy_data_no_seq.nextval, #{param1}, #{param2})
 	 </insert>
 	 
 	 <select id="getTypeUserId" resultType="kr.or.dummys.dto.Type">
-	 	select * from type where userid = #{userid} 
+	 	select * from type where userid = #{userid} and type_delete = 0 order by type_no desc
 	 </select>
 	 
 	 <select id="getTypeAll" resultType="kr.or.dummys.dto.Type">
-	 	select * from type
+	 	select * from type where type_delete = 0 order by type_no desc
 	 </select>
 	 
 	 <select id="getTypeCategory" resultType="kr.or.dummys.dto.Type">
-	 	select * from type where type_category = ${type_category}
+	 	select * from type where type_category = ${type_category} and type_delete = 0 order by type_no desc
 	 </select>
 	 
 	 <select id="typeDetail" resultType="kr.or.dummys.dto.Type">
 	 	
 	 </select>
+	 
+	 <!-- 타입 삭제 -->
+	 <update id="deleteType">
+	 	update type set type_delete = 1 where type_no = ${type_no}
+	 </update>
 </mapper>
