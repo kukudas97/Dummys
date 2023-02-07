@@ -63,4 +63,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	update type set type_delete = 1 where type_no = ${type_no}
 	 </update>
 	 
+	 <!-- Random문자 저장 -->
+	 <insert id="insertRandom">
+	 	insert into random_form(type_no, random_word_form)
+	 	values(#{param1}, #{param2})
+	 </insert>
+	 
 </mapper>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.dummys.dao.TypeDao;
+import kr.or.dummys.dto.Random_form;
 import kr.or.dummys.dto.Type;
 
 @Service
@@ -17,15 +18,32 @@ public class TypeService {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	//타입 생성
+	//타입 생성(더미데이터 형식)
 	@Transactional(rollbackFor = Exception.class)
-	public int insert(Type type, List<String> dummy) {
+	public int insertDummy(Type type, List<String> dummy) {
 		
 		TypeDao typedao = sqlsession.getMapper(TypeDao.class);
 		int typeresult =0;
 		int dummy_dataresult = 0;
 		typeresult = typedao.insertType(type);
 		int seq = type.getType_no();
+		for(String word : dummy) {
+			dummy_dataresult += typedao.insertDummy(seq, word);
+		}
+		
+		return (typeresult + dummy_dataresult >= 2) ? 1 : 0;
+	}
+	
+	//타입 생성(랜덤문자 형식)
+	@Transactional(rollbackFor = Exception.class)
+	public int insertRandom(Type type, String random_word_form, List<String> dummy) {
+		
+		TypeDao typedao = sqlsession.getMapper(TypeDao.class);
+		int typeresult =0;
+		int dummy_dataresult = 0;
+		typeresult = typedao.insertType(type);
+		int seq = type.getType_no();
+		typedao.insertRandom(seq, random_word_form);
 		for(String word : dummy) {
 			dummy_dataresult += typedao.insertDummy(seq, word);
 		}
