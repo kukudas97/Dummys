@@ -42,7 +42,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title" name='board_kind'><c:out value="${board_kind}"/></strong>
+                                 <h5 class="m-0 font-weight-bold board_kind"><c:out value="${board_kind}"/></h5>
                             </div>
                             <div class="card-body">
                                 <table id="boardListTable" class="table table-striped table-bordered">
@@ -64,21 +64,13 @@
 										</tr>
 									</c:forEach> 
 									
-					<%-- 				<c:forEach items="${boardList}" var="board">
-							<tr>
-								<td class="seq">${board.BOARD_NO}</td>
-								<td class="title"><a href="boardDetail.do?seq=${board.BOARD_NO}">${board.BOARD_NAME}</a></td>
-								<td class="writer">${board.NICKNAME}</td>
-								<td class="writeDate">${board.BOARD_DATE}</td>
-							</tr>
-							</c:forEach> --%>
 									
                                     </tbody>
                                     
                                 </table>
-                    <div class="boardWriteButton">
-                    <a href="${pageContext.request.contextPath}/board/boardWrite.do?board_kind=${board_kind}"><input class="btn btn-outline-success" type="button" value="글쓰기"></a>
-                    </div>
+			                    <div class="boardWriteButton">
+			                    <a href="${pageContext.request.contextPath}/board/boardWrite.do?board_kind=${board_kind}"><input class="btn btn-outline-success" type="button" value="글쓰기"></a>
+			                    </div>
                             </div>
                         </div>
                         

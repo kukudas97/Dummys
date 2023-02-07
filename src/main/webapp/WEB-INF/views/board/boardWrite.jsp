@@ -41,18 +41,10 @@
                         			<input class="form-control" name="writer">
                         		</div> -->
                         		
-                        		<input class="btn btn-success" type="submit" value="Submit">
+                        		<input class="btn btn-success" type="submit" value="글쓰기">
                         		<input class="btn btn-warning" type="reset" value="Reset">
                         	</form>
                         </div>
-                        <!-- <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm">
-                                <i class="fa fa-dot-circle-o"></i> Submit
-                            </button>
-                            <button type="reset" class="btn btn-danger btn-sm">
-                                <i class="fa fa-ban"></i> Reset
-                            </button>
-                        </div> -->
                     </div>
 </body>
 </html>
