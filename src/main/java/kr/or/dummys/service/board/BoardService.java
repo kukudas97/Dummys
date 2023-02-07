@@ -116,14 +116,16 @@ public class BoardService {
 	}
 	
 	//글 삭제 서비스
-	public String boardDelete(String board_no) {
+	public String boardDelete(Board board, String board_no) {
 		BoardDao boardDao = sqlsession.getMapper(BoardDao.class);
+		String encodedParam = null;
 		try {
 			boardDao.boardDelete(board_no);
+			encodedParam = URLEncoder.encode(board.getBoard_kind(), "UTF-8");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:boardList.do";
+		return "redirect:boardList.do?board_kind=" + encodedParam;
 	}
 		
 
