@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.or.dummys.dto.Random_form;
 import kr.or.dummys.dto.Type;
 import kr.or.dummys.service.type.TypeService;
 
@@ -49,13 +50,15 @@ public class TypeController {
 	
 	@PostMapping("/typecreate.do")
 	public String insertType(@RequestParam("file") MultipartFile file, @RequestParam("title") String title,
-			@RequestParam("reason") String reason, @RequestParam("process_no")int process_no, 
+				@RequestParam("reason") String reason, @RequestParam("process_no")int process_no, @RequestParam(value = "random", required = false) String random_word_form,
 			@RequestParam("type_open")int type_open, Principal principal, HttpServletRequest request) {
 		
 		String result ="";
 		//권한가져오기
 		String userid = principal.getName();
+		
 		Type type = new Type();
+		
 		type.setType_name(title);
 		type.setProcess_no(process_no);
 		type.setType_reason(reason);
@@ -77,9 +80,12 @@ public class TypeController {
 				String str =sc.nextLine();
 				dummy.add(str);
 			}
-		
-			int insert = typeservice.insert(type, dummy);
-		
+			
+			int insert =
+					(process_no != 1)? 
+					typeservice.insertDummy(type, dummy) : 
+					typeservice.insertRandom(type, random_word_form, dummy);
+			
 			if(insert >= 1) {
 				result = "redirect:/type/typelist.do";
 			}else {
