@@ -114,7 +114,15 @@
 			"data" : JSON.stringify([...list[0]]),
 			"contentType":"application/json",
 			"success" : (data)=>{
-				console.log(data)
+				if(data.result == 'success'){
+					alert('성공!');
+					location.reload();
+				} else if(data.result == 'fail'){
+					alert('실패...');
+				} else if(data.result == 'login-error'){
+					alert('로그인 필요...');
+					location.href = "/users/login.do";
+				}
 			},
 			"error" : (error)=>{
 				console.log(error)
