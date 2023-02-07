@@ -92,8 +92,8 @@ public class BoardController {
 	  
 	  //게시글 삭제
 	  @RequestMapping("boardDelete.do")
-	  public String boardDelete(String board_no) {
-		  return boardService.boardDelete(board_no);
+	  public String boardDelete(Board board, String board_no) {
+		  return boardService.boardDelete(board, board_no);
 	  }
 	 
 }
