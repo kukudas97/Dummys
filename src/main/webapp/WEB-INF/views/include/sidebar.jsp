@@ -14,19 +14,19 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="/schema/createdummys.do" class="dropdown-toggle" > <i class="menu-icon fa fa-cogs"></i>Schemas</a>
                     </li>
-					<li class="menu-item-has-children dropdown">
+<!-- 					<li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
                         <ul class="sub-menu children dropdown-menu"><li class="subtitle"> <i class="menu-icon fa fa-table"></i>Tables</li>
                             <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
                             <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                         
                     <li class="menu-item-has-children dropdown">
                         <a href="/type/typelist.do" class="dropdown-toggle" > <i class="menu-icon fa fa-table"></i>Datasets</a>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Scenarios</a>
+                        <a href="/gaussian/gaussianList.do" class="dropdown-toggle"> <i class="menu-icon fa fa-th"></i>정규분포</a>
                     </li>	
                     
                     		
