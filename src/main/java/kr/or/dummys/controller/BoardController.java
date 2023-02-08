@@ -65,7 +65,6 @@ public class BoardController {
 		  System.out.println(board_no);	  
 		  Board board = boardService.boardDetail(board_no);
 		  model.addAttribute("board", board);
-		  System.out.println("board: " + board);
 		  return "board/boardDetail";
 	  }
 	  

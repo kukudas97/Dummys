@@ -19,6 +19,8 @@ public class BoardService {
 	//Mybatis 작업
 	private SqlSession sqlsession;
 	
+	private String encodedParam;
+	
 	@Autowired
 	public void setSqlsession(SqlSession sqlsession) {
 		this.sqlsession = sqlsession;
@@ -60,9 +62,7 @@ public class BoardService {
 	//글쓰기 처리 서비스
 	public String boardWrite(Board board, HttpServletRequest request, Principal principal) {
 		//인증 객체
-		board.setUserid(principal.getName().trim());
-		String encodedParam = null;
-		
+		board.setUserid(principal.getName().trim());		
 		try {
 			//동기화
 			BoardDao boardDao = sqlsession.getMapper(BoardDao.class);
@@ -83,7 +83,7 @@ public class BoardService {
 			////
 			board = boardDao.boardDetail(board_no);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 		return board;
@@ -118,7 +118,6 @@ public class BoardService {
 	//글 삭제 서비스
 	public String boardDelete(Board board, String board_no) {
 		BoardDao boardDao = sqlsession.getMapper(BoardDao.class);
-		String encodedParam = null;
 		try {
 			boardDao.boardDelete(board_no);
 			encodedParam = URLEncoder.encode(board.getBoard_kind(), "UTF-8");

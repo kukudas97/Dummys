@@ -24,11 +24,16 @@
 		<div>
 			<section class="HomepageTop">
 				<div class="HomepageTopTitle">
-				<h1>쉽고 빠르게 더미데이터를 생성하세요!</h1>
+				<h1>쉽고 빠르게 더미데이터를 생성하세요</h1>
 				</div>
 			</section>
 			
+			<section class="QuickStartContent">
+				<div class="QuickStartMsg"><p>빠른 시작!</p></div>
+			</section>
+			
 			<section class="QuickStart row">
+			
 				<section class="DataTypeSelection col-sm-6 col-md-6 col-lg-6">
 					<div class="DataTypeToggle">이름</div>
 					<div class="DataTypeToggle">연락처</div>
@@ -51,7 +56,6 @@
 					<div class="DataTypeToggle" >JavaScript</div>
 					<div class="DataTypeToggle" >EXCEL</div>
 				</section>
-			
 			
 			</section>
 			

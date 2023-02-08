@@ -30,4 +30,10 @@ public interface TypeDao {
 	
 	//더미데이터 받아오기
 	public int insertDummy(int seq, String word);
+	
+	//더미데이터 삭제하기
+	public int deleteDummy(int type_no);
+	
+	//랜덤문자 저장
+	public int insertRandom(int seq, String word);
 }

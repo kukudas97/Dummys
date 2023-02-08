@@ -21,7 +21,7 @@
         <!-- /Header-->
                             <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h5 class="m-0 font-weight-bold board_kind">Board Detail Page</h5>
+                            <strong class="card-title" name='board_kind'><c:out value="${board.board_kind}"/></strong>
                         </div>
                         <div class="card-body">
                         	
@@ -55,11 +55,13 @@
                         		<button data-oper='list' class="btn btn-info" onclick="location.href='/board/list'">List</button> --%>
                         		
                         		<button data-oper='modify' class="btn btn-success" >수정</button>
-                        		<button data-oper='list' class="btn btn-info" >목록</button>
+                        		<button data-oper='list' class="btn btn-info">목록</button>
                         		<button data-oper='delete' class="btn btn-danger" >삭제</button>
-                        		
-                        		<form id='operForm' action="/board/boardUpdate.do" method="get">
-                        			<input type='hidden' id='bno' name='board_no' value='<c:out value="${board.board_no}" />'>
+                        		<%-- <a href="/board/boardList.do?board_kind=${board.board_kind}">목록</a> --%>
+
+                        		<form id='operForm' action="" method="get">
+                        			<input type='hidden' id="board_no" name='board_no' value='<c:out value="${board.board_no}" />'>
+                        			<input type='hidden' id="board_kind" name='board_kind' value='<c:out value="${board.board_kind}" />'>
                         		</form>
                         	
                         </div>
@@ -72,16 +74,16 @@
                 	var operForm = $("#operForm");
                 	                     
                 	$("button[data-oper='modify']").on("click", function(e){
+                		operForm.find("#board_kind").remove();
                 		operForm.attr("action", "/board/boardUpdate.do").submit();
                 	});
                 	
-                	$("button[data-oper='list']").on("click", function(e){
+               	 $("button[data-oper='list']").on("click", function(e){
                 		operForm.find("#board_no").remove();
-                		operForm.attr("action", "/board/boardList.do")
+                		operForm.attr("action", "/board/boardList.do");
                 		operForm.submit();
-                		
                 	});
-                	
+
                 	$("button[data-oper='delete']").on("click", function(e){
                 		operForm.attr("action", "/board/boardDelete.do").submit();
                 	});

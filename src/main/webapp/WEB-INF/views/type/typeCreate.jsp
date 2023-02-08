@@ -28,7 +28,7 @@
 				<div class="col">
 					<div class="typecreate">
 						<form action="/type/typecreate.do" method="post" enctype="multipart/form-data" name="fileForm">
-						<table class="table">
+							<table class="table">
 								<thead>
 									<tr>
 										<th>처리방법</th>
@@ -42,6 +42,7 @@
 												<option value="0" selected>더미데이터</option>
 												<option value="1">랜덤문자</option>
 											</select>
+											
 										</td>
 										<td>
 											<select name="type_open" id="openSelect">
@@ -52,6 +53,9 @@
 									</tr>
 								</tbody>
 							</table>
+							
+							<div id="rm" name="rm"></div>
+							
 							<h4 class="margin5">제목</h4>
 							<input type="text" class="margin15" name="title">
 							
@@ -111,6 +115,14 @@
 	
 	$('#kindSelect').change(()=>{
 		let target = $('#kindSelect option:selected').val();
+		if(target != 1){
+			$('#rm').empty();
+		}else{
+			$('#rm').empty();
+			let input = '<h4 class="margin5">형식 작성</h4>' 
+				+ '<input type="text" id="random" name="random" class="margin15">';
+			$('#rm').append(input);
+		}
 	})
 	
 	$('#openSelect').change(()=>{
