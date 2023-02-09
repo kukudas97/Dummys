@@ -54,22 +54,13 @@
 						<tbody>
 							
 							<c:forEach items="${list }" var="data">
-								<tr>
+								<tr onclick="javascript:location.href='/gaussian/gaussianUpdate.do?gaussian_no=${data.gaussian_no}'">
 									<td><input type="checkbox" value="${data.gaussian_no }"/></td>
 									<td>${data.gaussian_name }</td>
 									<td>${data.gaussian_col }</td>
 								</tr>
 							</c:forEach>
-<!-- 							<tr>
-								<td><input type="checkbox"/></td>
-								<td>멀봐</td>
-								<td>남들이 보는게 부끄러워요</td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"/></td>
-								<td>안녕</td>
-								<td>싫어!!!</td>
-							</tr> -->
+
 						</tbody>
 						<tfoot>
 							<tr>

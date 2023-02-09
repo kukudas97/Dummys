@@ -20,4 +20,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteGaussianByNo">
 		delete from gaussian from gaussian_no=${param1} 
 	</delete>
+	<select id="getGaussianByNo" resultType="kr.or.dummys.dto.Gaussian">
+		select gaussian_no, gaussian_col, gaussian_name from gaussian where gaussian_no = ${gaussian_no}
+	</select>
+	<select id="getGaussianResultListByNo" resultType="kr.or.dummys.dto.Gaussian_result">
+		select gaussian_result_no,gaussian_no,gaussian_result,gaussian_result_avg,standard_deviation from gaussian_result where gaussian_no = ${gaussian_no}
+	</select>
+	<delete id="deleteGaussianResultByGaussianNo">
+		delete from gaussian_result where gaussian_no = ${param1}
+	</delete>
+	<update id="updateGaussian" parameterType="kr.or.dummys.dto.Gaussian">
+		update gaussian set gaussian_col=#{gaussian_col}, gaussian_name=#{gaussian_name} where gaussian_no=${gaussian_no}
+	</update>
 </mapper>
