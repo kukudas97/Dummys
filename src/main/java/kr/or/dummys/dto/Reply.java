@@ -13,4 +13,5 @@ public class Reply {
 	private int ref;
 	private int dept;
 	private int step;
+	private String nickname;
 }
