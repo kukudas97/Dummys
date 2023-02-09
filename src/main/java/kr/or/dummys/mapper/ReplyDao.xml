@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.dummys.dao.ReplyDao">
+		<!--
+		//댓글수
+		int getReplyCount(String field, String query) throws ClassNotFoundException, SQLException;
+			
+		//댓글 리스트
+		List<Reply> replyList(int page, String field, String query) throws ClassNotFoundException, SQLException;
+		
+		//댓글 작성(insert)
+		int replyRegister(Reply reply) throws ClassNotFoundException, SQLException;
+		
+		//게시물 수정(update)
+		int replyUpdate(Reply reply) throws ClassNotFoundException, SQLException;
+		
+		//게시물 삭제(delete)
+		int replyDelete(String reply_no) throws ClassNotFoundException, SQLException;
+		 -->
+		 
+<select id="getReplyCount" resultType="int">
+select count(*) from reply where board_no=${board_no}
+ </select>
+ 
+ <select id="replyList" resultType="kr.or.dummys.dto.Reply">
+ select REPLY_NO, userid, nickname, BOARD_NO, REPLY_CONTENT, REPLY_DATE, REPLY_ACTIVATE, REF, DEPT,STEP from 
+ (select rownum as rn, REPLY_NO, users.USERID as userid, users.NICKNAME as nickname, BOARD_NO, REPLY_CONTENT, REPLY_DATE, REPLY_ACTIVATE, REF, DEPT,STEP
+    from users inner join REPLY 
+                on reply.userid=users.userid
+                where BOARD_NO=${param3}
+                order by ref asc, step asc) where rn between ${param1} and ${param2}
+ </select>
+ 
+ <insert id="replyRegister" parameterType="kr.or.dummys.dto.Reply">
+ insert into reply (reply_no, userid, board_no, reply_content, reply_activate, reply_date, ref, dept, step)
+ values(reply_no_seq.nextval, #{userid}, #{board_no}, #{reply_content}, 1, sysdate, #{ref},#{dept},#{step})
+ </insert>
+ 
+ <update id="replyUpdate" parameterType="kr.or.dummys.dto.Reply">
+ UPDATE reply
+ SET reply_content=#{reply_content},
+where reply_no=${reply_no}
+ </update>
+ 
+ <delete id="replyDelete">
+ 	DELETE FROM REPLY where reply_no=${reply_no}
+ </delete>
+		
+</mapper>

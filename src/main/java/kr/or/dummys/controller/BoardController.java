@@ -17,7 +17,7 @@ import kr.or.dummys.dto.Board;
 import kr.or.dummys.service.board.BoardService;
 
 @Controller
-@RequestMapping("/board/")
+@RequestMapping("/board/*")
 public class BoardController {
 
 	private BoardService boardService;
