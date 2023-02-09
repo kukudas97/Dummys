@@ -50,12 +50,13 @@
 								<th>이름</th>
 								<th>설명</th>
 								<th>공개여부</th>
+								<th>처리방법</th>
 								<th>수정</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="typelist" items="${typelist}" >
-								<tr>
+								<tr id="detail" data-value="${typelist.type_no}">
 									<td><input type="checkbox" value="${typelist.type_no}" name="delete_check"/></td>
 									<td>${typelist.type_name}</td>
 									<td>${typelist.type_reason}</td>
@@ -66,7 +67,13 @@
 										</c:choose>
 									</td>
 									<td>
-									<button class="btn btn-outline-secondary" style="padding-bottom: 2px; padding-top: 2px" value="${typelist.type_no}" name="update">
+										<c:choose>
+											<c:when test="${typelist.process_no eq 0}">더미데이터</c:when>
+											<c:otherwise>랜덤문자</c:otherwise>
+										</c:choose>
+									</td>
+									<td>
+									<button class="btn btn-outline-secondary" style="padding-bottom: 2px; padding-top: 2px" value="${typelist.type_no}" onclick="update(this)" name="update">
 									수정
 									</button></td>
 								</tr>
@@ -83,11 +90,11 @@
 						</tfoot>
 					</table>
 				</div>
-				<div id="datasection" class="col-md-3">
+				<div id="datasection" class="col-md-3 col-sm-6">
 					<section id="values">
-						<h3>&nbsp;values</h3>
-						<div id="scrolltext">
-						
+						<h3 class="margin15">&nbsp;values</h3>
+						<div id="scrolltext" style="overflow:auto; margin-left: 5px; width: 95%; height: 450px;">
+							<h1>안녕</h1>
 						</div>
 					</section>
 				</div>
@@ -138,5 +145,36 @@
         });
     } );
 	
+	$("#typeListTable tbody tr").click(function(event){
+		let type_no = $(event.target).closest("tr").attr("data-value");
+		
+		$.ajax({
+			type : "POST",
+			url : "/type/listDetail.do",
+			data : JSON.stringify(type_no),
+			"contentType":"application/json",
+			success : function(result){
+				$("#scrolltext").empty();
+				$("#scrolltext").append("<h5><b>이름</b> :&nbsp;&nbsp;"+result.type.type_name + " </h5><hr>");
+				if(result.type.process_no == 1){
+					$("#scrolltext").append("<h5><b>처리방법</b> :&nbsp;&nbsp;"+result.random_form.random_word_form + "</h5><hr>");
+				};
+				$("#scrolltext").append("<b>문자<b>");
+				for(let index in result.list){
+					$("#scrolltext").append("<h6>"+result.list[index].dummy_data_word + "</h6><br>");
+				}
+				// $("#scrolltext").append(result.list[0].dummy_data_word);
+				
+			},
+			error : function(){
+				alert("불러오는데 실패했습니다.");
+			}
+		})
+	})
+	
+	function update(event){
+		let type_no = $(event).attr("value");
+		location.href = "/type/typeupdate.do?type_no="+type_no;
+	}
 </script>
 </html>

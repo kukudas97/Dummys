@@ -27,6 +27,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	//더미데이터 받아오기
 	public int insertDummy(Dummy_data dummy_data);
+	
+	//랜덤문자 불러오기
+	public List<Dummy_data> getDummy_data(int type_no);
 	 -->
 
 	 <insert id="insertType" parameterType="kr.or.dummys.dto.Type">
@@ -55,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 </select>
 	 
 	 <select id="typeDetail" resultType="kr.or.dummys.dto.Type">
-	 	
+	 	select * from type where type_no = ${type_no}
 	 </select>
 	 
 	 <!-- 타입 삭제 -->
@@ -69,4 +72,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	values(#{param1}, #{param2})
 	 </insert>
 	 
+	 <!-- 더미데이터 불러오기 -->
+	 <select id="getDummy_data" resultType="kr.or.dummys.dto.Dummy_data">
+	 	select * from dummy_data where type_no = ${type_no}
+	 </select>
+	 
+	 <!-- Random폼 불러오기 -->
+	 <select id="getRandomFormType_no" resultType="kr.or.dummys.dto.Random_form">
+	 	select * from random_form where type_no = ${type_no}
+	 </select>
+	 
+	 <!-- 타입 수정 -->
+	 <update id="updateType">
+	 	update type set type_name = #{type_name}, type_reason = #{type_reason} where type_no = ${type_no}
+	 </update>
+	 
+	 <!-- 랜덤 수정 -->
+	 <update id="updatetRandom">
+	 	update random_form set random_word_form = #{word} where type_no = ${seq}
+	 </update>
+	 
+	 <!-- 더미데이터 삭제 -->
+	 <delete id="deleteDummy">
+	 	delete from dummy_data where type_no = ${seq}
+	 </delete>
 </mapper>

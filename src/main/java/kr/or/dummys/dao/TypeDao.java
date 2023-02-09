@@ -2,6 +2,8 @@ package kr.or.dummys.dao;
 
 import java.util.List;
 
+import kr.or.dummys.dto.Dummy_data;
+import kr.or.dummys.dto.Random_form;
 import kr.or.dummys.dto.Type;
 
 public interface TypeDao {
@@ -25,15 +27,24 @@ public interface TypeDao {
 	//type수정
 	public int updateType(Type type);
 	
+	//random수정
+	public int updatetRandom(int seq, String word);
+	
+	//더미데이터 삭제
+	public int deleteDummy(int seq);
+	
 	//type삭제
 	public int deleteType(int type_no);
 	
 	//더미데이터 받아오기
 	public int insertDummy(int seq, String word);
-	
-	//더미데이터 삭제하기
-	public int deleteDummy(int type_no);
-	
+		
 	//랜덤문자 저장
 	public int insertRandom(int seq, String word);
+	
+	//랜덤문자 불러오기
+	public List<Dummy_data> getDummy_data(int type_no);
+	
+	//랜덤 폼 불러오기
+	public Random_form getRandomFormType_no(int type_no);
 }

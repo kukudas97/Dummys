@@ -100,4 +100,52 @@ public class TypeController {
 		return result;
 	}
 	
+	@GetMapping("/typeupdate.do")
+	public String typeUpdate(Model model, @RequestParam("type_no")int type_no) {
+		
+		Type type = new Type();
+		
+		type = typeservice.getTypeType_no(type_no);
+		
+		model.addAttribute(type);
+		
+		return "type/typeUpdate";
+	}
+	
+	@PostMapping("/typeupdate.do")
+	public String typeUpdateGo(@RequestParam("file") MultipartFile file, @RequestParam("title") String title,
+			@RequestParam("reason") String reason, @RequestParam("seq") int seq) {
+		String result = "";
+		Type type = new Type();
+		
+		type.setType_name(title);
+		type.setType_reason(reason);
+		type.setType_no(seq);
+		
+		File f = new File(file.getOriginalFilename());
+		List<String> dummy= new ArrayList<String>();
+		try {
+			file.transferTo(f);
+			Scanner sc = new Scanner(f);
+			
+			while(sc.hasNextLine()) {
+				String str =sc.nextLine();
+				dummy.add(str);
+			}
+			
+			int insert = typeservice.updateDummy(type, dummy) ;
+			
+			if(insert >= 1) {
+				result = "redirect:/type/typelist.do";
+			}else {
+				result = "redirect:/utils/error";
+			}
+			sc.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = "redirect:/utils/error";
+		}
+		
+		return result;
+	}
 }
