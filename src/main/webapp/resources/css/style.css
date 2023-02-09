@@ -2627,13 +2627,38 @@ font-size: 17px;
 }
 
   .card-header .board_kind {
-  color: #28b745;
+  color: #40ba59;
   font-size: 23px;
   }
   
   .card .card-body .board_detail {
   background: #f3f8f4;
   }
+  
+  .card .add-reply {
+  padding: 10px;
+    display: flex; 
+/*   text-align: right;
+    justify-content: right; */
+  }
+
+.reply-card{
+	padding-top: 60px;
+	padding-bottom: 15px;
+}
+
+.reply-title{
+	font-family: 'IBM Plex Sans KR', sans-serif;
+	color: #40ba59;
+	font-size: 20px;
+	padding-left: 15px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#write-reply {
+	padding-top: 10px;
+}
 
 /*재홍*/
 #main_content{

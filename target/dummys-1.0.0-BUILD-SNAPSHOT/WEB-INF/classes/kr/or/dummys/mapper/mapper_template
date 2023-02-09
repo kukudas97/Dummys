@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DAO 경로">
+	<select id="함수이름" resultType="DTO 경로">
+		select chat_name as name, chat_content as content from chat order by chat_no desc
+	</select>
+</mapper>
