@@ -58,4 +58,25 @@
     <property name="dataSource" ref="driverManagerDataSource"></property> <!-- 해당 session의 transaction을 관리하겠다 -->
 </bean>
 	
+	
+<!-- email처리 -->
+<bean id="mailSender"
+      class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" ><value>${mail.host}</value></property>
+      <property name="port"><value>${mail.port}</value></property>
+      <property name="username" ><value>${mail.username}</value></property>
+      <property name="password" ><value>${mail.password}</value></property>
+      <property name="javaMailProperties">
+         <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <!-- gmail의 경우 보안문제 업데이트로 인해 SSLSocketFactory를 추가해야 smtp 사용 가능. -->
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.debug">true</prop>
+                <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+         </props>
+      </property>
+</bean>
 </beans>

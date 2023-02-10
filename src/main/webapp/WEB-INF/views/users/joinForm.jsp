@@ -26,9 +26,20 @@
                             <span id="confirmNicknameREMsg"></span>
                         </div>
                         <div class="form-group">
-                            <label>이메일</label>
-                            <input type="email" class="form-control" placeholder="이메일" name="userid" id="email" onkeyup="validate()">
-                        	<span id="confirmEmailREMsg"></span>
+                            <label style="margin-right: 80%">이메일</label>
+                            <input type="email"  class="form-control" placeholder="이메일" name="userid" id="email" onkeyup="validate()" style="display: inline; width: 80%;">
+                            <button type="button" id="mail-check-btn" class="btn btn-success" style="width: 19%; height: 37px; padding: 0">인증하기</button>
+                            <div>
+                        		<span id="confirmEmailREMsg" ></span>
+                        	</div>
+                        </div>
+                        <div id="mail" class="form-group">
+                            <!-- <label style="margin-right: 80%">이메일 인증</label>
+                            <input type="text" class="form-control" placeholder="인증번호 6자리를 입력해주세요" name="certification" id="certification" style="display: inline; width: 80%;">
+                            <button type="button" id="mail-success-btn" class="btn btn-success" style="width: 19%; height: 37px; padding: 0">인증확인</button>
+                            <div>
+                        		<span id="mail-check"></span>
+                        	</div> -->
                         </div>
                        <!-- 방법1 --> 
                        <div class="form-group">
@@ -41,18 +52,8 @@
                             <input type="password" name="confirm_Password" id="confirm_Password" class="form-control" placeholder="비밀번호 확인" onkeyup="confirmPassword()">
                             <span id="confirmMsg"></span>
                         </div> 
-
-<!--                         <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> 회원 정책에 동의합니다
-                            </label>
-                        </div> -->
                         <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30" id="joinBtn" disabled>가입하기</button>
                         <div class="social-login-content">
-                            <!-- <div class="social-button">
-                                <button type="button" class="btn social facebook btn-flat btn-addon mb-3"><i class="ti-facebook"></i>Register with facebook</button>
-                                <button type="button" class="btn social twitter btn-flat btn-addon mt-2"><i class="ti-twitter"></i>Register with twitter</button>
-                            </div> -->
                         </div>
                         <div class="register-link m-t-15 text-center">
                             <p>이미 계정이 있으십니까? <a href="${pageContext.request.contextPath}/users/login.do"> 로그인</a></p>
@@ -66,16 +67,46 @@
 
 </body>
 
-  <script>
+<script>
 
-  let checkNickname = false;
-  let checkPassword = false;
-  let checkEmail = false;
-  let checkPasswordMatch = false;
-  
+let checkNickname = false;
+let checkPassword = false;
+let checkEmail = false;
+let checkPasswordMatch = false;
+
+
+/* 인증하기 버튼 구현(재홍) */
+$("#mail-check-btn").click(()=>{
+	let email = $("#email").val();
+	alert(email)
+	let certification = $("#certification");
+
+	$.ajax({
+		type : "post",
+		url : "/join/mailcheck.do",
+		data : JSON.stringify(email),
+		"contentType":"application/json",
+		success : function(result){
+			
+			let tag = 
+			'<label style="margin-right: 80%">이메일 인증</label>' +
+            '<input type="text" class="form-control" placeholder="인증번호 6자리를 입력해주세요" name="certification" id="certification" style="display: inline; width: 80%;">'+
+            '<button type="button" id="mail-success-btn" class="btn btn-success" style="width: 19%; height: 37px; padding: 0">인증확인</button>'+
+            '<div><span id="mail-check"></span></div>';
+
+			$("#mail").append(tag);
+
+			alert("인증번호가 발생되었습니다.")
+		},
+		error : function(){
+			alert("실패")
+		}
+	})
+})
+
   
 /*비밀번호 확인 처리 (다영)*/
- function confirmPassword(){
+function confirmPassword(){
 	var password = document.getElementById("password");
 	var confirmPassword = document.getElementById("confirm_Password");
 	var confirmMsg = document.getElementById("confirmMsg");
@@ -168,7 +199,7 @@ function activateBtn(){
 		document.getElementById("joinBtn").setAttribute("disabled", "disabled");
 	}
 }
- 
+
 
 
 
