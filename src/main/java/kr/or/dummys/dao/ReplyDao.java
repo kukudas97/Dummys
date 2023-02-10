@@ -25,5 +25,7 @@ public interface ReplyDao {
 		
 		//게시물 삭제(delete)
 		int replyDelete(String reply_no) throws ClassNotFoundException, SQLException;
+		
+		int getRef(String board_no) throws ClassNotFoundException, SQLException;
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.dummys.dao.ReplyDao;
 import kr.or.dummys.dto.Reply;
+import lombok.extern.log4j.Log4j;
 
 
 @Service
@@ -43,8 +44,22 @@ public class ReplyService {
 		}
 		
 		//댓글 등록(insert) 처리
-		public String replyRegister() {
-			return null;
+		public String replyRegister(String board_no, String reply_content, String userid) {
+			System.out.println("서비스 reply_content: " + reply_content);
+			int result = 0;
+			try {
+
+				ReplyDao replyDao = sqlsession.getMapper(ReplyDao.class);
+				int ref = replyDao.getRef(board_no);
+				
+				Reply reply = Reply.builder().userid(userid).board_no(Integer.parseInt(board_no))
+						.ref(ref).reply_content(reply_content).build();
+				
+				result = replyDao.replyRegister(reply);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return (result>=1) ? "성공":"실패";
 		}
 
 }
