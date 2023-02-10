@@ -2580,16 +2580,43 @@ text-shadow: 2px 2px 2px #123b48;
 	font-size: 32px;
 }
 
-.DataTypeSelection, .DataFormatSelection {
-	display: grid;
+.QuickStartMsg a {
+	font-family: 'IBM Plex Sans KR', sans-serif;
+	font-size: 20px;
+	color: #008080;
+}
+
+.SelectContent {
+	width: 100%;
+}
+
+.SelectContent .QuickStartMsg {
+	display: block;
+	vertical-align:middle;
+   align-items: center;
+  	justify-content: center;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.SelectContent .QuickStartMsg span {
+	font-family: 'IBM Plex Sans KR', sans-serif;
+	font-size: 21px;
+}
+
+
+.DataTypeSelection .DataType, .DataFormatSelection .DataFormat {
+	display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    grid-gap: 0.6rem;
-    row-gap: 0.6rem;
-    column-gap: 0.6rem;
+    grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+     grid-gap: 0.3rem; 
+/*      row-gap: 0.1rem;
+    column-gap: 0.1rem;  */
 }
 
 .DataTypeToggle {
-	font-family: 'IBM Plex Sans KR', sans-serif;
+  font-family: 'IBM Plex Sans KR', sans-serif;
   background: #123b48;
   font-weight: bold;
   color: white;
@@ -2658,6 +2685,13 @@ font-size: 17px;
 
 #write-reply {
 	padding-top: 10px;
+}
+
+.chat {
+	 list-style:none;
+}
+.reply {
+	padding-top: 15px;
 }
 
 /*재홍*/
