@@ -12,4 +12,8 @@ public class SchemaController {
 	public String createDummys() {
 		return "schema/createdummy";
 	}
+	@GetMapping("schemaView.do")
+	public String schemaView() {
+		return "schema/schemaView"; 
+	}
 }
