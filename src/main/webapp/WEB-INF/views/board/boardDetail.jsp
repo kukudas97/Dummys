@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,22 +73,26 @@
                         
                        <div class="col-md-12">
 	                        <div class="reply-card">
-	                             <strong class="reply-title">댓글 </strong>
-	                             <div class="add-reply">
-	                        	<button type="button" class="btn btn-outline-success btn-sm" id="addReplyBtn">댓글작성</button>
+	                            <strong class="reply-title">댓글 </strong>
+
+	                            <div class="reply-view row">
+	                            	<ul class="chat" id="reply" style="width: 100%"></ul>
+              					</div>
+              					
+              					<div class="add-reply">
+	                        		<button type="button" class="btn btn-outline-success btn-sm" id="addReplyBtn">댓글작성</button>
 	                            </div>
-	                             <input class="form-control" id="reply_content" value="예시 댓글" readonly="readonly">
+	                            
 	                            <div id="write-reply" class="form-floating ">
 	                                <textarea class="form-control" placeholder="Leave a comment here"
 	                                    id="reply_content" style="height: 150px;"></textarea>
-	                                    <button class="btn" id="reply_submit" id="register_reply">등록</button>
-	                                    <button class="btn" id="reply_reset">취소</button>
+	                                 <hidden id="reply_userid">
+	                                 <button class="btn" id="register_reply">등록</button>
+	                                 <button class="btn" id="reply_reset">취소</button>
 	                            </div>
 	                        </div>
                     	</div>
                		</div>
-               		
-
                		
                 <script type="text/javascript">
                 $(document).ready(function(){
@@ -138,16 +142,18 @@
              	               
              	            	//비동기 함수 호출
              	               $.ajax({
-             	            		url: "/reply/replyRegister.do", //컨트롤러로 보낼 uri
+             	            		url: "/reply/reply.do", //컨트롤러로 보낼 uri
              	            		type: "POST", //보내는 방식
              	            		dataType : "JSON", //컨트롤러에서 데이터 받을 때 형식 JSON
              	            		data: { //뷰에서 보내는 정보들
-             	                     'reply_userid' : $('#reply_userid').val(), //댓글 작성자 값
+             	            		 'board_no' : '${board.board_no}',
           	                     	 'reply_content' : $('#reply_content').val(),//댓글 내용 값
-          	                     	 'reply_no' : $('#reply_no').val() //글 번호
           	                  },
              	            		success: function(data){
-             	            			$('#list_reply').append(data); //댓글 목록에 추가하는 함수(append)
+             	            			replyList();
+             	            			$('#reply_content').val('');
+             	            			$("#write-reply").removeClass("writeReplyForm");
+             	            			
              	            		},
              	            		error: function(request, status, error) { //에러 났을 경우 
              	                      alert("code:" + request.status + "\n"
@@ -161,26 +167,43 @@
             	               return false;
               		  		}
               	  	}     
-                	   
-                	
               	  });
                 });
-                	
+                
+                //비동기로 댓글 나열
                 function replyList(){
                 	$.ajax({
                 		"url" : "/reply/reply.do",
                 		"type" : "get",
                 		"dataType" : "json", //return type
-                		"data" : {"board_no": "41"},
+                		"data" : {"board_no": '${board.board_no}'},
                 		"success" : (result)=>{
-                			console.log(result)
+                			
+                		$('#reply').empty();
+                		
+                    	$(result).each(function(index, replyList){
+                			let listReply = 
+                                '<li>'+
+                            		'<div class="col-md-12">'+
+    		                        	'<div class="card">'+
+    		                            '<div class="card-header">'+
+    		                                '<strong class="card-title">'+replyList.nickname+'</strong> <small><span class="badge float-right mt-1">'+ replyList.reply_date+'</span></small>'+
+    		                            '</div>'+
+    		                            '<div class="card-body">'+
+    		                                '<p class="card-text">'+replyList.reply_content+'</p>'+
+    		                            '</div>'+
+    		                        '</div>'+
+    		                    '</div>'+
+                        	'</li>';
+                        	$('#reply').append(listReply);
+                    	})
                 		},
                 		"error" : (request, status, error)=>{
-                			
                 		}
                 	})
                 }
                 replyList();
+
                 </script>
         
         
