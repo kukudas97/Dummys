@@ -6,7 +6,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +19,14 @@ public class JoinService {
 	@Autowired
 	private SqlSession sqlsession;
 	
+	private JavaMailSender mailSender;
+	
+	@Autowired
+	public void setMailSender(JavaMailSender mailSender) {
+		this.mailSender = mailSender;
+	}
+
+
 	public int insertUser(Users users) {
 		int result = 0;
 		UserDao userDao = sqlsession.getMapper(UserDao.class);
@@ -26,18 +34,8 @@ public class JoinService {
 		return result;
 	}
 	
-	/*
-	 * public int idCheck(String id) { UserDao userDao =
-	 * sqlsession.getMapper(UserDao.class); int result = userDao.idCheck(id); return
-	 * result; }
-	 * 
-	 * public int loginCheck(String id, String password) { UserDao userDao =
-	 * sqlsession.getMapper(UserDao.class); int result = userDao.loginCheck(id,
-	 * password); return result; }
-	 */
 	
-	@Autowired
-	private JavaMailSenderImpl mailSender;
+	
 	private int authNumber; 
 	
 	public void makeRandomNumber() {
@@ -49,11 +47,12 @@ public class JoinService {
 	}
 	
 	
-			//이메일 보낼 양식! 
+	//이메일 보낼 양식! 
 	public String joinEmail(String email) {
+		
 		makeRandomNumber();
-		String setFrom = ".com"; // email-config에 설정한 자신의 이메일 주소를 입력 
-		String toMail = email;
+		String setFrom = "zlawoghd@gmail.com"; // email-config에 설정한 자신의 이메일 주소를 입력 
+		/* String toMail = email; */
 		String title = "회원 가입 인증 이메일 입니다."; // 이메일 제목 
 		String content = 
 				"홈페이지를 방문해주셔서 감사합니다." + 	//html 형식으로 작성 ! 
@@ -61,7 +60,7 @@ public class JoinService {
 			    "인증 번호는 " + authNumber + "입니다." + 
 			    "<br>" + 
 			    "해당 인증번호를 인증번호 확인란에 기입하여 주세요."; //이메일 내용 삽입
-		mailSend(setFrom, toMail, title, content);
+		mailSend(setFrom, email, title, content);
 		return Integer.toString(authNumber);
 	}
 	

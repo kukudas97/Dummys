@@ -73,6 +73,9 @@ let checkNickname = false;
 let checkPassword = false;
 let checkEmail = false;
 let checkPasswordMatch = false;
+let checkMailCheck = false;
+
+let checknumber = 0;
 
 
 /* 인증하기 버튼 구현(재홍) */
@@ -88,15 +91,18 @@ $("#mail-check-btn").click(()=>{
 		"contentType":"application/json",
 		success : function(result){
 			
+			$("#mail").empty();
+			
 			let tag = 
 			'<label style="margin-right: 80%">이메일 인증</label>' +
-            '<input type="text" class="form-control" placeholder="인증번호 6자리를 입력해주세요" name="certification" id="certification" style="display: inline; width: 80%;">'+
-            '<button type="button" id="mail-success-btn" class="btn btn-success" style="width: 19%; height: 37px; padding: 0">인증확인</button>'+
+            '<input type="text" class="form-control" placeholder="인증번호 6자리를 입력해주세요" name="certification" id="certification" onkeyup="mailcheck()">'+
             '<div><span id="mail-check"></span></div>';
 
 			$("#mail").append(tag);
 
-			alert("인증번호가 발생되었습니다.")
+			checknumber = result.authnumber;
+
+			alert("인증번호 발송이 완료되었습니다.")
 		},
 		error : function(){
 			alert("실패")
@@ -104,6 +110,26 @@ $("#mail-check-btn").click(()=>{
 	})
 })
 
+function mailcheck(){
+	var correctColor = "#4AB34A"; //비밀번호 맞았을 때 출력되는 색깔
+	var warningColor = "#ff0000"; //틀렸을 때 출력되는 색깔
+	//mailcheck
+	let mailcheck = $('#certification').val();
+	//mailcheck
+	let confirmMailCheckMsg = document.getElementById("mail-check")
+
+	//음... 메일 체크?
+	if(mailcheck.match(checknumber)){
+		confirmMailCheckMsg.style.color = correctColor;
+		confirmMailCheckMsg.innerHTML = "인증번호가 일치"
+		checkMailCheck = true;
+	}else{
+		confirmMailCheckMsg.style.color = warningColor;
+		confirmMailCheckMsg.innerHTML = "인증번호 불일치"
+		checkMailCheck = false;
+	}
+	activateBtn()
+}
   
 /*비밀번호 확인 처리 (다영)*/
 function confirmPassword(){
@@ -130,7 +156,7 @@ function confirmPassword(){
 }
 
 
-/* Regular Expression 다영 */
+/* Regular Expression 다영 + 재홍(이메일 인증 여부 확인)*/
 function validate(){
 	var nicknameRE = /^[a-zA-Z0-9]{6,10}$/  //닉네임 6~10개의 영,숫자
 	var emailRE= /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
@@ -140,11 +166,15 @@ function validate(){
 	var password = $('#password').val() 
 	var email = $('#email').val()
 	
+	
 	var confirmNicknameMsg = document.getElementById("confirmNicknameREMsg")
 	var confirmPasswordMsg = document.getElementById("confirmPasswordREMsg")
 	var confirmEmailMsg = document.getElementById("confirmEmailREMsg")
+	
+
 	var correctColor = "#4AB34A"; //비밀번호 맞았을 때 출력되는 색깔
 	var warningColor = "#FF9B00";
+	
 	
 	
 	//닉네임 정규표현식 함수
@@ -193,7 +223,7 @@ function validate(){
  */
 
 function activateBtn(){
-	if(checkNickname&&checkPassword&&checkEmail&&checkPasswordMatch){
+	if(checkNickname&&checkPassword&&checkEmail&&checkPasswordMatch&&checkMailCheck){
 		document.getElementById("joinBtn").removeAttribute("disabled");
 	} else{
 		document.getElementById("joinBtn").setAttribute("disabled", "disabled");
