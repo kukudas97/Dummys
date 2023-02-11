@@ -69,6 +69,8 @@
                         			<input type='hidden' id="board_no" name='board_no' value='<c:out value="${board.board_no}" />'>
                         			<input type='hidden' id="board_kind" name='board_kind' value='<c:out value="${board.board_kind}" />'>
                         		</form>
+                        		
+                        		
                         </div>
                         
                        <div class="col-md-12">
@@ -90,6 +92,17 @@
 	                                 <button class="btn" id="register_reply">등록</button>
 	                                 <button class="btn" id="reply_reset">취소</button>
 	                            </div>
+	                            
+	                            
+	                          		<!-- 댓글 삭제 뷰 테스트 -->
+    		                        <div class="card col-md-12" id="deletedCard">
+    		                           <div class="deleted-reply">삭제된 댓글 입니다</div>
+    		                        </div>
+    		                      
+    		                    </div>
+    		                    
+    		                    
+    		                    
 	                        </div>
                     	</div>
                		</div>
@@ -98,6 +111,8 @@
                 $(document).ready(function(){
                 	
                 	var operForm = $("#operForm");
+                	
+                	replyList();
                 	
                 	//해당 게시물 수정 버튼
                 	$("button[data-oper='modify']").on("click", function(e){
@@ -179,15 +194,21 @@
                 		"data" : {"board_no": '${board.board_no}'},
                 		"success" : (result)=>{
                 			
+                			//230211////////////////////////////////////////////////
+                			console.log(result);
+                			console.log(result[0].reply_activate);
+                			////////////////////////////////////////////////////////
+
                 		$('#reply').empty();
-                		
+                			
                     	$(result).each(function(index, replyList){
-                			let listReply = 
+                    		
+                    		let listReply = 
                                 '<li>'+
                             		'<div class="col-md-12">'+
-    		                        	'<div class="card">'+
+    		                        	'<div class="card" id="reply-card">'+
     		                            '<div class="card-header">'+
-    		                                '<strong class="card-title">'+replyList.nickname+'</strong> <small><span class="badge float-right mt-1">'+ replyList.reply_date+'</span></small>'+
+    		                                '<strong class="card-title">'+replyList.nickname+'</strong> <span class="delete_reply badge float-right mt-1" data-value="'+replyList.reply_no +'">삭제</span><span class="badge float-right mt-1">수정</span><span class="delete_reply badge float-right mt-1" data-value="'+replyList.reply_no +'">대댓글</span><span class="badge mt-1">'+'&nbsp'+'&nbsp'+'&nbsp'+ replyList.reply_date+'</span></small>'+
     		                            '</div>'+
     		                            '<div class="card-body">'+
     		                                '<p class="card-text">'+replyList.reply_content+'</p>'+
@@ -195,14 +216,65 @@
     		                        '</div>'+
     		                    '</div>'+
                         	'</li>';
-                        	$('#reply').append(listReply);
+                        	
+                        	let deletedReply=
+                				'<div class="card" id="deletedCard">'+
+	                           		'<div class="deleted-reply">' + '삭제된 댓글 입니다' + '</div>'+
+	                       		 '</div>';
+                    		
+                    		
+                    		//230211//////////////////////////////////
+                    		if(result[index].reply_activate ==1){
+                        		$('#reply').append(listReply);                       	
+                    		} else if(result[index].reply_activate ==0){
+                    			//$('#reply').empty();
+                    			$('#reply').append(deletedReply);
+                    		}
+                    		
+                    	////////////////////////////////////
+                    	
                     	})
+                    	deleteReply();
                 		},
+                		
                 		"error" : (request, status, error)=>{
+                			console.log(request);
                 		}
                 	})
                 }
-                replyList();
+                
+                //replyList();
+                
+                function deleteReply(){
+                //댓글 삭제
+                //"data" : JSON.stringify({"reply_no": $(event.target).attr("data-value")}),
+                //"data" : $(event.target).attr("data-value"),
+                $(".delete_reply").on({
+            		  click : (event) => {
+            			  //let reply_no = $(event.target).attr("data-value");
+            			 
+            			   $.ajax({
+                      		"url" : "/reply/reply.do",
+                    		"type" : "delete",
+                    		"data" : JSON.stringify($(event.target).attr("data-value")),
+                    		"contentType":'application/json',
+                    		"success" : (result)=>{
+                    			console.log(result);
+                    			replyList();
+                    		},
+                    		"error" : (request, status, error)=>{
+                    			console.log(request.status);
+         	                    console.log(request.responseText);
+         	                    console.log(error);
+                    		}
+            				  
+            			  }) 
+            			  
+            		  }  
+            		  
+                }); }
+                
+                
 
                 </script>
         
