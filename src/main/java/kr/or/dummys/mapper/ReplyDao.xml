@@ -44,14 +44,16 @@ select count(*) from reply where board_no=${board_no}
  values(reply_no_seq.nextval, #{userid}, #{board_no}, #{reply_content}, 1, sysdate, #{ref},0,1)
  </insert>
  
- <update id="replyUpdate" parameterType="kr.or.dummys.dto.Reply">
+<!--  <update id="replyUpdate" parameterType="kr.or.dummys.dto.Reply">
  UPDATE reply
- SET reply_content=#{reply_content},
+ SET reply_content=#{reply_content}
 where reply_no=${reply_no}
- </update>
+ </update> -->
  
- <delete id="replyDelete">
- 	DELETE FROM REPLY where reply_no=${reply_no}
- </delete>
+ <update id="replyDelete" parameterType="kr.or.dummys.dto.Reply">
+ UPDATE reply
+ SET reply_activate=0
+ where reply_no=${reply_no}
+ </update>
 		
 </mapper>

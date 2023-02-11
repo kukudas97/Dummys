@@ -1,5 +1,6 @@
 package kr.or.dummys.service.reply;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -58,6 +59,21 @@ public class ReplyService {
 				result = replyDao.replyRegister(reply);
 			} catch (Exception e) {
 				e.printStackTrace();
+			}
+			return (result>=1) ? "성공":"실패";
+		}
+
+		
+		//댓글 삭제(delete)
+		public String replyDelete(int reply_no) {
+			System.out.println("서비스 reply_no: " + reply_no);
+			int result = 0;
+			try {
+				ReplyDao replyDao = sqlsession.getMapper(ReplyDao.class);
+				result = replyDao.replyDelete(reply_no);
+				System.out.println("result: " + result);
+			} catch (Exception e) {
+				e.getStackTrace();
 			}
 			return (result>=1) ? "성공":"실패";
 		}

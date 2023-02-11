@@ -2694,6 +2694,13 @@ font-size: 17px;
 	padding-top: 15px;
 }
 
+.card .card-header {
+	background: #f3f8f4;
+}
+.deleted-reply {
+	margin: 15px;
+}
+
 /*재홍*/
 #main_content{
 	margin: 20px;
