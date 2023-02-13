@@ -34,6 +34,15 @@ public class JoinService {
 		return result;
 	}
 	
+	//이메일 중복 여부 확인
+	public boolean idCheck(String userid) {
+		
+		UserDao userdao = sqlsession.getMapper(UserDao.class);
+		System.out.println(userid);
+		
+		return (userdao.idCheck(userid.replaceAll("\"", "")) >= 1)? false:true;
+	}
+	
 	
 	
 	private int authNumber; 
@@ -53,9 +62,9 @@ public class JoinService {
 		makeRandomNumber();
 		String setFrom = "zlawoghd@gmail.com"; // email-config에 설정한 자신의 이메일 주소를 입력 
 		/* String toMail = email; */
-		String title = "회원 가입 인증 이메일 입니다."; // 이메일 제목 
+		String title = "Dummy's 회원 가입 인증 이메일 입니다."; // 이메일 제목 
 		String content = 
-				"홈페이지를 방문해주셔서 감사합니다." + 	//html 형식으로 작성 ! 
+				"Dummy's를 방문해주셔서 감사합니다." + 	//html 형식으로 작성 ! 
                 "<br><br>" + 
 			    "인증 번호는 " + authNumber + "입니다." + 
 			    "<br>" + 

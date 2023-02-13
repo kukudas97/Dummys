@@ -11,9 +11,10 @@
  
  		<security:csrf disabled="true"/>
 
+		<!-- default-target-url="/index.do" -->
 		<security:form-login login-page="/users/login.do"
-		default-target-url="/index.do"
-		authentication-failure-url="/users/login.do?error"
+		authentication-success-handler-ref="customLoginSuccess"
+		authentication-failure-url="/utis/error.do"
 		username-parameter="userid"
 		password-parameter="password"/>
 		
@@ -25,6 +26,8 @@
 		<security:intercept-url pattern="/join/**" access="permitAll"/>
 		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/type/**" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/gaussian/**" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/board/**" access="hasRole('ROLE_USER')"/>
 	</security:http>
 	<security:authentication-manager>
 		<security:authentication-provider>
@@ -38,4 +41,6 @@
 			<security:password-encoder ref="bCryptPasswordEncoder"/> <!-- 암호화 된 비밀번호 처리 -->
 		</security:authentication-provider>
 	</security:authentication-manager>
+	
+	<bean id="customLoginSuccess" class="kr.or.dummys.utils.CustomLoginSuccessHandler"></bean>
 </beans>

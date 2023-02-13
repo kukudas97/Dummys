@@ -27,8 +27,8 @@
                         </div>
                         <div class="form-group">
                             <label style="margin-right: 80%">이메일</label>
-                            <input type="email"  class="form-control" placeholder="이메일" name="userid" id="email" onkeyup="validate()" style="display: inline; width: 80%;">
-                            <button type="button" id="mail-check-btn" class="btn btn-success" style="width: 19%; height: 37px; padding: 0">인증하기</button>
+                            <input type="text"  class="form-control" placeholder="이메일" name="userid" id="email" onkeyup="validate()" style="display: inline; width: 80%;">
+                            <button type="button" id="mail-check-btn" class="btn btn-success" style="width: 19%; height: 37px; padding: 0" disabled>인증하기</button>
                             <div>
                         		<span id="confirmEmailREMsg" ></span>
                         	</div>
@@ -83,13 +83,20 @@ $("#mail-check-btn").click(()=>{
 	let email = $("#email").val();
 	alert(email)
 	let certification = $("#certification");
-
+	
+	if(email == ''){
+		alert("이메일을 입력해주세요")
+		return false;
+	}
 	$.ajax({
 		type : "post",
 		url : "/join/mailcheck.do",
 		data : JSON.stringify(email),
 		"contentType":"application/json",
 		success : function(result){
+			
+			//성공 시 이메일 수정 불가토록 변경
+			document.getElementById("email").readOnly = true;
 			
 			$("#mail").empty();
 			
@@ -105,6 +112,7 @@ $("#mail-check-btn").click(()=>{
 			alert("인증번호 발송이 완료되었습니다.")
 		},
 		error : function(){
+			document.getElementById("email").readOnly = false;
 			alert("실패")
 		}
 	})
@@ -158,9 +166,9 @@ function confirmPassword(){
 
 /* Regular Expression 다영 + 재홍(이메일 인증 여부 확인)*/
 function validate(){
-	var nicknameRE = /^[a-zA-Z0-9]{6,10}$/  //닉네임 6~10개의 영,숫자
-	var emailRE= /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
-	var passwordRE = /^[a-zA-Z0-9]{8,20}$/ //비밀번호 8~20개의 영,숫자
+	var nicknameRE = /^[a-zA-Z0-9가-힣]{4,10}$/  //닉네임 4~10개의 한,영,숫자
+	var emailRE= /\w+([-+.]\w+)*@\w+([-.]\w+)*\.[a-zA-Z]{2,4}$/
+	var passwordRE = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$/ //비밀번호 8~20개의 영,숫자,특수문자(#?!@$%^&*-)
 	
 	var nickname = $('#nickname').val() //document.getElementById("nickname");
 	var password = $('#password').val() 
@@ -184,17 +192,19 @@ function validate(){
 		checkNickname = true;
 		
 	} else{
-		confirmNicknameMsg.innerHTML = "닉네임 6~10개의 영,숫자";
+		confirmNicknameMsg.innerHTML = "닉네임 4~10개의 한,영,숫자";
 		confirmNicknameMsg.style.color = warningColor;
 		checkNickname = false;
 	}
 	
 	//이메일 정규표현식 함수
 	if(email.match(emailRE)){
+		document.getElementById("mail-check-btn").removeAttribute("disabled");
 		confirmEmailMsg.style.color = correctColor;
 		confirmEmailMsg.innerHTML = "사용가능한 이메일 형식"
 			checkEmail = true;
 	} else{
+		document.getElementById("mail-check-btn").setAttribute("disabled", "disabled");
 		confirmEmailMsg.style.color = warningColor;
 		confirmEmailMsg.innerHTML = "이메일 형식을 맞춰주세요";
 		checkEmail = false;
@@ -208,7 +218,7 @@ function validate(){
 			checkPassword = true;
 	} else{
 		confirmPasswordMsg.style.color = warningColor;
-		confirmPasswordMsg.innerHTML = "비밀번호 8~20개의 영,숫자";
+		confirmPasswordMsg.innerHTML = "비밀번호 8~20개의 영,숫자,특수문자(#?!@$%^&*-)";
 		checkPassword = false;
 	}
 	activateBtn()
