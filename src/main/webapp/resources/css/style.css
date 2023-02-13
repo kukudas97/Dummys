@@ -2697,9 +2697,11 @@ font-size: 17px;
 .card .card-header {
 	background: #f3f8f4;
 }
-.deleted-reply {
-	margin: 15px;
+.deleted-reply , .add_reply{
+	margin: 10px;
+	cursor: pointer;
 }
+
 
 /*재홍*/
 #main_content{

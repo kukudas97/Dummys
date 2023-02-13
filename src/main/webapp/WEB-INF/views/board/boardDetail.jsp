@@ -13,6 +13,17 @@
 .writeReplyForm{
 	display: block !important;
 }
+
+#addReReplyForm {
+	display: block;
+}
+
+.afterRegisterReReply{
+	display: none !important;
+}
+
+
+
 </style>
 
 </head>
@@ -86,18 +97,28 @@
 	                            </div>
 	                            
 	                            <div id="write-reply" class="form-floating ">
-	                                <textarea class="form-control" placeholder="Leave a comment here"
-	                                    id="reply_content" style="height: 150px;"></textarea>
+	                                <textarea class="form-control" placeholder="댓글을 작성하세요"
+	                                    id="reply_content" style="height: 110px; margin-bottom: 5px; "></textarea>
 	                                 <hidden id="reply_userid">
 	                                 <button class="btn" id="register_reply">등록</button>
 	                                 <button class="btn" id="reply_reset">취소</button>
 	                            </div>
 	                            
 	                            
+	              <!--               <div id="addReReplyForm" class="form-floating " style="width: 80%">
+	                                <textarea class="form-control" placeholder="댓글의 댓글을 작성하세요"
+	                                    id="reply_content" style="height: 100px; margin-bottom: 5px; "></textarea>
+	                                 <hidden id="reply_userid" />
+	                                 <button class="btn" id="register_reply">등록</button>
+	                                 <button class="btn" id="reply_reset">취소</button>
+	                            </div> -->
+	                            
+	                            
+	                            
 	                          		<!-- 댓글 삭제 뷰 테스트 -->
-    		                        <div class="card col-md-12" id="deletedCard">
+								<!--<div class="card col-md-12" id="deletedCard">
     		                           <div class="deleted-reply">삭제된 댓글 입니다</div>
-    		                        </div>
+    		                        </div> -->
     		                      
     		                    </div>
     		                    
@@ -146,6 +167,30 @@
                 		} 
                 	});
                 	
+                	  //대댓글 뷰 추가 230212
+					$(document).on("click", "#reReply", function(){
+                    		let test1 = $(this).parents(); //멀쓸지 구분
+                    		console.log("test2 : "+  test1);
+
+                    		//var test = $(this).parents().eq(1); //쓸꺼
+                    		
+                    		let test = $(this).parents().children().eq(7);
+                    		
+                    		console.log(test);
+                    		//$("#addReReplyForm").addClass(".writeReReplyForm");
+                    		$(this).parents().children().eq(7).append(
+                    			'<div id="addReReplyForm" class="form-floating " style="width: 90%; float: right; padding-right: 10px;">'+
+	                                '<textarea class="form-control" placeholder="댓글의 댓글을 작성하세요" ' +
+	                                   ' id="reReply_content" style="height: 75px; margin-bottom: 5px; "></textarea> '+
+	                                 '<hidden id="reply_userid"/>' +
+	                                 '<button class="btn" id="register_reReply" onclick="register_reReply(this);" parent-value="15" style="float: right; margin-bottom: 5px;">등록</button>' +
+	                                 /* '<button class="btn" id="reply_reset" style="float: right;">취소</button>' + */
+	                            '</div>'
+	                            
+                    		);
+                    });
+                	  
+                	
                 	//댓글 비동기로 삽입후 나열        
                 	$("#register_reply").on({
               		  click : () => {
@@ -162,7 +207,7 @@
              	            		dataType : "JSON", //컨트롤러에서 데이터 받을 때 형식 JSON
              	            		data: { //뷰에서 보내는 정보들
              	            		 'board_no' : '${board.board_no}',
-          	                     	 'reply_content' : $('#reply_content').val(),//댓글 내용 값
+          	                     	 'reply_content' : $('#reply_content').val()//댓글 내용 값
           	                  },
              	            		success: function(data){
              	            			replyList();
@@ -183,7 +228,49 @@
               		  		}
               	  	}     
               	  });
-                });
+                
+                	  
+             });  //onreadyfunction 짝꿍
+				
+             
+             	//대댓글 등록 함수
+				function register_reReply(event){
+            	 
+              			const content = $('#reReply_content').val();
+              			  
+              			let parent_no = $(event).parent().parent().parent().attr("value"); //멀쓸지 구분
+                		console.log("parent_no : " + parent_no );
+              			  
+              			  if (content == "") {
+             	               alert("내용을 입력하세요");
+             	            } else if (confirm("댓글의 댓글을 등록하시겠습니까?") == true) { //확인
+             	               
+             	            	//비동기 함수 호출
+             	               $.ajax({
+             	            		url: "/reply/reReply.do", //컨트롤러로 보낼 uri
+             	            		type: "POST", //보내는 방식
+             	            		dataType : "JSON", //컨트롤러에서 데이터 받을 때 형식 JSON
+             	            		data: { //뷰에서 보내는 정보들	
+             	            		 'parent_reply_no' : parent_no, //부모 댓글의 번호 가져가야함
+          	                     	 'reReply_content' : content//댓글 내용 값
+          	                  },
+             	            		success: function(data){
+             	            			$("#addReReplyForm").addClass("afterRegisterReReply"); //등록 성공하면 대댓글 입력란 사라짐
+             	            			replyList();
+             	            			
+             	            		},
+             	            		error: function(request, status, error) { //에러 났을 경우 
+             	                      alert("code:" + request.status + "\n"
+            	                           + "message:" + request.responseText
+            	                           + "\n" + "error:" + error);
+                                  }	
+             	               });
+                          	}
+             	           	else { //취소
+            	               alert("취소하였습니다.");
+            	               return false;
+              		  		}
+              	  	}
                 
                 //비동기로 댓글 나열
                 function replyList(){
@@ -203,23 +290,28 @@
                 			
                     	$(result).each(function(index, replyList){
                     		
+                    		console.log(replyList.dept);
+                    		
                     		let listReply = 
                                 '<li>'+
-                            		'<div class="col-md-12">'+
-    		                        	'<div class="card" id="reply-card">'+
+                            		'<div class="col-md-12" >'+
+    		                        	'<div class="card" id="reply-card" style="padding-left: calc(30*'+replyList.dept+') !important"  value="'+replyList.reply_no+'">'+
     		                            '<div class="card-header">'+
-    		                                '<strong class="card-title">'+replyList.nickname+'</strong> <span class="delete_reply badge float-right mt-1" data-value="'+replyList.reply_no +'">삭제</span><span class="badge float-right mt-1">수정</span><span class="delete_reply badge float-right mt-1" data-value="'+replyList.reply_no +'">대댓글</span><span class="badge mt-1">'+'&nbsp'+'&nbsp'+'&nbsp'+ replyList.reply_date+'</span></small>'+
+    		                                '<strong class="card-title">'+replyList.nickname+'</strong> <span class="delete_reply badge float-right mt-1" data-value="'+replyList.reply_no +'">삭제</span><span class="badge float-right mt-1">수정</span><span class="add_reply badge float-right mt-1" id="reReply" data-value="'+replyList.reply_no +'">대댓글</span><span class="badge mt-1">'+'&nbsp'+'&nbsp'+'&nbsp'+ replyList.reply_date+'</span></small>'+
     		                            '</div>'+
     		                            '<div class="card-body">'+
     		                                '<p class="card-text">'+replyList.reply_content+'</p>'+
     		                            '</div>'+
+    		                            '<div name="reReply"></div>'+
     		                        '</div>'+
     		                    '</div>'+
                         	'</li>';
                         	
                         	let deletedReply=
-                				'<div class="card" id="deletedCard">'+
-	                           		'<div class="deleted-reply">' + '삭제된 댓글 입니다' + '</div>'+
+                        		'<div class="col-md-12">'+
+	                				'<div class="card" id="deletedCard">'+
+		                           		'<div class="deleted-reply">' + '삭제된 댓글 입니다' + '</div>'+
+		                       		 '</div>'+
 	                       		 '</div>';
                     		
                     		
@@ -227,10 +319,8 @@
                     		if(result[index].reply_activate ==1){
                         		$('#reply').append(listReply);                       	
                     		} else if(result[index].reply_activate ==0){
-                    			//$('#reply').empty();
                     			$('#reply').append(deletedReply);
-                    		}
-                    		
+                    		}	
                     	////////////////////////////////////
                     	
                     	})
@@ -242,11 +332,10 @@
                 		}
                 	})
                 }
+
                 
-                //replyList();
-                
+                //댓글 삭제 함수
                 function deleteReply(){
-                //댓글 삭제
                 //"data" : JSON.stringify({"reply_no": $(event.target).attr("data-value")}),
                 //"data" : $(event.target).attr("data-value"),
                 $(".delete_reply").on({
@@ -266,13 +355,14 @@
                     			console.log(request.status);
          	                    console.log(request.responseText);
          	                    console.log(error);
-                    		}
-            				  
+                    		}  
             			  }) 
-            			  
             		  }  
-            		  
-                }); }
+                }); 
+                }
+                
+              
+
                 
                 
 
