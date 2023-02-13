@@ -27,14 +27,19 @@ public class ajaxJoin {
 		String authnumber = null;
 		
 		try {
-			authnumber = joinservice.joinEmail(email);
-			map.put("authnumber", authnumber);
-			map.put("result", "success");
-			
-			return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+			if(joinservice.idCheck(email) && !email.equals("\"\"") && email != null) {
+				authnumber = joinservice.joinEmail(email);
+				map.put("authnumber", authnumber);
+				map.put("result", "success");
+				
+				return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<Map<String,Object>>(map, HttpStatus.BAD_REQUEST);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<Map<String,Object>>(map, HttpStatus.BAD_REQUEST);
 		}
+		
 	}
 }

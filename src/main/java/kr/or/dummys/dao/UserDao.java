@@ -1,5 +1,7 @@
 package kr.or.dummys.dao;
 
+import java.util.List;
+
 import kr.or.dummys.dto.Users;
 
 public interface UserDao {
@@ -18,4 +20,10 @@ public interface UserDao {
 	
 	//회원 수정
 	public int updateUser(Users users);
+	
+	//전체 회원(활성화된)
+	public List<Users> listUsers();
+	
+	//전체회원(비활성화된)
+	public List<Users> listOutUsers();
 }
