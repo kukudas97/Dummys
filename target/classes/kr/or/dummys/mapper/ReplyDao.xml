@@ -31,7 +31,7 @@ select count(*) from reply where board_no=${board_no}
     from users inner join REPLY 
                 on reply.userid=users.userid
                 where BOARD_NO=${param3}
-                order by ref asc, step asc) where rn between ${param1} and ${param2}
+                order by ref asc, reply_no asc) where rn between ${param1} and ${param2}
  </select>
  
  
@@ -55,5 +55,14 @@ where reply_no=${reply_no}
  SET reply_activate=0
  where reply_no=${reply_no}
  </update>
+ 
+ <select id="getParentReply" resultType="kr.or.dummys.dto.Reply">
+ select REPLY_NO, BOARD_NO, REF, DEPT, STEP from REPLY where REPLY_NO = ${reply_no}
+ </select>
 		
+<insert id="reReplyRegister" parameterType="kr.or.dummys.dto.Reply">
+ insert into reply (reply_no, userid, board_no, reply_content, reply_activate, reply_date, ref, dept, step)
+ values(reply_no_seq.nextval, #{userid}, #{board_no}, #{reply_content}, 1, sysdate, #{ref}, #{dept}, 1)
+</insert>
+
 </mapper>

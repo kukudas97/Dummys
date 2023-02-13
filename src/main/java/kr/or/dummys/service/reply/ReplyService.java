@@ -57,10 +57,13 @@ public class ReplyService {
 						.ref(ref).reply_content(reply_content).build();
 				
 				result = replyDao.replyRegister(reply);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return (result>=1) ? "성공":"실패";
+	
+			
 		}
 
 		
@@ -77,5 +80,36 @@ public class ReplyService {
 			}
 			return (result>=1) ? "성공":"실패";
 		}
+	
+	  //대댓글 insert 
+		public String reReplyRegister(int parent_reply_no, String reReply_content, String userid) { 
+			System.out.println("대댓글 서비스 부모 댓글 번호: " + parent_reply_no); 
+			System.out.println("대댓글 서비스 대댓글 내용: " + reReply_content);
+			int result = 0;
+			 
+			 try {
+				 ReplyDao replyDao = sqlsession.getMapper(ReplyDao.class);
+				 
+				 Reply parentReply = replyDao.getParentReply(parent_reply_no);
+				 
+				 int board_no = parentReply.getBoard_no();
+				 
+				 int ref = parentReply.getRef();
+				 
+				 int dept = (parentReply.getDept()) + 1;
+				 
+				 Reply reply = Reply.builder().userid(userid).board_no(board_no)
+							.ref(ref).reply_content(reReply_content).dept(dept).build();
+				 
+				 result = replyDao.reReplyRegister(reply);
+				 
+				 
+			} catch (Exception e) {
+			  e.printStackTrace();
+			 }
+			  
+			 return (result>=1) ? "성공":"실패";
+	  }
+
 
 }
