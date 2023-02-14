@@ -26,7 +26,7 @@
 					<table id="" class="table table-hover table-striped data-table">
 						<thead class="table-light">
 							<tr>
-								<th id="check">체크박스</th>
+								<th id="check"></th>
 								<th>닉네임</th>
 								<th>ID</th>
 								<th>수정</th>
@@ -56,19 +56,19 @@
 						</tfoot>
 					</table>
 				</div>
-				<div class="col-lg-1 col-md-12">
+				<div class="col-lg-1 col-md-12" style="margin:auto">
 					<div class="margin15" style="">
 						<button class="btn btn-outline-success margin15"><b>&lt;이동</b></button>
 					</div>
 					<div class="margin15">
-						<button class="btn btn-outline-danger margin15"><b>&gt;이동</b></button>
+						<button class="btn btn-outline-danger margin15"><b>이동&gt;</b></button>
 					</div>
 				</div>
 				<div class="col-lg-5 col-md-12">
 					<table id="" class="table table-hover table-striped data-table">
 						<thead class="table-light">
 							<tr>
-								<th id="check">체크박스</th>
+								<th id="check"></th>
 								<th>닉네임</th>
 								<th>ID</th>
 								<th>삭제</th>
