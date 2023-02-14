@@ -16,10 +16,10 @@ import kr.or.dummys.dto.CreateData;
 @RequestMapping("schema/")
 public class ajaxDummyData {
 	
+	
+	
 	@PostMapping("createData.do")
 	public ResponseEntity<Map<String, Object>> createDatas(@RequestBody CreateData data){
-		System.out.println("컨트롤러 들어옴~~~~~~~~~~~~~~");
-		System.out.println(data);
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		try {
@@ -33,10 +33,8 @@ public class ajaxDummyData {
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.BAD_REQUEST);
 		}
 	}
-	@PostMapping("saveData.do")
+	@PostMapping("saveSchema.do")
 	public ResponseEntity<Map<String, Object>> saveDatas(@RequestBody CreateData data){
-		System.out.println("컨트롤러 들어옴~~~~~~~~~~~~~~");
-		System.out.println(data);
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		try {

@@ -141,25 +141,31 @@
 
 </body>
 <script>
+	// variable setting
+	const list = $('#schemaarea');
+
+	let picked = null; 
+	let pickedIndex = null;
+
 	// ===== setting =====
 	$('.schema').attr('draggable','true');
 	$('div[data-type="close"] > .datasection').on({
 		click : delColumn
 	})
-	const list = $('#schemaarea');
-
-	let picked = null; 
-	let pickedIndex = null;
 	// ===== event setting =====
-		$("#btn1").on({
-			click: createDummy
-		})
-		$("#btn2").on({
-			click: createDummy
-		})
-		$("#addbtn").on({
-			click : addColumn
-		})
+	$("#btn1").on({
+		click: createDummy
+	})
+	$("#btn2").on({
+		click: createDummy
+	})
+	$("#addbtn").on({
+		click : addColumn
+	})
+	$('#btn3').on({
+		click: ()=>{console.log(readColumn())}
+	})
+
 	// ===== drag and drop set =====
 	list.on({
 		'dragstart':(e)=>{
@@ -179,6 +185,9 @@
 			index > pickedIndex ? obj[0].after(picked) : obj[0].before(picked)
 		}
 	});// list on end
+	// ===== drag and drop end =====
+
+	// createDummy() function start
 	function createDummy(){
 		let paramData = {
 				"row" : $('#rowNum').val(), // 생성할 데이터의 숫자
@@ -188,7 +197,6 @@
 				"schema_password" : $('#schema_password').val(),
 				"list" : readColumn()
 		}
-		console.log(paramData);
 		$.ajax({
 			type:"post",
 			url : "createData.do",
@@ -203,6 +211,30 @@
 		}) // ajax end
 	}// createDummy function end
 	
+	// saveSchema function start
+	function saveSchema(){
+		let paramData = {
+				"row" : $('#rowNum').val(), // 생성할 데이터의 숫자
+				"type" : $('#printType option:selected').val(), // 데이터 생성 타입 (Excel , JSON 등등...)
+				"schema_name" : $('#schemaName').val(),
+				"schema_no" : 0,
+				"schema_password" : $('#schema_password').val(),
+				"list" : readColumn()
+		}
+		$.ajax({
+			type:"post",
+			url : "saveSchema.do",
+			data : JSON.stringify(paramData),
+			contentType:'application/json',
+			success : (data)=>{
+				console.log(data);
+			},
+			error : (error)=>{
+				console.log(error);
+			}
+		}) // ajax end
+	}// createDummy function end
+
 	//컬럼 추가 함수
 	function addColumn(){
 		console.log('aa');
@@ -225,14 +257,13 @@
 			click : delColumn
 		})
 	}// adColumn Function end
+
+	// tr 삭제 함수
 	function delColumn(event){
 		$(event.target).closest('tr').remove();
 	}
 
-	$('#btn3').on({
-		click: ()=>{console.log(readColumn())}
-	})
-	
+	// Column 목록 읽어오기 
 	function readColumn(){
 		const read = $('.schema');
 		/* console.log(read); */
