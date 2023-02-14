@@ -292,10 +292,13 @@
                     		
                     		console.log(replyList.dept);
                     		
+                    		 let dept= 6*(replyList.dept);
+                    		//console.log(dept); 
+                    		
                     		let listReply = 
                                 '<li>'+
-                            		'<div class="col-md-12" >'+
-    		                        	'<div class="card" id="reply-card" style="padding-left: calc(30*'+replyList.dept+') !important"  value="'+replyList.reply_no+'">'+
+                            		'<div style="padding-left:'+ dept +'% !important">'+
+    		                        	'<div class="card" id="reply-card" value="'+replyList.reply_no+'">'+
     		                            '<div class="card-header">'+
     		                                '<strong class="card-title">'+replyList.nickname+'</strong> <span class="delete_reply badge float-right mt-1" data-value="'+replyList.reply_no +'">삭제</span><span class="badge float-right mt-1">수정</span><span class="add_reply badge float-right mt-1" id="reReply" data-value="'+replyList.reply_no +'">대댓글</span><span class="badge mt-1">'+'&nbsp'+'&nbsp'+'&nbsp'+ replyList.reply_date+'</span></small>'+
     		                            '</div>'+
@@ -308,7 +311,7 @@
                         	'</li>';
                         	
                         	let deletedReply=
-                        		'<div class="col-md-12">'+
+                        		'<div >'+
 	                				'<div class="card" id="deletedCard">'+
 		                           		'<div class="deleted-reply">' + '삭제된 댓글 입니다' + '</div>'+
 		                       		 '</div>'+
