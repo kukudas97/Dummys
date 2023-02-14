@@ -82,7 +82,9 @@ public class ajaxReplyController {
 		  Map<String, Object> result = new HashMap<String, Object>();
 		  
 			try {
-				result.put("result",replyService.reReplyRegister(parent_reply_no, reReply_content, principal.getName()));
+				Reply reply = replyService.reReplyRegister(parent_reply_no, reReply_content, principal.getName());
+				replyService.reReplyInsert(reply);
+				result.put("result","성공");
 			} catch (Exception e) {
 				result.put("result","실패");
 				e.printStackTrace();

@@ -31,7 +31,7 @@ select count(*) from reply where board_no=${board_no}
     from users inner join REPLY 
                 on reply.userid=users.userid
                 where BOARD_NO=${param3}
-                order by ref asc, reply_no asc) where rn between ${param1} and ${param2}
+                order by ref asc, step asc) where rn between ${param1} and ${param2}
  </select>
  
  
@@ -41,7 +41,7 @@ select count(*) from reply where board_no=${board_no}
  
  <insert id="replyRegister" parameterType="kr.or.dummys.dto.Reply">
  insert into reply (reply_no, userid, board_no, reply_content, reply_activate, reply_date, ref, dept, step)
- values(reply_no_seq.nextval, #{userid}, #{board_no}, #{reply_content}, 1, sysdate, #{ref},0,1)
+ values(reply_no_seq.nextval, #{userid}, #{board_no}, #{reply_content}, 1, sysdate, #{ref},0, 1)
  </insert>
  
 <!--  <update id="replyUpdate" parameterType="kr.or.dummys.dto.Reply">
@@ -62,7 +62,21 @@ where reply_no=${reply_no}
 		
 <insert id="reReplyRegister" parameterType="kr.or.dummys.dto.Reply">
  insert into reply (reply_no, userid, board_no, reply_content, reply_activate, reply_date, ref, dept, step)
- values(reply_no_seq.nextval, #{userid}, #{board_no}, #{reply_content}, 1, sysdate, #{ref}, #{dept}, 1)
+ values(reply_no_seq.nextval, #{userid}, #{board_no}, #{reply_content}, 1, sysdate, #{ref}, #{dept}, #{step})
 </insert>
+
+<select id="getUncleStepList" parameterType="kr.or.dummys.dto.Reply" resultType="kr.or.dummys.dto.Reply">
+select * from reply where board_no = #{board_no} and ref=${ref} and dept=${dept} and step>${step} order by ref asc, reply_no asc
+</select>
+
+<update id="updateStep" parameterType="kr.or.dummys.dto.Reply">
+UPDATE reply 
+SET STEP=STEP + 1
+where STEP >= ${step} and board_no = ${board_no} and ref = ${ref}
+</update>
+
+ <select id="getStep" resultType="int">
+ select nvl(max(step),0)+1 from reply where board_no = ${param1} and ref = ${param2}
+ </select>
 
 </mapper>

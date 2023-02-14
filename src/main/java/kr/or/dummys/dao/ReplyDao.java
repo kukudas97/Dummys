@@ -21,7 +21,7 @@ public interface ReplyDao {
 		int replyRegister(Reply reply) throws ClassNotFoundException, SQLException;
 		
 		//게시물 수정(update)
-		int replyUpdate(Reply reply) throws ClassNotFoundException, SQLException;
+		//int replyUpdate(Reply reply) throws ClassNotFoundException, SQLException;
 		
 		//게시물 삭제(delete)
 		int replyDelete(int reply_no) throws ClassNotFoundException, SQLException;
@@ -33,5 +33,13 @@ public interface ReplyDao {
 		
 		//대댓글 작성(insert)
 		int reReplyRegister(Reply reply) throws ClassNotFoundException, SQLException;
+		
+		//대댓글 작성 시 step update
+		int updateStep(Reply reply) throws ClassNotFoundException, SQLException;
+		
+		//step 가져오는 거
+		List<Reply> getUncleStepList(Reply reply)  throws ClassNotFoundException, SQLException;
+		
+		int getStep(int board_no, int ref) throws ClassNotFoundException, SQLException;
 
 }
