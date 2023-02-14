@@ -103,37 +103,27 @@
 									<td></td>
 									<td></td>
 								</tr>
+								<tr>
+									<td colspan="2" ><span class="col-md-4">#데이터 수</span><input type="text" id="rowNum" placeholder="데이터 개수" class="col-md-8" value="100"></td>
+									<td colspan="2" ><span class="col-md-4">#데이터 타입</span>
+										<div class="col-md-8"  style="display: inline-block;">
+											<select name="select" id="printType" class="form-control">
+	                                             <option value="0">Excel</option>
+	                                             <option value="1">JSON</option>
+	                                             <option value="2">CSV</option>
+	                                         </select>
+                                         </div>
+									</td>
+									<td></td>
+								</tr>
 							</tfoot>
 						</table>
 					</div>
 				</div>
 				<!-- footer -->
 				<div class="row">
-					<section id="footer"> <jsp:include
-						page="/WEB-INF/views/include/footer.jsp" /> </section>
-					<section>
+					<jsp:include page="/WEB-INF/views/include/footer.jsp" /> </section>
 				</div>
-				<!-- 					<div class="row">
-						<div class="inlineset">
-							<button id="adbtn">추가하기</button>
-						</div>
-					</div>
-					<hr>
-					<div class="row">
-						<div class="dataSet">
-							<div class="col-sm-auto col-md-auto col-lg-auto">
-								<span>#데이터수:</span><input type="text" name="row" id="row" value="1000">
-							</div>
-							<div class="col-sm-auto col-md-auto col-lg-auto">
-								<span>형식:</span>
-								<select name="" id="format">
-									<option value="1">Excel</option>
-									<option value="2">JSON</option>
-									<option value="3">CSV</option>
-								</select>
-							</div>
-						</div>
-					</div> -->
 			</div>
 		</div>
 	</div>
@@ -191,11 +181,11 @@
 	});// list on end
 	function createDummy(){
 		let paramData = {
-				"row" : 1000, // 생성할 데이터의 숫자
-				"type" : 1, // 데이터 생성 타입 (Excel , JSON 등등...)
+				"row" : $('#rowNum').val(), // 생성할 데이터의 숫자
+				"type" : $('#printType option:selected').val(), // 데이터 생성 타입 (Excel , JSON 등등...)
 				"schema_name" : $('#schemaName').val(),
 				"schema_no" : 0,
-				"schema_password" : "",
+				"schema_password" : $('#schema_password').val(),
 				"list" : readColumn()
 		}
 		console.log(paramData);
@@ -239,11 +229,6 @@
 		$(event.target).closest('tr').remove();
 	}
 
-	//==================test===============
-	/* "col_blank" : 0,
-	"col_function" : "테스트함수",
-	"col_order" : 1,
-	"col_options" : [1,100] */
 	$('#btn3').on({
 		click: ()=>{console.log(readColumn())}
 	})
