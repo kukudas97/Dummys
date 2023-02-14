@@ -103,11 +103,11 @@ font-family: 'Lato', sans-serif;
                     <div class="session-form">
                     
                     <se:authentication property="name" var="userid" />
-	                    <se:authorize access="!hasRole('ROLE_USER')">
+	                    <se:authorize access="!isAuthenticated()">
 		                    <a href="${pageContext.request.contextPath}/users/login.do">로그인</a>
 						    <a href="${pageContext.request.contextPath}/join/join.do">회원가입</a>
 					    </se:authorize>
-					    <se:authorize access="hasAnyRole('ROLE_USER')">
+					    <se:authorize access="isAuthenticated()">
 					    	<span>반갑습니다 &nbsp;&nbsp; ${userid} 님 :) </span>
 					    	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
 					    	<a href="#">마이페이지</a>

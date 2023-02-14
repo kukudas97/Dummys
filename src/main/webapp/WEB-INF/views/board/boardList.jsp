@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
@@ -69,9 +70,27 @@
                                     </tbody>
                                     
                                 </table>
-			                    <div class="boardWriteButton">
-			                    <a href="${pageContext.request.contextPath}/board/boardWrite.do?board_kind=${board_kind}"><input class="btn btn-outline-success" type="button" value="글쓰기"></a>
-			                    </div>
+                                
+                                <se:authentication property="name" var="userid" /> 
+                                <c:choose>
+	                                <c:when test = "${board_kind eq '공지사항'}" >
+		                                <se:authorize access="hasRole('ROLE_ADMIN')">
+						                    <div class="boardWriteButton">
+						                    <a href="${pageContext.request.contextPath}/board/boardWrite.do?board_kind=${board_kind}"><input class="btn btn-outline-success" type="button" value="글쓰기"></a>
+						                    </div>
+									   </se:authorize>
+	                            	</c:when>
+	                            	<c:otherwise>
+		                                <se:authorize access="isAuthenticated()">
+						                    <div class="boardWriteButton">
+						                    <a href="${pageContext.request.contextPath}/board/boardWrite.do?board_kind=${board_kind}"><input class="btn btn-outline-success" type="button" value="글쓰기"></a>
+						                    </div>
+									   </se:authorize>
+	                            	</c:otherwise>
+                            	</c:choose>
+                            	
+                            	
+                            	
                             </div>
                         </div>
                         

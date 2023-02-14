@@ -35,6 +35,7 @@ public class UsersController {
 		return "users/login";
 	}
 	
+	/*
 	@PostMapping("/login.do")
 	public String loginOK(@RequestParam("password") String rawPassword, Principal pri) {
 		String viewpage = "";
@@ -48,13 +49,14 @@ public class UsersController {
 		boolean result = bCryptPasswordEncoder.matches(rawPassword, encodedPassword);
 		
 		if(result) {
-			viewpage = "redirect:join.do";
-		}else {
 			viewpage = "redirect:index.do";
+		}else {
+			viewpage = "redirect:join.do";
 		}
 		
 		return viewpage;
 	}
+	*/
 	
 	//error
 	@GetMapping("/error.do")

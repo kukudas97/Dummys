@@ -18,7 +18,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	//회원 수정
 	public int updateUser(Users users);
-
+	
+	//전체 회원(활성화된)
+	public List<Users> listUsers();
+	
+	//전체회원(비활성화된)
+	public List<Users> listOutUsers();
  -->
 
 <mapper namespace="kr.or.dummys.dao.UserDao">
@@ -27,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         values(#{userid}, #{password}, #{nickname}, 1)
 	</insert>
 	
-	<select id="idCheck" resultType="int">
+	<select id="idCheck" parameterType="String" resultType="int">
 		select count(*) from users where userid=#{userid}
 	</select>
 	
@@ -43,5 +48,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update users
 		set password = #{password}, nickname=#{nickname} where userid = #{userid}
 	</update>
-
+	
+	<select id="listUsers" resultType="kr.or.dummys.dto.Users">
+		select * from users where enabled = 1
+	</select>
+	
+	<select id="listOutUsers" resultType="kr.or.dummys.dto.Users">
+		select * from users where enabled != 1 
+	</select>
 </mapper>

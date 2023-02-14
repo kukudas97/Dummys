@@ -24,8 +24,14 @@ public interface ReplyDao {
 		int replyUpdate(Reply reply) throws ClassNotFoundException, SQLException;
 		
 		//게시물 삭제(delete)
-		int replyDelete(String reply_no) throws ClassNotFoundException, SQLException;
+		int replyDelete(int reply_no) throws ClassNotFoundException, SQLException;
 		
 		int getRef(String board_no) throws ClassNotFoundException, SQLException;
+		
+		//부모 댓글 계층형 정보 가져옴
+		Reply getParentReply(int reply_no) throws ClassNotFoundException, SQLException;
+		
+		//대댓글 작성(insert)
+		int reReplyRegister(Reply reply) throws ClassNotFoundException, SQLException;
 
 }
