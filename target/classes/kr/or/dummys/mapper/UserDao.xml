@@ -50,10 +50,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<select id="listUsers" resultType="kr.or.dummys.dto.Users">
-		select * from users where enabled = 1
+		select u.userid as userid, password, nickname, enabled from users u join users_role r on u.userid = r.userid where u.enabled=1 and r.role_name = 'ROLE_USER'
+		
 	</select>
 	
 	<select id="listOutUsers" resultType="kr.or.dummys.dto.Users">
-		select * from users where enabled != 1 
+		select u.userid as userid, password, nickname, enabled from users u join users_role r on u.userid = r.userid where u.enabled!=1 and r.role_name = 'ROLE_USER'
 	</select>
 </mapper>
