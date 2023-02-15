@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<jsp:include page="/WEB-INF/views/include/head.jsp" />
+<%-- <jsp:include page="/WEB-INF/views/include/head.jsp" /> --%>
 <style>
 	input {
 	      display: inline-block;
@@ -71,10 +71,10 @@
 	                        	타입을 선택하세요
 	                        </span>
 							<div class="badge float-right mt-1">
-								<button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-star"></i>&nbsp; 전체 타입</button>
-								<button type="button" class="btn btn-outline-secondary btn-sm"><i class="fa fa-lightbulb-o"></i>&nbsp; 공식 타입</button>
-								<button type="button" class="btn btn-outline-success btn-sm"><i class="fa fa-magic"></i>&nbsp; 내 타입</button>
-								<button type="button" class="btn btn-outline-warning btn-sm"><i class="fa fa-map-marker"></i>&nbsp; 정규분포</button>
+								<button type="button" class="btn btn-outline-primary btn-sm" id="type_all_btn"><i class="fa fa-star"></i>&nbsp; 전체 타입</button>
+								<button type="button" class="btn btn-outline-secondary btn-sm"id="type_admin_btn"><i class="fa fa-lightbulb-o"></i>&nbsp; 공식 타입</button>
+								<button type="button" class="btn btn-outline-success btn-sm"id="type_mine_btn"><i class="fa fa-magic"></i>&nbsp; 내 타입</button>
+								<button type="button" class="btn btn-outline-warning btn-sm"id="type_gaussian_btn"><i class="fa fa-map-marker"></i>&nbsp; 정규분포</button>
 							</div>
 						</strong>
                     </div>
@@ -83,9 +83,10 @@
 							<table id="typeTable" class="table table-hover">
 								<thead>
 								  <tr>
-									<th>Firstname</th>
-									<th>Lastname</th>
-									<th>Email</th>
+									<th>타입번호</th>
+									<th>작성자</th>
+									<th>이름</th>
+									<th>설명</th>
 								  </tr>
 								</thead>
 								<tbody>
@@ -93,16 +94,19 @@
 									<td>John</td>
 									<td>Doe</td>
 									<td>john@example.com</td>
+									<td>john@example.com</td>
 								  </tr>
 								  <tr>
 									<td>Mary</td>
 									<td>Moe</td>
 									<td>mary@example.com</td>
+									<td>john@example.com</td>
 								  </tr>
 								  <tr>
 									<td>July</td>
 									<td>Dooley</td>
 									<td>july@example.com</td>
+									<td>john@example.com</td>
 								  </tr>
 								</tbody>
 							  </table>
@@ -238,39 +242,57 @@
 	/** Drag and Drop 이벤트용 변수 */
 	let picked = null; 
 	let pickedIndex = null;
-	// ===== setting =====
+	// ===== event/attr setting =====
 	$('.schema').attr('draggable','true');
 	$('div[data-type="close"] > .datasection').on({
 		click : delColumn
 	})
-	// ===== event setting =====
 	$("#btn1").on({
 		click: createDummy
 	})
 	$("#btn2").on({
 		click: createDummy
 	})
-	$("#addbtn").on({
-		click : addColumn
-	})
 	$('#btn3').on({
 		click: saveSchema
+	})
+	$("#addbtn").on({
+		click : addColumn
 	})
 	$('#typeCloseBtn').on({
 		click : ()=>{$('#typeChooseArea').toggle();}
 	})
 	$('#typeChooseArea').toggle();
 	$('div[data-type=type] input').on({
+		click : typeClickEventFunction
+	})
+	$('#type_all_btn').on({
 		click : ()=>{
-			pickedType = this;
-			$('#typeChooseArea').toggle();
+			typeType = "all"
+			readType();
+		}
+	})
+	$('#type_admin_btn').on({
+		click : ()=>{
+			typeType = "admin"
+			readType();
+		}
+	})
+	$('#type_mine_btn').on({
+		click : ()=>{
+			typeType = "mine"
+			readType();
+		}
+	})
+	$('#type_gaussian_btn').on({
+		click : ()=>{
+			
 		}
 	})
 	// ===== drag and drop set =====
 	list.on({
 		'dragstart':(e)=>{
 			if($(e.target).attr('data-type') != 'click'){
-				console.log('클릭 아님!')
 			}
 			const obj = $(e.target).closest('tr');
 			pickedIndex = [...obj[0].parentNode.children].indexOf(obj[0]);
@@ -304,10 +326,10 @@
 			data : JSON.stringify(paramData),
 			contentType:'application/json',
 			success : (data)=>{
-				console.log(data);
+
 			},
 			error : (error)=>{
-				console.log(error);
+
 			}
 		}) // ajax end
 	}// createDummy function end
@@ -329,17 +351,21 @@
 			data : JSON.stringify(paramData),
 			contentType:'application/json',
 			success : (data)=>{
-				console.log(data);
+				if(data.result == 'success'){
+					alert("저장 성공!");
+					location.href="/schema/schemaList.do?type=mine";
+				} else {
+					alert("저장 실패...");
+				}
 			},
 			error : (error)=>{
-				console.log(error);
+				alert("저장 실패...");
 			}
 		}) // ajax end
 	}// createDummy function end
 
 	//컬럼 추가 함수
 	function addColumn(){
-		console.log('aa');
 		let txt ='<tr class="schema" draggable="true">'+
 						'<td class="col-sm-2 col-md-2 col-lg-2"><div  data-type="name" ><div class="datasection"><input type="text" value="1"></div></div></td>'+
 						'<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="type" data-value="1" ><div class="datasection"><input data-value="161" type="text" value="타입1" readonly/></div></div></td>'+
@@ -358,6 +384,9 @@
 		$('div[data-type="close"] > .datasection').on({
 			click : delColumn
 		})
+		$('div[data-type=type] input').on({
+			click : typeClickEventFunction
+		})
 	}// adColumn Function end
 
 	// tr 삭제 함수
@@ -370,7 +399,8 @@
 		const read = $('.schema');
 		/* console.log(read); */
 		let colList = [];
-		colList.push($(read).map((index,data)=>{
+		
+		$(read).each((index,data)=>{
 			//const col_no = $(data).attr('data-index');
 			const schema_no = 1;
 			const type_no = $(data).find('div[data-type="type"] > .datasection > input').attr('data-value');
@@ -379,9 +409,10 @@
 			const col_function = '';
 			const col_order = index;
 			let col_options = [];
-			col_options.push($(data).find('div[data-type="selectoptions"] > .datasection > input').map((index,data)=>{
-				return $(data).val();
-			}));
+			$(data).find('div[data-type="selectoptions"] > .datasection > input').each((index,data)=>{
+				col_options.push($(data).val());
+			})
+			
 			const result = {
 				"col_no" : 0,
 				"schema_no" : schema_no,
@@ -390,33 +421,105 @@
 				"col_blank" : col_blank,
 				"col_function" : col_function,
 				"col_order" : col_order,
-				"col_options" : [...col_options[0]]
+				"col_options" : col_options
 			}
-			return result; //colList.push >> $(read).map(()=>{...}) end
-		})) //colList.push() end
-		return [...colList[0]];
+			colList.push(result) //colList.push() end
+		})
+		console.log(colList);
+		return colList;
 	}//readColumn function end
 	
+	function typeClickEventFunction(event){
+		pickedType = event.target;
+		$('#typeChooseArea').toggle();
+		readType();
+	}
+	
+	/** 타입 클릭시 타입 목록 읽어오기 */
 	function readType(){
+		$(".type-content").empty();
 		$.ajax({
 			"url" : "getTypeList.do",
 			"type" : "get",
 			"data" : {
-				"type" : "all",
+				"type" : typeType,
 				"searchKeyword" : ""
 			},
 			"success" : (data)=>{
-				console.log(data);
-			},
+				let appendText = '<table id="typeTable" class="table table-hover">'+
+										'<thead>'+
+										'<tr>'+
+											'<th>타입번호</th>'+
+											'<th>작성자</th>'+
+											'<th>이름</th>'+
+											'<th>설명</th>'+
+										'</tr>'+
+										'</thead>'+
+										'<tbody>';
+				$(data.list).each((index,type)=>{
+					appendText += 
+								  '<tr  type-value="' +type.type_no +'" process-no="'+type.process_no+'">'+
+									'<td>'+type.type_no+'</td>'+
+									'<td>'+type.userid+'</td>'+
+									'<td class="type_name">'+type.type_name+'</td>'+
+									'<td>'+type.type_reason+'</td>'+
+								  '</tr>';
+				})
+                appendText += '</tbody>'+
+									'</table>';
+									
+				$('.type-content').append(appendText);
+				
+				$('#typeTable > tbody > tr').on({
+					click : (event)=>{
+						let value = $(event.target).closest('tr').attr('type-value');
+						let name = $(event.target).closest('tr').find('.type_name').text();
+						let process_no = $(event.target).closest('tr').attr('process-no');
+						
+						$(pickedType).attr("data-value",value);
+						$(pickedType).val(name);
+						
+						let col_target = {
+							selectoption : $(pickedType).closest('tr').find('div[data-type=selectoptions] > .datasection').closest('td'),
+							option : $(pickedType).closest('tr').find('div[data-type=options] > .datasection').closest('td') ,
+							close : $(pickedType).closest('tr').find('div[data-type=close] > .datasection').closest('td'),
+							datasection : $(pickedType).closest('tr').find('div[data-type=selectoptions] > .datasection')
+						}
+						
+						$(col_target.selectoption).find('.datasection').empty();
+						
+						if(process_no == 0 || process_no == 1){
+							col_target.close[0].after(col_target.selectoption[0]);
+						} else if (process_no == 2){
+							const txt = '<input type="text" value="1" class="col-sm-6 col-md-6 col-lg-6" placeholder="min"><input type="text" value="100" class="col-sm-6 col-md-6 col-lg-6" placeholder="max">';
+							$(col_target.datasection).append(txt);
+							col_target.option[0].after(col_target.selectoption[0]);
+						} else if (process_no == 3){
+							const txt = '<input type="text" class="col-sm-12 col-md-12 col-lg-12" placeholder="정규분포를 선택해주세요" readonly>';
+							$(col_target.datasection).append(txt);
+							col_target.option[0].after(col_target.selectoption[0]);
+						}
+						$('#typeChooseArea').toggle();
+					}
+				}) // click event end
+				$('#typeTable').DataTable();
+			}, //success end
 			"error" : (error)=>{
-				console.log(data);
 			}
 		})
 	}
-
-
-
-	// ---------------------------------------- test
-	$('#typeTable').DataTable();
 	</script>
+	<script src="/resources/js/lib/data-table/datatables.min.js"></script>
+    <script src="/resources/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="/resources/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="/resources/js/lib/data-table/jszip.min.js"></script>
+    <script src="/resources/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="/resources/js/init/datatables-init.js"></script>
+    <script>
+    	$('#typeTable').DataTable();
+    </script>
 </html>

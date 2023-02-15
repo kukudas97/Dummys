@@ -50,7 +50,6 @@ public class ajaxDummyData {
 	@PostMapping("saveSchema.do")
 	public ResponseEntity<Map<String, Object>> saveDatas(@RequestBody CreateData data, Principal pri){
 		Map<String, Object> map = new HashMap<String, Object>();
-		
 		if(pri == null) {
 			map.put("result","login_error");
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
@@ -76,10 +75,10 @@ public class ajaxDummyData {
 	public ResponseEntity<Map<String, Object>> getType(@RequestParam("type") String type, @RequestParam("searchKeyword") String searchKeyword, Principal pri){
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		if(pri == null) {
-			map.put("result","login_error");
-			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
-		}
+//		if(pri == null) {
+//			map.put("result","login_error");
+//			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+//		}
 		List<Type> list = null;
 		try {
 			list = typeService.getTypeListBySql(type, searchKeyword, pri);

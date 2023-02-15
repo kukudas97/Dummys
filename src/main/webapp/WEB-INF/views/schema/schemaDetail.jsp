@@ -74,7 +74,7 @@
 							<tbody id="schemaarea">
 							<c:forEach items="${col_list }" var="col">
 								<c:choose>
-									<c:when test="${col.process_no == 1 || col.process_no == 2}">
+									<c:when test="${col.process_no == 0 || col.process_no == 1}">
 										<tr class="schema">
 											<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="name" ><div class="datasection"><input type="text" value="${col.col_name}"></div></div></td>
 											<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="type"><div class="datasection"><input data-value="${col.type_no}" type="text" value="${col.type_name}" readonly/></div></div></td>
@@ -83,7 +83,7 @@
 											<td class="col-sm-3 col-md-3 col-lg-3"><div data-type="selectoptions"  ><div class="datasection row"></div></div></td>
 										</tr>
 									</c:when>
-									<c:when test="${col.process_no == 3 }">
+									<c:when test="${col.process_no == 2 }">
 										<tr class="schema">
 											<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="name" ><div class="datasection"><input type="text" value="${col.col_name}"></div></div></td>
 											<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="type"><div class="datasection"><input data-value="${col.type_no}" type="text" value="${col.type_name}" readonly/></div></div></td>
@@ -99,7 +99,7 @@
 											<td class="col-sm-1 col-md-1 col-lg-1"><div data-type="close"  ><div class="datasection"><div class="icon-container"><span class="ti-close delBtn"></span></div></div></div></td>
 										</tr>
 									</c:when>
-									<c:when test="${col.process_no == 4}">
+									<c:when test="${col.process_no == 3}">
 										<tr>
 											<td colspan="5">
 												<h1>시나리오는 준비 중</h1>

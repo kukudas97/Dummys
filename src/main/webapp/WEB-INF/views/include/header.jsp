@@ -29,7 +29,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="/resources/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="/resources/css/style.css">
-      <link rel="stylesheet" href="/resources/css/lib/datatable/dataTables.bootstrap.min.css">
     
     <script src="/resources/js/main.js"></script>
 
