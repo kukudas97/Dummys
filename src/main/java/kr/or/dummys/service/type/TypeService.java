@@ -1,5 +1,6 @@
 package kr.or.dummys.service.type;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -128,5 +129,23 @@ public class TypeService {
 		random_form = typedao.getRandomFormType_no(type_no);
 		
 		return random_form;
+	}
+	public List<Type> getTypeListBySql(String type, String searchKeyword, Principal pri){
+		List<Type> list = null;
+		String sql = "";
+		
+		if(type.equals("mine")) {
+			sql += "and userid = '" + pri.getName()+"'";
+		} else if(type.equals("admin")) {
+			sql += "and type_category= 0";
+		}
+		sql += "and type_name like '%" + searchKeyword +"%'";
+		try {
+			TypeDao dao = sqlsession.getMapper(TypeDao.class);
+			list = dao.getTypeBySql(sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }
