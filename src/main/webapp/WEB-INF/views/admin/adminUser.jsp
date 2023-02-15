@@ -14,7 +14,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="row margin15">
-						<h1>회원관리</h1>
+						<h1><b>회원관리</b></h1>
 					</div>
 					<div class="전체 회원관리">
 						<p>회원 정보를 확인해보세요~</p>
@@ -23,7 +23,8 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-5 col-md-12">
-					<table id="" class="table table-hover table-striped data-table">
+					<h3 class="margin15">활성화된 회원</h3>
+					<table id="siuser" class="table table-hover table-striped data-table">
 						<thead class="table-light">
 							<tr>
 								<th id="check"></th>
@@ -34,8 +35,8 @@
 						</thead>
 						<tbody>
 							<c:forEach var="userlist" items="${userlist}">
-								<tr id="" in-data="${userlist.userid}">
-									<td><input type="checkbox" value="${userlist.userid}" name="delete_check"/></td>
+								<tr in-data="${userlist.userid}">
+									<td><input type="checkbox" value="${userlist.userid}" name="out_check"/></td>
 									<td>${userlist.nickname }</td>
 									<td>${userlist.userid }</td>
 									<td>
@@ -46,38 +47,31 @@
 								</tr>
 							</c:forEach>
 						</tbody>
-						<tfoot>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tfoot>
 					</table>
 				</div>
 				<div class="col-lg-1 col-md-12" style="margin:auto">
-					<div class="margin15" style="">
-						<button class="btn btn-outline-success margin15"><b>&lt;이동</b></button>
+					<div style="width : 65px; height:70px; margin:auto">
+						<button class="btn btn-outline-success" id="inuser"><b>&lt;이동</b></button>
 					</div>
-					<div class="margin15">
-						<button class="btn btn-outline-danger margin15"><b>이동&gt;</b></button>
+					<div style="width : 65px; height:80px; margin:auto">
+						<button class="btn btn-outline-danger" id="outuser"><b>이동&gt;</b></button>
 					</div>
 				</div>
 				<div class="col-lg-5 col-md-12">
-					<table id="" class="table table-hover table-striped data-table">
+					<h3 class="margin15">비활성화된 회원</h3>
+					<table id="disuser" class="table table-hover table-striped data-table">
 						<thead class="table-light">
 							<tr>
 								<th id="check"></th>
 								<th>닉네임</th>
 								<th>ID</th>
-								<th>삭제</th>
+								<th>수정</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="outuserlist" items="${outuserlist}">
-								<tr id="" out-data="${outuserlist.userid }">
-									<td><input type="checkbox" value="${outuserlist.userid}" name="delete_check"/></td>
+								<tr out-data="${outuserlist.userid }">
+									<td><input type="checkbox" value="${outuserlist.userid}" name="in_check"/></td>
 									<td>${outuserlist.nickname }</td>
 									<td>${outuserlist.userid }</td>
 									<td>
@@ -93,7 +87,7 @@
 								<td></td>
 								<td></td>
 								<td></td>
-								<td></td>
+								<td><button class="btn tablebtn btn-outline-secondary" id="delete">삭제</button></td>
 							</tr>
 						</tfoot>
 					</table>
@@ -102,6 +96,18 @@
 		</div>
 		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	</div>
-
 </body>
+<script type="text/javascript">
+document.getElementById("inuser").onclick = ()=>{
+	let users = [];
+	$("input[name=in_check]:checked").each((index,data)=>{
+		/* let user = $(data). */
+	})
+}
+
+function update(event){
+	let userid = $(event).attr("value");
+	location.href = "/admin/userupdate.do?userid="+ userid;
+}
+</script>
 </html>
