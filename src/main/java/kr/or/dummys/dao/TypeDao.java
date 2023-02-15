@@ -21,6 +21,9 @@ public interface TypeDao {
 	//카테고리 별 조회
 	public List<Type> getTypeCategory(int category);
 	
+	// 동적쿼리로 타입리스트 조회
+	public List<Type> getTypeBySql(String sql);
+	
 	//type상세
 	public Type typeDetail(int type_no);
 	

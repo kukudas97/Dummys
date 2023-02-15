@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -23,36 +24,6 @@
 	.delBtn {
 		cursor : pointer;
 	}
-	.content{
-		position: relative;
-	}
-	div[data-type=type] input{
-		cursor: pointer;
-	}
-	#typeChooseArea {
-		position: absolute;
-		background-color: rgba(0, 0, 0, 0.5); /* 검정색 배경색에 50% 투명도 적용 */
-		width: 100%;
-		height: 100%;
-		z-index: 1;
-		top: 0;
-		left: 0;
-		min-height: 1000px;
-	}
-	#typeChooseArea .child {
-	    position: absolute;
-	    width: 90%;
-	    height: 90%;
-	    top: 5%;
-	    left: 5%;
-	  	opacity: 1;
-	}
-	.type-content{
-		height: calc(100% - 40px);
-	}
-	.type-bottom{
-		height: 40px;
-	}
 	</style>
 </head>
 <body>
@@ -63,58 +34,6 @@
 		<section id="header"> <jsp:include
 			page="/WEB-INF/views/include/header.jsp" /> </section>
 		<div class="content">
-			<div id="typeChooseArea">
-				<div class="card child">
-					<div class="card-header">
-                        <strong class="card-title">
-	                        <span class="float-left mt-2">
-	                        	타입을 선택하세요
-	                        </span>
-							<div class="badge float-right mt-1">
-								<button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-star"></i>&nbsp; 전체 타입</button>
-								<button type="button" class="btn btn-outline-secondary btn-sm"><i class="fa fa-lightbulb-o"></i>&nbsp; 공식 타입</button>
-								<button type="button" class="btn btn-outline-success btn-sm"><i class="fa fa-magic"></i>&nbsp; 내 타입</button>
-								<button type="button" class="btn btn-outline-warning btn-sm"><i class="fa fa-map-marker"></i>&nbsp; 정규분포</button>
-							</div>
-						</strong>
-                    </div>
-					<div class="card-body">
-						<div class="type-content">
-							<table id="typeTable" class="table table-hover">
-								<thead>
-								  <tr>
-									<th>Firstname</th>
-									<th>Lastname</th>
-									<th>Email</th>
-								  </tr>
-								</thead>
-								<tbody>
-								  <tr>
-									<td>John</td>
-									<td>Doe</td>
-									<td>john@example.com</td>
-								  </tr>
-								  <tr>
-									<td>Mary</td>
-									<td>Moe</td>
-									<td>mary@example.com</td>
-								  </tr>
-								  <tr>
-									<td>July</td>
-									<td>Dooley</td>
-									<td>july@example.com</td>
-								  </tr>
-								</tbody>
-							  </table>
-						</div>
-						<div class="type-bottom">
-							<div class="badge float-right mt-1">
-								<button type="button" class="btn btn-secondary btn-sm" id="typeCloseBtn">닫기</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="continer">
 			<!-- 상단 설명 -->
 				<div class="row">
@@ -137,12 +56,12 @@
 						<table class="table table-striped">
 							<thead class="table-light">
 								<tr>
-									<th colspan="2" ><span class="col-md-4">#스키마 이름</span><input type="text" id="schemaName" placeholder="스키마 이름" class="col-md-8"></th>
-									<th colspan="2" ><span class="col-md-4">#스키마 비밀번호</span><input type="text" id="schema_password" placeholder="있을 경우 비공개" class="col-md-8"></th>
+									<th colspan="2" ><span class="col-md-4">#스키마 이름</span><input type="text" id="schemaName" placeholder="스키마 이름" class="col-md-8" value="${schema.schema_name }"></th>
+									<th colspan="2" ><span class="col-md-4">#스키마 비밀번호</span><input type="text" id="schema_password" placeholder="있을 경우 비공개" class="col-md-8" value="${schema.schema_password }"></th>
 									<th></th>
 								</tr>
 								<tr>
-									<th colspan="4" ><span class="col-md-4">#스키마 설명</span><input type="text" id="schemaContent" placeholder="스키마 설명" class="col-md-8"></th>
+									<th colspan="4" ><span class="col-md-4">#스키마 설명</span><input type="text" id="schemaContent" placeholder="스키마 설명" class="col-md-8" value="${schema.schema_content }"></th>
 									<th></th>
 								</tr>
 								<tr>
@@ -153,33 +72,42 @@
 								</tr>
 							</thead>
 							<tbody id="schemaarea">
-								<tr class="schema">
-									<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="name" ><div class="datasection"><input type="text" value="1"></div></div></td>
-									<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="type" data-value="1" ><div class="datasection"><input data-value="161" type="text" value="타입1" readonly/></div></div></td>
-									<td class="col-sm-3 col-md-3 col-lg-3"><div data-type="options"  ><div class="datasection"><input type="text" value="1"></div></div></td>
-									<td class="col-sm-3 col-md-3 col-lg-3">
-										<div data-type="selectoptions"  >
-											<div class="datasection row">
-												<input type="text" value="1" class="col-sm-6 col-md-6 col-lg-6" placeholder="min">
-												<input type="text" value="100" class="col-sm-6 col-md-6 col-lg-6" placeholder="max">
-											</div>
-										</div>
-									</td>
-									<td class="col-sm-1 col-md-1 col-lg-1"><div data-type="close"  ><div class="datasection"><div class="icon-container"><span class="ti-close delBtn"></span></div></div></div></td>
-								</tr>
-								<tr class="schema">
-									<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="name" ><div class="datasection"><input type="text" value="1"></div></div></td>
-									<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="type" data-value="1" ><div class="datasection"><input data-value="161" type="text" value="타입1" readonly/></div></div></td>
-									<td class="col-sm-3 col-md-3 col-lg-3"><div data-type="options"  ><div class="datasection"><input type="text" value="1"></div></div></td>
-									<td class="col-sm-1 col-md-1 col-lg-1"><div data-type="close"  ><div class="datasection"><div class="icon-container"><span class="ti-close delBtn"></span></div></div></div></td>
-									<td class="col-sm-3 col-md-3 col-lg-3">
-										<div data-type="selectoptions"  >
-											<div class="datasection row">
-												
-											</div>
-										</div>
-									</td>
-								</tr>
+							<c:forEach items="${col_list }" var="col">
+								<c:choose>
+									<c:when test="${col.process_no == 1 || col.process_no == 2}">
+										<tr class="schema">
+											<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="name" ><div class="datasection"><input type="text" value="${col.col_name}"></div></div></td>
+											<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="type"><div class="datasection"><input data-value="${col.type_no}" type="text" value="${col.type_name}" readonly/></div></div></td>
+											<td class="col-sm-3 col-md-3 col-lg-3"><div data-type="options"  ><div class="datasection"><input type="text" value="${col.col_blank}"></div></div></td>
+											<td class="col-sm-1 col-md-1 col-lg-1"><div data-type="close"  ><div class="datasection"><div class="icon-container"><span class="ti-close delBtn"></span></div></div></div></td>
+											<td class="col-sm-3 col-md-3 col-lg-3"><div data-type="selectoptions"  ><div class="datasection row"></div></div></td>
+										</tr>
+									</c:when>
+									<c:when test="${col.process_no == 3 }">
+										<tr class="schema">
+											<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="name" ><div class="datasection"><input type="text" value="${col.col_name}"></div></div></td>
+											<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="type"><div class="datasection"><input data-value="${col.type_no}" type="text" value="${col.type_name}" readonly/></div></div></td>
+											<td class="col-sm-3 col-md-3 col-lg-3"><div data-type="options"  ><div class="datasection"><input type="text" value="${col.col_blank}"></div></div></td>
+											<td class="col-sm-3 col-md-3 col-lg-3">
+												<div data-type="selectoptions"  >
+													<div class="datasection row">
+														<input type="text" value="${col.col_options[0]}" class="col-sm-6 col-md-6 col-lg-6" placeholder="min">
+														<input type="text" value="${col.col_options[1]}" class="col-sm-6 col-md-6 col-lg-6" placeholder="max">
+													</div>
+												</div>
+											</td>
+											<td class="col-sm-1 col-md-1 col-lg-1"><div data-type="close"  ><div class="datasection"><div class="icon-container"><span class="ti-close delBtn"></span></div></div></div></td>
+										</tr>
+									</c:when>
+									<c:when test="${col.process_no == 4}">
+										<tr>
+											<td colspan="5">
+												<h1>시나리오는 준비 중</h1>
+											</td>
+										</tr>
+									</c:when>
+								</c:choose>
+							</c:forEach>
 							</tbody>
 							<tfoot>
 								<tr>
@@ -229,15 +157,10 @@
 <script>
 	// variable setting
 	const list = $('#schemaarea');
-	/** 현재 선택한 타입 input 태그 */
-	let pickedType = null;
-	/** 현재 선택한 타입 목록의 종류 전체, 공공, 내 타입*/
-	let typeType = "all";
-	/** 검색어 */
-	let searchKeyword = "";
-	/** Drag and Drop 이벤트용 변수 */
+
 	let picked = null; 
 	let pickedIndex = null;
+
 	// ===== setting =====
 	$('.schema').attr('draggable','true');
 	$('div[data-type="close"] > .datasection').on({
@@ -256,16 +179,7 @@
 	$('#btn3').on({
 		click: saveSchema
 	})
-	$('#typeCloseBtn').on({
-		click : ()=>{$('#typeChooseArea').toggle();}
-	})
-	$('#typeChooseArea').toggle();
-	$('div[data-type=type] input').on({
-		click : ()=>{
-			pickedType = this;
-			$('#typeChooseArea').toggle();
-		}
-	})
+
 	// ===== drag and drop set =====
 	list.on({
 		'dragstart':(e)=>{
@@ -396,27 +310,5 @@
 		})) //colList.push() end
 		return [...colList[0]];
 	}//readColumn function end
-	
-	function readType(){
-		$.ajax({
-			"url" : "getTypeList.do",
-			"type" : "get",
-			"data" : {
-				"type" : "all",
-				"searchKeyword" : ""
-			},
-			"success" : (data)=>{
-				console.log(data);
-			},
-			"error" : (error)=>{
-				console.log(data);
-			}
-		})
-	}
-
-
-
-	// ---------------------------------------- test
-	$('#typeTable').DataTable();
 	</script>
 </html>
