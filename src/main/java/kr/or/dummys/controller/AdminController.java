@@ -22,7 +22,7 @@ public class AdminController {
 	@GetMapping("/admin.do")
 	public String  adminMain() {
 		
-		return "admin/admin";
+		return "admin/adminChart";
 	}
 	
 	//유저 관리 페이지
