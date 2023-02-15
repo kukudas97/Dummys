@@ -71,7 +71,8 @@
                                     
                                 </table>
                                 
-                                <se:authentication property="name" var="userid" /> 
+                                
+
                                 <c:choose>
 	                                <c:when test = "${board_kind eq '공지사항'}" >
 		                                <se:authorize access="hasRole('ROLE_ADMIN')">

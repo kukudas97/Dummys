@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
@@ -28,6 +29,7 @@
 
 </head>
 <body>
+<se:authentication property="name" var="userid" />
     <!-- Left Panel -->
 <jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
     <!-- /#left-panel -->
@@ -91,7 +93,7 @@
 	                            <div class="reply-view row">
 	                            	<ul class="chat" id="reply" style="width: 100%"></ul>
               					</div>
-              					
+
               					<div class="add-reply">
 	                        		<button type="button" class="btn btn-outline-success btn-sm" id="addReplyBtn">댓글작성</button>
 	                            </div>
@@ -103,23 +105,7 @@
 	                                 <button class="btn" id="register_reply">등록</button>
 	                                 <button class="btn" id="reply_reset">취소</button>
 	                            </div>
-	                            
-	                            
-	              <!--               <div id="addReReplyForm" class="form-floating " style="width: 80%">
-	                                <textarea class="form-control" placeholder="댓글의 댓글을 작성하세요"
-	                                    id="reply_content" style="height: 100px; margin-bottom: 5px; "></textarea>
-	                                 <hidden id="reply_userid" />
-	                                 <button class="btn" id="register_reply">등록</button>
-	                                 <button class="btn" id="reply_reset">취소</button>
-	                            </div> -->
-	                            
-	                            
-	                            
-	                          		<!-- 댓글 삭제 뷰 테스트 -->
-								<!--<div class="card col-md-12" id="deletedCard">
-    		                           <div class="deleted-reply">삭제된 댓글 입니다</div>
-    		                        </div> -->
-    		                      
+
     		                    </div>
     		                    
     		                    
@@ -168,7 +154,7 @@
                 	});
                 	
                 	  //대댓글 뷰 추가 230212
-					$(document).on("click", "#reReply", function(){
+					$(document).on("click", ".add_reply", function(){
                     		let test1 = $(this).parents(); //멀쓸지 구분
                     		console.log("test2 : "+  test1);
 
@@ -178,7 +164,10 @@
                     		
                     		console.log(test);
                     		//$("#addReReplyForm").addClass(".writeReReplyForm");
-                    		$(this).parents().children().eq(7).append(
+                    		let area = $(this).parents().siblings('.reReplyForm');
+                    		$(area).empty();
+                    		$(area).append(
+                    		//$(this).().append(
                     			'<div id="addReReplyForm" class="form-floating " style="width: 90%; float: right; padding-right: 10px;">'+
 	                                '<textarea class="form-control" placeholder="댓글의 댓글을 작성하세요" ' +
 	                                   ' id="reReply_content" style="height: 75px; margin-bottom: 5px; "></textarea> '+
@@ -280,39 +269,40 @@
                 		"dataType" : "json", //return type
                 		"data" : {"board_no": '${board.board_no}'},
                 		"success" : (result)=>{
-                			
-                			//230211////////////////////////////////////////////////
-                			console.log(result);
-                			console.log(result[0].reply_activate);
-                			////////////////////////////////////////////////////////
 
                 		$('#reply').empty();
                 			
                     	$(result).each(function(index, replyList){
                     		
-                    		console.log(replyList.dept);
-                    		
                     		 let dept= 6*(replyList.dept);
-                    		//console.log(dept); 
+                    		console.log('${userid}'); 
                     		
                     		let listReply = 
                                 '<li>'+
                             		'<div style="padding-left:'+ dept +'% !important">'+
     		                        	'<div class="card" id="reply-card" value="'+replyList.reply_no+'">'+
     		                            '<div class="card-header">'+
-    		                                '<strong class="card-title">'+replyList.nickname+'</strong> <span class="delete_reply badge float-right mt-1" data-value="'+replyList.reply_no +'">삭제</span><span class="badge float-right mt-1">수정</span><span class="add_reply badge float-right mt-1" id="reReply" data-value="'+replyList.reply_no +'">대댓글</span><span class="badge mt-1">'+'&nbsp'+'&nbsp'+'&nbsp'+ replyList.reply_date+'</span></small>'+
+    		                                '<strong class="card-title">'+replyList.nickname+'</strong> ';
+											if(replyList.userid == '${userid}'){
+												listReply +=
+												'<span class="delete_reply badge float-right mt-1" data-value="'+replyList.reply_no +'">삭제</span>'+
+	    		                                '<span class="badge float-right mt-1">수정</span>';
+											}
+    		                                
+    		                   listReply += '<span class="add_reply badge float-right mt-1" data-value="'+replyList.reply_no +'">대댓글</span>'+
+    		                                '<span class="badge mt-1">'+'&nbsp'+'&nbsp'+'&nbsp'+ replyList.reply_date+'</span>'+
     		                            '</div>'+
     		                            '<div class="card-body">'+
     		                                '<p class="card-text">'+replyList.reply_content+'</p>'+
     		                            '</div>'+
-    		                            '<div name="reReply"></div>'+
+    		                            '<div class="reReplyForm"></div>'+
     		                        '</div>'+
     		                    '</div>'+
                         	'</li>';
                         	
                         	let deletedReply=
-                        		'<div >'+
-	                				'<div class="card" id="deletedCard">'+
+                        		'<div class="card">'+
+	                				'<div class="deleted-reply" id="deletedCard">'+
 		                           		'<div class="deleted-reply">' + '삭제된 댓글 입니다' + '</div>'+
 		                       		 '</div>'+
 	                       		 '</div>';

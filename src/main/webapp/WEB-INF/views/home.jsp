@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+     <link rel="icon" href="/resources/images/DummysFavicon.png" type="image/x-icon" sizes="16x16">
 </head>
 	<body>
     <!-- Left Panel -->
