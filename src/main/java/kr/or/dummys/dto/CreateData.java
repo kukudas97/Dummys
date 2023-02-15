@@ -11,5 +11,6 @@ public class CreateData {
 	private String schema_name;
 	private int schema_no;
 	private String schema_password;
+	private String schema_content;
 	private List<Col> list;
 }

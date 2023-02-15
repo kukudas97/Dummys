@@ -14,13 +14,14 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="/schema/createdummys.do" class="dropdown-toggle" > <i class="menu-icon fa fa-cogs"></i>Schemas</a>
                     </li>
-<!-- 					<li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
-                        <ul class="sub-menu children dropdown-menu"><li class="subtitle"> <i class="menu-icon fa fa-table"></i>Tables</li>
-                            <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
+					<li class="menu-item-has-children dropdown show">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-table"></i>Schema</a>
+                        <ul class="sub-menu children dropdown-menu show"><li class="subtitle"> <i class="menu-icon fa fa-table"></i>Schema</li>
+                            <li><i class="fa fa-table"></i><a href="/schema/schemaList.do?type=all">전체 스키마 리스트</a></li>
+                            <li><i class="fa fa-table"></i><a href="/schema/schemaList.do?type=mine">내 스키마 리스트</a></li>
+                            <li><i class="fa fa-table"></i><a href="/schema/schemaCreate.do">스키마 만들기</a></li>
                         </ul>
-                    </li> -->
+                    </li>
                         
                     <li class="menu-item-has-children dropdown">
                         <a href="/type/typelist.do" class="dropdown-toggle" > <i class="menu-icon fa fa-table"></i>Datasets</a>

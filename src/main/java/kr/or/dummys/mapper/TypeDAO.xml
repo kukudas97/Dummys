@@ -96,4 +96,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 <delete id="deleteDummy">
 	 	delete from dummy_data where type_no = ${seq}
 	 </delete>
+	 
+	 <select id="getTypeBySql" resultType="kr.or.dummys.dto.Type">
+	 	select type_no, userid, process_no, type_name, type_reason, type_category from type where
+	 	type_delete = 0 and type_open = 0 ${param1}
+	 </select>
 </mapper>
