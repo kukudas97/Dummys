@@ -101,7 +101,7 @@
 document.getElementById("inuser").onclick = ()=>{
 	let users = [];
 	$("input[name=in_check]:checked").each((index,data)=>{
-		let user = $(data).
+		/* let user = $(data). */
 	})
 }
 
