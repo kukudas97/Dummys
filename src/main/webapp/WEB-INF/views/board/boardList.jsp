@@ -41,7 +41,7 @@
             <div class="animated fadeIn">
                 <div class="row">
 
-                    <div class="col-md-12">
+                    <div class="col-md-12 board">
                         <div class="card">
                             <div class="card-header">
                                  <h5 class="m-0 font-weight-bold board_kind"><c:out value="${board_kind}"/></h5>

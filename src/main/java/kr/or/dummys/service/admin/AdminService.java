@@ -7,8 +7,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.or.dummys.dao.TypeDao;
 import kr.or.dummys.dao.UserDao;
 import kr.or.dummys.dto.Users;
+import kr.or.dummys.dto.Type;
 
 @Service
 public class AdminService {
@@ -37,4 +39,19 @@ public class AdminService {
 		
 		return listoutusers;
 	}
+	
+	//타입 리스트(DB)
+	public List<Type> typeList(){
+		//DB 작업
+		List<Type> typeList = null;
+		
+		try {
+			TypeDao typeDao = sqlsession.getMapper(TypeDao.class);
+			typeList = typeDao.getChartType();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return typeList;
+	}
+	
 }

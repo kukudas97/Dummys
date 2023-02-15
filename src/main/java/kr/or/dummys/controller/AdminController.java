@@ -8,6 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import kr.or.dummys.dto.Type;
 import kr.or.dummys.dto.Users;
 import kr.or.dummys.service.admin.AdminService;
 
@@ -20,8 +24,18 @@ public class AdminController {
 	
 	//차트 페이지로 할 예정
 	@GetMapping("/admin.do")
-	public String  adminMain() {
+	public String  adminChart(Model model) {
+		List<Type> typeList = adminservice.typeList();
 		
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonString = null;
+		try {
+			jsonString = mapper.writeValueAsString(typeList);
+		} catch (Exception e) {
+			System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ");
+		}
+		model.addAttribute("typeList", typeList);
+		model.addAttribute("jsonTypeList", jsonString);
 		return "admin/adminChart";
 	}
 	

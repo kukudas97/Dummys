@@ -12,4 +12,5 @@ public class Type {
 	private int type_category;
 	private int type_open;
 	private int type_delete;
+	private int type_count;
 }

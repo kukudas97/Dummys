@@ -2694,7 +2694,7 @@ font-size: 17px;
 	padding-top: 15px;
 }
 
-.card .card-header {
+.board .card .card-header{
 	background: #f3f8f4;
 }
 .delete_reply , .add_reply{
@@ -2708,6 +2708,36 @@ font-size: 17px;
 	height: 50px;
 	margin-left: 5px;
   vertical-align:middle;
+}
+.admin .card .card-header{
+	background: #e4e5ff;
+}
+
+.admin .card .card-header h5{
+	color: #5D6DBE;
+	font-weight: bold;
+	font-size: 24px;
+}
+
+.admin .card-body{
+ 	display: inline;
+
+}
+.adminTypeTable{
+	width: 80%;
+	text-align: center;
+	margin: auto;
+}
+
+
+
+.adminTypeChart{
+	padding-top: 75px;
+}
+
+#type_chart {
+	width: 70%;
+	margin: auto;
 }
 
 
