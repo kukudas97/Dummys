@@ -2740,7 +2740,19 @@ font-size: 17px;
 	margin: auto;
 }
 
+.myBoard , .myReplyBoard {
+	margin: auto;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
 
+.card-body h3{
+	font-size: 20px;
+}
+
+.card-body table{
+	margin-top: 15px;
+}
 /*재홍*/
 #main_content{
 	margin: 20px;

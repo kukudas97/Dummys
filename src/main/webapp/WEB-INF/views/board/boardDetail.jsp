@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/include/head.jsp" />
+<%-- <jsp:include page="/WEB-INF/views/include/head.jsp" /> --%>
 <style>
 #write-reply{
 	display:none;

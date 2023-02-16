@@ -54,7 +54,7 @@
 				 
 				<section class="DataFormatSelection col-sm-6 col-md-6 col-lg-6">
 					<section class="SelectContent">
-					<div class="QuickStartMsg"><span>반환되는 데이터의 형식을 선택하세요</span></div>
+					<div class="QuickStartMsg"><span>생성할 데이터의 형식을 선택하세요</span></div>
 					</section>
 					<section class="DataFormat">
 					<div class="DataTypeToggle">JSON</div>
