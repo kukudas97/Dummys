@@ -3,19 +3,28 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.dummys.dao.SchemaDao">
+
+	<!-- select -->
+	
 	<select id="getSchemaList" resultType="kr.or.dummys.dto.Schema">
 		select s.schema_no, userid, schema_name, schema_content, to_char(schema_date,'yyyy-mm-dd') as schema_date, schema_password from schema s ${param2} schema_pwd p on s.schema_no = p.schema_no where schema_delete = 1 ${param1}
 	</select>
+	
 	<select id="getSchemaByNo" resultType="kr.or.dummys.dto.Schema">
 		select s.schema_no, userid, schema_name, schema_content, to_char(schema_date,'yyyy-mm-dd') as schema_date, schema_password from schema s left join schema_pwd p on s.schema_no = p.schema_no where s.schema_no = ${schema_no} 
 	</select>
+	
 	<select id="getColListBySchemaNo" resultType="kr.or.dummys.dto.Col">
 		select col_no, schema_no, c.type_no, type_name, process_no, col_name, col_blank, col_function 
 		from col c left join type t on c.type_no = t.type_no where schema_no = ${param1} 
 	</select>
+	
 	<select id="getOptionsByColNo" resultType="int">
 		select option_result from options where col_no = ${param1} 
 	</select>
+	
+	<!-- insert -->
+	
 	<insert id="insertSchema" parameterType="kr.or.dummys.dto.Schema">
 		insert into schema(schema_no,userid,schema_name,schema_content,schema_date,schema_delete) 
 		values(schema_no_seq.nextval, #{userid}, #{schema_name}, #{schema_content}, sysdate, 1)
@@ -23,6 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select schema_no_seq.currval from dual
 		</selectKey>
 	</insert>
+	
 	<insert id="insertColumn" parameterType="kr.or.dummys.dto.Col">
 		insert into col(col_no, schema_no, type_no, col_name, col_blank, col_function, col_order)
 					values (col_no_seq.nextval, ${schema_no}, ${type_no}, #{col_name}, ${col_blank}, '-',${col_order})
@@ -30,9 +40,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select col_no_seq.currval from dual
 		</selectKey>
 	</insert>
-	<delete id="deleteColumn">
-		delete from col where col_no = ${param1}
-	</delete>
+	
+	<insert id="insertOptions">
+		insert into options(col_no,option_no,option_result)
+							values(${param1},option_no_seq.nextval,${param2})
+	</insert>
+	
+	<insert id="insertSchemaPassword" parameterType="kr.or.dummys.dto.Schema">
+		insert into schema_pwd(schema_no,schema_password)
+									values(${schema_no}, #{schema_password})
+	</insert>
+	
+	<!-- update -->
+	
 	<update id="updateSchema" parameterType="kr.or.dummys.dto.Schema">
 		update schema set 
 		schema_name = #{schema_name}, 
@@ -40,17 +60,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		schema_date = sysdate
 		where schema_no = ${schema_no}
 	</update>
+	
+	<!-- delete -->
+	
 	<update id="deleteSchemaByNo">
 		update schema set
 		schema_delete = 0
 		where schema_no = ${param1}
 	</update>
-	<insert id="insertOptions">
-		insert into options(col_no,option_no,option_result)
-							values(${param1},option_no_seq.nextval,${param2})
-	</insert>
-	<insert id="insertSchemaPassword" parameterType="kr.or.dummys.dto.Schema">
-		insert into schema_pwd(schema_no,schema_password)
-									values(${schema_no}, #{schema_password})
-	</insert>
+	
+	<delete id="deleteColumn">
+		delete from col where schema_no = ${param1}
+	</delete>
+	
+	<delete id="deletePasswordByNo">
+		delete from schema_pwd where schema_no = ${param1}
+	</delete>	
+	
 </mapper>

@@ -20,4 +20,5 @@ public interface SchemaDao {
 	
 	public int deleteColumn(int schema_no);
 	public int deleteSchemaByNo(int schema_no);
+	public int deletePasswordByNo(int schema_no);
 }
