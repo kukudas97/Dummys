@@ -51,6 +51,7 @@ public class AdminController {
 		model.addAttribute("userlist", listUsers);
 		model.addAttribute("outuserlist", listOutUsers);
 		
+		
 		return "admin/adminUser";
 	}
 	

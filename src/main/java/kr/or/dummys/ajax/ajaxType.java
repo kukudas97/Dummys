@@ -27,7 +27,6 @@ public class ajaxType {
 	@PostMapping("/delete.do")
 	public ResponseEntity<Map<String, Object>> delteType(@RequestBody List<Integer> type_no_list){
 		
-		System.out.println("delete.do");
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		try {
@@ -45,7 +44,6 @@ public class ajaxType {
 	@PostMapping("/listDetail.do")
 	public ResponseEntity<Map<String, Object>> listDetail(@RequestBody int type_no){
 		
-		System.out.println("listDetail.do");
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		try {

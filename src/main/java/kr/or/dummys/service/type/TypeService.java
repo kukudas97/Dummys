@@ -101,7 +101,6 @@ public class TypeService {
 		int result_all = 0;
 		
 		for(int type_no : type_no_list) {
-			System.out.println(type_no);
 			result_all += typedao.deleteType(type_no);
 		}
 		

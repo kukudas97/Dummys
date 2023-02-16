@@ -28,6 +28,11 @@ public interface UserDao {
 	//전체회원(비활성화된)
 	public List<Users> listOutUsers();
 	
+	//회원 활성화
+	public int inUser(String userid);
+	
+	//회원 비활성화
+	public int outUser(String userid);
 	//회원 지가 쓴 게시글 목록(마이페이지)
 	public List<Board> myBoardList(String userid);
 	

@@ -30,7 +30,6 @@
 								<th id="check"></th>
 								<th>닉네임</th>
 								<th>ID</th>
-								<th>수정</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -39,11 +38,6 @@
 									<td><input type="checkbox" value="${userlist.userid}" name="out_check"/></td>
 									<td>${userlist.nickname }</td>
 									<td>${userlist.userid }</td>
-									<td>
-									<button class="btn btn-outline-primary" style="padding-bottom: 2px; padding-top: 2px" value="${userlist.userid}" onclick="update(this)" name="update">
-									수정
-									</button>
-									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -65,7 +59,6 @@
 								<th id="check"></th>
 								<th>닉네임</th>
 								<th>ID</th>
-								<th>수정</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -74,22 +67,9 @@
 									<td><input type="checkbox" value="${outuserlist.userid}" name="in_check"/></td>
 									<td>${outuserlist.nickname }</td>
 									<td>${outuserlist.userid }</td>
-									<td>
-									<button class="btn btn-outline-primary" style="padding-bottom: 2px; padding-top: 2px"  value="${outuserlist.userid}" onclick="update(this)" name="update">
-									수정
-									</button>
-									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
-						<tfoot>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td><button class="btn tablebtn btn-outline-secondary" id="delete">삭제</button></td>
-							</tr>
-						</tfoot>
 					</table>
 				</div>
 			</div>
@@ -97,18 +77,72 @@
 		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	</div>
 </body>
+
+    <script src="/resources/js/lib/data-table/datatables.min.js"></script>
+    <script src="/resources/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="/resources/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="/resources/js/lib/data-table/jszip.min.js"></script>
+    <script src="/resources/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="/resources/js/init/datatables-init.js"></script>
+
 <script type="text/javascript">
+$(document).ready(function() {
+    $('#siuser').DataTable({
+  	  order:[[0, "desc"]]
+    });
+    
+    $('#disuser').DataTable({
+    	  order:[[0, "desc"]]
+      });
+} );
+
 document.getElementById("inuser").onclick = ()=>{
-	let users = [];
+	let inusers = [];
 	$("input[name=in_check]:checked").each((index,data)=>{
-		/* let user = $(data). */
-		
+		let check = $(data).val();
+		inusers.push(check);
+	})
+
+	$.ajax({
+		type:"post",
+		url:"/admin/in_user.do",
+		data : JSON.stringify(inusers),
+		"contentType":"application/json",
+		success : (result)=>{
+			alert("총" + result.msg +"명의 회원이 활성화 되었습니다.")
+			location.reload();
+		},
+		error : ()=>{
+			alert("활성화 실패");
+		}
 	})
 }
 
-function update(event){
-	let userid = $(event).attr("value");
-	location.href = "/admin/userupdate.do?userid="+ userid;
+document.getElementById("outuser").onclick= ()=>{
+	let outusers = [];
+	$("input[name=out_check]:checked").each((index,data)=>{
+		let check = $(data).val();
+		outusers.push(check);
+	})
+
+	$.ajax({
+		type:"post",
+		url:"/admin/out_user.do",
+		data : JSON.stringify(outusers),
+		"contentType":"application/json",
+		success : (result)=>{
+			alert("총" + result.msg +"명의 회원이 비활성화 되었습니다.")
+			location.reload();
+		},
+		error : ()=>{
+			alert("비활성화 실패");
+		}
+	})
 }
+
 </script>
 </html>

@@ -54,4 +54,31 @@ public class AdminService {
 		return typeList;
 	}
 	
+	//회원 활성화 시키기
+	public int inUser(List<String> userlist) {
+		
+		UserDao userdao = sqlsession.getMapper(UserDao.class);
+		
+		int result = 0;
+		
+		for(String userid : userlist) {
+			result += userdao.inUser(userid);
+		}
+		
+		return result;
+	}
+	
+	//회원 비활성화 시키기
+	public int outUser(List<String> userlist) {
+		
+		UserDao userdao = sqlsession.getMapper(UserDao.class);
+		
+		int result = 0;
+		
+		for(String userid : userlist) {
+			result += userdao.outUser(userid);
+		}
+		
+		return result;
+	}
 }
