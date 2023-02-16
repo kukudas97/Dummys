@@ -8,8 +8,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +26,7 @@ import kr.or.dummys.service.type.TypeService;
 
 @RestController
 @RequestMapping("schema/")
-public class ajaxDummyData {
+public class ajaxSchema {
 	
 	@Autowired
 	private SchemaService service;
@@ -74,11 +76,6 @@ public class ajaxDummyData {
 	@GetMapping("getTypeList.do")
 	public ResponseEntity<Map<String, Object>> getType(@RequestParam("type") String type, @RequestParam("searchKeyword") String searchKeyword, Principal pri){
 		Map<String, Object> map = new HashMap<String, Object>();
-		
-//		if(pri == null) {
-//			map.put("result","login_error");
-//			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
-//		}
 		List<Type> list = null;
 		try {
 			list = typeService.getTypeListBySql(type, searchKeyword, pri);
@@ -89,6 +86,37 @@ public class ajaxDummyData {
 			map.put("result","fail");
 		}
 		
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+	}
+	@PutMapping("updateSchema.do")
+	public ResponseEntity<Map<String, Object>> updateSchema(@RequestBody CreateData data, Principal pri){
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			service.updateSchema(data);
+			map.put("result","success");
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("result","fail");
+		}
+		
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+	}
+	@DeleteMapping("deleteSchema.do")
+	public ResponseEntity<Map<String, Object>> deleteDatas(@RequestBody List<Integer> list,Principal pri){
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(pri == null) {
+			map.put("result", "login-error");
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+		}
+		
+		int result = 0;
+		
+		try {
+			map.put("result","success");
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("result", "fail");
+		}
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 	}
 }

@@ -129,8 +129,8 @@
 						<br>
 						<div class="row">
 							<div>
-								<p>원하는 페이지를 만들어 보아요!</p>
-								<p>불편하면 자세를 고쳐앉아</p>
+								<p>컬럼의 이름과 타입, 옵션을 선택하세요!</p>
+								<p>미리보기, 생성하기 버튼으로 더미데이터를 생성합니다.</p>
 							</div>
 						</div>
 					</div>
@@ -220,10 +220,10 @@
 	<!-- .content -->
 	<div class="createnav">
 		<div class="btnArea">
-			<div class="navbtn btn btn-outline-success" id="btn1">미리보기</div>
-			<div class="navbtn btn btn-outline-success" id="btn2">생성하기</div>
-			<div class="navbtn btn btn-outline-success" id="btn3">저장하기</div>
-			<div class="navbtn btn btn-outline-success" id="btn4">홈</div>
+			<div class="navbtn btn btn-outline-success" id="previewBtn">미리보기</div>
+			<div class="navbtn btn btn-outline-success" id="createBtn">생성하기</div>
+			<div class="navbtn btn btn-outline-success" id="saveBtn">저장하기</div>
+			<div class="navbtn btn btn-outline-success" id="homeBtn">홈</div>
 		</div>
 	</div>
 	</section>
@@ -247,14 +247,17 @@
 	$('div[data-type="close"] > .datasection').on({
 		click : delColumn
 	})
-	$("#btn1").on({
+	$("#previewBtn").on({
 		click: createDummy
 	})
-	$("#btn2").on({
+	$("#createBtn").on({
 		click: createDummy
 	})
-	$('#btn3').on({
+	$('#saveBtn').on({
 		click: saveSchema
+	})
+	$('#homeBtn').on({
+		click : ()=>{location.href = "/index.do"}
 	})
 	$("#addbtn").on({
 		click : addColumn

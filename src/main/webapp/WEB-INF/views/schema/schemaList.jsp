@@ -40,8 +40,8 @@
 					<br>
 					<div class="row">
 						<div>
-							<p>원하는 페이지를 만들어 보아요! 무조건 txt파일로 올리세요</p>
-							<p>불편하면 자세를 고쳐앉아</p>
+							<p>원하는 더미데이터 그룹을 선택하고 생성하세요!</p>
+							<p>저장 및 수정도 자유롭게 가능합니다.</p>
 						</div>
 					</div>
 					<div class="row">
@@ -54,7 +54,7 @@
 					<table class="table table-hover table-striped">
 						<thead class="table-light">
 							<tr>
-								<th id="check">체크박스</th>
+								<c:if test="${param.type eq 'mine' }"><th id="check">체크박스</th></c:if>
 								<th>번호</th>
 								<th>아이디</th>
 								<th>이름</th>
@@ -65,12 +65,19 @@
 						<tbody>
 							<c:if test="${fn:length(list) == 0 }">
 								<tr>
-									<td colspan="6"><h1>데이터가 없어요</h1></td>
+									<td
+										<c:if test="${param.type eq 'all' }">
+											colspan="5"
+										</c:if>
+										<c:if test="${param.type eq 'mine' }">
+											colspan="6"
+										</c:if>
+									><h1>데이터가 없어요</h1></td>
 								</tr>
 							</c:if>
 							<c:forEach items="${list }" var="data">
 								<tr onclick="schemaDetail('/schema/schemaDetail.do?schema_no=${data.schema_no}')">
-									<td><input type="checkbox" value="${data.schema_no }"/></td>
+									<c:if test="${param.type eq 'mine' }"><td><input type="checkbox" value="${data.schema_no }"/></td></c:if>
 									<td>${data.schema_no}</td>
 									<td>${data.userid}</td>
 									<td>${data.schema_name}</td>
@@ -87,7 +94,7 @@
 								<td></td>
 								<td></td>
 								<td></td>
-								<td><button class="btn tablebtn btn-outline-secondary" id="delBtn">삭제</button></td>
+								<c:if test="${param.type eq 'mine' }"><td><button class="btn tablebtn btn-outline-secondary" id="delBtn">삭제</button></td></c:if>
 							</tr>
 						</tfoot>
 					</table>
@@ -107,26 +114,19 @@
 	function schemaDetail(url){
 		location.href=url;
 	}
-/* 	$('#delBtn').on({
-		click : deleteGaussian
-	}) */
-/* 	function deleteGaussian(){
+ 	$('#delBtn').on({
+		click : deleteSchema
+	})
+ 	function deleteSchema(){
 		let list =[]; 
-		list.push($('input[type=checkbox]:checked').map((index,data)=>$(data).val()));
-		let listdata = [...list[0]];
-		// console.log(listdata);
-		
-		// let datas = [];
-		// datas.push($(listdata).map((index,data)=>{
-		// 	return {"list" : data}
-		// }));
-		// console.log(datas);
-		// console.log(datas[0]);
+		$('input[type=checkbox]:checked').each((index,data)=>{
+			list.push($(data).val());	
+		})
 		
 		$.ajax({
-			"type" : "post",
-			"url" : "deleteGaussian.do",
-			"data" : JSON.stringify([...list[0]]),
+			"type" : "delete",
+			"url" : "deleteSchema.do",
+			"data" : JSON.stringify(list),
 			"contentType":"application/json",
 			"success" : (data)=>{
 				if(data.result == 'success'){
@@ -143,6 +143,6 @@
 				console.log(error)
 			}
 		})// $ajax end
-	} */
+	} 
 </script>
 </html>
