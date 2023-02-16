@@ -22,21 +22,7 @@
 		  <!-- /header -->
         <!-- Header-->
 
-<!--         <div class="breadcrumbs">
-            <div class="breadcrumbs-inner">
-                <div class="row m-0">
-                    <div class="col-sm-4">
-                        <div class="page-header float-left">
-                            <div class="page-title">
-                                <h1>Dashboard</h1>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
- -->
+	<h1>마이페이지!!!</h1>
         <div class="content">
             <div class="animated fadeIn">
                 <div class="row">
@@ -44,9 +30,9 @@
                     <div class="col-md-12 board">
                         <div class="card">
                             <div class="card-header">
-                                 <h5 class="m-0 font-weight-bold board_kind"><c:out value="${board_kind}"/></h5>
+                                <%--  <h5 class="m-0 font-weight-bold board_kind"><c:out value="${board_kind}"/></h5> --%>
                             </div>
-                            <div class="card-body">
+<%--                             <div class="card-body">
                                 <table id="boardListTable" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
@@ -92,7 +78,7 @@
                             	
                             	
                             	
-                            </div>
+                            </div> --%>
                         </div>
                         
                     </div>
@@ -128,11 +114,7 @@
 
 
     <script type="text/javascript">
-        $(document).ready(function() {
-          $('#boardListTable').DataTable({
-        	  order:[[0, "desc"]]
-          });
-      } );
+
   </script>
 
 

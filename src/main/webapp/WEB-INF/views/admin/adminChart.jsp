@@ -12,41 +12,44 @@
 		<jsp:include page="/WEB-INF/views/include/adminHeader.jsp" />
 		<jsp:include page="/WEB-INF/views/include/adminSidebar.jsp" />
 		<div id="main_content" class="main_content_height">
-			<h1>Admin 차트 관리</h1>
-			
 			<div class="content">
             <div class="animated fadeIn">
                 <div class="row">
 
-                    <div class="col-md-12">
+                    <div class="col-md-12 admin">
                         <div class="card">
                             <div class="card-header">
-                                 <h5 class="m-0 font-weight-bold board_kind">타입 사용 조회</h5>
+                                 <h5 class="m-0 font-weight-bold">타입 사용 조회</h5>
                             </div>
                             <div class="card-body">
-                                <table id="boardListTable" class="table table-striped table-bordered">
+                            <section class="adminTypeTable" >
+                                <table class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th>타입</th>
-                                            <th>제목</th>
+                                            <th>타입생성자</th>
+                                            <th>사용 횟수</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <%-- <c:forEach items="${boardList}" var="boardList">
+                                        <c:forEach items="${typeList}" var="typeList">
 										<tr>
-											<td><c:out value="${boardList.board_no}" /></td>
-											<td><a href="boardDetail.do?board_no=${boardList.board_no}">${boardList.board_name}</a></td>
+											<td><c:out value="${typeList.type_name}" /></td>
+											<td><c:out value="${typeList.userid}" /></td>
+											<td><c:out value="${typeList.type_count}" /></td>
+											<%-- <td><a href="boardDetail.do?board_no=${boardList.board_no}">${boardList.board_name}</a></td> --%>
 										</tr> 
-									</c:forEach> --%>
-									
-									
+										</c:forEach> 
                                     </tbody>
                                     
                                 </table>
+                                </section>
+                                
+                                <!-- 차트 -->
+                                <section class="adminTypeChart">
+                                	<div id="type_chart"></div>
+                                </section>
 
-                            	
-                            	
-                            	
                             </div>
                         </div>
                         
@@ -66,4 +69,35 @@
 	</div>
 
 </body>
+
+<script>
+let jsonTypeList =JSON.parse('${jsonTypeList}');
+var options = {
+        series: [],
+        labels: [],
+        chart: {
+        type: 'donut'
+      },
+       responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }] 
+        };
+
+$(jsonTypeList).each(function(index,data){
+	options.series.push(data.type_count);
+	options.labels.push(data.type_name);
+})
+
+var chart = new ApexCharts(document.querySelector("#type_chart"), options);
+chart.render();
+</script>
+
 </html>

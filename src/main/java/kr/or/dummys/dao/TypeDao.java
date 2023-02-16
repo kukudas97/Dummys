@@ -50,4 +50,8 @@ public interface TypeDao {
 	
 	//랜덤 폼 불러오기
 	public Random_form getRandomFormType_no(int type_no);
+	
+	//차트에 불러올 리스트
+	public List<Type> getChartType();
+	
 }
