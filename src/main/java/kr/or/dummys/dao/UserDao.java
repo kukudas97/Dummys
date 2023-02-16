@@ -2,6 +2,7 @@ package kr.or.dummys.dao;
 
 import java.util.List;
 
+import kr.or.dummys.dto.Board;
 import kr.or.dummys.dto.Users;
 
 public interface UserDao {
@@ -32,4 +33,9 @@ public interface UserDao {
 	
 	//회원 비활성화
 	public int outUser(String userid);
+	//회원 지가 쓴 게시글 목록(마이페이지)
+	public List<Board> myBoardList(String userid);
+	
+	//회원 지가 쓴 댓글이 있는 게시글 목록(마이페이지)
+	public List<Board> myReplyBoardList(String userid);
 }

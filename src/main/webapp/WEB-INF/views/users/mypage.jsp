@@ -6,9 +6,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/include/head.jsp" />
+<%-- <jsp:include page="/WEB-INF/views/include/head.jsp" /> --%>
 </head>
 <body>
+<se:authentication property="name" var="userid" />
     <!-- Left Panel -->
 <jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
     <!-- /#left-panel -->
@@ -21,64 +22,68 @@
 		  <jsp:include page="/WEB-INF/views/include/header.jsp" />
 		  <!-- /header -->
         <!-- Header-->
-
-	<h1>마이페이지!!!</h1>
         <div class="content">
             <div class="animated fadeIn">
                 <div class="row">
 
                     <div class="col-md-12 board">
-                        <div class="card">
+                         <div class="card">
                             <div class="card-header">
-                                <%--  <h5 class="m-0 font-weight-bold board_kind"><c:out value="${board_kind}"/></h5> --%>
+                                 <h5 class="m-0 font-weight-bold board_kind"><c:out value="${userid}"/>님의 페이지</h5>
                             </div>
-<%--                             <div class="card-body">
-                                <table id="boardListTable" class="table table-striped table-bordered">
+                           <div class="card-body">
+                           	<div class="myBoard">
+                           		<h3>내가 쓴 게시글</h3>
+                                <table class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>글 번호</th>
+                                            <th>#</th>
+                                            <th>카테고리</th>
                                             <th>제목</th>
-                                            <th>작성자</th>
                                             <th>작성일</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach items="${boardList}" var="boardList">
+                                        <c:forEach items="${myBoardList}" var="myBoardList">
 										<tr>
-											<td><c:out value="${boardList.board_no}" /></td>
-											<td><a href="boardDetail.do?board_no=${boardList.board_no}">${boardList.board_name}</a></td>
-											<td><c:out value="${boardList.nickname}" /></td>
-											<td><c:out value="${boardList.board_date}" /></td>
+											<td><c:out value="${myBoardList.board_no}" /></td>
+											<td><c:out value="${myBoardList.board_kind}" /></td>
+											<td><a href="/board/boardDetail.do?board_no=${myBoardList.board_no}"><c:out value="${myBoardList.board_name}" /></a></td>
+											<td><c:out value="${myBoardList.board_date}" /></td>
 										</tr>
 									</c:forEach> 
-									
-									
                                     </tbody>
-                                    
                                 </table>
+                                </div>
+                                
+                                <div class="myReplyBoard">
+                                <h3>댓글 단 게시글</h3>
+                                <table class="table table-striped table-bordered">
+                                	<thead>
+                                		<tr>
+                                			<th>#</th>
+                                            <th>카테고리</th>
+                                            <th>제목</th>
+                                            <th>작성일</th>
+                                		</tr>
+                                	</thead>
+                                		<tbody>
+                                        <c:forEach items="${myReplyBoardList}" var="myReplyBoardList">
+										<tr>
+											<td><c:out value="${myReplyBoardList.board_no}" /></td>
+											<td><c:out value="${myReplyBoardList.board_kind}" /></td>
+											<td><a href="/board/boardDetail.do?board_no=${myReplyBoardList.board_no}"><c:out value="${myReplyBoardList.board_name}" /></a></td>
+											<td><c:out value="${myReplyBoardList.board_date}" /></td>
+										</tr>
+									</c:forEach> 
+                                    </tbody>
+                                	
                                 
                                 
+                                </table>
+								</div>
 
-                                <c:choose>
-	                                <c:when test = "${board_kind eq '공지사항'}" >
-		                                <se:authorize access="hasRole('ROLE_ADMIN')">
-						                    <div class="boardWriteButton">
-						                    <a href="${pageContext.request.contextPath}/board/boardWrite.do?board_kind=${board_kind}"><input class="btn btn-outline-success" type="button" value="글쓰기"></a>
-						                    </div>
-									   </se:authorize>
-	                            	</c:when>
-	                            	<c:otherwise>
-		                                <se:authorize access="isAuthenticated()">
-						                    <div class="boardWriteButton">
-						                    <a href="${pageContext.request.contextPath}/board/boardWrite.do?board_kind=${board_kind}"><input class="btn btn-outline-success" type="button" value="글쓰기"></a>
-						                    </div>
-									   </se:authorize>
-	                            	</c:otherwise>
-                            	</c:choose>
-                            	
-                            	
-                            	
-                            </div> --%>
+                            </div>  
                         </div>
                         
                     </div>

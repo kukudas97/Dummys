@@ -1,17 +1,17 @@
 package kr.or.dummys.controller;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.or.dummys.dto.Users;
+import kr.or.dummys.dto.Board;
 import kr.or.dummys.service.user.UserService;
 
 
@@ -70,9 +70,15 @@ public class UsersController {
 		return "users/forgetPassword";
 	}
 	
+	//지가 쓴 게시글 , 댓글 단 게시글 목록 (mypage)
 	@GetMapping("/mypage.do")
-	public String mypage() {
+	public String mypage(Principal principal, Model model) {
+		Map<String, Object> mypageMap = userService.myBoardList(principal.getName());
+		
+		model.addAttribute("myBoardList", mypageMap.get("myBoardList"));
+		model.addAttribute("myReplyBoardList", mypageMap.get("myReplyBoardList"));
 		return "users/mypage";
 	}
+
 
 }
