@@ -27,6 +27,7 @@
                                     <thead>
                                         <tr>
                                             <th>타입</th>
+                                            <th>타입생성자</th>
                                             <th>사용 횟수</th>
                                         </tr>
                                     </thead>
@@ -34,6 +35,7 @@
                                         <c:forEach items="${typeList}" var="typeList">
 										<tr>
 											<td><c:out value="${typeList.type_name}" /></td>
+											<td><c:out value="${typeList.userid}" /></td>
 											<td><c:out value="${typeList.type_count}" /></td>
 											<%-- <td><a href="boardDetail.do?board_no=${boardList.board_no}">${boardList.board_name}</a></td> --%>
 										</tr> 

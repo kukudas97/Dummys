@@ -69,5 +69,10 @@ public class UsersController {
 
 		return "users/forgetPassword";
 	}
+	
+	@GetMapping("/mypage.do")
+	public String mypage() {
+		return "users/mypage";
+	}
 
 }
