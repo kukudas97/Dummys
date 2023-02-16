@@ -57,4 +57,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listOutUsers" resultType="kr.or.dummys.dto.Users">
 		select u.userid as userid, password, nickname, enabled from users u join users_role r on u.userid = r.userid where u.enabled!=1 and r.role_name = 'ROLE_USER'
 	</select>
+	
+	<select id="myBoardList" resultType="kr.or.dummys.dto.Board">
+	 select * from board where userid=#{userid}
+	</select> 
+	
+	<select id="myReplyBoardList" resultType="kr.or.dummys.dto.Board">
+	  select board.board_no, board.board_kind, board.board_name, to_char(board.board_date,'yyyy-mm-dd') as board_date from reply inner join board on board.board_no = reply.board_no where reply.userid=#{userid} group by board.board_no, board_kind,board_name, board_date
+	</select>
 </mapper>
