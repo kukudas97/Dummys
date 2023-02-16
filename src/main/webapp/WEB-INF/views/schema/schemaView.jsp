@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -60,8 +61,7 @@
 	<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
 
 	<div id="right-panel" class="right-panel">
-		<section id="header"> <jsp:include
-			page="/WEB-INF/views/include/header.jsp" /> </section>
+		<section id="header"> <jsp:include page="/WEB-INF/views/include/header.jsp" /> </section>
 		<div class="content">
 			<div id="typeChooseArea">
 				<div class="card child">
@@ -222,7 +222,9 @@
 		<div class="btnArea">
 			<div class="navbtn btn btn-outline-success" id="previewBtn">미리보기</div>
 			<div class="navbtn btn btn-outline-success" id="createBtn">생성하기</div>
+	        <se:authorize access="isAuthenticated()">
 			<div class="navbtn btn btn-outline-success" id="saveBtn">저장하기</div>
+			</se:authorize>
 			<div class="navbtn btn btn-outline-success" id="homeBtn">홈</div>
 		</div>
 	</div>

@@ -108,10 +108,8 @@ public class ajaxSchema {
 			map.put("result", "login-error");
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
-		
-		int result = 0;
-		
 		try {
+			service.deleteSchemaList(list);
 			map.put("result","success");
 		} catch (Exception e) {
 			e.printStackTrace();

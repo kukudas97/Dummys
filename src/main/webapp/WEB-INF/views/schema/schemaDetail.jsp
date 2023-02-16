@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
+<!DOCTYPE html>
+<html>
 <head>
 <%-- <jsp:include page="/WEB-INF/views/include/head.jsp" /> --%>
 <style>
@@ -67,11 +65,10 @@
 			<c:set var="usercheck" value="0"/>
 		</c:otherwise>
 	</c:choose>
-	<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
 
 	<div id="right-panel" class="right-panel">
-		<section id="header"> <jsp:include
-			page="/WEB-INF/views/include/header.jsp" /> </section>
+		<section id="header"> <jsp:include page="/WEB-INF/views/include/header.jsp" /> </section>
+		<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
 		<div class="content">
 			<div id="typeChooseArea">
 				<div class="card child">

@@ -76,7 +76,7 @@
 								</tr>
 							</c:if>
 							<c:forEach items="${list }" var="data">
-								<tr onclick="schemaDetail('/schema/schemaDetail.do?schema_no=${data.schema_no}')">
+								<tr data-value="${data.schema_no }">
 									<c:if test="${param.type eq 'mine' }"><td><input type="checkbox" value="${data.schema_no }"/></td></c:if>
 									<td>${data.schema_no}</td>
 									<td>${data.userid}</td>
@@ -117,6 +117,16 @@
  	$('#delBtn').on({
 		click : deleteSchema
 	})
+	$('table > tbody >tr').on({
+		click : (event)=>{
+			if($(event.target).attr('type') != 'checkbox'){
+				let no = $(event.target).closest('tr').attr('data-value');
+				location.href = '/schema/schemaDetail.do?schema_no=' + no;
+			}
+		}
+	})
+
+
  	function deleteSchema(){
 		let list =[]; 
 		$('input[type=checkbox]:checked').each((index,data)=>{
