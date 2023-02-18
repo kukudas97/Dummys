@@ -390,29 +390,54 @@
 		}) // ajax end
 	}// createDummy function end
 	
-	/** 컬럼 추가 함수 */
+	//컬럼 추가 함수
 	function addColumn(){
-		let txt ='<tr class="schema" draggable="true">'+
-						'<td class="col-sm-2 col-md-2 col-lg-2"><div  data-type="name" ><div class="datasection"><input type="text" value="1"></div></div></td>'+
-						'<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="type" data-value="1" ><div class="datasection"><input data-value="161" type="text" value="타입1" readonly/></div></div></td>'+
-						'<td class="col-sm-3 col-md-3 col-lg-3"><div data-type="options"  ><div class="datasection"><input type="text" value="1"></div></div></td>'+
-						'<td class="col-sm-3 col-md-3 col-lg-3">'+
-							'<div data-type="selectoptions"  >'+
-								'<div class="datasection row">'+
-									'<input type="text" value="1" class="col-sm-6 col-md-6 col-lg-6">'+
-									'<input type="text" value="100" class="col-sm-6 col-md-6 col-lg-6">'+
-								'</div>'+
-							'</div>'+
-						'</td>'+
-						'<td class="col-sm-1 col-md-1 col-lg-1"><div data-type="close"  ><div class="datasection"><div class="icon-container"><span class="ti-close delBtn"></span></div></div></div></td>'+
-					'</tr>';
-		$("#schemaarea").append(txt);
-		$('div[data-type="close"] > .datasection').on({
-			click : delColumn
-		})
-		$('div[data-type=type] input').on({
+		const td1 = $('<td>').addClass('col-sm-2 col-md-2 col-lg-2')
+							.append($('<div>').attr('data-type', 'name')
+												.append($('<div>').addClass('datasection')
+																.append($('<input>').attr('type', 'text').val('랜덤 숫자'))));
+
+		const td2_input = $('<input>').attr('data-value', '201')
+																					.attr('type', 'text')
+																					.val('랜덤숫자')
+																					.prop('readonly', true);
+		$(td2_input).on({
 			click : typeClickEventFunction
 		})
+		const td2 = $('<td>').addClass('col-sm-2 col-md-2 col-lg-2')
+							.append($('<div>').attr('data-type', 'type').attr('data-value', '201')
+												.append($('<div>').addClass('datasection')
+																.append(td2_input)));
+		const td3 = $('<td>').addClass('col-sm-3 col-md-3 col-lg-3')
+							.append($('<div>').attr('data-type', 'options')
+												.append($('<div>').addClass('datasection')
+																.append($('<input>').attr('type', 'text').val('1'))));
+		const td4 = $('<td>').addClass('col-sm-3 col-md-3 col-lg-3')
+							.append($('<div>').attr('data-type', 'selectoptions')
+												.append($('<div>').addClass('datasection row')
+																.append($('<input>').addClass('col-sm-6 col-md-6 col-lg-6')
+																					.attr('type', 'text')
+																					.val('1'))
+																.append($('<input>').addClass('col-sm-6 col-md-6 col-lg-6')
+																					.attr('type', 'text')
+																					.val('100'))));
+		const td5_span = $('<span>').addClass('ti-close delBtn');
+		$(td5_span).on({
+			click : delColumn
+		})
+		const td5 = $('<td>').addClass('col-sm-1 col-md-1 col-lg-1')
+							.append($('<div>').attr('data-type', 'close')
+												.append($('<div>').addClass('datasection')
+																.append($('<div>').addClass('icon-container')
+																					.append(td5_span))));
+		// tr 태그 생성
+		const tr = $('<tr>').addClass('schema').attr('draggable', true)
+							.append(td1)
+							.append(td2)
+							.append(td3)
+							.append(td4)
+							.append(td5);
+		$("#schemaarea").append(tr);
 	}// adColumn Function end
 
 	// tr 삭제 함수

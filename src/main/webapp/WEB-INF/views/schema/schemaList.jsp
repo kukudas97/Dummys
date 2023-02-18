@@ -117,7 +117,7 @@
  	$('#delBtn').on({
 		click : deleteSchema
 	})
-	$('table > tbody >tr').on({
+	$('table > tbody >tr[data-value]').on({
 		click : (event)=>{
 			if($(event.target).attr('type') != 'checkbox'){
 				let no = $(event.target).closest('tr').attr('data-value');

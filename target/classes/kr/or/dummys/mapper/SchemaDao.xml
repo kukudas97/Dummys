@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- select -->
 	
 	<select id="getSchemaList" resultType="kr.or.dummys.dto.Schema">
-		select s.schema_no, userid, schema_name, schema_content, to_char(schema_date,'yyyy-mm-dd') as schema_date, schema_password from schema s ${param2} schema_pwd p on s.schema_no = p.schema_no where schema_delete = 1 ${param1}
+		select s.schema_no, userid, schema_name, schema_content, to_char(schema_date,'yyyy-mm-dd') as schema_date, schema_password from schema s ${param2} schema_pwd p on s.schema_no = p.schema_no where schema_delete = 1 ${param1} order by schema_date desc
 	</select>
 	
 	<select id="getSchemaByNo" resultType="kr.or.dummys.dto.Schema">
@@ -22,7 +22,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getOptionsByColNo" resultType="int">
 		select option_result from options where col_no = ${param1} 
 	</select>
-	
+	<select id="getDummDataByTypeNo" resultType="String">
+		select dummy_data_word from dummy_data where type_no = ${type_no} order by dbms_random.value
+	</select>
+	<select id="getRandomWordFormByTypeNo" resultType="String">
+		select random_word_form from random_form where type_no = ${type_no} 
+	</select>
 	<!-- insert -->
 	
 	<insert id="insertSchema" parameterType="kr.or.dummys.dto.Schema">
@@ -76,5 +81,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deletePasswordByNo">
 		delete from schema_pwd where schema_no = ${param1}
 	</delete>	
-	
 </mapper>
