@@ -8,17 +8,19 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+		
+<!-- setting -->
+<context:annotation-config />
+<mvc:annotation-driven/>
 
 <!-- transaction -->
 <tx:annotation-driven proxy-target-class="true"/>
 
 <!-- 모든 컨트롤러가 공통 사용 DAO 빈 객체  참조-->
-<context:annotation-config />
-<mvc:annotation-driven/>
 <context:component-scan base-package="kr.or.dummys.service" />
 <context:component-scan base-package="kr.or.dummys.controller"/>
 <context:component-scan base-package="kr.or.dummys.ajax"  />
-<!-- <mvc:resources location="/resources/" mapping="/resources/**"/> -->
+<bean id="dummyDataFactory" class="kr.or.dummys.utils.Creator.DummyDataFactory"/>
 
 <!-- 파일 업로드 보조(반드시)  -->
 <bean  id="multipartResolver"    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

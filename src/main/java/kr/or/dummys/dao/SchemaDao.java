@@ -3,6 +3,8 @@ package kr.or.dummys.dao;
 import java.util.List;
 
 import kr.or.dummys.dto.Col;
+import kr.or.dummys.dto.Gaussian;
+import kr.or.dummys.dto.Gaussian_result;
 import kr.or.dummys.dto.Schema;
 
 public interface SchemaDao {
@@ -10,6 +12,8 @@ public interface SchemaDao {
 	public Schema getSchemaByNo(String schema_no);
 	public List<Col> getColListBySchemaNo(String schema_no);
 	public List<Integer> getOptionsByColNo(int col_no);
+	public List<String> getDummDataByTypeNo(int type_no);
+	public String getRandomWordFormByTypeNo(int type_no);
 	
 	public int insertSchema(Schema schema);
 	public int insertColumn(Col column);
