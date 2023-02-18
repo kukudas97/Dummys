@@ -1,17 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="se"
+	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <%-- <jsp:include page="/WEB-INF/views/include/head.jsp" /> --%>
 <style>
-#write-reply{
-	display:none;
+#write-reply {
+	display: none;
 }
-.writeReplyForm{
+
+.writeReplyForm {
 	display: block !important;
 }
 
@@ -19,102 +21,109 @@
 	display: block;
 }
 
-.afterRegisterReReply{
+.afterRegisterReReply {
 	display: none !important;
 }
-
-
-
 </style>
 
 </head>
 <body>
-<se:authentication property="name" var="userid" />
-    <!-- Left Panel -->
-<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
-    <!-- /#left-panel -->
-    <!-- Left Panel -->
+	<se:authentication property="name" var="userid" />
+	<!-- Left Panel -->
+	<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
+	<!-- /#left-panel -->
+	<!-- Left Panel -->
 
-    <!-- Right Panel -->
-    <div id="right-panel" class="right-panel">
+	<!-- Right Panel -->
+	<div id="right-panel" class="right-panel">
 
-        <!-- Header-->
-		  <jsp:include page="/WEB-INF/views/include/header.jsp" />
-        <!-- /Header-->
-                   <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <strong class="card-title board_kind" name='board_kind'><c:out value="${board.board_kind}"/></strong>
-                        </div>
-                        
-                        <div class="card-body">
-                        	
-                        		<div class="form-group">
-                        			<label>#</label> 
-                        			<input class="form-control board_detail" name='board_no' value='<c:out value="${board.board_no}"/>' readonly="readonly">   		
-                        		</div>
-                        		
-                        		<div class="form-group">
-                        			<label>제목</label> 
-                        			<input class="form-control board_detail" name='board_name' value='<c:out value="${board.board_name}"/>' readonly="readonly">   		
-                        		</div>
-                        		
-                        		<div class="form-group">
-                        			<label>내용</label> 
-                        			<textarea class="form-control board_detail" rows="3" name='board_content' readonly="readonly" ><c:out value="${board.board_content}"/></textarea>  		
-                        		</div>
-                        		
-                        		<div class="form-group">
-                        			<label>작성자</label> 
-                        			<input class="form-control board_detail" name='nickname' value='<c:out value="${board.nickname}"/>' readonly="readonly">   		
-                        		</div>
-                        		
-                        		<div class="form-group">
-                        			<label>작성일</label> 
-                        			<input class="form-control board_detail" name='board_date' value='<c:out value="${board.board_date}" />' readonly="readonly">   		
-                        		</div>
-                        		
-                        		<button data-oper='modify' class="btn btn-success" >수정</button>
-                        		<button data-oper='list' class="btn btn-info">목록</button>
-                        		<button data-oper='delete' class="btn btn-danger" >삭제</button>
-                        		<%-- <a href="/board/boardList.do?board_kind=${board.board_kind}">목록</a> --%>
+		<!-- Header-->
+		<jsp:include page="/WEB-INF/views/include/header.jsp" />
+		<!-- /Header-->
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<strong class="card-title board_kind" name='board_kind'><c:out
+						value="${board.board_kind}" /></strong>
+			</div>
 
-                        		<form id='operForm' action="" method="get">
-                        			<input type='hidden' id="board_no" name='board_no' value='<c:out value="${board.board_no}" />'>
-                        			<input type='hidden' id="board_kind" name='board_kind' value='<c:out value="${board.board_kind}" />'>
-                        		</form>
-                        		
-                        		
-                        </div>
-                        
-                       <div class="col-md-12">
-	                        <div class="reply-card">
-	                            <strong class="reply-title">댓글 </strong>
+			<div class="card-body">
 
-	                            <div class="reply-view row">
-	                            	<ul class="chat" id="reply" style="width: 100%"></ul>
-              					</div>
+				<div class="form-group">
+					<label>#</label> <input class="form-control board_detail"
+						name='board_no' value='<c:out value="${board.board_no}"/>'
+						readonly="readonly">
+				</div>
 
-              					<div class="add-reply">
-	                        		<button type="button" class="btn btn-outline-success btn-sm" id="addReplyBtn">댓글작성</button>
-	                            </div>
-	                            
-	                            <div id="write-reply" class="form-floating ">
-	                                <textarea class="form-control" placeholder="댓글을 작성하세요"
-	                                    id="reply_content" style="height: 110px; margin-bottom: 5px; "></textarea>
-	                                 <hidden id="reply_userid">
-	                                 <button class="btn" id="register_reply">등록</button>
-	                                 <button class="btn" id="reply_reset">취소</button>
-	                            </div>
+				<div class="form-group">
+					<label>제목</label> <input class="form-control board_detail"
+						name='board_name' value='<c:out value="${board.board_name}"/>'
+						readonly="readonly">
+				</div>
 
-    		                    </div>
-    		                    
-    		                    
-    		                    
-	                        </div>
-                    	</div>
-               		</div>
-               		
-                <script type="text/javascript">
+				<div class="form-group">
+					<label>내용</label>
+					<textarea class="form-control board_detail" rows="3"
+						name='board_content' readonly="readonly"><c:out
+							value="${board.board_content}" /></textarea>
+				</div>
+
+				<div class="form-group">
+					<label>작성자</label> <input class="form-control board_detail"
+						name='nickname' value='<c:out value="${board.nickname}"/>'
+						readonly="readonly">
+				</div>
+
+				<div class="form-group">
+					<label>작성일</label> <input class="form-control board_detail"
+						name='board_date' value='<c:out value="${board.board_date}" />'
+						readonly="readonly">
+				</div>
+
+				<button data-oper='modify' class="btn btn-success">수정</button>
+				<button data-oper='list' class="btn btn-info">목록</button>
+				<button data-oper='delete' class="btn btn-danger">삭제</button>
+				<%-- <a href="/board/boardList.do?board_kind=${board.board_kind}">목록</a> --%>
+
+				<form id='operForm' action="" method="get">
+					<input type='hidden' id="board_no" name='board_no'
+						value='<c:out value="${board.board_no}" />'> <input
+						type='hidden' id="board_kind" name='board_kind'
+						value='<c:out value="${board.board_kind}" />'>
+				</form>
+
+
+			</div>
+
+			<div class="col-md-12">
+				<div class="reply-card">
+					<strong class="reply-title">댓글 </strong>
+
+					<div class="reply-view row">
+						<ul class="chat" id="reply" style="width: 100%"></ul>
+					</div>
+
+					<div class="add-reply">
+						<button type="button" class="btn btn-outline-success btn-sm"
+							id="addReplyBtn">댓글작성</button>
+					</div>
+
+					<div id="write-reply" class="form-floating ">
+						<textarea class="form-control" placeholder="댓글을 작성하세요"
+							id="reply_content" style="height: 110px; margin-bottom: 5px;"></textarea>
+						<hidden id="reply_userid">
+						<button class="btn" id="register_reply">등록</button>
+						<button class="btn" id="reply_reset">취소</button>
+					</div>
+
+				</div>
+
+
+
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
                 $(document).ready(function(){
                 	
                 	var operForm = $("#operForm");
@@ -360,8 +369,8 @@
                 
 
                 </script>
-        
-        
+
+
 
 </body>
 </html>

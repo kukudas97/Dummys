@@ -28,11 +28,13 @@
 		<security:intercept-url pattern="/type/**" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/gaussian/**" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/board/**" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tendinous/**" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/schema/schemaList.do**" access="hasRole('ROLE_USER')"/>
 	</security:http>
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:jdbc-user-service data-source-ref="driverManagerDataSource"
-			   users-by-username-query="select userid, password, 1 enabled from users where userid=?" 
+			   users-by-username-query="select userid, password, enabled from users where userid=?" 
 			
 			   authorities-by-username-query="select u.userid , r.role_name  
 			           from users u join users_role r 
