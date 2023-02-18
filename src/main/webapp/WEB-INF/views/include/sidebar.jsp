@@ -42,7 +42,11 @@
                     </li>
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="/board/boardList.do?board_kind=공지사항" class="dropdown-toggle" ></i>공지사항</a>
+                        <a href="/board/boardList.do?board_kind=공지사항" class="dropdown-toggle" ><i class="menu-icon fa fa-bullhorn"></i>공지사항</a>
+                    </li>
+                    
+                    <li class="menu-item-has-children dropdown">
+                        <a href="/tendinous/tendinous.do" class="dropdown-toggle" ><i class="menu-icon fa fa-question-circle"></i>문의사항</a>
                     </li>
                   
                 </ul>
