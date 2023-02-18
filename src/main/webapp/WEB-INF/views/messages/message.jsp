@@ -70,8 +70,34 @@
 			<!-- .animated -->
 			
 			  <div class="messageWriteButton">
-				<a href="/"><input class="btn btn-outline-success" type="button" value="쪽지보내기"></a>
+				<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#Hz">쪽지보내기</button>
 			  </div>
+			  
+			  <!-- 모달창 -->
+
+			<div class="modal" id="Hz">
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<h4 class="modal-title">Modal 제목</h4>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+						</div>
+
+						<!-- Modal body -->
+						<div class="modal-body">Modal 내용</div>
+
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger"
+								data-bs-dismiss="modal">닫기</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
 		</div>
 		<!-- .content -->
 
