@@ -54,7 +54,7 @@
 												<tr>
 													<td><c:out value="${myMessagesendList.message_no}" /></td>
 													<td><c:out value="${myMessagesendList.receive_id}" /></td>
-													<td onclick=""><c:out value="${myMessagesendList.message_name}" /></td>
+													<td id="openModal1" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@getbootstrap"><c:out value="${myMessagesendList.message_name}" /></td>
 													<td><c:out value="${myMessagesendList.message_date}" /></td>
 													<td><button>삭제</button></td>
 												</tr>
@@ -80,7 +80,7 @@
 												<tr>
 													<td><c:out value="${myMessagereceiveList.message_no}" /></td>
 													<td><c:out value="${myMessagereceiveList.send_id}" /></td>
-													<td onclick=""><c:out value="${myMessagereceiveList.message_name}" /></td>
+													<td id="openModal2" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@getbootstrap"><c:out value="${myMessagereceiveList.message_name}" /></td>
 													<td><c:out value="${myMessagereceiveList.message_date}" /></td>
 													<td><button>삭제</button></td>
 												</tr>
@@ -117,7 +117,7 @@
 			          </div>
 			          <div class="mb-3">
 			            <label for="recipient-name" class="col-form-label">받는 사람:</label>
-			            <input type="text" class="form-control" name="receive_id" id="recipient-name">
+			            <input type="text" class="form-control" name="receive_id" value="" id="recipient-name">
 			          </div>
 			          
 			          <div class="mb-3">
@@ -150,8 +150,8 @@
 		<div class="clearfix"></div>
 
 		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
-		
-			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<!-- 보낸 쪽지함 모달 -->
+			<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog modal-lg">
 			    <div class="modal-content">
 			      <div class="modal-header">
@@ -164,19 +164,19 @@
 			            <input type="text" class="form-control" id="send-name" name="send_id" value="${userid}" readonly>
 			          </div>
 			          <div class="mb-3">
-			            <label for="recipient-name" class="col-form-label" value="" readonly>받는 사람:</label>
-			            <input type="text" class="form-control" name="receive_id" id="recipient-name">
+			            <label for="recipient-name" class="col-form-label">받는 사람:</label>
+			            <input type="text" class="form-control" name="receive_id" value="${receive_id}" readonly id="recipient-name">
 			          </div>
 			          
 			          <div class="mb-3">
-			            <label for="recipient-name" class="col-form-label" value="" readonly>쪽지 제목:</label>
-			            <input type="text" class="form-control" name="message_name" id="recipient-name">
+			            <label for="recipient-name" class="col-form-label">쪽지 제목:</label>
+			            <input type="text" class="form-control" name="message_name" value="${message_name}" readonly id="recipient-name">
 			          </div>
 			          
 			          <div class="mb-3">
-			            <label for="message-text" class="col-form-label" value="" readonly>쪽지 내용:</label>
+			            <label for="message-text" class="col-form-label" >쪽지 내용:</label>
 			            <div class="form-floating">
-			            <textarea class="form-control" id="floatingTextarea2" name="message_content" placeholder="Leave a comment here" style="height: 100px"></textarea>
+			            <textarea class="form-control" id="floatingTextarea2" name="message_content" value="${message_content}" readonly placeholder="Leave a comment here" style="height: 100px"></textarea>
 			          	<label for="floatingTextarea2">Comments</label>
 			          	</div>
 			          </div>
@@ -191,6 +191,46 @@
 			  </div>
 			</div>
 		
+		<!-- 받은 쪽지함 모달 -->
+			<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-lg">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel"></h5>
+			      </div>
+			      <div class="modal-body">
+			        <form action="" method="post" id="formdata">
+			          <div class="mb-3">
+			            <label for="recipient-name" class="col-form-label">보내는 사람:</label>
+			            <input type="text" class="form-control" id="send-name" name="send_id" value="" readonly>
+			          </div>
+			          <div class="mb-3">
+			            <label for="recipient-name" class="col-form-label">받는 사람:</label>
+			            <input type="text" class="form-control" name="receive_id" value="${userid}" readonly id="recipient-name">
+			          </div>
+			          
+			          <div class="mb-3">
+			            <label for="recipient-name" class="col-form-label">쪽지 제목:</label>
+			            <input type="text" class="form-control" name="message_name" value="${message_name}" readonly id="recipient-name">
+			          </div>
+			          
+			          <div class="mb-3">
+			            <label for="message-text" class="col-form-label" >쪽지 내용:</label>
+			            <div class="form-floating">
+			            <textarea class="form-control" id="floatingTextarea2" name="message_content" value="${message_content}" readonly placeholder="Leave a comment here" style="height: 100px"></textarea>
+			          	<label for="floatingTextarea2">Comments</label>
+			          	</div>
+			          </div>
+			       
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+			        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">답장 보내기</button>
+			      </div>
+			       </form>
+			    </div>
+			  </div>
+			</div>
 		
 <!-- 받는사람 있는지 확인하는 ajax -->
 <script type="text/javascript">
@@ -221,10 +261,13 @@ $("#messageSubmit").on({
         	}
 	  		    
   });
+  
+const modalButton = document.querySelector('#openModal');
+const modal = new bootstrap.Modal(document.querySelector('#exampleModal1'));
 
-function modal(){
-	
-}
+modalButton.addEventListener('click', () => {
+  modal.show();
+});
 
 </script>
 
