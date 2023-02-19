@@ -137,6 +137,8 @@ public class TypeService {
 			sql += "and userid = '" + pri.getName()+"'";
 		} else if(type.equals("admin")) {
 			sql += "and type_category= 0";
+		} else if(type.equals("gaussian")) {
+			sql += "and process_no = 3";
 		}
 		sql += "and type_name like '%" + searchKeyword +"%'";
 		try {

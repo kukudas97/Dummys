@@ -63,8 +63,8 @@
 						<tbody class="gaussianDatas">
 							<tr>
 								<td><input data-type="name" type="text" style="width:100%" placeholder="데이터값"></td>
-								<td><input data-type="average" type="number" style="width:100%" placeholder="평균"></td>
-								<td><input data-type="deviation" type="number" style="width:100%" placeholder="표준편차"></td>
+								<td><input data-type="average" type="number" style="width:100%" placeholder="평균" value="100"></td>
+								<td><input data-type="deviation" type="number" style="width:100%" placeholder="표준편차" value="10"></td>
 								<td><div class="icon-container"><span class="ti-close delBtn"></span></div></td>
 							</tr>
 						</tbody>
@@ -119,8 +119,8 @@
 	function addRow(){
 			let txt = '<tr>' +
 			'<td><input data-type="name" type="text" style="width:100%" placeholder="데이터값"></td>' +
-			'<td><input data-type="average" type="number" style="width:100%" placeholder="평균"></td>' +
-			'<td><input data-type="deviation" type="number" style="width:100%" placeholder="표준편차"></td>' +
+			'<td><input data-type="average" type="number" style="width:100%" placeholder="평균" value="100"></td>' +
+			'<td><input data-type="deviation" type="number" style="width:100%" placeholder="표준편차" value="10"></td>' +
 			'<td><div class="icon-container"><span class="ti-close delBtn"></span></div></td>'+
 		'</tr>';
 		$(".gaussianDatas").append(txt);
