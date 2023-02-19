@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +49,12 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="/tendinous/tendinous.do" class="dropdown-toggle" ><i class="menu-icon fa fa-question-circle"></i>문의사항</a>
                     </li>
-                  
+                  	<se:authorize access="hasRole('ROLE_ADMIN')">
+                  	<li class="menu-title">관리자 권한</li>
+                  	<li class="menu-item-has-children dropdown">
+                        <a href="/admin/admin.do" class="dropdown-toggle" ><i class="menu-icon fa fa-hospital-o"></i>관리자 페이지로 이동</a>
+                    </li>
+                  	</se:authorize>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

@@ -38,7 +38,6 @@ public class JoinService {
 	public boolean idCheck(String userid) {
 		
 		UserDao userdao = sqlsession.getMapper(UserDao.class);
-		System.out.println(userid);
 		
 		return (userdao.idCheck(userid.replaceAll("\"", "")) >= 1)? false:true;
 	}

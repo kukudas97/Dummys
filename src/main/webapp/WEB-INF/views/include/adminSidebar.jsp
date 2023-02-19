@@ -29,7 +29,10 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="/admin/admindummy.do" class="dropdown-toggle"> <i class="menu-icon fa fa-check-square-o"></i>스키마 확인</a>
                     </li>
-                  
+                    <li class="menu-title">페이지 이동</li>
+                  	<li class="menu-item-has-children dropdown">
+                        <a href="/index.do" class="dropdown-toggle"> <i class="menu-icon fa fa-users"></i>회원페이지로 이동</a>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
