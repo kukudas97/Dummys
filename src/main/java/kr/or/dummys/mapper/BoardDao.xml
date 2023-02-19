@@ -25,6 +25,7 @@ select BOARD_NO, users.USERID, users.NICKNAME, BOARD_KIND, BOARD_NAME, BOARD_CON
  <select id="boardDetail" resultType="kr.or.dummys.dto.Board">
  SELECT board_no,
  		board_kind,
+ 		board.userid,
  		board_name,
  		users.nickname,
  		board_content,
