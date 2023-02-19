@@ -38,32 +38,6 @@
 							</div>
 							<div class="card-body">
 								<div class="myBoard">
-									<h3>받은 쪽지함</h3>
-									<table class="table table-striped table-bordered">
-										<thead>
-											<tr>
-												<th>#</th>
-												<th>보낸사람</th>
-												<th>제목</th>
-												<th>보낸시간</th>
-											</tr>
-										</thead>
-								<%-- 		<tbody>
-											<c:forEach items="" var="">
-												<tr>
-													<td><c:out value="" /></td>
-													<td><c:out value="" /></td>
-													<td><a
-														href=""><c:out
-																value="" /></a></td>
-													<td><c:out value="" /></td>
-												</tr>
-											</c:forEach>
-										</tbody> --%>
-									</table>
-								</div>
-
-								<div class="myBoard">
 									<h3>보낸 쪽지함</h3>
 									<table class="table table-striped table-bordered">
 										<thead>
@@ -72,20 +46,46 @@
 												<th>받은사람</th>
 												<th>제목</th>
 												<th>보낸시간</th>
+												<th>/</th>
 											</tr>
 										</thead>
-								<%-- 		<tbody>
-											<c:forEach items="" var="">
+								 		<tbody>
+											<c:forEach items="${myMessagesendList}" var="myMessagesendList">
 												<tr>
-													<td><c:out value="" /></td>
-													<td><c:out value="" /></td>
-													<td><a
-														href=""><c:out
-																value="" /></a></td>
-													<td><c:out value="" /></td>
+													<td><c:out value="${myMessagesendList.message_no}" /></td>
+													<td><c:out value="${myMessagesendList.receive_id}" /></td>
+													<td onclick=""><c:out value="${myMessagesendList.message_name}" /></td>
+													<td><c:out value="${myMessagesendList.message_date}" /></td>
+													<td><button>삭제</button></td>
 												</tr>
 											</c:forEach>
-										</tbody> --%>
+										</tbody>
+									</table>
+								</div>
+
+								<div class="myBoard">
+									<h3>받은 쪽지함</h3>
+									<table class="table table-striped table-bordered">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>보낸사람</th>
+												<th>제목</th>
+												<th>받은시간</th>
+												<th>/</th>
+											</tr>
+										</thead>
+								 		<tbody>
+											<c:forEach items="${myMessagereceiveList}" var="myMessagereceiveList">
+												<tr>
+													<td><c:out value="${myMessagereceiveList.message_no}" /></td>
+													<td><c:out value="${myMessagereceiveList.send_id}" /></td>
+													<td onclick=""><c:out value="${myMessagereceiveList.message_name}" /></td>
+													<td><c:out value="${myMessagereceiveList.message_date}" /></td>
+													<td><button>삭제</button></td>
+												</tr>
+											</c:forEach>
+										</tbody> 
 									</table>
 								</div>
 
@@ -122,13 +122,13 @@
 			          
 			          <div class="mb-3">
 			            <label for="recipient-name" class="col-form-label">쪽지 제목:</label>
-			            <input type="text" class="form-control" id="recipient-name">
+			            <input type="text" class="form-control" name="message_name" id="recipient-name">
 			          </div>
 			          
 			          <div class="mb-3">
 			            <label for="message-text" class="col-form-label">쪽지 내용:</label>
 			            <div class="form-floating">
-			            <textarea class="form-control" id="floatingTextarea2" placeholder="Leave a comment here" style="height: 100px"></textarea>
+			            <textarea class="form-control" id="floatingTextarea2" name="message_content" placeholder="Leave a comment here" style="height: 100px"></textarea>
 			          	<label for="floatingTextarea2">Comments</label>
 			          	</div>
 			          </div>
@@ -150,7 +150,48 @@
 		<div class="clearfix"></div>
 
 		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
-
+		
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-lg">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel"></h5>
+			      </div>
+			      <div class="modal-body">
+			        <form action="" method="post" id="formdata">
+			          <div class="mb-3">
+			            <label for="recipient-name" class="col-form-label">보내는 사람:</label>
+			            <input type="text" class="form-control" id="send-name" name="send_id" value="${userid}" readonly>
+			          </div>
+			          <div class="mb-3">
+			            <label for="recipient-name" class="col-form-label" value="" readonly>받는 사람:</label>
+			            <input type="text" class="form-control" name="receive_id" id="recipient-name">
+			          </div>
+			          
+			          <div class="mb-3">
+			            <label for="recipient-name" class="col-form-label" value="" readonly>쪽지 제목:</label>
+			            <input type="text" class="form-control" name="message_name" id="recipient-name">
+			          </div>
+			          
+			          <div class="mb-3">
+			            <label for="message-text" class="col-form-label" value="" readonly>쪽지 내용:</label>
+			            <div class="form-floating">
+			            <textarea class="form-control" id="floatingTextarea2" name="message_content" placeholder="Leave a comment here" style="height: 100px"></textarea>
+			          	<label for="floatingTextarea2">Comments</label>
+			          	</div>
+			          </div>
+			       
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+			        <button type="button" class="btn btn-primary" id="messageSubmit">쪽지 보내기</button>
+			      </div>
+			       </form>
+			    </div>
+			  </div>
+			</div>
+		
+		
 <!-- 받는사람 있는지 확인하는 ajax -->
 <script type="text/javascript">
 $("#messageSubmit").on({
@@ -168,6 +209,7 @@ $("#messageSubmit").on({
            		success: function(data){
            			 if(data >= 1){
            				 $("#formdata").submit();
+           				 alert("메세지 전송이 완료 되었습니다.")
            			 }else {
            				 alert("꺼져");
            			 }         			
@@ -180,6 +222,9 @@ $("#messageSubmit").on({
 	  		    
   });
 
+function modal(){
+	
+}
 
 </script>
 
