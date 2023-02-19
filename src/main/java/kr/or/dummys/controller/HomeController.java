@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.or.dummys.dto.Users;
 import kr.or.dummys.service.user.UserService;
 
 @Controller
@@ -30,6 +32,17 @@ public class HomeController {
 			userservice.updateLogin_date(userid);
 		}
 		return "home";
+	}
+	
+	@GetMapping("sleep.do")
+	public String sleep(Model model, Principal pri) {
+		
+		String userid = pri.getName();
+		Users users = userservice.getUser(userid);
+		
+		model.addAttribute("users", users);
+		
+		return "/sleep";
 	}
 	
 }

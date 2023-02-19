@@ -8,17 +8,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select> -->
 	
 	<insert id="messageWrite" parameterType="kr.or.dummys.dto.Message">
- 		insert into board (message_no, message_content, send_id, receive_id, message_name, message_date ,message_check, send, receive)
- 		values(message_no_seq.nextval, #{message_content}, #{send_id}, #{receive_id}, #{message_name}, sysdate, #{send}, #{receive})
+ 		insert into message (message_no, message_content, send_id, receive_id, message_name, message_date ,message_check, send, receive)
+ 		values(message_no_seq.nextval, #{message_content}, #{send_id}, #{receive_id}, #{message_name}, sysdate, 0, 0, 0)
     </insert>
     
     <delete id="messageDelete">
     	DELETE FROM MESSAGE where message_no=${message_no}
     </delete>
     
-    <select id="myMessageList" resultType="kr.or.dummys.dto.Message">
-	 	select * from message where userid=#{userid}
+    <select id="myMessagesendList" resultType="kr.or.dummys.dto.Message">
+	 	select * from message where send_id=#{userid} and send = 0
 	</select> 
+	
+	  <select id="myMessagereceiveList" resultType="kr.or.dummys.dto.Message">
+	 	select * from message where receive_id=#{userid} and receive = 0
+	</select> 
+	
 	
 <!-- 	<update id="">
 		

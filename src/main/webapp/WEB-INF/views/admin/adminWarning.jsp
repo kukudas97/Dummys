@@ -21,45 +21,96 @@
 	 <div class="content">
             <div class="animated fadeIn">
                 <div class="row">
-                    <div class="col-md-12 board">
+                    <div class="col-md-12 admin">
 				
+				<!-- 게시글 신고 -->
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Stripped Table</strong>
+                            <h5 class="m-0 font-weight-bold">게시글 신고</h5>
                         </div>
                         <div class="card-body">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
+                                        <th scope="col">신고자</th>
+                                        <th scope="col">게시글 작성자</th>
+                                        <th scope="col">게시글번호</th>
+                                        <th scope="col">신고 사유</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
+                                  <c:forEach items="${warningBoardList}" var="warningBoardList">
+										<tr>
+											<td><c:out value="${warningBoardList.warning_no}" /></td>
+											<td><c:out value="${warningBoardList.send_id}" /></td>
+											<td><c:out value="${warningBoardList.receive_id}" /></td>
+											<td><c:out value="${warningBoardList.warning_type_no}" /></td>
+											<td><c:out value="${warningBoardList.warning_reason}" /></td>
+										</tr>
+									</c:forEach>
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                    
+                 <!-- 댓글 신고 -->
+                       <div class="card">
+                        <div class="card-header">
+                            
+                            <h5 class="m-0 font-weight-bold">댓글 신고</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">신고자</th>
+                                        <th scope="col">댓글 작성자</th>
+                                        <th scope="col">게시글번호</th>
+                                        <th scope="col">신고 사유</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <c:forEach items="${warningReplyList}" var="warningReplyList">
+										<tr>
+											<td><c:out value="${warningReplyList.warning_no}" /></td>
+											<td><c:out value="${warningReplyList.send_id}" /></td>
+											<td><c:out value="${warningReplyList.receive_id}" /></td>
+											<td><c:out value="${warningReplyList.warning_type_no}" /></td>
+											<td><c:out value="${warningReplyList.warning_reason}" /></td>
+										</tr>
+									</c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- 사용자별 누적 신고 -->   
+                  <%--   <div class="card">
+                        <div class="card-header">
+                            <h5 class="m-0 font-weight-bold">사용자별 누적 신고</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">USERID</th>
+                                        <th scope="col">누적 신고 수</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <c:forEach items="${accumulateWarningCount}" var="accumulateWarningCount">
+										<tr>
+											<td><c:out value="${accumulateWarningCount.receive_id}" /></td>
+											<td><c:out value="${accumulateWarningCount.getCount}" /></td>
+										</tr>
+									</c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> --%>
+                    
                 </div>
 			
 			</div>

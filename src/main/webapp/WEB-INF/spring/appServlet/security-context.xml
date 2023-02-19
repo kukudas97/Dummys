@@ -25,11 +25,11 @@
 		<security:intercept-url pattern="/users/**" access="permitAll"/>
 		<security:intercept-url pattern="/join/**" access="permitAll"/>
 		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
-		<security:intercept-url pattern="/type/**" access="hasRole('ROLE_USER')"/>
-		<security:intercept-url pattern="/gaussian/**" access="hasRole('ROLE_USER')"/>
-		<security:intercept-url pattern="/board/**" access="hasRole('ROLE_USER')"/>
-		<security:intercept-url pattern="/tendinous/**" access="hasRole('ROLE_USER')"/>
-		<security:intercept-url pattern="/schema/schemaList.do**" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/type/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/gaussian/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/board/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/tendinous/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/schema/schemaList.do**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
 	</security:http>
 	<security:authentication-manager>
 		<security:authentication-provider>

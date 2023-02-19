@@ -12,5 +12,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  insert into warning (WARNING_NO, SEND_ID, RECEIVE_ID, WARNING_TYPE, WARNING_TYPE_NO, WARNING_REASON)
  values(warning_no_seq.nextval, #{send_id}, #{receive_id}, #{warning_type}, #{warning_type_no}, #{warning_reason})
  </insert>
+ 
+ <select id="listWarning" resultType="kr.or.dummys.dto.Warning">
+ select WARNING_NO, SEND_ID, RECEIVE_ID, WARNING_TYPE, WARNING_TYPE_NO, WARNING_REASON
+ from warning where WARNING_TYPE = #{param1}
+ </select>
+ 
+ <select id="getCntWarning" resultType="kr.or.dummys.dto.Warning">
+  select receive_id, count(RECEIVE_ID)as cnt from warning group by receive_id
+ </select>
+ 
 
 </mapper>

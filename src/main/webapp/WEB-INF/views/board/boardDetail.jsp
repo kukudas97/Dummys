@@ -87,10 +87,8 @@
 				<%-- <a href="/board/boardList.do?board_kind=${board.board_kind}">목록</a> --%>
 
 				<form id='operForm' action="" method="get">
-					<input type='hidden' id="board_no" name='board_no'
-						value='<c:out value="${board.board_no}" />'> <input
-						type='hidden' id="board_kind" name='board_kind'
-						value='<c:out value="${board.board_kind}" />'>
+					<input type='hidden' id="board_no" name='board_no' value='<c:out value="${board.board_no}" />'> 
+					<input type='hidden' id="board_kind" name='board_kind' value='<c:out value="${board.board_kind}" />'>
 				</form>
 
 
@@ -163,13 +161,10 @@
 
                 			if (text) {
                 				$.ajax({
-             	            		url: "/warning/warning.do", //컨트롤러로 보낼 uri
+             	            		url: "/warning/reportWarning.do", //컨트롤러로 보낼 uri
              	            		type: "POST", //보내는 방식
              	            		data: datas,
              	            		success: function(data){
-             	            		/* 	replyList();
-             	            			$('#reply_content').val('');
-             	            			$("#write-reply").removeClass("writeReplyForm"); */
 
                           			  Swal.fire("신고가 완료되었습니다")
              	            			
@@ -182,11 +177,9 @@
                         			  Swal.fire("신고 실패");
                                   }	
              	               });
-                				
                 			}
             	});
-                
-                	
+
                 	//댓글 달기 폼 호출 버튼
                 	$("#addReplyBtn").on({
                 		click : ()=>{
@@ -228,13 +221,45 @@
                     });
                     		
                     //댓글 신고 230218
-					/* $(document).on("click", ".report", function(){
-						confirm("댓글을 신고하시겠습니까?")==true {//확인
-							$.ajax({
-								url: ""
-							})
-						}
-                    }); */
+					$(document).on("click", ".report", async function(e){
+                		const { value: text } = await Swal.fire({
+              			  input: 'textarea',
+              			  inputLabel: '본 댓글을 신고하시겠습니까?',
+              			  inputPlaceholder: '신고 사유를 입력해 주세요',
+              			  showCancelButton: true
+              			});
+                		
+                		console.log(e.target)
+              			let datas = {
+		                			"receive_id":$(e.target).attr("reply-writer"),
+		                			"warning_type":"댓글",
+		                			"warning_type_no": $(e.target).attr("data-value"),
+		                			"warning_reason": text
+		                		}
+                		
+                		console.log(datas);
+                		
+
+              			if (text) {
+              				$.ajax({
+           	            		url: "/warning/reportWarning.do", //컨트롤러로 보낼 uri
+           	            		type: "POST", //보내는 방식
+           	            		data: datas,
+           	            		success: function(data){
+
+                        			  Swal.fire("신고가 완료되었습니다")
+           	            			
+           	            		},
+           	            		error: function(request, status, error) { //에러 났을 경우 
+           	                      	console.log(request);
+           	            			console.log(status);
+           	            			console.log(error);
+
+                      			  Swal.fire("신고 실패");
+                                }	
+           	               });
+              			}
+          		});
                 	  
                 	
                 	//댓글 비동기로 삽입후 나열        
@@ -346,7 +371,7 @@
 											}
     		                                
     		                   listReply += '<span class="add_reply badge float-right mt-1" data-value="'+replyList.reply_no +'">대댓글</span>'+
-    		                   				'<span class="report badge float-right mt-1" data-value="'+replyList.reply_no +'">신고</span>'+
+    		                   				'<span class="report badge float-right mt-1" data-value="'+replyList.reply_no +'" reply-writer="'+replyList.userid+'">신고</span>'+
     		                                '<span class="badge mt-1">'+'&nbsp'+'&nbsp'+'&nbsp'+ replyList.reply_date+'</span>'+
     		                            '</div>'+
     		                            '<div class="card-body">'+
