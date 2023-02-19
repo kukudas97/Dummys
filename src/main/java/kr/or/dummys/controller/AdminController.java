@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,7 +15,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.or.dummys.dto.Tendinous;
 import kr.or.dummys.dto.Type;
 import kr.or.dummys.dto.Users;
+import kr.or.dummys.dto.Warning;
 import kr.or.dummys.service.admin.AdminService;
+import kr.or.dummys.service.warning.WarningService;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -22,6 +25,9 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adminservice;
+	
+	@Autowired
+	WarningService warningService;
 	
 	//차트 페이지로 할 예정
 	@GetMapping("/admin.do")
@@ -57,11 +63,17 @@ public class AdminController {
 	}
 	
 	//신고자 확인
-	@GetMapping("/adminwarning.do")
-	public String adminWarning() {
-		
-		return "admin/adminWarning";
-	}
+	 @GetMapping("/adminwarning.do") 
+	 public String listWarning(String pg, String f, String q, Model model){
+		 System.out.println("adminwarning 컨트롤러 탔다");
+		 List<Warning> warningBoardList = warningService.listWarning("게시글", pg, f, q);
+		 List<Warning> warningReplyList = warningService.listWarning("댓글", pg, f, q);
+		 
+		 model.addAttribute("warningBoardList", warningBoardList);
+		 model.addAttribute("warningReplyList", warningReplyList);
+	 return "admin/adminWarning"; 
+	 }
+
 	
 	//문의사항 확인
 	@GetMapping("/admintendinous.do")

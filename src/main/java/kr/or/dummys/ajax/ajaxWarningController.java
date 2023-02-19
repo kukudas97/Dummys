@@ -1,25 +1,26 @@
-package kr.or.dummys.controller;
+package kr.or.dummys.ajax;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import kr.or.dummys.dto.Warning;
 import kr.or.dummys.service.warning.WarningService;
 
-@Controller
+@RestController
 @RequestMapping("/warning/*")
-public class WarningController{
+public class ajaxWarningController{
 	
 	@Autowired
 	WarningService warningService;
-
-	@ResponseBody
-	@PostMapping(value="warning.do")
+	
+	@PostMapping(value="reportWarning.do")
 	public String reportWarning(Warning warning, Principal principal) {
 		System.out.println("warning 컨트롤러 탔다");
 		System.out.println(warning.toString());
