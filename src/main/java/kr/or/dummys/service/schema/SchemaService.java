@@ -1,6 +1,7 @@
 package kr.or.dummys.service.schema;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -161,7 +162,7 @@ public class SchemaService {
 	
 	
 	
-	public Map<String,Object> getDummyData(CreateData data){
+	public List<Map<String,Object>> getDummyData(CreateData data){
 		
 		int row = data.getRow();
 		int type = data.getType();
@@ -173,20 +174,25 @@ public class SchemaService {
 		// 컬럼 이름, 컬럼을 담아두는 Map 객체
 		// 정규분포에서 사용하기 위해 생성함.
 		// 같은 이름의 컬럼이 여러개 있으면 마지막 컬럼을 사용한다. 
-		Map<String,Col> columnNameMap = new HashMap<String, Col>();
+		Map<String,List<String>> columnNameMap = new HashMap<String, List<String>>();
 		
-		// 생성된 더미데이터 리스트를 담을 Map 객체 ( 결과물 )
-		// value에는 컬럼 정보("Column"), 데이터 리스트("DataList")가 담겨 있음
-		Map<Col, Map<String,Object>> resultData = new HashMap<Col, Map<String,Object>>();
+		/*
+			List<Map<String,Object>>
+			[
+				{ "name" : "컬럼이름","list" : ["안","녕","하","세","요"] },
+				{ "name" : "컬럼이름","list" : ["안","녕","하","세","요"] },
+				{ "name" : "컬럼이름","list" : ["안","녕","하","세","요"] },
+			]
+		*/
+		List<Map<String,Object>> resultDatas = new ArrayList<Map<String,Object>>(list.size());
 		
 		try {
 			// DAO 생성
 			SchemaDao schemadao = sqlSession.getMapper(SchemaDao.class);
 			GaussianDao gaussiandao = sqlSession.getMapper(GaussianDao.class);
+			
 			// 데이터 생성용 정보 가져오기
 			for(Col col : list) {
-				// 정규분포에서 사용할 이름-번호(순서) Map put 작업
-				columnNameMap.put(col.getCol_name(),col);
 				// 더미데이터
 				if(col.getProcess_no() == 0) {
 					List<String> dataList = schemadao.getDummDataByTypeNo(col.getType_no());
@@ -204,13 +210,15 @@ public class SchemaService {
 					map.put("random_form",random_form);
 					
 					dataInfo.put(col,map);
-				} // 정규분포
+				} // 랜덤 숫자
 				else if(col.getProcess_no() == 2) {
 					List<Integer> option = col.getCol_options();
 					Map<String,Object> map = new HashMap<String, Object>();
 					map.put("min",option.get(0));
 					map.put("max",option.get(1));
-				}
+					
+					dataInfo.put(col,map);
+				} // 정규분포
 				else if(col.getProcess_no() == 3) {
 					Gaussian gaussian = gaussiandao.getGaussianByNo(col.getCol_options().get(0)+"");
 					List<Gaussian_result> resultList = gaussiandao.getGaussianResultListByNo(col.getCol_options().get(0) + "");
@@ -249,11 +257,15 @@ public class SchemaService {
 				dummyDataFactory.setCreator("number");
 				wordList = dummyDataFactory.create(dataInfo.get(col), row);
 			}  
+			// wordList = 컬럼 하나의 더미데이터 리스트
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("Column",col);
-			map.put("DataList",wordList);
+			map.put("name",col.getCol_name());
+			map.put("list",wordList);
 			
-			resultData.put(col,map);
+			resultDatas.add(col.getCol_order(), map);
+			
+			// 정규분포에서 사용할 이름-데이터 Map put 작업
+			columnNameMap.put(col.getCol_name(),wordList);
 		}
 		// 정규분포 데이터 만들기
 		for(Col col : list) {
@@ -264,19 +276,32 @@ public class SchemaService {
 				Gaussian gaussian = (Gaussian)dataInfo.get(col).get("gaussian");
 				String col_name = gaussian.getGaussian_col();
 				
-				// 적용시킬 컬럼 이름을 사용 중인 컬럼 구하기
-				Col c = columnNameMap.get(col_name);
-				
 				// 해당 컬럼의 더미데이터 리스트 구하기
-				List<String> li = (List)resultData.get(c).get("DataList");
+				List<String> li = columnNameMap.get(col_name);
 				
 				// 정규분포 데이터 만들기
 				List<String> wordList = dummyDataFactory.create(dataInfo.get(col), row,li);
+				// wordList = 컬럼 하나의 더미데이터 리스트
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("name",col.getCol_name());
+				map.put("list",wordList);
 				
+				resultDatas.set(col.getCol_order(),map);
 			}
 		}
 		// ===========
+		System.out.println();System.out.println();
+		
+		for(Map<String,Object> m : resultDatas) {
+			System.out.println();
+			System.out.println("이름 : " + (String)m.get("name"));
+			System.out.println("리스트 : " + (List<String>)m.get("list"));
+			System.err.println();
+		}
+		
+		System.out.println();System.out.println();
 		
 		return null;
 	}
 }
+

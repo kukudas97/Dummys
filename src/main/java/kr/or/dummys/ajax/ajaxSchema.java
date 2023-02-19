@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.or.dummys.dto.Col;
 import kr.or.dummys.dto.Type;
 import kr.or.dummys.dto.CreateData;
+import kr.or.dummys.dto.Gaussian;
 import kr.or.dummys.dto.Schema;
+import kr.or.dummys.service.gaussian.GaussianService;
 import kr.or.dummys.service.schema.SchemaService;
 import kr.or.dummys.service.type.TypeService;
 
@@ -34,13 +36,16 @@ public class ajaxSchema {
 	@Autowired
 	private TypeService typeService;
 	
+	@Autowired
+	private GaussianService gaussianService;
+	
 	@PostMapping("createData.do")
 	public ResponseEntity<Map<String, Object>> createDatas(@RequestBody CreateData data){
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		try {
 			// 서비스로 데이터 생성/가공 하고...
-			
+			service.getDummyData(data);
 			//map에 담아서 return 해주기
 			map.put("result",  "안녕"); 
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
@@ -110,6 +115,23 @@ public class ajaxSchema {
 		}
 		try {
 			service.deleteSchemaList(list);
+			map.put("result","success");
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("result", "fail");
+		}
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+	}
+	@GetMapping("getGaussianList.do")
+	public ResponseEntity<Map<String, Object>> getGaussianList(Principal pri){
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(pri == null) {
+			map.put("result", "login-error");
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+		}
+		try {
+			List<Gaussian> list =  gaussianService.getGaussianList(pri.getName());
+			map.put("gaussianList",list);
 			map.put("result","success");
 		} catch (Exception e) {
 			e.printStackTrace();
