@@ -1,6 +1,7 @@
 package kr.or.dummys.service.warning;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +16,54 @@ public class WarningService {
 	//Mybatis 작업
 	@Autowired	
 	private SqlSession sqlsession;
+	
+	public List<Warning> listWarning(String warning_type, String pg, String f, String q) {
+		System.out.println("admin listWarning 서비스 탔다");		
+		//default 값 설정
+		int page = 1;
+		String field = "TITLE";
+		String query = "%%";
 		
-		public String reportWarning(Warning warning, Principal principal) {
-			System.out.println("warning 서비스 탔다");
-			int result = 0;
-			try {
-				WarningDao warningDao = sqlsession.getMapper(WarningDao.class);
-				warning.setSend_id(principal.getName());
-				System.out.println(warning.getSend_id());
-				
-				warningDao.reportWarning(warning);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return(result>=1) ? "성공":"실패";
+		if(pg !=null && ! pg.contentEquals("")) {
+			page = Integer.parseInt(pg);
 		}
+		
+		if(f != null && ! f.contentEquals("")) {
+			field = f;
+		}
+		
+		if(q !=null && ! q.contentEquals("")) {
+			query = q;
+		}
+		
+		List<Warning> warningList = null;
+		System.out.println("warning_type: " + warning_type);
+		try {
+			WarningDao warningDao = sqlsession.getMapper(WarningDao.class);
+			warningList = warningDao.listWarning(warning_type, page, field, query);
+			System.out.println(warningList.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return warningList;
+	}
+	
+	
+	
+		
+	public String reportWarning(Warning warning, Principal principal) {
+		System.out.println("warning 서비스 탔다");
+		int result = 0;
+		try {
+			WarningDao warningDao = sqlsession.getMapper(WarningDao.class);
+			warning.setSend_id(principal.getName());
+			System.out.println(warning.getSend_id());
+				
+			warningDao.reportWarning(warning);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return(result>=1) ? "성공":"실패";
+	}
 
 }
