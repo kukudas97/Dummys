@@ -179,6 +179,7 @@ public class SchemaService {
 		/*
 			List<Map<String,Object>>
 			[
+				Map<String,Object> - name/list
 				{ "name" : "컬럼이름","list" : ["안","녕","하","세","요"] },
 				{ "name" : "컬럼이름","list" : ["안","녕","하","세","요"] },
 				{ "name" : "컬럼이름","list" : ["안","녕","하","세","요"] },
@@ -289,19 +290,8 @@ public class SchemaService {
 				resultDatas.set(col.getCol_order(),map);
 			}
 		}
-		// ===========
-		System.out.println();System.out.println();
 		
-		for(Map<String,Object> m : resultDatas) {
-			System.out.println();
-			System.out.println("이름 : " + (String)m.get("name"));
-			System.out.println("리스트 : " + (List<String>)m.get("list"));
-			System.err.println();
-		}
-		
-		System.out.println();System.out.println();
-		
-		return null;
+		return resultDatas;
 	}
 }
 
