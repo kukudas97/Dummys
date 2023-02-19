@@ -85,7 +85,12 @@
 								<td></td>
 								<td></td>
 								<td></td>
-								<td><button class="btn tablebtn btn-outline-secondary" id="delete">삭제</button></td>
+								<td></td>
+								<td>
+								<div style="margin:auto; width: 53px">
+								<button class="btn tablebtn btn-outline-secondary" id="delete">삭제</button>
+								</div>
+								</td>
 							</tr>
 						</tfoot>
 					</table>
@@ -94,7 +99,7 @@
 					<section id="values">
 						<h3 class="margin15">&nbsp;values</h3>
 						<div id="scrolltext" style="overflow:auto; margin-left: 5px; width: 95%; height: 450px;">
-							<h1>안녕</h1>
+							
 						</div>
 					</section>
 				</div>

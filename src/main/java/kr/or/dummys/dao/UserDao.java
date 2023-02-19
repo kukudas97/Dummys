@@ -38,4 +38,7 @@ public interface UserDao {
 	
 	//회원 지가 쓴 댓글이 있는 게시글 목록(마이페이지)
 	public List<Board> myReplyBoardList(String userid);
+	
+	//회원로그인 시간 초기화
+	public int updateLogin_date(String userid);
 }

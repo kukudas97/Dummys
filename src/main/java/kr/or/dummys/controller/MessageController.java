@@ -2,6 +2,7 @@ package kr.or.dummys.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -16,6 +17,12 @@ public class MessageController {
 	}
 	
 	//쪽지 보내기 처리
-	
+	@PostMapping
+	public String send() {
+		
+		
+		
+		return null;
+	}
 	
 }

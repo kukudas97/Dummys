@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%-- <jsp:include page="/WEB-INF/views/include/head.jsp" /> --%>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 #write-reply {
 	display: none;
@@ -82,6 +82,8 @@
 				<button data-oper='modify' class="btn btn-success">수정</button>
 				<button data-oper='list' class="btn btn-info">목록</button>
 				<button data-oper='delete' class="btn btn-danger">삭제</button>
+				<button data-oper='report' class="btn btn-warning">신고</button>
+				
 				<%-- <a href="/board/boardList.do?board_kind=${board.board_kind}">목록</a> --%>
 
 				<form id='operForm' action="" method="get">
@@ -114,11 +116,7 @@
 						<button class="btn" id="register_reply">등록</button>
 						<button class="btn" id="reply_reset">취소</button>
 					</div>
-
 				</div>
-
-
-
 			</div>
 		</div>
 	</div>
@@ -147,6 +145,47 @@
                 	$("button[data-oper='delete']").on("click", function(e){
                 		operForm.attr("action", "/board/boardDelete.do").submit();
                 	});
+                	
+                	//해당 게시물 신고 버튼 //20230218
+                	$("button[data-oper='report']").on("click", async function(e){
+                		const { value: text } = await Swal.fire({
+                			  input: 'textarea',
+                			  inputLabel: '본 게시글을 신고하시겠습니까?',
+                			  inputPlaceholder: '신고 사유를 입력해 주세요',
+                			  showCancelButton: true
+                			})
+                			let datas = {
+		                			receive_id:'${board.userid}',
+		                			warning_type:"게시글",
+		                			warning_type_no: '${board.board_no}',
+		                			warning_reason: text
+		                		}
+
+                			if (text) {
+                				$.ajax({
+             	            		url: "/warning/warning.do", //컨트롤러로 보낼 uri
+             	            		type: "POST", //보내는 방식
+             	            		data: datas,
+             	            		success: function(data){
+             	            		/* 	replyList();
+             	            			$('#reply_content').val('');
+             	            			$("#write-reply").removeClass("writeReplyForm"); */
+
+                          			  Swal.fire("신고가 완료되었습니다")
+             	            			
+             	            		},
+             	            		error: function(request, status, error) { //에러 났을 경우 
+             	                      	console.log(request);
+             	            			console.log(status);
+             	            			console.log(error);
+
+                        			  Swal.fire("신고 실패");
+                                  }	
+             	               });
+                				
+                			}
+            	});
+                
                 	
                 	//댓글 달기 폼 호출 버튼
                 	$("#addReplyBtn").on({
@@ -187,6 +226,15 @@
 	                            
                     		);
                     });
+                    		
+                    //댓글 신고 230218
+					/* $(document).on("click", ".report", function(){
+						confirm("댓글을 신고하시겠습니까?")==true {//확인
+							$.ajax({
+								url: ""
+							})
+						}
+                    }); */
                 	  
                 	
                 	//댓글 비동기로 삽입후 나열        
@@ -226,8 +274,7 @@
               		  		}
               	  	}     
               	  });
-                
-                	  
+  
              });  //onreadyfunction 짝꿍
 				
              
@@ -299,6 +346,7 @@
 											}
     		                                
     		                   listReply += '<span class="add_reply badge float-right mt-1" data-value="'+replyList.reply_no +'">대댓글</span>'+
+    		                   				'<span class="report badge float-right mt-1" data-value="'+replyList.reply_no +'">신고</span>'+
     		                                '<span class="badge mt-1">'+'&nbsp'+'&nbsp'+'&nbsp'+ replyList.reply_date+'</span>'+
     		                            '</div>'+
     		                            '<div class="card-body">'+
@@ -362,13 +410,9 @@
             		  }  
                 }); 
                 }
-                
-              
-
-                
-                
-
                 </script>
+                
+
 
 
 
