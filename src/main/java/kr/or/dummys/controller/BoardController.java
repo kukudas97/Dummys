@@ -94,5 +94,6 @@ public class BoardController {
 	  public String boardDelete(Board board, String board_no) {
 		  return boardService.boardDelete(board, board_no);
 	  }
+	  
 	 
 }
