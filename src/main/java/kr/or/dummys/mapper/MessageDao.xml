@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.dummys.dao.MessageDao">
+	<!-- <select id="함수이름" resultType="DTO 경로">
+		select chat_name as name, chat_content as content from chat order by chat_no desc
+	</select> -->
+	
+	<insert id="messageWrite" parameterType="kr.or.dummys.dto.Message">
+ 		insert into board (message_no, message_content, send_id, receive_id, message_name, message_date ,message_check, send, receive)
+ 		values(message_no_seq.nextval, #{message_content}, #{send_id}, #{receive_id}, #{message_name}, sysdate, #{send}, #{receive})
+    </insert>
+    
+    <delete id="messageDelete">
+    	DELETE FROM MESSAGE where message_no=${message_no}
+    </delete>
+    
+    <select id="myMessageList" resultType="kr.or.dummys.dto.Message">
+	 	select * from message where userid=#{userid}
+	</select> 
+	
+<!-- 	<update id="">
+		
+	</update>
+	
+	<update id="">
+	
+	</update> -->
+	
+	<select id="idCheck" parameterType="String" resultType="int">
+		SELECT COUNT(userid) FROM USERS WHERE userid= #{userid}
+	</select>
+	
+</mapper>
