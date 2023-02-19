@@ -7,6 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <%-- <jsp:include page="/WEB-INF/views/include/head.jsp" /> --%>
+
 <style>
 	input {
 	      display: inline-block;
@@ -214,6 +215,16 @@
 	</div>
 
 </body>
+<script src="/resources/js/lib/data-table/datatables.min.js"></script>
+<script src="/resources/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+<script src="/resources/js/lib/data-table/dataTables.buttons.min.js"></script>
+<script src="/resources/js/lib/data-table/buttons.bootstrap.min.js"></script>
+<script src="/resources/js/lib/data-table/jszip.min.js"></script>
+<script src="/resources/js/lib/data-table/vfs_fonts.js"></script>
+<script src="/resources/js/lib/data-table/buttons.html5.min.js"></script>
+<script src="/resources/js/lib/data-table/buttons.print.min.js"></script>
+<script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
+<script src="/resources/js/init/datatables-init.js"></script>
 <script>
 	// variable setting
 	const list = $('#schemaarea');
@@ -572,7 +583,7 @@
 						let gaussian_name = $(event.target).closest('tr').find('.gaussian_name').text();
 
 						$(pickedType).val(gaussian_no);
-						$(pickedType).siblings('span').text(gaussian_name);
+						// $(pickedType).siblings('span').text(gaussian_name);
 						$('#gaussianChooseArea').toggle();
 					}
 				})
@@ -586,17 +597,52 @@
 			}
 		})
 	}
+	function test(){
+		$.ajax({
+			  type: 'GET',
+			  url: 'createData.do',
+			  success: function(data, status, xhr) {
+			    var filename = "";
+			    var disposition = xhr.getResponseHeader('Content-Disposition');
+			    if (disposition && disposition.indexOf('attachment') !== -1) {
+			      var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+			      var matches = filenameRegex.exec(disposition);
+			      if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+			    }
+
+			    var blob = new Blob([data], {type: 'text/plain'});
+			    if (typeof window.navigator.msSaveBlob !== 'undefined') {
+			      window.navigator.msSaveBlob(blob, filename);
+			    } else {
+			      var URL = window.URL || window.webkitURL;
+			      var downloadUrl = URL.createObjectURL(blob);
+
+			      if (filename) {
+			        var a = document.createElement("a");
+			        if (typeof a.download === 'undefined') {
+			          window.location.href = downloadUrl;
+			        } else {
+			          a.href = downloadUrl;
+			          a.download = filename;
+			          document.body.appendChild(a);
+			          a.click();
+			        }
+			      } else {
+			        window.location.href = downloadUrl;
+			      }
+
+			      setTimeout(function() {
+			        URL.revokeObjectURL(downloadUrl);
+			      }, 100);
+			    }
+			  },
+			  error: function(xhr, status, error) {
+			    // 에러 처리 코드
+			  }
+			});
+	}
+	
 	</script>
-	<script src="/resources/js/lib/data-table/datatables.min.js"></script>
-    <script src="/resources/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-    <script src="/resources/js/lib/data-table/dataTables.buttons.min.js"></script>
-    <script src="/resources/js/lib/data-table/buttons.bootstrap.min.js"></script>
-    <script src="/resources/js/lib/data-table/jszip.min.js"></script>
-    <script src="/resources/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="/resources/js/lib/data-table/buttons.html5.min.js"></script>
-    <script src="/resources/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
-    <script src="/resources/js/init/datatables-init.js"></script>
     <script>
     	$('#typeTable').DataTable();
     </script>
