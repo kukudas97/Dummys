@@ -11,25 +11,27 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
-public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
+
 		List<String> roleNames = new ArrayList<String>();
-		authentication.getAuthorities().forEach(authority->{
+		authentication.getAuthorities().forEach(authority -> {
 			roleNames.add(authority.getAuthority());
 		});
-		
-		if(roleNames.contains("ROLE_USER")) {
+
+		if (roleNames.contains("ROLE_USER")) {
 			response.sendRedirect("/index.do");
 			return;
 		}
-		if(roleNames.contains("ROLE_ADMIN")) {
+		if (roleNames.contains("ROLE_ADMIN")) {
 			response.sendRedirect("/admin/admin.do");
 			return;
 		}
-		
+
 		response.sendRedirect("/index.do");
+
 	}
 }

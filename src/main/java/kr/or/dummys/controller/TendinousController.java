@@ -21,12 +21,8 @@ public class TendinousController {
 	private TendinousService tendinousservice;
 	
 	@GetMapping("/tendinous.do")
-	public String tendinous(Model model, Principal pricipal) {
-		
-		String userid = pricipal.getName();
-		
-		model.addAttribute("userid", userid);
-		
+	public String tendinous() {
+				
 		return "tendinous/tendinousCreate";
 	}
 	
@@ -42,6 +38,6 @@ public class TendinousController {
 		
 		int result = tendinousservice.insertTendinous(tendinous);
 		
-		return (result >=1)?"tendinous/tendinousCreate":"utils/error";
+		return (result >=1)?"home":"utils/error";
 	}
 }

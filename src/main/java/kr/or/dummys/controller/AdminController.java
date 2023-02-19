@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kr.or.dummys.dto.Tendinous;
 import kr.or.dummys.dto.Type;
 import kr.or.dummys.dto.Users;
 import kr.or.dummys.service.admin.AdminService;
@@ -32,7 +33,7 @@ public class AdminController {
 		try {
 			jsonString = mapper.writeValueAsString(typeList);
 		} catch (Exception e) {
-			System.out.println("ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ");
+			e.printStackTrace();
 		}
 		model.addAttribute("typeList", typeList);
 		model.addAttribute("jsonTypeList", jsonString);
@@ -64,7 +65,11 @@ public class AdminController {
 	
 	//문의사항 확인
 	@GetMapping("/admintendinous.do")
-	public String adminTendinous() {
+	public String adminTendinous(Model model) {
+		
+		List<Tendinous> listTendinous = adminservice.listTendinous();
+		
+		model.addAttribute("listTendinous", listTendinous);
 		
 		return "admin/adminTendinous";
 	}

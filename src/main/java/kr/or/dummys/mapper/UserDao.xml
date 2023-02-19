@@ -30,6 +30,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	//회원 비활성화
 	public int outUser();
+	
+	//회원로그인 시간 초기화
+	public int updateLogin_date();
  -->
 
 <mapper namespace="kr.or.dummys.dao.UserDao">
@@ -80,4 +83,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="myReplyBoardList" resultType="kr.or.dummys.dto.Board">
 	  select board.board_no, board.board_kind, board.board_name, to_char(board.board_date,'yyyy-mm-dd') as board_date from reply inner join board on board.board_no = reply.board_no where reply.userid=#{userid} group by board.board_no, board_kind,board_name, board_date
 	</select>
+	
+	<update id="updateLogin_date">
+		update users set login_date = current_date where userid=#{userid}
+	</update>
 </mapper>

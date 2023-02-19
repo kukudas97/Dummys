@@ -23,7 +23,5 @@
             </div>
         </footer>
         <!-- /.site-footer -->
-
-
 </body>
 </html>
