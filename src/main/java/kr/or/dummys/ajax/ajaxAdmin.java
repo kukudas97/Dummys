@@ -54,4 +54,22 @@ public class ajaxAdmin {
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@PostMapping("/deleteTendinous.do")
+	public ResponseEntity<Map<String, Object>>deleteTendinous(@RequestBody List<Integer> tendinous_no){
+		Map<String, Object> map = new HashMap<String, Object>();
+		int deleteTendinous = 0;
+		try {
+			for(int num : tendinous_no) {
+				deleteTendinous = adminservice.deleteTendinous(num);
+			}
+			map.put("msg", deleteTendinous);
+			map.put("result", "success");
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("result", "fail");
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.BAD_REQUEST);
+		}
+	}
 }

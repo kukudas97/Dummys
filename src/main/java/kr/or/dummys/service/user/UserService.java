@@ -14,39 +14,43 @@ import kr.or.dummys.dto.Users;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
 	private SqlSession sqlsession;
-	
-	//user확인
+
+	// user확인
 	public Users getUser(String userid) {
 		UserDao userDao = sqlsession.getMapper(UserDao.class);
-		
+
 		Users user = userDao.userDetail(userid);
-		
+
 		return user;
 	}
-	
-	public Map<String, Object> myBoardList(String userid){
+
+	public Map<String, Object> myBoardList(String userid) {
 		// service
 		Map<String, Object> mypageMap = new HashMap<String, Object>();
 		List<Board> myBoardList = null;
 		List<Board> myReplyBoardList = null;
-		
+
 		try {
 			UserDao userDao = sqlsession.getMapper(UserDao.class);
 			myBoardList = userDao.myBoardList(userid);
 			myReplyBoardList = userDao.myReplyBoardList(userid);
-			
+
 			mypageMap.put("myBoardList", myBoardList);
 			mypageMap.put("myReplyBoardList", myReplyBoardList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-
-		
-		
 		return mypageMap;
 	}
+
+	public int updateLogin_date(String userid) {
+		UserDao userdao = sqlsession.getMapper(UserDao.class);
+		int result = userdao.updateLogin_date(userid);
+		System.out.println(result);
+		return result;
+	}
+
 }
