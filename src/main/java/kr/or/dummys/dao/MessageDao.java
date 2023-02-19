@@ -11,12 +11,17 @@ public interface MessageDao {
 	//메세지 입력
 	int messageWrite(Message message) throws ClassNotFoundException, SQLException;
 	
-	//받은 메세지 목록 불러오기
-	public List<Board> myBoardList(String userid);
+	//보낸 메세지 목록 불러오기
+	public List<Message> myMessagesendList(String userid);
 
+	//받은 메세지 목록 불러오기
+	public List<Message> myMessagereceiveList(String userid);
+	
 	//메세지 삭제
 	int messageDelete(String seq) throws ClassNotFoundException, SQLException;
 	
 	//DB에 있는 아이디인지 확인
 	int idCheck(String userid) throws ClassNotFoundException, SQLException;
+	
+	
 }
