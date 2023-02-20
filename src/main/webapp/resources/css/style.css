@@ -2753,6 +2753,50 @@ font-size: 17px;
 .card-body table{
 	margin-top: 15px;
 }
+
+
+/* .bg-flat-color-7 .error-page{
+	margin: auto;
+	padding: auto;
+	animation-fill-mode: forwards;
+ 	display: block; 
+	vertical-align:middle;
+   align-items: center;
+  justify-content: center; 
+	
+}
+
+.error-page h2{
+	text-align: center;
+	font-family: 'IBM Plex Sans KR', sans-serif;
+	color: #29b545;
+	font-weight: bold;
+	
+}
+
+ .error-page .align-content .logo{
+	width: 130%;
+	height: 130%;
+	align-items: center;
+	justify-content: center;
+}
+
+.error-page .align-content .monsterCaptain{
+	width: 115%;
+	height: 120%;
+	align-items: center;
+	justify-content: center;
+}
+
+.error-page .align-content .monsterFriends{
+	width: 90%;
+	height: 90%;
+	align-items: center;
+	justify-content: center;
+}  */
+
+
+
 /*재홍*/
 #main_content{
 	margin: 20px;

@@ -17,6 +17,7 @@ public class WarningService {
 	@Autowired	
 	private SqlSession sqlsession;
 	
+	//신고 리스트
 	public List<Warning> listWarning(String warning_type, String pg, String f, String q) {
 		System.out.println("admin listWarning 서비스 탔다");		
 		//default 값 설정
@@ -46,6 +47,20 @@ public class WarningService {
 			e.printStackTrace();
 		}
 		return warningList;
+	}
+	
+	//신고 받은 회원별 신고 카운트
+	public List<Warning> getWarningCnt(){
+		
+		List<Warning> getWarningCnt = null;
+		try {
+			WarningDao warningDao = sqlsession.getMapper(WarningDao.class);
+			getWarningCnt =warningDao.getWarningCnt();
+			System.out.println(getWarningCnt.toString());
+		} catch (Exception e) {
+			e.getStackTrace();
+		}		
+		return getWarningCnt;
 	}
 	
 	
