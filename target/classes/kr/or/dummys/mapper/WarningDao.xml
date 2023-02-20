@@ -18,8 +18,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  from warning where WARNING_TYPE = #{param1}
  </select>
  
- <select id="getCntWarning" resultType="kr.or.dummys.dto.Warning">
-  select receive_id, count(RECEIVE_ID)as cnt from warning group by receive_id
+ <select id="getWarningCnt" resultType="kr.or.dummys.dto.Warning">
+  select receive_id, count(RECEIVE_ID)as warning_cnt from warning group by receive_id
  </select>
  
 

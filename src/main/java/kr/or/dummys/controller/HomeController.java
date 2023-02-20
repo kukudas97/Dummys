@@ -44,5 +44,10 @@ public class HomeController {
 		
 		return "/sleep";
 	}
+	//error
+	@GetMapping("/error.do")
+	public String error() {
+		return "utils/error";
+	}
 	
 }

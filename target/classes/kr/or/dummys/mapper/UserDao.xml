@@ -33,6 +33,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	//회원로그인 시간 초기화
 	public int updateLogin_date();
+	
+	//ROLE_SLEEP해제
+	public int deleteROLE_SLEEP(String userid);
+	
+	//ROLE_SLEEP있는지 여부 확인
+	public int selectROLE_SLEEP(String userid);
  -->
 
 <mapper namespace="kr.or.dummys.dao.UserDao">
@@ -88,4 +94,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateLogin_date">
 		update users set login_date = current_date where userid=#{userid}
 	</update>
+	
+	<delete id="deleteROLE_SLEEP">
+		delete from users_role where userid=#{userid} and role_name='ROLE_SLEEP'
+	</delete>
+	
+	<select id="selectROLE_SLEEP" resultType="int">
+		select count(*) from users_role where userid=#{userid} and role_name='ROLE_SLEEP'
+	</select>
 </mapper>

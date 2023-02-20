@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -100,7 +101,7 @@ font-family: 'Lato', sans-serif;
                     <form method="post" action="${pageContext.request.contextPath}/login">
                     	
                         <div class="form-group">
-                            <label>Email address</label>
+                            <label>UserID</label>
                             <input type="text" name="userid" class="form-control" placeholder="Email">
                         </div>
                         <div class="form-group">
@@ -117,10 +118,19 @@ font-family: 'Lato', sans-serif;
 
                         </div>
                         <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
-                        <div class="register-link m-t-15 text-center">
+                        <div class="register-link m-t-15 text-center" style="padding-top: 8px">
                             <p>계정이 없으십니까? <a href="${pageContext.request.contextPath}/join/join.do"> 회원가입하기</a></p>
                         </div>
-                        <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
+                        
+                       <div class="checkAccount" style="text-align: center; font-size: 17px; font-weight: bold; color: #29b545;">
+                        <c:if test="${param.error != null}">
+   							<div>
+     							<c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+     							 	아이디(email형식) 또는 비밀번호를 확인하세요
+    							</c:if>
+   							</div>
+  						</c:if> 
+  					   </div>
                     </form>
                 </div>
             </div>

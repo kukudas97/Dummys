@@ -10,4 +10,5 @@ public class Warning {
 	private String warning_type;
 	private int warning_type_no;
 	private String warning_reason;
+	private int warning_cnt;
 }

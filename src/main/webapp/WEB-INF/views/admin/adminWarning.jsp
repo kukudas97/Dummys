@@ -15,7 +15,7 @@
 	<div id="right-panel" class="right-panel">
 		<jsp:include page="/WEB-INF/views/include/adminHeader.jsp" />
 		<div id="main_content" class="main_content_height">
-			<h1>Admin</h1>
+<!-- 			<h1>신고 확인</h1> -->
 		
 
 	 <div class="content">
@@ -24,12 +24,13 @@
                     <div class="col-md-12 admin">
 				
 				<!-- 게시글 신고 -->
+				<div class="warning-table" style="padding-bottom: 30px">
                     <div class="card">
                         <div class="card-header">
                             <h5 class="m-0 font-weight-bold">게시글 신고</h5>
                         </div>
                         <div class="card-body">
-                            <table class="table table-striped">
+                            <table id="reportWarningBoard" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -53,15 +54,17 @@
                             </table>
                         </div>
                     </div>
+                   </div>
                     
                  <!-- 댓글 신고 -->
+                 	<div class="warning-table" style="padding-bottom: 30px">
                        <div class="card">
                         <div class="card-header">
                             
                             <h5 class="m-0 font-weight-bold">댓글 신고</h5>
                         </div>
                         <div class="card-body">
-                            <table class="table table-striped">
+                            <table id="reportWarningReply" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -85,14 +88,16 @@
                             </table>
                         </div>
                     </div>
+                   </div>
                     
-                    <!-- 사용자별 누적 신고 -->   
-                  <%--   <div class="card">
+                    <!-- 사용자별 누적 신고 -->  
+                   <div class="warning-table" style="padding-bottom: 30px"> 
+                  	<div class="card">
                         <div class="card-header">
                             <h5 class="m-0 font-weight-bold">사용자별 누적 신고</h5>
                         </div>
                         <div class="card-body">
-                            <table class="table table-striped">
+                            <table id="reportWarningUsers" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th scope="col">USERID</th>
@@ -100,16 +105,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  <c:forEach items="${accumulateWarningCount}" var="accumulateWarningCount">
+                                  <c:forEach items="${warningCnt}" var="warningCnt">
 										<tr>
-											<td><c:out value="${accumulateWarningCount.receive_id}" /></td>
-											<td><c:out value="${accumulateWarningCount.getCount}" /></td>
+											<td><c:out value="${warningCnt.receive_id}" /></td>
+											<td><c:out value="${warningCnt.warning_cnt}" /></td>
 										</tr>
 									</c:forEach>
                                 </tbody>
                             </table>
                         </div>
-                    </div> --%>
+                    </div>
+                   </div>
                     
                 </div>
 			
@@ -125,4 +131,20 @@
 	
 
 </body>
+
+	<script src="/resources/js/lib/data-table/datatables.min.js"></script>
+    <script src="/resources/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="/resources/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="/resources/js/lib/data-table/jszip.min.js"></script>
+    <script src="/resources/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="/resources/js/init/datatables-init.js"></script>
+    <script>
+    $('#reportWarningBoard').DataTable();
+    $('#reportWarningReply').DataTable();
+    $('#reportWarningUsers').DataTable();
+    </script>
 </html>

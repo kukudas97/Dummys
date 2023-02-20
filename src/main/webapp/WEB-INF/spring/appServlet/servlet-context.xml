@@ -27,4 +27,5 @@
 		<property name="maxUploadSize"    value="10485760"></property>
 		<property name="defaultEncoding"  value="UTF-8"></property>
 </bean>
+<!-- <bean class="kr.or.dummys.utils.CustomExceptionHandler"/> -->
 </beans>
