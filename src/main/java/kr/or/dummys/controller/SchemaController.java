@@ -1,6 +1,7 @@
 package kr.or.dummys.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,11 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.dummys.dto.Col;
+import kr.or.dummys.dto.CreateData;
 import kr.or.dummys.dto.Schema;
+import kr.or.dummys.dto.TestForm;
 import kr.or.dummys.service.schema.SchemaService;
 
 @Controller
@@ -51,12 +57,6 @@ public class SchemaController {
 			model.addAttribute("schema",schema);
 			model.addAttribute("col_list",col_list);
 		}
-
-		System.out.println("========================================");
-		System.out.println(schema);
-		System.out.println("========================================");
-		System.out.println(col_list);
-		System.out.println("========================================");
 		return "schema/schemaDetail";
 	}
 }

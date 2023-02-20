@@ -148,7 +148,7 @@
 								<tr>
 									<th>이름</th>
 									<th>타입</th>
-									<th>옵션</th>
+									<th>옵션(공백 %)</th>
 									<th colspan="2">선택옵션</th>
 								</tr>
 							</thead>
@@ -156,7 +156,7 @@
 								<tr class="schema">
 									<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="name" ><div class="datasection"><input type="text" value="1"></div></div></td>
 									<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="type" data-value="201" ><div class="datasection"><input data-value="201" process-value="2" type="text" value="랜덤 숫자" readonly/></div></div></td>
-									<td class="col-sm-3 col-md-3 col-lg-3"><div data-type="options"  ><div class="datasection"><input type="text" value="1"></div></div></td>
+									<td class="col-sm-3 col-md-3 col-lg-3"><div data-type="options"  ><div class="datasection"><input type="text" value="0"  min="0" max="100"></div></div></td>
 									<td class="col-sm-3 col-md-3 col-lg-3">
 										<div data-type="selectoptions"  >
 											<div class="datasection row">
@@ -181,9 +181,11 @@
 									<td colspan="2" ><span class="col-md-4">#데이터 타입</span>
 										<div class="col-md-8"  style="display: inline-block;">
 											<select name="select" id="printType" class="form-control">
-	                                             <option value="0">Excel</option>
 	                                             <option value="1">JSON</option>
 	                                             <option value="2">CSV</option>
+	                                             <option value="3">HTML TABLE</option>
+	                                             <option value="4">SQL</option>
+	                                             <!-- <option value="5">Excel</option> -->
 	                                         </select>
                                          </div>
 									</td>
@@ -246,7 +248,7 @@
 		click: createDummy
 	})
 	$("#createBtn").on({
-		click: createDummy
+		click: downloadFile
 	})
 	$('#saveBtn').on({
 		click: saveSchema
@@ -339,6 +341,63 @@
 		}) // ajax end
 	}// createDummy function end
 	
+	// downloadFile() function start
+	function downloadFile(){
+		let paramData = {
+				"row" : $('#rowNum').val(), // 생성할 데이터의 숫자
+				"type" : $('#printType option:selected').val(), // 데이터 생성 타입 (Excel , JSON 등등...)
+				"schema_name" : $('#schemaName').val(),
+				"schema_no" : 0,
+				"schema_content" : $('#schemaContent').val(),
+				"schema_password" : $('#schema_password').val(),
+				"list" : readColumn()
+		}
+		$.ajax({
+			type:"post",
+			url : "schemaDownload.do",
+			data : JSON.stringify(paramData),
+			contentType:'application/json',
+			  success: function(data, status, xhr) {
+				    var filename = "";
+				    var disposition = xhr.getResponseHeader('Content-Disposition');
+				    if (disposition && disposition.indexOf('attachment') !== -1) {
+				      var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+				      var matches = filenameRegex.exec(disposition);
+				      if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+				    }
+					
+				    var blob = new Blob([data], {type: 'text/plain'});
+				    if (typeof window.navigator.msSaveBlob !== 'undefined') {
+				      window.navigator.msSaveBlob(blob, filename);
+				    } else {
+				      var URL = window.URL || window.webkitURL;
+				      var downloadUrl = URL.createObjectURL(blob);
+
+				      if (filename) {
+				        var a = document.createElement("a");
+				        if (typeof a.download === 'undefined') {
+				          window.location.href = downloadUrl;
+				        } else {
+				          a.href = downloadUrl;
+				          a.download = filename;
+				          document.body.appendChild(a);
+				          a.click();
+				        }
+				      } else {
+				        window.location.href = downloadUrl;
+				      }
+
+				      setTimeout(function() {
+				        URL.revokeObjectURL(downloadUrl);
+				      }, 100);
+				    }
+				  },
+			error : (error)=>{
+				
+			}
+		}) // ajax end
+	}// downloadFile function end
+	
 	// saveSchema function start
 	function saveSchema(){
 		let paramData = {
@@ -390,7 +449,7 @@
 		const td3 = $('<td>').addClass('col-sm-3 col-md-3 col-lg-3')
 							.append($('<div>').attr('data-type', 'options')
 												.append($('<div>').addClass('datasection')
-																.append($('<input>').attr('type', 'text').val('1'))));
+																.append($('<input>').attr('type', 'text').attr("min","0").attr("max","100").val('0'))));
 		const td4 = $('<td>').addClass('col-sm-3 col-md-3 col-lg-3')
 							.append($('<div>').attr('data-type', 'selectoptions')
 												.append($('<div>').addClass('datasection row')
@@ -597,51 +656,6 @@
 			}
 		})
 	}
-	function test(){
-		$.ajax({
-			  type: 'GET',
-			  url: 'createData.do',
-			  success: function(data, status, xhr) {
-			    var filename = "";
-			    var disposition = xhr.getResponseHeader('Content-Disposition');
-			    if (disposition && disposition.indexOf('attachment') !== -1) {
-			      var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-			      var matches = filenameRegex.exec(disposition);
-			      if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
-			    }
-
-			    var blob = new Blob([data], {type: 'text/plain'});
-			    if (typeof window.navigator.msSaveBlob !== 'undefined') {
-			      window.navigator.msSaveBlob(blob, filename);
-			    } else {
-			      var URL = window.URL || window.webkitURL;
-			      var downloadUrl = URL.createObjectURL(blob);
-
-			      if (filename) {
-			        var a = document.createElement("a");
-			        if (typeof a.download === 'undefined') {
-			          window.location.href = downloadUrl;
-			        } else {
-			          a.href = downloadUrl;
-			          a.download = filename;
-			          document.body.appendChild(a);
-			          a.click();
-			        }
-			      } else {
-			        window.location.href = downloadUrl;
-			      }
-
-			      setTimeout(function() {
-			        URL.revokeObjectURL(downloadUrl);
-			      }, 100);
-			    }
-			  },
-			  error: function(xhr, status, error) {
-			    // 에러 처리 코드
-			  }
-			});
-	}
-	
 	</script>
     <script>
     	$('#typeTable').DataTable();
