@@ -14,7 +14,7 @@
 		<!-- default-target-url="/index.do" -->
 		<security:form-login login-page="/users/login.do"
 		authentication-success-handler-ref="customLoginSuccess"
-		authentication-failure-url="/utis/error.do"
+		authentication-failure-url="/utils/error.do"
 		username-parameter="userid"
 		password-parameter="password"/>
 		

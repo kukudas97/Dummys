@@ -111,7 +111,7 @@ font-family: 'Lato', sans-serif;
 					    	<img alt="메세지" src="/WEB-INF/views/message/message.png" onclick="location.href='${pageContext.request.contextPath}/message/message.do'">
 					    	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
 					    	<a href="${pageContext.request.contextPath}/users/mypage.do">마이페이지</a>
-					    	<se:authorize access="hasRole('ROLE_SLEEP')"><jsp:forward page="${pageContext.request.contextPath}/sleep.do"/></se:authorize>
+					    	<se:authorize access="hasRole('ROLE_SLEEP')"><jsp:forward page="${pageContext.request.contextPath}/users/forgetPassword.do"/></se:authorize>
 					    </se:authorize>
 				    </div>
 				</div>
