@@ -1,10 +1,5 @@
 package kr.or.dummys.ajax;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +31,7 @@ import kr.or.dummys.dto.Type;
 import kr.or.dummys.service.gaussian.GaussianService;
 import kr.or.dummys.service.schema.SchemaService;
 import kr.or.dummys.service.type.TypeService;
+import kr.or.dummys.utils.SchemaDownLoad;
 
 @RestController
 @RequestMapping("schema/")
@@ -50,54 +46,55 @@ public class ajaxSchema {
 	@Autowired
 	private GaussianService gaussianService;
 	
-	@GetMapping("createData.do")
-	public ResponseEntity<Resource> downloadTest() throws IOException {
-	    String filename = "test.txt";
-	    String content = "This is a test file.\n안녕하세요";
-
-	    // 1. 텍스트 파일 생성
-	    byte[] bytes = content.getBytes();
-	    ByteArrayResource resource = new ByteArrayResource(bytes);
-
-	    // 2. 생성된 파일 다운로드
-	    HttpHeaders headers = new HttpHeaders();
-	    headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
-	    headers.add(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
-
-	    return ResponseEntity.ok()
-	            .headers(headers)
-	            .contentLength(bytes.length)
-	            .contentType(MediaType.parseMediaType(MediaType.TEXT_PLAIN_VALUE))
-	            .body(resource);
+	@PostMapping("schemaDownload.do")
+	public ResponseEntity<Resource> createDatas(@RequestBody CreateData data){
+		// 서비스로 데이터 생성/가공 하고...
+		/*
+			List<Map<String,Object>>
+			[
+				Map<String,Object> - name/list
+				{ "name" : "컬럼이름","list" : ["안","녕","하","세","요"] },
+				{ "name" : "컬럼이름","list" : ["안","녕","하","세","요"] },
+				{ "name" : "컬럼이름","list" : ["안","녕","하","세","요"] },
+			]
+		*/
+		System.out.println(data.getSchema_name());
+		List<Map<String,Object>> result = service.getDummyData(data);
+		String filename =(data.getSchema_name() != null) ? ((!data.getSchema_name().equals("")) ? data.getSchema_name() : "Schema") : "Schema";
+		switch (data.getType()) {
+		case 1: filename += ".json"; break;
+		case 2: filename += ".csv"; break;
+		case 3: filename += ".html"; break;
+		case 4: filename += ".sql"; break;
+		}
+	// =============== txt 파일 생성 ==================
+		String content = SchemaDownLoad.download(result,data);
+		
+		// 1. 텍스트 파일 생성
+		byte[] bytes = content.getBytes();
+		
+		ByteArrayResource resource = new ByteArrayResource(bytes);
+		
+		// 2. 생성된 파일 다운로드
+		HttpHeaders headers = new HttpHeaders();
+		headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
+		headers.add(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
+		
+		return ResponseEntity.ok()
+		        .headers(headers)
+		        .contentLength(bytes.length)
+		        .contentType(MediaType.parseMediaType(MediaType.TEXT_PLAIN_VALUE))
+		        .body(resource);
+		// =============== ========== ==================
 	}
 	
-	@PostMapping("createData.do")
-	public ResponseEntity<Map<String, Object>> createDatas(@RequestBody CreateData data,HttpServletResponse response){
+	@PostMapping("preview.do")
+	public ResponseEntity<Map<String, Object>> preview(@RequestBody CreateData data,HttpServletResponse response){
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		try {
 			// 서비스로 데이터 생성/가공 하고...
-			/*
-				List<Map<String,Object>>
-				[
-					Map<String,Object> - name/list
-					{ "name" : "컬럼이름","list" : ["안","녕","하","세","요"] },
-					{ "name" : "컬럼이름","list" : ["안","녕","하","세","요"] },
-					{ "name" : "컬럼이름","list" : ["안","녕","하","세","요"] },
-				]
-			*/
 			List<Map<String,Object>> result = service.getDummyData(data);
-			
-
-			// ===== 테스트용 출력문 ======
-			System.out.println();System.out.println();
-			for(Map<String,Object> m : result) {
-				System.out.println();
-				System.out.println("이름 : " + (String)m.get("name"));
-				System.out.println("리스트 : " + (List<String>)m.get("list"));
-				System.err.println();
-			}System.out.println();System.out.println();
-			// ===== 테스트용 출력문 ======
 			
 			//map에 담아서 return 해주거나 파일로 가공해주기
 			map.put("result",  "success"); 
@@ -108,7 +105,7 @@ public class ajaxSchema {
 		}
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 	}
-	
+	// =============== 스키마 저장 ==================
 	@PostMapping("saveSchema.do")
 	public ResponseEntity<Map<String, Object>> saveDatas(@RequestBody CreateData data, Principal pri){
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -119,7 +116,12 @@ public class ajaxSchema {
 		
 		try {
 			// 서비스로 데이터 생성/가공 하고...
-			Schema schema = Schema.builder().userid(pri.getName()).schema_name(data.getSchema_name()).schema_content(data.getSchema_content()).schema_password(data.getSchema_password()).build();
+			Schema schema = Schema.builder()
+					.userid(pri.getName())
+					.schema_name((data.getSchema_name().equals("")) ? "스키마" : data.getSchema_name())
+					.schema_content((data.getSchema_content().equals("")) ? "스키마 설명" : data.getSchema_content())
+					.schema_password(data.getSchema_password())
+					.build();
 			List<Col> list = data.getList();
 			
 			int serviceResult = service.createSchema(schema, list);
@@ -195,3 +197,67 @@ public class ajaxSchema {
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 	}
 }
+
+
+
+
+//// =============== txt 파일 생성 ==================
+//String filename = "test.txt";
+//String content = "This is a test file.\n안녕하세요";
+//
+//// 1. 텍스트 파일 생성
+//byte[] bytes = content.getBytes();
+//
+//
+//
+//ByteArrayResource resource = new ByteArrayResource(bytes);
+//
+//// 2. 생성된 파일 다운로드
+//HttpHeaders headers = new HttpHeaders();
+//headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
+//headers.add(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
+//
+//return ResponseEntity.ok()
+//        .headers(headers)
+//        .contentLength(bytes.length)
+//        .contentType(MediaType.parseMediaType(MediaType.TEXT_PLAIN_VALUE))
+//        .body(resource);
+//// =============== ========== ==================
+// =============== Excel 파일 생성 ==================
+//Workbook workbook = new XSSFWorkbook();
+//Sheet sheet = workbook.createSheet("Sheet1");
+//Row row1 = sheet.createRow(0);
+//Cell cell1_1 = row1.createCell(0);
+//cell1_1.setCellValue("1");
+//Cell cell1_2 = row1.createCell(1);
+//cell1_2.setCellValue("2");
+//Cell cell1_3 = row1.createCell(2);
+//cell1_3.setCellValue("3");
+//
+//Row row2 = sheet.createRow(1);
+//Cell cell2_1 = row2.createCell(0);
+//cell2_1.setCellValue("a");
+//Cell cell2_2 = row2.createCell(1);
+//cell2_2.setCellValue("b");
+//Cell cell2_3 = row2.createCell(2);
+//cell2_3.setCellValue("c");
+//
+//ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//workbook.write(bos);
+//byte[] bytes = bos.toByteArray();
+//ByteArrayResource resource = new ByteArrayResource(bytes);
+//
+//  // Set response headers
+////HttpHeaders headers = new HttpHeaders();
+////headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=example.xlsx");
+////headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE);
+//
+//HttpHeaders headers = new HttpHeaders();
+//headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+//headers.setContentDispositionFormData("attachment", "example.xlsx");
+//
+//return ResponseEntity.ok()
+//        .headers(headers)
+//        .contentLength(bytes.length)
+//        .contentType(MediaType.parseMediaType(MediaType.APPLICATION_OCTET_STREAM_VALUE))
+//        .body(resource);
