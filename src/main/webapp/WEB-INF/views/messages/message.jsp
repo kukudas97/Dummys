@@ -15,6 +15,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+ .sendTr, .receiveTr{
+ 	cursor : pointer;
+ }
+</style>
 </head>
 <body>
 	<se:authentication property="name" var="userid" />
@@ -54,9 +59,9 @@
 												<tr>
 													<td><c:out value="${myMessagesendList.message_no}" /></td>
 													<td><c:out value="${myMessagesendList.receive_id}" /></td>
-													<td id="openModal1" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@getbootstrap"><c:out value="${myMessagesendList.message_name}" /></td>
+													<td  class="sendTr" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@getbootstrap"><c:out value="${myMessagesendList.message_name}" /><input class="message_content" type="hidden" value="${myMessagesendList.message_content }"></td>
 													<td><c:out value="${myMessagesendList.message_date}" /></td>
-													<td><button>삭제</button></td>
+													<td><button class="send_delBtn" data-value="${myMessagesendList.message_no}">삭제</button></td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -80,9 +85,9 @@
 												<tr>
 													<td><c:out value="${myMessagereceiveList.message_no}" /></td>
 													<td><c:out value="${myMessagereceiveList.send_id}" /></td>
-													<td id="openModal2" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@getbootstrap"><c:out value="${myMessagereceiveList.message_name}" /></td>
+													<td class="receiveTr"  data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@getbootstrap"><c:out value="${myMessagereceiveList.message_name}" /><input class="message_content" type="hidden" value="${myMessagereceiveList.message_content }"></td>
 													<td><c:out value="${myMessagereceiveList.message_date}" /></td>
-													<td><button>삭제</button></td>
+													<td><button class="receive_delBtn" data-value="${myMessagereceiveList.message_no}">삭제</button></td>
 												</tr>
 											</c:forEach>
 										</tbody> 
@@ -117,7 +122,7 @@
 			          </div>
 			          <div class="mb-3">
 			            <label for="recipient-name" class="col-form-label">받는 사람:</label>
-			            <input type="text" class="form-control" name="receive_id" value="" id="recipient-name">
+			            <input type="text" class="form-control" name="receive_id" id="recipient-name">
 			          </div>
 			          
 			          <div class="mb-3">
@@ -158,33 +163,33 @@
 			        <h5 class="modal-title" id="exampleModalLabel"></h5>
 			      </div>
 			      <div class="modal-body">
-			        <form action="" method="post" id="formdata">
+
+			        <form action="" method="post" id="send_modal">
 			          <div class="mb-3">
-			            <label for="recipient-name" class="col-form-label">보내는 사람:</label>
+			            <label for="recipient-name" class="col-form-label">보낸 사람:</label>
 			            <input type="text" class="form-control" id="send-name" name="send_id" value="${userid}" readonly>
 			          </div>
 			          <div class="mb-3">
 			            <label for="recipient-name" class="col-form-label">받는 사람:</label>
-			            <input type="text" class="form-control" name="receive_id" value="${receive_id}" readonly id="recipient-name">
+			            <input type="text" class="form-control" name="receive_id" value="" readonly id="recipient-name">
 			          </div>
 			          
 			          <div class="mb-3">
 			            <label for="recipient-name" class="col-form-label">쪽지 제목:</label>
-			            <input type="text" class="form-control" name="message_name" value="${message_name}" readonly id="recipient-name">
+			            <input type="text" class="form-control" name="message_name" value="" readonly id="recipient-name">
 			          </div>
 			          
 			          <div class="mb-3">
 			            <label for="message-text" class="col-form-label" >쪽지 내용:</label>
 			            <div class="form-floating">
-			            <textarea class="form-control" id="floatingTextarea2" name="message_content" value="${message_content}" readonly placeholder="Leave a comment here" style="height: 100px"></textarea>
+			            <textarea class="form-control" id="floatingTextarea2" name="message_content" value="" readonly placeholder="Leave a comment here" style="height: 100px"></textarea>
 			          	<label for="floatingTextarea2">Comments</label>
 			          	</div>
 			          </div>
-			       
+
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-			        <button type="button" class="btn btn-primary" id="messageSubmit">쪽지 보내기</button>
 			      </div>
 			       </form>
 			    </div>
@@ -199,29 +204,28 @@
 			        <h5 class="modal-title" id="exampleModalLabel"></h5>
 			      </div>
 			      <div class="modal-body">
-			        <form action="" method="post" id="formdata">
+			        <form action="" method="post" id="receive_modal">
 			          <div class="mb-3">
-			            <label for="recipient-name" class="col-form-label">보내는 사람:</label>
-			            <input type="text" class="form-control" id="send-name" name="send_id" value="" readonly>
+			            <label for="recipient-name" class="col-form-label">보낸 사람:</label>
+			            <input type="text" class="form-control" id="send-name" name="send_id"value="<c:out value=""/>" readonly>
 			          </div>
 			          <div class="mb-3">
 			            <label for="recipient-name" class="col-form-label">받는 사람:</label>
-			            <input type="text" class="form-control" name="receive_id" value="${userid}" readonly id="recipient-name">
+			            <input type="text" class="form-control" name="receive_id" value="${userid }" readonly id="recipient-name">
 			          </div>
 			          
 			          <div class="mb-3">
 			            <label for="recipient-name" class="col-form-label">쪽지 제목:</label>
-			            <input type="text" class="form-control" name="message_name" value="${message_name}" readonly id="recipient-name">
+			            <input type="text" class="form-control" name="message_name" value="<c:out value=""/>" readonly id="recipient-name">
 			          </div>
 			          
 			          <div class="mb-3">
 			            <label for="message-text" class="col-form-label" >쪽지 내용:</label>
 			            <div class="form-floating">
-			            <textarea class="form-control" id="floatingTextarea2" name="message_content" value="${message_content}" readonly placeholder="Leave a comment here" style="height: 100px"></textarea>
+			            <textarea class="form-control" id="message_content" name="message_content" value="" readonly placeholder="Leave a comment here" style="height: 100px"></textarea>
 			          	<label for="floatingTextarea2">Comments</label>
 			          	</div>
 			          </div>
-			       
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -262,15 +266,121 @@ $("#messageSubmit").on({
 	  		    
   });
   
-const modalButton = document.querySelector('#openModal');
+/* const modalButton = document.querySelector('#openModal1');
 const modal = new bootstrap.Modal(document.querySelector('#exampleModal1'));
 
 modalButton.addEventListener('click', () => {
   modal.show();
-});
+}); */
+
+//삭제 버튼 클릭 이벤트 등록
+$("#dleBtn").on({
+	  click : () => {
+		  const receive_id = $("#recipient-name").val();
+		 
+           	//비동기 함수 호출
+              $.ajax({
+           		url: "/message/messagedelete.do", //컨트롤러로 보낼 uri
+           		type: "POST", //보내는 방식
+           		/* dataType : ,  *///컨트롤러에서 데이터 받을 때 형식 JSON
+           		data: { //뷰에서 보내는 정보들
+           		 'receive_id' : receive_id
+              },
+           		success: function(data){
+           			 if(data >= 1){
+           				 $("#formdata").submit();
+           				 alert("메세지 전송이 완료 되었습니다.")
+           			 }else {
+           				 alert("꺼져");
+           			 }         			
+           		},
+           		error: function() { //에러 났을 경우 
+                     alert("에러입니다.");
+                }	
+              });
+        	}
+	  		    
+  });
+
+$('.receiveTr').on({
+	click :(event) =>{
+		let tr = $(event.target).closest('tr');
+		const td = $(tr).children('td');
+		const modal = $('#receive_modal');
+		//send_id receive_id message_name message_content
+		$(modal).find('[name=send_id]').val($(td[1]).text());
+		$(modal).find('[name=message_name]').val($(td[2]).text());
+		$(modal).find('[name=message_content]').val($(td[2]).find('input').val());
+	}
+})
+
+$('.sendTr').on({
+	click :(event) =>{
+		let tr = $(event.target).closest('tr');
+		const td = $(tr).children('td');
+		const modal = $('#send_modal');
+		//send_id receive_id message_name message_content
+		$(modal).find('[name=receive_id]').val($(td[1]).text());
+		$(modal).find('[name=message_name]').val($(td[2]).text());
+		$(modal).find('[name=message_content]').val($(td[2]).find('input').val());
+	}
+})
+
+$(".send_delBtn").on({
+	click : (event)=>{
+		let message_no = $(event.target).attr('data-value');
+		console.log(message_no + "번 쪽지를 삭제하시겠습니까?");
+	 	/*  $.ajax({
+			url : "/message/sendmessagedelete.do" ,
+			type : "POST" ,
+			data: {
+				"message_no" : message_no
+			}, 
+			success : function(data){
+				if(data>0){
+					tr.remove();
+					alert("삭제가 완료되었습니다.");
+				}else{
+					alert("motherfuck");
+				}
+				
+			},
+			error: function() { //에러 났을 경우 
+                alert("에러입니다.");
+		});   */
+	
+	}
+})
+
+$('.receive_delBtn').on({
+	click : (event)=>{
+		let message_no = $(event.target).attr('data-value');
+		console.log(message_no + "번 쪽지를 삭제하시겠습니까?");
+		
+		/*  $.ajax({
+			url : "/message/receivemessagedelete.do" ,
+			type : "POST" ,
+			data: {
+				"message_no" : message_no
+			}, 
+			
+			success : function(data){
+				
+				if(data>0){
+					tr.remove();
+					alert("삭제가 완료되었습니다.");
+				} else{
+					alert("motherfuck");
+				}
+			},
+			error: function() { //에러 났을 경우 
+                alert("에러입니다.");
+		});  */
+		
+	}
+})
 
 </script>
-
 	</div>
 </body>
 </html>

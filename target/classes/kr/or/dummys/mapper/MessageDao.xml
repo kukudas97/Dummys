@@ -12,26 +12,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		values(message_no_seq.nextval, #{message_content}, #{send_id}, #{receive_id}, #{message_name}, sysdate, 0, 0, 0)
     </insert>
     
-    <delete id="messageDelete">
-    	DELETE FROM MESSAGE where message_no=${message_no}
-    </delete>
+    <update id="receivemessageDelete">
+    	UPDATE message SET receive = 1 where message_no=${message_no}
+    </update>
+    
+    <update id="sendmessageDelete">
+    	UPDATE message SET send = 1 where message_no=${message_no}
+    </update>
     
     <select id="myMessagesendList" resultType="kr.or.dummys.dto.Message">
 	 	select * from message where send_id=#{userid} and send = 0
 	</select> 
 	
-	  <select id="myMessagereceiveList" resultType="kr.or.dummys.dto.Message">
+	<select id="myMessagereceiveList" resultType="kr.or.dummys.dto.Message">
 	 	select * from message where receive_id=#{userid} and receive = 0
 	</select> 
 	
-	
-<!-- 	<update id="">
-		
-	</update>
-	
-	<update id="">
-	
-	</update> -->
 	
 	<select id="idCheck" parameterType="String" resultType="int">
 		SELECT COUNT(userid) FROM USERS WHERE userid= #{userid}

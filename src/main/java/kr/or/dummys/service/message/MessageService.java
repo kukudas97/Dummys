@@ -63,4 +63,22 @@ public class MessageService {
 		return result;
 	}
 	
+//	//send값 delete update
+//	public String sendmessageDelete() {
+//		
+//		MessageDao messagedao = sqlsession.getMapper(MessageDao.class);
+//		
+//		return null;
+//	}
+//	
+//	//receive값 delete update
+//	public String receivemessageDelete() {
+//		
+//		MessageDao messagedao = sqlsession.getMapper(MessageDao.class);
+//		
+//		return null;
+//	}
+//	
+	
+	
 }
