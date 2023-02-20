@@ -15,5 +15,8 @@ public interface WarningDao {
 	
 	//신고 접수(insert)
 	int reportWarning(Warning warning) throws ClassNotFoundException, SQLException;
+	
+	//신고 받은 사람 수
+	List<Warning> getWarningCnt() throws ClassNotFoundException, SQLException;
 
 }

@@ -39,11 +39,30 @@ public class UsersController {
 		return "users/login";
 	}
 	
-	//error
-	@GetMapping("/error.do")
-	public String error() {
-		return "error";
+	/*
+	@PostMapping("/login.do")
+	public String loginOK(@RequestParam("password") String rawPassword, Principal pri) {
+		String viewpage = "";
+		System.out.println(rawPassword);
+		
+		//회원정보
+		Users user = userService.getUser(pri.getName());
+		
+		String encodedPassword = user.getPassword();
+		
+		boolean result = bCryptPasswordEncoder.matches(rawPassword, encodedPassword);
+		
+		if(result) {
+			viewpage = "redirect:index.do";
+		}else {
+			viewpage = "redirect:join.do";
+		}
+		
+		return viewpage;
 	}
+	*/
+	
+
 	
 	@GetMapping("/forgetPassword.do")
 	public String forgetPassword(Principal principal, Model model) {

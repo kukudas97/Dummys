@@ -14,10 +14,10 @@
 		<!-- default-target-url="/index.do" -->
 		<security:form-login login-page="/users/login.do"
 		authentication-success-handler-ref="customLoginSuccess"
-		authentication-failure-url="/utils/error.do"
+		authentication-failure-url="/users/login.do?error"
 		username-parameter="userid"
 		password-parameter="password"/>
-		
+		<!-- "/users/error.do" -->
 		<security:logout logout-success-url="/index.do"/>
 		
 		

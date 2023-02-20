@@ -32,5 +32,22 @@ public class HomeController {
 			userservice.updateLogin_date(userid);
 		}
 		return "home";
-	}	
+	}
+	
+	@GetMapping("sleep.do")
+	public String sleep(Model model, Principal pri) {
+		
+		String userid = pri.getName();
+		Users users = userservice.getUser(userid);
+		
+		model.addAttribute("users", users);
+		
+		return "/sleep";
+	}
+	//error
+	@GetMapping("/error.do")
+	public String error() {
+		return "utils/error";
+	}
+	
 }
