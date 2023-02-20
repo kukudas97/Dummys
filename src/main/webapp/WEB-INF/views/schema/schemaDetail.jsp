@@ -224,9 +224,11 @@
 									<td colspan="2" ><span class="col-md-4">#데이터 타입</span>
 										<div class="col-md-8"  style="display: inline-block;">
 											<select name="select" id="printType" class="form-control">
-	                                             <option value="0">Excel</option>
-	                                             <option value="1">JSON</option>
-	                                             <option value="2">CSV</option>
+												<option value="1">JSON</option>
+												<option value="2">CSV</option>
+												<option value="3">HTML TABLE</option>
+												<option value="4">SQL</option>
+												<!-- <option value="5">Excel</option> -->
 	                                         </select>
                                          </div>
 									</td>
@@ -286,7 +288,7 @@
 		click: createDummy
 	})
 	$("#createBtn").on({
-		click: createDummy
+		click: downloadFile
 	})
 	$('#saveBtn').on({
 		click: saveSchema
@@ -382,6 +384,63 @@
 		}) // ajax end
 	}// createDummy function end
 	
+	// downloadFile() function start
+	function downloadFile(){
+		let paramData = {
+				"row" : $('#rowNum').val(), // 생성할 데이터의 숫자
+				"type" : $('#printType option:selected').val(), // 데이터 생성 타입 (Excel , JSON 등등...)
+				"schema_name" : $('#schemaName').val(),
+				"schema_no" : 0,
+				"schema_content" : $('#schemaContent').val(),
+				"schema_password" : $('#schema_password').val(),
+				"list" : readColumn()
+		}
+		$.ajax({
+			type:"post",
+			url : "schemaDownload.do",
+			data : JSON.stringify(paramData),
+			contentType:'application/json',
+			  success: function(data, status, xhr) {
+				    var filename = "";
+				    var disposition = xhr.getResponseHeader('Content-Disposition');
+				    if (disposition && disposition.indexOf('attachment') !== -1) {
+				      var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+				      var matches = filenameRegex.exec(disposition);
+				      if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+				    }
+
+				    var blob = new Blob([data], {type: 'text/plain'});
+				    if (typeof window.navigator.msSaveBlob !== 'undefined') {
+				      window.navigator.msSaveBlob(blob, filename);
+				    } else {
+				      var URL = window.URL || window.webkitURL;
+				      var downloadUrl = URL.createObjectURL(blob);
+
+				      if (filename) {
+				        var a = document.createElement("a");
+				        if (typeof a.download === 'undefined') {
+				          window.location.href = downloadUrl;
+				        } else {
+				          a.href = downloadUrl;
+				          a.download = filename;
+				          document.body.appendChild(a);
+				          a.click();
+				        }
+				      } else {
+				        window.location.href = downloadUrl;
+				      }
+
+				      setTimeout(function() {
+				        URL.revokeObjectURL(downloadUrl);
+				      }, 100);
+				    }
+				  },
+			error : (error)=>{
+				
+			}
+		}) // ajax end
+	}// downloadFile function end
+
 	// saveSchema function start
 	function saveSchema(){
 		let paramData = {

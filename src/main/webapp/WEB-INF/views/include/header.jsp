@@ -80,7 +80,9 @@ font-family: 'Lato', sans-serif;
         #cellPaiChart{
             height: 160px;
         }
-
+	.top-right img{
+		max-height : 22px;
+	}
     </style>
 
 
@@ -108,7 +110,7 @@ font-family: 'Lato', sans-serif;
 					    </se:authorize>
 					    <se:authorize access="isAuthenticated()">
 					    	<span>반갑습니다 &nbsp;&nbsp; ${userid} 님 :) </span>
-					    	<img alt="메세지" src="/WEB-INF/views/message/message.png" onclick="location.href='${pageContext.request.contextPath}/message/message.do'">
+					    	<img alt="메세지" src="/resources/images/message.png" onclick="location.href='${pageContext.request.contextPath}/message/message.do'">
 					    	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
 					    	<a href="${pageContext.request.contextPath}/users/mypage.do">마이페이지</a>
 					    	<se:authorize access="hasRole('ROLE_SLEEP')"><jsp:forward page="${pageContext.request.contextPath}/sleep.do"/></se:authorize>
