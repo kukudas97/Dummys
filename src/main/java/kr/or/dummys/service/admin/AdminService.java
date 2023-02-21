@@ -10,9 +10,10 @@ import org.springframework.stereotype.Service;
 import kr.or.dummys.dao.TendinousDao;
 import kr.or.dummys.dao.TypeDao;
 import kr.or.dummys.dao.UserDao;
-import kr.or.dummys.dto.Users;
+import kr.or.dummys.dao.WarningDao;
 import kr.or.dummys.dto.Tendinous;
 import kr.or.dummys.dto.Type;
+import kr.or.dummys.dto.Users;
 
 @Service
 public class AdminService {
@@ -98,5 +99,30 @@ public class AdminService {
 		TendinousDao tendinousdao = sqlsession.getMapper(TendinousDao.class);
 		int result = tendinousdao.deleteTendinous(tendinous_no);
 		return result;
+	}
+	
+	//회원 정지: ROLE_BLOCK 권한 부여
+	public int blockUser(String userid) {
+		int insertRoleBlock = 0;
+		try {
+			WarningDao warningDao = sqlsession.getMapper(WarningDao.class);
+			insertRoleBlock = warningDao.insertRoleBlock(userid);
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return (insertRoleBlock==1) ? 1:0;
+	}
+	
+	//회원 정지 해제: ROLE_BLOCK 권한 삭제
+	public int releaseUser(String userid) {
+		int deleteRoleBlock = 0;
+		try {
+			WarningDao warningDao = sqlsession.getMapper(WarningDao.class);
+			deleteRoleBlock = warningDao.deleteRoleBlock(userid);
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		
+		return (deleteRoleBlock == 1) ? 1:0 ;
 	}
 }
