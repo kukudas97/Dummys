@@ -1076,6 +1076,7 @@ header .form-inline {
         text-overflow: ellipsis; }
 
 .header-menu {
+	padding-top: 15px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2580,10 +2581,14 @@ text-shadow: 2px 2px 2px #123b48;
 	font-size: 32px;
 }
 
-.QuickStartMsg a {
+.QuickStartMsg .QuickStartBtn{
 	font-family: 'IBM Plex Sans KR', sans-serif;
 	font-size: 20px;
 	color: #008080;
+	cursor : pointer;
+	border: 3px solid #008080;
+    padding: 5px;
+    border-radius: 10px;
 }
 
 .SelectContent {
@@ -2631,6 +2636,7 @@ text-shadow: 2px 2px 2px #123b48;
   align-items: center;
   justify-content: center;
   vertical-align:middle;
+  cursor : pointer;
 }
 
 .DataTypeOn {
