@@ -24,6 +24,9 @@
 .afterRegisterReReply {
 	display: none !important;
 }
+#shareBtn{
+	cursor:pointer;
+}
 </style>
 
 </head>
@@ -78,6 +81,11 @@
 						name='board_date' value='<c:out value="${board.board_date}" />'
 						readonly="readonly">
 				</div>
+				<c:if test="${!empty shareSchema}">
+					<div class="form-group">
+						<label>공유 스키마</label><input id="shareBtn" class="form-control board_detail" value="&#35;${shareSchema.schema_no } &#39;${shareSchema.schema_name}&#39; 공유받기" readonly="readonly">
+					</div>
+				</c:if>
 
 				<button data-oper='modify' class="btn btn-success">수정</button>
 				<button data-oper='list' class="btn btn-info">목록</button>
@@ -125,6 +133,12 @@
                 	var operForm = $("#operForm");
                 	
                 	replyList();
+                	
+                	$('#shareBtn').on({
+                		click : ()=>{
+                			location.href= '${pageContext.request.contextPath}/schema/schemaDetail.do?schema_no=${shareSchema.schema_no}';
+                		}
+                	})
                 	
                 	//해당 게시물 수정 버튼
                 	$("button[data-oper='modify']").on("click", function(e){

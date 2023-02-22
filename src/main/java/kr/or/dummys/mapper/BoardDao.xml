@@ -20,6 +20,9 @@ select BOARD_NO, users.USERID, users.NICKNAME, BOARD_KIND, BOARD_NAME, BOARD_CON
  <insert id="boardWrite" parameterType="kr.or.dummys.dto.Board">
  insert into board (board_no, userid, board_kind, board_name, board_content, board_date)
  values(board_no_seq.nextval, #{userid}, #{board_kind}, #{board_name}, #{board_content}, sysdate)
+<selectKey keyProperty="board_no" resultType="Integer" order="AFTER">
+select board_no_seq.currval from dual
+</selectKey>
  </insert>
  
  <select id="boardDetail" resultType="kr.or.dummys.dto.Board">
@@ -46,5 +49,13 @@ where board_no=${board_no}
  <delete id="boardDelete">
  	DELETE FROM BOARD where board_no=${board_no}
  </delete>
+ 
+ <insert id="insertBoardSchema">
+ 	insert into board_schema(board_no, schema_no) values (${param1}, ${param2})
+ </insert>
+ 
+ <select id="getBoardSchema" resultType="kr.or.dummys.dto.Schema">
+ 	select * from schema where schema_no = (select schema_no from board_schema where board_no = ${board_no}) 
+ </select>
  
 </mapper>
