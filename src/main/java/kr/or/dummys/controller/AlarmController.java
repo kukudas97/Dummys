@@ -1,16 +1,16 @@
 package kr.or.dummys.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.stereotype.Controller;
 
-@RestController
-@RequestMapping("/alarm/*")
+@Controller
 public class AlarmController {
 	
-	@GetMapping("/alarm.do")
+	@MessageMapping("/{id}")
+	@SendTo("/topic/{id}")
     public String myEndpoint() {
-        return "Hello, world!";
+        return "home";
     }
 	
 }
