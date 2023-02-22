@@ -72,6 +72,25 @@ position: relative;
 bottom: 75%;
 }
 
+.blockUser-page .log-out{
+    font-weight: bold;
+    padding-left: 20px;
+    padding-top: 20px;
+    font-size: 17px;
+    position: relative;
+    right: 5%;
+}
+
+.blockUser-page span{
+	font-family: 'IBM Plex Sans KR', sans-serif;
+    padding-right: 50px;
+    font-size: 16px;
+    position: relative;
+    left: 45%;
+    bottom: 1025%;
+    color: white;
+}
+
 </style>
 </head>
 
@@ -83,9 +102,9 @@ bottom: 75%;
 		<img class="align-content logo" src="/resources/images/DummysLogo.png"><br>
 		
 		<img class="align-content monsterCaptain" src="/resources/images/blockedMonsterCaptain.png" ><br>
-
+		<span class="admin-email" >admin@admin.com</span>
 		<a href="/users/blockUserReportList.do" style="position: relative; left: 75%; bottom: 95%"><img class="align-content monsterMessage" src="/resources/images/blockedMessage.png" ></a>
-		
+		<a href="${pageContext.request.contextPath}/logout" class="log-out">로그아웃</a>
 		<img class="align-content monsterFriends" src="/resources/images/blockedMonsters.png"> <br>	
 			
 	</div>
