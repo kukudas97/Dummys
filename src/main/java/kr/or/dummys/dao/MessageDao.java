@@ -23,5 +23,9 @@ public interface MessageDao {
 	//DB에 있는 아이디인지 확인
 	int idCheck(String userid) throws ClassNotFoundException, SQLException;
 	
+	//보낸 메세지 지우기
+	int sendmessageDelete(int message_no);
 	
+	//받은 메세지 지우기
+	int receivemessageDelete(int message_no);
 }
