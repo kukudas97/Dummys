@@ -31,7 +31,7 @@
 	div[data-type=type] input{
 		cursor: pointer;
 	}
-	#typeChooseArea, #gaussianChooseArea {
+	#typeChooseArea, #gaussianChooseArea, #previewArea {
 		position: absolute;
 		background-color: rgba(0, 0, 0, 0.5); /* 검정색 배경색에 50% 투명도 적용 */
 		width: 100%;
@@ -41,7 +41,7 @@
 		left: 0;
 		min-height: 1000px;
 	}
-	#typeChooseArea .child, #gaussianChooseArea .child {
+	#typeChooseArea .child, #gaussianChooseArea .child, #previewArea .child {
 	    position: absolute;
 	    width: 90%;
 	    height: 90%;
@@ -49,11 +49,20 @@
 	    left: 5%;
 	  	opacity: 1;
 	}
-	.type-content, .gaussian-content{
+	#previewArea .child {
+	   overflow : scroll;
+	}
+	#previewArea .child::-webkit-scrollbar {
+	  display: none;
+	}
+	.type-content, .gaussian-content, .preview-content{
 		height: calc(100% - 40px);
 	}
-	.type-bottom, .gaussian-bottom{
+	.type-bottom, .gaussian-bottom, .preview-bottom{
 		height: 40px;
+	}
+	pre{
+		margin-bottom:0px !important;
 	}
 	</style>
 </head>
@@ -64,6 +73,107 @@
 	<div id="right-panel" class="right-panel">
 		<section id="header"> <jsp:include page="/WEB-INF/views/include/header.jsp" /> </section>
 		<div class="content">
+			<!-- 미리보기 DIV -->
+			<div id="previewArea">
+				<div class="card child">
+					<div class="card-header">
+                        <strong class="card-title">
+	                        <span class="float-left mt-2">
+	                        	미리보기
+	                        </span>
+							<div class="badge float-right mt-1">
+								<button type="button" class="btn btn-secondary btn-sm" id="previewCloseBtn">닫기</button>
+							</div>
+						</strong>
+                    </div>
+					<div class="card-body">
+						<div class="preview-content">
+							<div class="card">
+								<div class="card-header">
+							        <strong class="card-title">
+								         <span class="float-left mt-2">
+								         	JSON
+								         </span>
+									</strong>
+							                </div>
+								<div class="card-body">
+<pre>
+[
+	{ "컬럼1" : "값1-1", "컬럼2" : "값2-1", "컬럼3" : "값3-1"},
+	{ "컬럼1" : "값1-2", "컬럼2" : "값2-2", "컬럼3" : "값3-2"},
+	{ "컬럼1" : "값1-3", "컬럼2" : "값2-3", "컬럼3" : "값3-3"},
+]
+</pre>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-header">
+							        <strong class="card-title">
+								         <span class="float-left mt-2">
+								         	CSV
+								         </span>
+									</strong>
+							                </div>
+								<div class="card-body">
+<pre>
+컬럼1, 컬럼2, 컬럼3, 컬럼4, 컬럼5
+값1-1, 값2-1, 값3-1, 값4-1, 값5-1
+값1-2, 값2-2, 값3-2, 값4-2, 값5-2
+값1-3, 값2-3, 값3-3, 값4-3, 값5-3
+</pre>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-header">
+							        <strong class="card-title">
+								         <span class="float-left mt-2">
+								         	HTML TABLE
+								         </span>
+									</strong>
+							                </div>
+								<div class="card-body">
+<pre>
+&#60;table&#62;
+	&#60;thead&#62;
+		&#60;tr&#62;
+			&#60;th&#62;컬럼1&#60;/th&#62;
+			&#60;th&#62;컬럼2&#60;/th&#62;
+		&#60;/tr&#62;
+	&#60;/thead&#62;
+	&#60;tbody&#62;
+		&#60;tr&#62;
+			&#60;td&#62;값1-1&#60;/td&#62;
+			&#60;td&#62;값2-1&#60;/td&#62;
+		&#60;/tr&#62;
+		&#60;tr&#62;
+			&#60;td&#62;값1-2&#60;/td&#62;
+			&#60;td&#62;값2-2&#60;/td&#62;
+		&#60;/tr&#62;
+	&#60;/tbody&#62;
+&#60;/table&#62;
+</pre>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-header">
+							        <strong class="card-title">
+								         <span class="float-left mt-2">
+								         	SQL
+								         </span>
+									</strong>
+							                </div>
+								<div class="card-body">
+<pre>
+insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-1, 값2-1, 값3-1);
+insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-2, 값2-2, 값3-2);
+insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, 값3-3);
+</pre>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- 타입 선택 DIV -->
 			<div id="typeChooseArea">
 				<div class="card child">
@@ -245,7 +355,9 @@
 		click : delColumn
 	})
 	$("#previewBtn").on({
-		click: createDummy
+		click: ()=>{
+			$('#previewArea').toggle()
+		}
 	})
 	$("#createBtn").on({
 		click: downloadFile
@@ -296,6 +408,8 @@
 			$('#gaussianChooseArea').toggle();
 		}
 	})
+	$('#previewCloseBtn').click(()=>{$('#previewArea').toggle()})
+	$('#previewArea').toggle()
 	// ===== drag and drop set =====
 	list.on({
 		'dragstart':(e)=>{
@@ -726,8 +840,7 @@
 				let $selectSection = $('<div>', {class: 'datasection row'}).appendTo($selectDiv);
 
 				$('#schemaarea').append($tr);
-				});//each end
-			$('#printType').val(typeFormat);
+				});
       	  }
       	},
       	'keydown': function(e) {

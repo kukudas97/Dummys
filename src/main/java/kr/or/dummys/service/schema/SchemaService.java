@@ -258,6 +258,9 @@ public class SchemaService {
 				dummyDataFactory.setCreator("number");
 				wordList = dummyDataFactory.create(dataInfo.get(col), row);
 			}  
+			// 공백 적용하고 섞어주기
+			dummyDataFactory.blankProcess(wordList, col.getCol_blank());
+			
 			// wordList = 컬럼 하나의 더미데이터 리스트
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("name",col.getCol_name());
