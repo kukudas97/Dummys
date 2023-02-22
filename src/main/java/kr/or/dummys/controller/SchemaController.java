@@ -30,7 +30,7 @@ public class SchemaController {
 	private SchemaService service;
 	
 	@GetMapping("schemaCreate.do")
-	public String schemaView() {
+	public String getSchemaView() {
 		return "schema/schemaView"; 
 	}
 	@GetMapping("schemaList.do")

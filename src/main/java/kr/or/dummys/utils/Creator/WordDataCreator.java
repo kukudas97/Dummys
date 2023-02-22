@@ -10,6 +10,7 @@ public class WordDataCreator implements DummyDataCreator {
 	public List<String> run(Map<String, Object> map, int row) {
 		List<String> dummyData = new ArrayList<String>(row);
 		List<String> wordList = (List)map.get("data");
+		if(wordList.size() == 0) wordList.add("NULL");
 		
 		int wordListSize = wordList.size();
 		
