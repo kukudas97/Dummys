@@ -12,11 +12,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		values(message_no_seq.nextval, #{message_content}, #{send_id}, #{receive_id}, #{message_name}, sysdate, 0, 0, 0)
     </insert>
     
-    <update id="receivemessageDelete">
+    <update id="receivemessageDelete" parameterType="kr.or.dummys.dto.Message">
     	UPDATE message SET receive = 1 where message_no=${message_no}
     </update>
     
-    <update id="sendmessageDelete">
+    <update id="sendmessageDelete" parameterType="kr.or.dummys.dto.Message">
     	UPDATE message SET send = 1 where message_no=${message_no}
     </update>
     

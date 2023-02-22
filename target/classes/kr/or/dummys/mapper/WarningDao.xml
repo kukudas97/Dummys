@@ -19,8 +19,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </select>
  
  <select id="getWarningCnt" resultType="kr.or.dummys.dto.Warning">
-  select receive_id, count(RECEIVE_ID)as warning_cnt from warning group by receive_id
+  select receive_id, count(RECEIVE_ID)as warning_cnt from warning where receive_id not in (select userid from users_role where role_name = 'ROLE_BLOCK') group by receive_id
  </select>
+ 
+  <select id="getBlockUsers" resultType="String">
+ select userid from users_role where role_name='ROLE_BLOCK'
+ </select>
+ 
+ <insert id="insertRoleBlock">
+ insert into users_role values( #{param1},'ROLE_BLOCK')
+ </insert>
+ 
+ <delete id="deleteRoleBlock">
+ DELETE FROM users_role where role_name='ROLE_BLOCK' and userid=#{userid}
+ </delete>
+ 
+
  
 
 </mapper>

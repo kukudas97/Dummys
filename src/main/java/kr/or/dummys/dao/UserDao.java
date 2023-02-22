@@ -1,9 +1,11 @@
 package kr.or.dummys.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.dummys.dto.Board;
 import kr.or.dummys.dto.Users;
+import kr.or.dummys.dto.Warning;
 
 public interface UserDao {
 	
@@ -48,4 +50,11 @@ public interface UserDao {
 	
 	//ROLE_SLEEP있는지 여부 확인
 	public int selectROLE_SLEEP(String userid);
+	
+	//정지된 회원의 신고당한 게시글
+	public List<Map<String,Object>> getReportBoard(String userid);
+	
+	//정지된 회원의 신고당한 댓글
+	public List<Map<String,Object>> getReportReply(String userid);
+	
 }

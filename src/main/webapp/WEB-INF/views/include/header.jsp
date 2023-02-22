@@ -8,6 +8,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Dummy's</title>
+ 
+ 	<!-- WebSocket -->
+ 	<!-- <script src="/webjars/sockjs-client/sockjs.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+    <!-- <script src="/webjars/stomp-websocket/stomp.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>   
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
@@ -114,6 +120,30 @@ font-family: 'Lato', sans-serif;
 					    	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
 					    	<a href="${pageContext.request.contextPath}/users/mypage.do">마이페이지</a>
 					    	<se:authorize access="hasRole('ROLE_SLEEP')"><jsp:forward page="${pageContext.request.contextPath}/users/forgetPassword.do"/></se:authorize>
+
+					    	<se:authorize access="hasRole('ROLE_BLOCK')"><jsp:forward page="${pageContext.request.contextPath}/users/blockUser.do"/></se:authorize>
+
+					    	<script type="text/javascript">
+					    	var stompClient = null;
+					        var socket = null;
+					        function connect() {
+					           socket = new WebSocket("ws://" + window.location.host + "/websocket-connect.do");
+					           stompClient = Stomp.over(socket);
+					           stompClient.connect({}, function(frame) {
+					              console.log('Connected: ' + frame);
+					              stompClient.subscribe('/topic/${userid}', function(message) {
+					                 console.log('Message: ' + message.body);
+					              });
+					           });
+					        }
+					        function disconnect() {
+					           if (socket != null) {
+					              socket.close();
+					           }
+					           console.log("Disconnected");
+					        }
+					    	connect();
+					    	</script>
 					    </se:authorize>
 				    </div>
 				</div>

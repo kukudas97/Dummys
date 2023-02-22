@@ -131,4 +131,29 @@ public class UserService {
 		int result = userdao.deleteROLE_SLEEP(userid);
 		return result;
 	}
+	
+	//정지된 회원 신고받은 게시글, 댓글
+	public Map<String, Object> getMyReport(String userid){
+		Map<String, Object> myReportMap = new HashMap<String, Object>();
+		
+		List<Map<String,Object>> myReportBoard = null;
+		List<Map<String,Object>> myReportReply = null;
+		try {
+			UserDao userDao = sqlsession.getMapper(UserDao.class);
+			myReportBoard = userDao.getReportBoard(userid);
+			myReportReply = userDao.getReportReply(userid);
+
+			System.out.println("myReportBoard: " + myReportBoard.toString());
+
+			System.out.println("myReportBoard size: " + myReportBoard.size());
+			
+			myReportMap.put("myReportBoard", myReportBoard);
+			myReportMap.put("myReportReply", myReportReply);
+			
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return myReportMap;
+	}
+
 }

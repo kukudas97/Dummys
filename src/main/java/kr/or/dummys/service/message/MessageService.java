@@ -63,22 +63,23 @@ public class MessageService {
 		return result;
 	}
 	
-//	//send값 delete update
-//	public String sendmessageDelete() {
-//		
-//		MessageDao messagedao = sqlsession.getMapper(MessageDao.class);
-//		
-//		return null;
-//	}
-//	
-//	//receive값 delete update
-//	public String receivemessageDelete() {
-//		
-//		MessageDao messagedao = sqlsession.getMapper(MessageDao.class);
-//		
-//		return null;
-//	}
-//	
+	//send값 delete update
+	public int sendmessageDelete(int message_no) {
+		
+		int result =0;
+		MessageDao messagedao = sqlsession.getMapper(MessageDao.class);
+		result = messagedao.sendmessageDelete(message_no);
+		return result;
+	}
+	
+	//receive값 delete update
+	public int receivemessageDelete(int message_no) {
+		int result =0;
+		MessageDao messagedao = sqlsession.getMapper(MessageDao.class);
+		result = messagedao.receivemessageDelete(message_no);
+		return result;
+	}
+	
 	
 	
 }
