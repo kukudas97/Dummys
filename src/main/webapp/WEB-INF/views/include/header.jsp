@@ -129,11 +129,19 @@ font-family: 'Lato', sans-serif;
 					        function connect() {
 					           socket = new WebSocket("ws://" + window.location.host + "/websocket-connect.do");
 					           stompClient = Stomp.over(socket);
-					           stompClient.connect({}, function(frame) {
-					              console.log('Connected: ' + frame);
-					              stompClient.subscribe('/topic/${userid}', function(message) {
-					                 console.log('Message: ' + message.body);
-					              });
+					           stompClient.connect({},
+					        		   function(frame) {// 웹소켓 연결에 성공할 경우 실행되는 함수
+					        	   //웹소켓 연결에 성공할 경우 구독기능을 실행한다.
+					              stompClient.subscribe('/topic/${userid}',function(message) { //구독기능 안에 있는
+					            	  // 메세지가 왔을 때 실행될 함수
+					            	  //추가해야할 사항
+					            	  /*
+					            	  	1. 알림창 띄우기
+					            	  	2. 알림 리스트 업데이트하기
+					            	  	2.1 알림 리스트 업데이트 하면서 확인안한 알림 있는지 확인하고 이모티콘 바꿔주기
+					            	  */
+					              }
+					              );
 					           });
 					        }
 					        function disconnect() {

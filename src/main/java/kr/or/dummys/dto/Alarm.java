@@ -8,7 +8,7 @@ public class Alarm {
 	private String userid;
 	private String alarm_type;
 	private int alarm_type_no;
-	private String alarm_name;
 	private String alarm_content;
 	private int alarm_check;
+	private String alarm_date;
 }
