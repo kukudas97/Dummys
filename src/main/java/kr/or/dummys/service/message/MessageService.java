@@ -80,6 +80,12 @@ public class MessageService {
 		return result;
 	}
 	
-	
+	//message_check update (1로 바뀌면 읽은것)
+	public int readStateCheck(int message_no) {
+		int result =0;
+		MessageDao messagedao = sqlsession.getMapper(MessageDao.class);
+		result =messagedao.readStateCheck(message_no);
+		return result;
+	}
 	
 }

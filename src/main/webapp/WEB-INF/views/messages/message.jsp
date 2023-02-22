@@ -229,6 +229,7 @@
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+			        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">신고하기</button>
 			        <button type="button" id="resendmessage" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">답장 보내기</button>
 			      </div>
 			       </form>
@@ -275,6 +276,19 @@ $('.receiveTr').on({
 		$(modal).find('[name=send_id]').val($(td[1]).text());
 		$(modal).find('[name=message_name]').val($(td[2]).text());
 		$(modal).find('[name=message_content]').val($(td[2]).find('input').val());
+		
+		const message_no = $(td[0]).text()
+		console.log(message_no)
+		$.ajax({
+			url : "/message/readcheck.do",
+			type : "POST",
+			data : {
+				'message_no' : message_no
+			},
+			success :function(){
+				console.log('읽음처리되었음');
+			}
+		})
 	}
 })
 
