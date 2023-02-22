@@ -18,5 +18,14 @@ public interface WarningDao {
 	
 	//신고 받은 사람 수
 	List<Warning> getWarningCnt() throws ClassNotFoundException, SQLException;
+	
+	//정지된 사람 리스트
+	List<String> getBlockUsers() throws ClassNotFoundException, SQLException;
+	
+	//신고 처리(ROLE_BLOCK 권한 부여)
+	int insertRoleBlock(String userid) throws ClassNotFoundException, SQLException;
+	
+	//회원 정지 해제 (ROLE_BLOCK 권한 삭제)
+	int deleteRoleBlock(String userid) throws ClassNotFoundException, SQLException;
 
 }

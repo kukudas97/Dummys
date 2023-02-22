@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.or.dummys.service.admin.AdminService;
@@ -56,7 +57,7 @@ public class ajaxAdmin {
 	}
 	
 	@PostMapping("/deleteTendinous.do")
-	public ResponseEntity<Map<String, Object>>deleteTendinous(@RequestBody List<Integer> tendinous_no){
+	public ResponseEntity<Map<String, Object>> deleteTendinous(@RequestBody List<Integer> tendinous_no){
 		Map<String, Object> map = new HashMap<String, Object>();
 		int deleteTendinous = 0;
 		try {
@@ -71,5 +72,33 @@ public class ajaxAdmin {
 			map.put("result", "fail");
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	//정지
+	@PostMapping("/blockUser.do")
+	public String blockUser(@RequestParam String userid){
+		System.out.println(userid);
+		int insertRoleBlock = 0;
+		try {
+			System.out.println("blockUser.do 트라이문 탔다");
+			insertRoleBlock = adminservice.blockUser(userid);
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return (insertRoleBlock==1) ? "성공":"실패";
+	}
+	
+	//정지 해제
+	@PostMapping("/releaseUser.do")
+	public String releaseUser(@RequestParam String userid) {
+		System.out.println(userid);
+		int deleteRoleBlock = 0;
+		try {
+			System.out.println("releaseUser.do 트라이문 탔다");
+			deleteRoleBlock = adminservice.releaseUser(userid);
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return (deleteRoleBlock ==1) ? "성공" : " 실패";
 	}
 }

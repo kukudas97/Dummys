@@ -62,20 +62,25 @@ public class AdminController {
 		return "admin/adminUser";
 	}
 	
-	//신고자 확인
+	//신고 관리 리스트
 	 @GetMapping("/adminwarning.do") 
 	 public String listWarning(String pg, String f, String q, Model model){
 		 System.out.println("adminwarning 컨트롤러 탔다");
 		 List<Warning> warningBoardList = warningService.listWarning("게시글", pg, f, q);
 		 List<Warning> warningReplyList = warningService.listWarning("댓글", pg, f, q);
 		 List<Warning> warningCnt = warningService.getWarningCnt();
+		 List<String> getBlockUsers = warningService.getBlockUsers();
 		 
 		 model.addAttribute("warningBoardList", warningBoardList);
 		 model.addAttribute("warningReplyList", warningReplyList);
-		 model.addAttribute("warningCnt", warningCnt);
+		 model.addAttribute("reportWarningCnt", warningCnt);
+		 model.addAttribute("getBlockUsers", getBlockUsers);
+		 System.out.println("신고 관리 정지된 회원: " + getBlockUsers.toString());
 		 
 	 return "admin/adminWarning"; 
 	 }
+	 
+	 
 
 	
 	//문의사항 확인

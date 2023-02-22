@@ -51,7 +51,6 @@ public class WarningService {
 	
 	//신고 받은 회원별 신고 카운트
 	public List<Warning> getWarningCnt(){
-		
 		List<Warning> getWarningCnt = null;
 		try {
 			WarningDao warningDao = sqlsession.getMapper(WarningDao.class);
@@ -61,6 +60,20 @@ public class WarningService {
 			e.getStackTrace();
 		}		
 		return getWarningCnt;
+	}
+	
+	//정지된 회원 리스트
+	public List<String> getBlockUsers(){
+		List<String> getBlockUsers = null;
+		try {
+			System.out.println("getBlockUsers() 서비스 탔다");
+			WarningDao warningDao = sqlsession.getMapper(WarningDao.class);
+			getBlockUsers = warningDao.getBlockUsers();
+			System.out.println("getBlockUsers 서비스 결과: "+getBlockUsers.toString());
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return getBlockUsers;
 	}
 	
 	
