@@ -28,4 +28,7 @@ public interface MessageDao {
 	
 	//받은 메세지 지우기
 	int receivemessageDelete(int message_no);
+	
+	//읽었는지 안읽었는지 update
+	int readStateCheck(int message_no);
 }

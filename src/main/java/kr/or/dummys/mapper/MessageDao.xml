@@ -10,7 +10,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="messageWrite" parameterType="kr.or.dummys.dto.Message">
  		insert into message (message_no, message_content, send_id, receive_id, message_name, message_date ,message_check, send, receive)
  		values(message_no_seq.nextval, #{message_content}, #{send_id}, #{receive_id}, #{message_name}, sysdate, 0, 0, 0)
+	    <selectKey keyProperty="message_no" resultType="Integer" order="AFTER">
+				select message_no_seq.currval from dual
+		</selectKey>
     </insert>
+    
+    <!-- message_check, send, receive 기본 값은 0 이다. -->
     
     <update id="receivemessageDelete" parameterType="kr.or.dummys.dto.Message">
     	UPDATE message SET receive = 1 where message_no=${message_no}
@@ -32,5 +37,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="idCheck" parameterType="String" resultType="int">
 		SELECT COUNT(userid) FROM USERS WHERE userid= #{userid}
 	</select>
+	
+	<update id="readStateCheck" parameterType="kr.or.dummys.dto.Message">
+    	UPDATE message SET message_check = 1 where message_no=${message_no}
+    </update>
+	
 	
 </mapper>
