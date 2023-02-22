@@ -40,4 +40,6 @@ public interface ReplyDao {
 
 	public int getStep(int board_no, int ref) throws ClassNotFoundException, SQLException;
 
+	//댓글 가져오기
+	public Reply getReply(int reply_no);
 }
