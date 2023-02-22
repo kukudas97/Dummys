@@ -11,6 +11,7 @@ public class RandomWordDataCreator implements DummyDataCreator {
 	public List<String> run(Map<String, Object> map, int row) {
 		List<String> dummyData = new ArrayList<String>();
 		List<String> wordList = (List<String>)map.get("data");
+		if(wordList.size() == 0) wordList.add("NULL");
 		String random_form = (String)map.get("random_form");
 		
 		for(int i = 0; i<row; i++) {
@@ -30,7 +31,7 @@ public class RandomWordDataCreator implements DummyDataCreator {
 	public void makeWord(char c, StringBuffer buffer,List<String> word) {
 		if(c == '*') {
 			buffer.append(word.get(new Random().nextInt(word.size())));
-		} else if(c == '#') {
+		} else if(c == '!') {
 			buffer.append(new Random().nextInt(10));
 		} else {
 			buffer.append(c);

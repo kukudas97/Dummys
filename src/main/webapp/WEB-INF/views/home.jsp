@@ -39,16 +39,16 @@
 					<div class="QuickStartMsg"><span>데이터의 타입을 선택하세요</span></div>
 					</section>
 					<section class="DataType">
-					<div class="DataTypeToggle">이름</div>
-					<div class="DataTypeToggle">연락처</div>
-					<div class="DataTypeToggle">EMAIL</div>
-					<div class="DataTypeToggle" >도로명주소</div>
-					<div class="DataTypeToggle" >지역</div>
-					<div class="DataTypeToggle" >우편번호 /<br>국가코드</div>
-					<div class="DataTypeToggle" >단어</div>
-					<div class="DataTypeToggle" >숫자열</div>
-					<div class="DataTypeToggle" >환율</div>
-					<div class="DataTypeToggle" >영문자 /<br>숫자열</div>
+						<div class="DataTypeToggle"  data-value="263">신용카드 식별번호</div>
+						<div class="DataTypeToggle"  data-value="265">ISBN</div>
+						<div class="DataTypeToggle"  data-value="266">핸드폰번호</div>
+						<div class="DataTypeToggle"  data-value="270">차량번호</div>
+						<div class="DataTypeToggle"  data-value="272">색깔</div>
+						<div class="DataTypeToggle"  data-value="271">성별</div>
+						<div class="DataTypeToggle"  data-value="282">철도역</div>
+						<div class="DataTypeToggle"  data-value="283">공항</div>
+						<div class="DataTypeToggle"  data-value="286">참/거짓</div>
+						<div class="DataTypeToggle"  data-value="285">헥스색상코드</div>
 					</section>
 				</section>
 				 
@@ -57,25 +57,20 @@
 					<div class="QuickStartMsg"><span>생성할 데이터의 형식을 선택하세요</span></div>
 					</section>
 					<section class="DataFormat">
-					<div class="DataTypeToggle">JSON</div>
-					<div class="DataTypeToggle">CSV</div>
-					<div class="DataTypeToggle">SQL</div>
-					<div class="DataTypeToggle" >XML</div>
-					<div class="DataTypeToggle" >HTML</div>
-					<div class="DataTypeToggle" >JavaScript</div>
-					<div class="DataTypeToggle" >EXCEL</div>
+					<div class="DataTypeToggle DataTypeOn"  data-value="1">JSON</div>
+					<div class="DataTypeToggle"  data-value="2">CSV</div>
+					<div class="DataTypeToggle"  data-value="3">HTML</div>
+					<div class="DataTypeToggle"  data-value="4">SQL</div>
+					<!-- <div class="DataTypeToggle" >XML</div> -->
+					<!-- <div class="DataTypeToggle" >JavaScript</div> -->
+					<!-- <div class="DataTypeToggle" >EXCEL</div> -->
 					</section>
 				</section>
 				
 				<section class="QuickStartContent">
-				<div class="QuickStartMsg"><a href=#>데이터 생성하기</a></div>
+				<div class="QuickStartMsg"><span class="QuickStartBtn">데이터 생성하기</span></div>
 			</section>
-			
 			</section>
-			
-			
-			
-			
 		</div>
 		
 		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
@@ -90,7 +85,6 @@
  	$(".DataTypeToggle").on({
  		click : (event)=>{
  			let target = $(event.target);
- 			console.log(target);
  			if($(target[0].parentNode).hasClass("DataFormat") == true){
  		 		$(".DataFormat > div").removeClass("DataTypeOn");
  		 		$(target).toggleClass("DataTypeOn");
@@ -100,10 +94,40 @@
  			}
  		}
  	});
- 	
- 	
+/* 	$('.QuickStartBtn').click(()=>{
+		const typeList = $('.DataType').find('.DataTypeToggle.DataTypeOn');
+		const typeFormat = $('.DataFormat').find('.DataTypeToggle.DataTypeOn').attr('data-value');
+		let type_no_list =[];
+		$(typeList).each((index,data)=>{type_no_list.push($(data).attr('data-value'))});
 
+		const $form = $('<form>').attr('method','post').attr('action','/schema/schemaCreate.do');
+		$(type_no_list).each((index,data)=>{
+			$input = $('<input>').attr('type','text').attr('name','list['+index+']').val(data);
+			$($form).append($input);
+		})
+		
+		$($form).append($('<input>').attr('type','text').attr('name','type').val(typeFormat))
+		
+		$('body').append($form)
+		$form.submit();
+	}) */
+	$('.QuickStartBtn').click(() => {
+		  const typeList = $('.DataType').find('.DataTypeToggle.DataTypeOn');
+		  const typeFormat = $('.DataFormat').find('.DataTypeToggle.DataTypeOn').attr('data-value');
+		  const type_no_list = [];
+		  const type_name_list = [];
+		  $(typeList).each((index, data) => {
+		    type_no_list.push($(data).attr('data-value'));
+		    type_name_list.push($(data).text());
+		  });
 
-	
+		  // 데이터를 로컬 스토리지에 저장
+		  localStorage.setItem('colData', JSON.stringify({
+		    type_no_list: type_no_list,
+		    typeFormat: typeFormat,
+		    type_name_list: type_name_list
+		  }));
+		  location.href = "/schema/schemaCreate.do";
+		});
 	</script>
 </html>

@@ -29,26 +29,26 @@ public class ajaxMessage {
 		
 	}
 	
-//	@PostMapping("sendmessagedelete.do")
-//	public int sendmessagedelete(@RequestParam("message_no") int message_no) {
-//		int result=0;
-//		try {
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return result;
-//	}
-//	
-//	@PostMapping("receivemessagedelete.do")
-//	public int receivemessagedelete(@RequestParam("message_no") int message_no) {
-//		int result=0;
-//		try {
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return result;
-//	}
+	@PostMapping("sendmessagedelete.do")
+	public int sendmessagedelete(@RequestParam("message_no") int message_no) {
+		int result=0;
+		try {
+			result = messageservice.sendmessageDelete(message_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	@PostMapping("receivemessagedelete.do")
+	public int receivemessagedelete(@RequestParam("message_no") int message_no) {
+		int result=0;
+		try {
+			result = messageservice.receivemessageDelete(message_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 		
 }

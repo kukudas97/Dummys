@@ -229,7 +229,7 @@
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-			        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">답장 보내기</button>
+			        <button type="button" id="resendmessage" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">답장 보내기</button>
 			      </div>
 			       </form>
 			    </div>
@@ -245,42 +245,6 @@ $("#messageSubmit").on({
            	//비동기 함수 호출
               $.ajax({
            		url: "/message/idcheck.do", //컨트롤러로 보낼 uri
-           		type: "POST", //보내는 방식
-           		/* dataType : ,  *///컨트롤러에서 데이터 받을 때 형식 JSON
-           		data: { //뷰에서 보내는 정보들
-           		 'receive_id' : receive_id
-              },
-           		success: function(data){
-           			 if(data >= 1){
-           				 $("#formdata").submit();
-           				 alert("메세지 전송이 완료 되었습니다.")
-           			 }else {
-           				 alert("꺼져");
-           			 }         			
-           		},
-           		error: function() { //에러 났을 경우 
-                     alert("에러입니다.");
-                }	
-              });
-        	}
-	  		    
-  });
-  
-/* const modalButton = document.querySelector('#openModal1');
-const modal = new bootstrap.Modal(document.querySelector('#exampleModal1'));
-
-modalButton.addEventListener('click', () => {
-  modal.show();
-}); */
-
-//삭제 버튼 클릭 이벤트 등록
-$("#dleBtn").on({
-	  click : () => {
-		  const receive_id = $("#recipient-name").val();
-		 
-           	//비동기 함수 호출
-              $.ajax({
-           		url: "/message/messagedelete.do", //컨트롤러로 보낼 uri
            		type: "POST", //보내는 방식
            		/* dataType : ,  *///컨트롤러에서 데이터 받을 때 형식 JSON
            		data: { //뷰에서 보내는 정보들
@@ -326,11 +290,18 @@ $('.sendTr').on({
 	}
 })
 
+$('#resendmessage').on({
+	click :(event) =>{
+		let id = $('#receive_modal input[name=send_id]').val();
+		$('#formdata input[name=receive_id]').val(id);
+	}
+})
+
 $(".send_delBtn").on({
 	click : (event)=>{
 		let message_no = $(event.target).attr('data-value');
-		console.log(message_no + "번 쪽지를 삭제하시겠습니까?");
-	 	/*  $.ajax({
+		let tr = $(event.target).closest('tr');
+	 	 $.ajax({
 			url : "/message/sendmessagedelete.do" ,
 			type : "POST" ,
 			data: {
@@ -343,29 +314,25 @@ $(".send_delBtn").on({
 				}else{
 					alert("motherfuck");
 				}
-				
-			},
+			}, //success
 			error: function() { //에러 났을 경우 
                 alert("에러입니다.");
-		});   */
-	
-	}
-})
+			} //error
+	 	 }); //ajax  
+	}//click event
+}) //on
 
 $('.receive_delBtn').on({
 	click : (event)=>{
 		let message_no = $(event.target).attr('data-value');
-		console.log(message_no + "번 쪽지를 삭제하시겠습니까?");
-		
-		/*  $.ajax({
+		let tr = $(event.target).closest('tr');
+		  $.ajax({
 			url : "/message/receivemessagedelete.do" ,
 			type : "POST" ,
 			data: {
 				"message_no" : message_no
 			}, 
-			
 			success : function(data){
-				
 				if(data>0){
 					tr.remove();
 					alert("삭제가 완료되었습니다.");
@@ -375,8 +342,8 @@ $('.receive_delBtn').on({
 			},
 			error: function() { //에러 났을 경우 
                 alert("에러입니다.");
-		});  */
-		
+			}
+		  });  
 	}
 })
 

@@ -18,6 +18,9 @@
 		min-height: 525px;
 		border-radius: 10px;
 	}
+	table > tbody >tr {
+		cursor : pointer;
+	}
 </style>
 </head>
 <body>

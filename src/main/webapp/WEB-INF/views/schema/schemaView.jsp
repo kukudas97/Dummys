@@ -315,7 +315,9 @@
 		}
 	});// list on end
 	// ===== drag and drop end =====
-
+	// ===== DataTable =====
+   	$('#typeTable').DataTable();
+   	// ===== DataTable end =====
 	// createDummy() function start
 	function createDummy(){
 		let paramData = {
@@ -658,6 +660,86 @@
 	}
 	</script>
     <script>
-    	$('#typeTable').DataTable();
+    let refreshFlag = false;
+    $(window).on({
+    	'beforeunload': ()=> {
+    		  if (!refreshFlag) {
+    			    // 로컬스토리지에서 'formData' 아이템 삭제
+    			    localStorage.removeItem('colData');
+    			  }
+      	},
+      	'load' : ()=> {
+      	  // 로컬스토리지에서 'formData' 아이템 가져오기
+      	  const formData = localStorage.getItem('colData');
+      	  
+      	  // formData가 존재한다면, 필요한 작업 수행
+      	  if (formData) {
+      		const col = JSON.parse(formData);
+
+      		const type_no_list = col.type_no_list;
+      		const type_name_list = col.type_name_list;
+      		const typeFormat = col.typeFormat;
+      		$('#schemaarea').empty();
+			$(type_no_list).each((index, data) => {
+				let $tr = $('<tr>', {class: 'schema',draggable: true});
+
+				let $nameTd = $('<td>', {class: 'col-sm-2 col-md-2 col-lg-2'}).appendTo($tr);
+
+				let $nameDiv = $('<div>', {'data-type': 'name'}).appendTo($nameTd);
+
+				let $nameSection = $('<div>', {class: 'datasection'}).appendTo($nameDiv);
+
+				$('<input>', {type: 'text',value: type_name_list[index]}).appendTo($nameSection);
+
+				let $typeTd = $('<td>', {class: 'col-sm-2 col-md-2 col-lg-2'}).appendTo($tr);
+
+				let $typeDiv = $('<div>', {'data-type': 'type','data-value': type_no_list[index]}).appendTo($typeTd);
+
+				let $typeSection = $('<div>', {class: 'datasection'}).appendTo($typeDiv);
+
+				let $typeinput = $('<input>', {'data-value': type_no_list[index],'process-value': 0,type: 'text',value: type_name_list[index],readonly: true}).appendTo($typeSection);
+				$($typeinput).on({click : typeClickEventFunction})
+
+				let $optionTd = $('<td>', {class: 'col-sm-3 col-md-3 col-lg-3'}).appendTo($tr);
+
+				let $optionDiv = $('<div>', {'data-type': 'options'}).appendTo($optionTd);
+
+				let $optionSection = $('<div>', {class: 'datasection'}).appendTo($optionDiv);
+
+				$('<input>', {type: 'text',value: 0,min: 0,max: 100}).appendTo($optionSection);
+
+				let $closeTd = $('<td>', {class: 'col-sm-1 col-md-1 col-lg-1'}).appendTo($tr);
+
+				let $closeDiv = $('<div>', {'data-type': 'close'}).appendTo($closeTd);
+
+				let $closeSection = $('<div>', {class: 'datasection'}).appendTo($closeDiv);
+
+				let $iconContainer = $('<div>', {class: 'icon-container'}).appendTo($closeSection);
+
+				let $closeBtn = $('<span>', {class: 'ti-close delBtn'}).appendTo($iconContainer);
+				$($closeBtn).on({click : delColumn})
+
+				let $selectTd = $('<td>', {class: 'col-sm-3 col-md-3 col-lg-3'}).appendTo($tr);
+
+				let $selectDiv = $('<div>', {'data-type': 'selectoptions'}).appendTo($selectTd);
+
+				let $selectSection = $('<div>', {class: 'datasection row'}).appendTo($selectDiv);
+
+				$('#schemaarea').append($tr);
+				});//each end
+			$('#printType').val(typeFormat);
+      	  }
+      	},
+      	'keydown': function(e) {
+      	  if (e.which === 116) { // 새로고침 이벤트를 감지하기 위한 키 코드
+      	    refreshFlag = true;
+      	  }
+      	},
+      	'keyup': function(e) {
+      	  if (e.which === 116) {
+      	    refreshFlag = false;
+      	  }
+      	}
+    });
     </script>
 </html>

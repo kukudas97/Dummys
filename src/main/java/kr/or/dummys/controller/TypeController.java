@@ -72,14 +72,19 @@ public class TypeController {
 		type.setType_category(request.isUserInRole("ROLE_ADMIN")? 0 : 1);
 		File f = new File(file.getOriginalFilename());
 		List<String> dummy= new ArrayList<String>();
+		Scanner sc = null;
 		try {
 			file.transferTo(f);
-			Scanner sc = new Scanner(f);
+			sc = new Scanner(f);
 			
 			while(sc.hasNextLine()) {
 				String str =sc.nextLine();
 				dummy.add(str);
 			}
+		} catch (Exception e) {
+			
+		}
+		try {
 			
 			int insert =
 					(process_no != 1)? 
