@@ -70,12 +70,7 @@
 				<section class="QuickStartContent">
 				<div class="QuickStartMsg"><span class="QuickStartBtn">데이터 생성하기</span></div>
 			</section>
-			
 			</section>
-			
-			
-			
-			
 		</div>
 		
 		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
@@ -99,11 +94,40 @@
  			}
  		}
  	});
-	$('.QuickStartBtn').click(()=>{
+/* 	$('.QuickStartBtn').click(()=>{
 		const typeList = $('.DataType').find('.DataTypeToggle.DataTypeOn');
 		const typeFormat = $('.DataFormat').find('.DataTypeToggle.DataTypeOn').attr('data-value');
 		let type_no_list =[];
 		$(typeList).each((index,data)=>{type_no_list.push($(data).attr('data-value'))});
-	})
+
+		const $form = $('<form>').attr('method','post').attr('action','/schema/schemaCreate.do');
+		$(type_no_list).each((index,data)=>{
+			$input = $('<input>').attr('type','text').attr('name','list['+index+']').val(data);
+			$($form).append($input);
+		})
+		
+		$($form).append($('<input>').attr('type','text').attr('name','type').val(typeFormat))
+		
+		$('body').append($form)
+		$form.submit();
+	}) */
+	$('.QuickStartBtn').click(() => {
+		  const typeList = $('.DataType').find('.DataTypeToggle.DataTypeOn');
+		  const typeFormat = $('.DataFormat').find('.DataTypeToggle.DataTypeOn').attr('data-value');
+		  const type_no_list = [];
+		  const type_name_list = [];
+		  $(typeList).each((index, data) => {
+		    type_no_list.push($(data).attr('data-value'));
+		    type_name_list.push($(data).text());
+		  });
+
+		  // 데이터를 로컬 스토리지에 저장
+		  localStorage.setItem('colData', JSON.stringify({
+		    type_no_list: type_no_list,
+		    typeFormat: typeFormat,
+		    type_name_list: type_name_list
+		  }));
+		  location.href = "/schema/schemaCreate.do";
+		});
 	</script>
 </html>
