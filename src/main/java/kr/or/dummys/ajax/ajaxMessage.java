@@ -50,5 +50,16 @@ public class ajaxMessage {
 		}
 		return result;
 	}
+	
+	@PostMapping("readcheck.do")
+	public int rereadStateCheck(@RequestParam("message_no") int message_no) {
+		int result = 0;
+		try {
+			result = messageservice.readStateCheck(message_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
+		return result;
+	}
 }
