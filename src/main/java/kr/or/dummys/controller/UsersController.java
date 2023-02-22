@@ -62,6 +62,25 @@ public class UsersController {
 	}
 	*/
 	
+	@GetMapping("/blockUser.do")
+	public String blockUserPage() {
+		return "users/blockUser";
+	}
+	
+	//정지된 회원이 신고 당한 게시글, 댓글 확인하는 페이지
+	@GetMapping("/blockUserReportList.do")
+	public String blockUserReportPage(Principal principal, Model model) {
+		System.out.println("blockUserReportList 컨트롤러 탔다");
+		Map<String, Object> myReportMap = userService.getMyReport(principal.getName());
+		
+		System.out.println("서비스 갔다가 컨트롤러로 다시 돌아왔다: " + myReportMap.get("myReportBoard").toString());
+		
+		model.addAttribute("myReportBoard", myReportMap.get("myReportBoard"));
+		model.addAttribute("myReportReply", myReportMap.get("myReportReply"));
+		
+		return "users/blockUserReport";
+	}
+	
 
 	
 	@GetMapping("/forgetPassword.do")

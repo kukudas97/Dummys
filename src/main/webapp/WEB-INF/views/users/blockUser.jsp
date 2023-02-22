@@ -1,4 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,15 +41,55 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 </style>
+
+<style>
+.align-content.monsterMessage{
+width: 30%;
+height: 80%;
+}
+
+.align-content.logo{
+	margin: auto;
+    width: 100%;
+    height: 100%;
+    display: inline;
+}
+
+.align-content.monsterCaptain{
+margin: auto; 
+width: 70%; 
+height: 95%; 
+display: inline;
+position: relative;
+bottom: 10%;
+}
+
+.align-content.monsterFriends{
+margin: auto; 
+width: 90%; 
+height: 90%;
+position: relative;
+bottom: 75%;
+}
+
+</style>
 </head>
+
+
+
 <body class="bg-flat-color-7">
-	<div class="blockUser-page" style="align-items: center; justify-content: center; display: grid; padding-top: 42px;">
+	<div class="blockUser-page" style="align-items: center; justify-content: center; display: grid; padding-top: 35px;">
 		
-		<a href="/index.do" ><img class="align-content logo" style="margin: auto; width: 150%; height: 150%; display: inline" src="/resources/images/DummysLogo.png"></a><br>
+		<img class="align-content logo" src="/resources/images/DummysLogo.png"><br>
 		
-		<img class="align-content monsterCaptain" style="margin: auto; padding-top: 20px; width: 78%; height: 90%; display: inline" src="/resources/images/DummysErrorMonsterCaptain.png" ><br>
+		<img class="align-content monsterCaptain" src="/resources/images/blockedMonsterCaptain.png" ><br>
+
+		<a href="/users/blockUserReportList.do" style="position: relative; left: 75%; bottom: 95%"><img class="align-content monsterMessage" src="/resources/images/blockedMessage.png" ></a>
 		
-		<img class="align-content monsterFriends" style="margin: auto; width: 95%; height: 95%; display: inline" src="/resources/images/DummysErrorMonsterFriends.png" > <br>		
+		<img class="align-content monsterFriends" src="/resources/images/blockedMonsters.png"> <br>	
+			
 	</div>
 </body>
+
+
 </html>

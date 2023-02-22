@@ -114,6 +114,7 @@ font-family: 'Lato', sans-serif;
 					    	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
 					    	<a href="${pageContext.request.contextPath}/users/mypage.do">마이페이지</a>
 					    	<se:authorize access="hasRole('ROLE_SLEEP')"><jsp:forward page="${pageContext.request.contextPath}/users/forgetPassword.do"/></se:authorize>
+					    	<se:authorize access="hasRole('ROLE_BLOCK')"><jsp:forward page="${pageContext.request.contextPath}/users/blockUser.do"/></se:authorize>
 					    </se:authorize>
 				    </div>
 				</div>
