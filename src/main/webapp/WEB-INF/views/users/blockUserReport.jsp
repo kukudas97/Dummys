@@ -40,14 +40,34 @@
  
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
+  
+  .board h3 {
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: bold;
+  color: #40ba59;
+  text-shadow: 1px 1px 1px gray;
+  }
+  
+  .log-out, .forward-page{
+  font-weight: bold;
+  padding-left: 20px;
+  padding-top: 20px;
+  font-size: 17px;
+  
+  } 
 </style>
 </head>
 <body class="bg-flat-color-7">
+<se:authentication property="name" var="userid" />
         <div class="content">
             <div class="animated fadeIn">
                 <div class="row">
-
+                <img class="align-content logo" src="/resources/images/DummysLogo.png"><br>
                     <div class="col-md-12 board">
+                    <h3>${userid} 님의 신고 내역 입니다.</h3>
+                    <a href="${pageContext.request.contextPath}/logout" class="log-out">로그아웃</a>
                         <div class="card">
                             <div class="card-header">
                                  <h5 class="m-0 font-weight-bold board_kind">신고된 게시글</h5>
@@ -63,15 +83,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      <c:forEach items="${myReportBoard}" var="myReportBoardMap">
+                                      <c:forEach items="${myReportBoard}" var="myReportBoard">
 										<tr>
-											<%-- <td><c:out value="${myReportBoard.value.board_kind}" /></td>
-											<td><c:out value="${myReportBoard.value.board_name}" /></td>
+											<td><c:out value="${myReportBoard.board_kind}" /></td>
+											<td><c:out value="${myReportBoard.board_name}" /></td>
 											<td><c:out value="${myReportBoard.board_no}" /></td>
-											<td><c:out value="${myReportBoard.warning_count}" /></td>  --%>
-											<c:forEach items="${myReportBoardMap}" var="myReportBoardMap">
-												<td>${myReportBoardMap.value}</td>
-											</c:forEach>
+											<td><c:out value="${myReportBoard.warning_count}" /></td> 
 										</tr>
 									 </c:forEach>  
 									
@@ -101,15 +118,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                     <c:forEach items="${myReportReply}" var="myReportReplyMap">
+                                     <c:forEach items="${myReportReply}" var="myReportReply">
 										<tr>
-											<%-- <td><c:out value="${myReportReply.board_kind}" /></td>
+											<td><c:out value="${myReportReply.board_kind}" /></td>
 											<td><c:out value="${myReportReply.board_name}"  /></td>
 											<td><c:out value="${myReportReply.reply_content}" /></td>
-											<td><c:out value="${myReportReply.warning_count}" /></td> --%>
-											<c:forEach items="${myReportReplyMap}" var="myReportReplyMap">
-												<td>${myReportReplyMap.value}</td>
-											</c:forEach>
+											<td><c:out value="${myReportReply.warning_count}" /></td> 
 										</tr>
 									 </c:forEach>  
 									
