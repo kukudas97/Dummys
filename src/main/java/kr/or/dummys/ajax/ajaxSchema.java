@@ -49,16 +49,6 @@ public class ajaxSchema {
 	@PostMapping("schemaDownload.do")
 	public ResponseEntity<Resource> createDatas(@RequestBody CreateData data){
 		// 서비스로 데이터 생성/가공 하고...
-		/*
-			List<Map<String,Object>>
-			[
-				Map<String,Object> - name/list
-				{ "name" : "컬럼이름","list" : ["안","녕","하","세","요"] },
-				{ "name" : "컬럼이름","list" : ["안","녕","하","세","요"] },
-				{ "name" : "컬럼이름","list" : ["안","녕","하","세","요"] },
-			]
-		*/
-		System.out.println(data.getSchema_name());
 		List<Map<String,Object>> result = service.getDummyData(data);
 		String filename =(data.getSchema_name() != null) ? ((!data.getSchema_name().equals("")) ? data.getSchema_name() : "Schema") : "Schema";
 		switch (data.getType()) {
