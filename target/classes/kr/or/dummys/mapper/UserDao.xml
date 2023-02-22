@@ -103,14 +103,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from users_role where userid=#{userid} and role_name='ROLE_SLEEP'
 	</select>
 	
-	<select id="getReportBoard" resultType="map">
+	<select id="getReportBoard" resultType="kr.or.dummys.dto.MyReportBoard">
 	select board_kind, board_name, board_no, warning_count from board b
 	join (select warning_type_no,count(*) as warning_count from warning
 	where warning_type='게시글' and receive_id=#{userid} group by warning_type_no) w
 	on w.warning_type_no = b.board_no
 	</select>
 	
-	<select id="getReportReply" resultType="map">
+	<select id="getReportReply" resultType="kr.or.dummys.dto.MyReportReply">
 	select b.board_kind, b.board_name, reply_content,warning_count from reply r
 	join (select warning_type_no,count(*) as warning_count from warning
 	where warning_type='댓글' and receive_id=#{userid} group by warning_type_no) w
