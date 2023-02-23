@@ -82,7 +82,7 @@
 										</thead>
 								 		<tbody>
 											<c:forEach items="${myMessagereceiveList}" var="myMessagereceiveList">
-												<tr>
+												<tr id="receivecheck">
 													<td><c:out value="${myMessagereceiveList.message_no}" /></td>
 													<td><c:out value="${myMessagereceiveList.send_id}" /></td>
 													<td class="receiveTr"  data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@getbootstrap"><c:out value="${myMessagereceiveList.message_name}" /><input class="message_content" type="hidden" value="${myMessagereceiveList.message_content }"></td>
@@ -287,6 +287,7 @@ $('.receiveTr').on({
 			},
 			success :function(){
 				console.log('읽음처리되었음');
+				document.getElementById("receivecheck").style.opacity = "0.3";
 			}
 		})
 	}
