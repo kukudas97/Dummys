@@ -28,6 +28,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getRandomWordFormByTypeNo" resultType="String">
 		select random_word_form from random_form where type_no = ${type_no} 
 	</select>
+	<select id="getPasswordBySchemaNo" resultType="String">
+		select password from schema_pwd where schema_no = ${schema_no}
+	</select>
 	<!-- insert -->
 	
 	<insert id="insertSchema" parameterType="kr.or.dummys.dto.Schema">
