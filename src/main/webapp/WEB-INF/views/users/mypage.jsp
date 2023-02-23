@@ -33,8 +33,8 @@
                             </div>
                            <div class="card-body">
                            	<div class="myBoard">
-                           		<h3>내가 쓴 게시글</h3>
-                                <table class="table table-striped table-bordered">
+                           		<h3 style="padding-bottom: 12px; padding-left: 10px; font-weight: bold">내가 쓴 게시글</h3>
+                                <table id="myBoard" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -56,9 +56,9 @@
                                 </table>
                                 </div>
                                 
-                                <div class="myReplyBoard">
-                                <h3>댓글 단 게시글</h3>
-                                <table class="table table-striped table-bordered">
+                                <div class="myReplyBoard" style="padding-top: 75px;">
+                                <h3 style="padding-bottom: 12px;  padding-left: 10px; font-weight: bold">댓글 단 게시글</h3>
+                                <table id="myReply" class="table table-striped table-bordered">
                                 	<thead>
                                 		<tr>
                                 			<th>#</th>
@@ -119,6 +119,8 @@
 
 
     <script type="text/javascript">
+    $('#myBoard').DataTable();
+    $('#myReply').DataTable();
 
   </script>
 

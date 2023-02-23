@@ -22,17 +22,21 @@ public class ajaxWarningController{
 	
 	@PostMapping(value="reportWarning.do")
 	public String reportWarning(Warning warning, Principal principal) {
-		System.out.println("warning 컨트롤러 탔다");
-		System.out.println(warning.toString());
-		String url = null;
+		String result = null;
 		System.out.println("신고 하는 사람 : "+ principal.getName());
 		try {
-			System.out.println("reportWarning 트라이문 탔다");
-			url = warningService.reportWarning(warning, principal);
+			
+			if(warningService.checkWarning(warning, principal).equals("성공")) {
+				result = warningService.reportWarning(warning, principal);
+			} else {
+				result = "already";
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return url;
+		System.out.println(result);
+		return result;
 	}
 	
 	

@@ -88,6 +88,7 @@
 						</div>
 					</c:if>
 				</c:if>
+        
 				<c:if test="${userid eq board.userid }">
 				<button data-oper='modify' class="btn btn-success">수정</button>
 				</c:if>
@@ -180,26 +181,29 @@
 		                			warning_reason: text
 		                		}
 
-                			if (text) {
-                				$.ajax({
-             	            		url: "/warning/reportWarning.do", //컨트롤러로 보낼 uri
-             	            		type: "POST", //보내는 방식
-             	            		data: datas,
-             	            		success: function(data){
+                		if (text) {
+            				$.ajax({
+         	            		url: "/warning/reportWarning.do", //컨트롤러로 보낼 uri
+         	            		type: "POST", //보내는 방식
+         	            		data: datas,
+         	            		success: function(result){
+         	            			if(result=="success"){
+           	            				Swal.fire("신고가 완료되었습니다")
+           	            			} else if(result=="already"){
+           	            				Swal.fire("이미 신고한 게시글 입니다")
+									}
+         	            			
+         	            		},
+         	            		error: function(request, status, error) { //에러 났을 경우 
+         	                      	console.log(request);
+         	            			console.log(status);
+         	            			console.log(error);
 
-                          			  Swal.fire("신고가 완료되었습니다")
-             	            			
-             	            		},
-             	            		error: function(request, status, error) { //에러 났을 경우 
-             	                      	console.log(request);
-             	            			console.log(status);
-             	            			console.log(error);
-
-                        			  Swal.fire("신고 실패");
-                                  }	
-             	               });
-                			}
-            	});
+                    			  Swal.fire("신고 실패");
+                              }	
+         	               });
+            			}
+        	});
 
                 	//댓글 달기 폼 호출 버튼
                 	$("#addReplyBtn").on({
@@ -261,26 +265,29 @@
                 		console.log(datas);
                 		
 
-              			if (text) {
-              				$.ajax({
-           	            		url: "/warning/reportWarning.do", //컨트롤러로 보낼 uri
-           	            		type: "POST", //보내는 방식
-           	            		data: datas,
-           	            		success: function(data){
+                		if (text) {
+            				$.ajax({
+         	            		url: "/warning/reportWarning.do", //컨트롤러로 보낼 uri
+         	            		type: "POST", //보내는 방식
+         	            		data: datas,
+         	            		success: function(result){
+         	            			if(result=="success"){
+           	            				Swal.fire("신고가 완료되었습니다")
+           	            			} else if(result=="already"){
+           	            				Swal.fire("이미 신고한 게시글 입니다")
+									}
+         	            			
+         	            		},
+         	            		error: function(request, status, error) { //에러 났을 경우 
+         	                      	console.log(request);
+         	            			console.log(status);
+         	            			console.log(error);
 
-                        			  Swal.fire("신고가 완료되었습니다")
-           	            			
-           	            		},
-           	            		error: function(request, status, error) { //에러 났을 경우 
-           	                      	console.log(request);
-           	            			console.log(status);
-           	            			console.log(error);
-
-                      			  Swal.fire("신고 실패");
-                                }	
-           	               });
-              			}
-          		});
+                    			  Swal.fire("신고 실패");
+                              }	
+         	               });
+            			}
+        	});
                 	  
                 	
                 	//댓글 비동기로 삽입후 나열        
@@ -387,7 +394,7 @@
     		                                '<strong class="card-title">'+replyList.nickname+'</strong> ';
 											if(replyList.userid == '${userid}'){
 												listReply +=
-												'<span class="delete_reply badge float-right mt-1" data-value="'+replyList.reply_no +'">삭제</span>';
+												'<span class="delete_reply badge float-right mt-1" data-value="'+replyList.reply_no +'">삭제</span>' ;
 											}
     		                                
     		                   listReply += '<span class="add_reply badge float-right mt-1" data-value="'+replyList.reply_no +'">대댓글</span>'+

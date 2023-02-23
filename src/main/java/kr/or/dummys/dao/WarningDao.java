@@ -27,5 +27,8 @@ public interface WarningDao {
 	
 	//회원 정지 해제 (ROLE_BLOCK 권한 삭제)
 	public int deleteRoleBlock(String userid) throws ClassNotFoundException, SQLException;
+	
+	//신고 중복 체크
+	public int checkWarning(Warning warning) throws ClassNotFoundException, SQLException;
 
 }
