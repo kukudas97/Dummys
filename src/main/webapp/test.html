@@ -1,58 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
+<style>
+.snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: calc(100% - 300px);
+  bottom: 30px;
+  font-size: 17px;
+}
+
+.snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.8s, fadeout 0.8s 1.3s;
+  animation: fadein 0.8s, fadeout 0.8s 1.3s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+</style>
 </head>
 <body>
-    <button id="btn1">로그인 성공</button>
-    <button id="btn2">html 사용하기</button>
-</body>
+
+<h2>Snackbar / Toast</h2>
+<p>Snackbars are often used as a tooltips/popups to show a message at the bottom of the screen.</p>
+<p>Click on the button to show the snackbar. It will disappear after 3 seconds.</p>
+
+<button onclick="myFunction()">Show Snackbar</button>
+
+<!-- <div class="snackbar">Some text some message..</div> -->
+
 <script>
-    $('#btn1').on({
-        click : ()=>{ 
-            Toast.fire({
-            icon: 'success',
-            title: 'Signed in successfully'
-            })
-        }
-    })
-
-    $('#btn2').click(()=>{
-        Swal.fire({
-            title: '<strong>HTML <u>example</u></strong>',
-            icon: 'info',
-            html:
-                'You can use <b>bold text</b>, ' +
-                '<a href="//sweetalert2.github.io">links</a> ' +
-                'and other HTML tags',
-            showCloseButton: true,
-            showCancelButton: true,
-            focusConfirm: false,
-            confirmButtonText:
-                '<i class="fa fa-thumbs-up"></i> Great!',
-            confirmButtonAriaLabel: 'Thumbs up, great!',
-            cancelButtonText:
-                '<i class="fa fa-thumbs-down"></i>',
-            cancelButtonAriaLabel: 'Thumbs down'
-            })
-    })
-
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-        })
-
+function myFunction() {
+//   var x = document.getElementById("snackbar");
+    let number = Math.random();
+    let snackbar = $('<div class="snackbar">Some text some message..' + number +'</div>')
+    $('body').append(snackbar);
+    $(snackbar).toggleClass("show");
+    // snackbar.className = "show";
+    setTimeout(function(){ $(snackbar).remove()}, 2000);
+}
 </script>
+
+</body>
 </html>

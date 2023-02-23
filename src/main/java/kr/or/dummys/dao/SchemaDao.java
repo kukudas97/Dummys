@@ -14,6 +14,7 @@ public interface SchemaDao {
 	public List<Integer> getOptionsByColNo(int col_no);
 	public List<String> getDummDataByTypeNo(int type_no);
 	public String getRandomWordFormByTypeNo(int type_no);
+	public String getPasswordBySchemaNo(String schema_no);
 	
 	public int insertSchema(Schema schema);
 	public int insertColumn(Col column);

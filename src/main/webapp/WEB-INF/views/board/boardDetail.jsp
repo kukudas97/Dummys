@@ -81,16 +81,24 @@
 						name='board_date' value='<c:out value="${board.board_date}" />'
 						readonly="readonly">
 				</div>
-				<c:if test="${!empty shareSchema}">
-					<div class="form-group">
-						<label>공유 스키마</label><input id="shareBtn" class="form-control board_detail" value="&#35;${shareSchema.schema_no } &#39;${shareSchema.schema_name}&#39; 공유받기" readonly="readonly">
-					</div>
+				<c:if test="${board.board_kind eq '공유게시판' }">
+					<c:if test="${!empty shareSchema}">
+						<div class="form-group">
+							<label>공유 스키마</label><input id="shareBtn" class="form-control board_detail" value="&#35;${shareSchema.schema_no } &#39;${shareSchema.schema_name}&#39; 공유받기" readonly="readonly">
+						</div>
+					</c:if>
 				</c:if>
-				
+        
+				<c:if test="${userid eq board.userid }">
 				<button data-oper='modify' class="btn btn-success">수정</button>
+				</c:if>
 				<button data-oper='list' class="btn btn-info">목록</button>
+				<c:if test="${userid eq board.userid }">
 				<button data-oper='delete' class="btn btn-danger">삭제</button>
+				</c:if>
+				<c:if test="${userid ne board.userid }">
 				<button data-oper='report' class="btn btn-warning">신고</button>
+				</c:if>
 				
 				<%-- <a href="/board/boardList.do?board_kind=${board.board_kind}">목록</a> --%>
 

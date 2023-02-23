@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.dummys.dao.AlarmDao;
+import kr.or.dummys.dao.BoardDao;
+import kr.or.dummys.dao.ReplyDao;
 import kr.or.dummys.dto.Alarm;
 
 @Service
@@ -50,6 +52,13 @@ public class AlarmService {
 		
 		AlarmDao alarmdao = sqlsession.getMapper(AlarmDao.class);
 		listAlarm = alarmdao.listAlarm(userid);
+
+		ReplyDao replydao = sqlsession.getMapper(ReplyDao.class);
+		for(Alarm a : listAlarm) {
+			if(a.getAlarm_type().equals("댓글")) {
+				a.setAlarm_type_no(replydao.getReply(a.getAlarm_type_no()).getBoard_no());
+			}
+		}
 		
 		return listAlarm;
 	};

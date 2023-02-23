@@ -45,18 +45,52 @@ public class SchemaController {
 		return "schema/schemaList";
 	}
 	@GetMapping("schemaDetail.do")
-	public String schemaDetail(@RequestParam String schema_no, Principal pri, Model model, HttpServletRequest request) {
+	public String schemaDetail(@RequestParam String schema_no, String password, Principal pri, Model model, HttpServletRequest request) {
 		if(pri == null || schema_no == null) {
 			return "/index.do";
 		}
-		System.out.println("schema_no : " + schema_no);
+		
 		Schema schema = service.getSchemaByNo(schema_no);
 		List<Col> col_list = service.getColListBySchemaNo(schema_no);
+
+		boolean passwordCheck = false;
 		
-		if(schema.getUserid().equals(pri.getName()) || request.isUserInRole("ROLE_ADMIN")) {
-			model.addAttribute("schema",schema);
-			model.addAttribute("col_list",col_list);
+		// 스키마에 비밀번호가 있으면 비밀번호를 입력했는지 확인 후 맞을 경우에만 디테일 페이지로 이동한다.
+		if(schema.getSchema_password() != null) {
+			if(!schema.getSchema_password().equals("")) {
+				// 비밀번호 입력했는지 확인
+				if(password != null) {
+					// 입력한 비밀번호가 맞으면 true
+					if(password.equals(schema.getSchema_password())) {
+						//password가 없거나 틀리면 password 페이지로 보내기
+						passwordCheck = true;
+					}
+					// 스키마 비밀번호가 있는데 입력된 비밀번호가 없으면 false
+				}
+			}
 		}
+
+		// 스키마 작성자와 보려는 사람이 다르면 정보 지우기
+		if(!pri.getName().equals(schema.getUserid())) {
+			schema.setSchema_password("");
+		} else {
+			//같으면 비밀번호 입력과 상관 없이 디테일 페이지로
+			passwordCheck = true;
+		}
+		
+		// 비밀번호를 틀렸거나, 입력하지 않았다면 password 페이지로 이동
+		if(!passwordCheck) {
+			return "schema/schemaPassword";
+		}
+		
+		
+		model.addAttribute("schema",schema);
+		model.addAttribute("col_list",col_list);
+		
 		return "schema/schemaDetail";
+	}
+	@GetMapping("schemaPassword.do")
+	public String password() {
+		return "schema/schemaPassword";
 	}
 }
