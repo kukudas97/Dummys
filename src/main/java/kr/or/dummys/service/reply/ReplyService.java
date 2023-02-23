@@ -146,5 +146,17 @@ public class ReplyService {
 			}
 			return result;
 		}
+		
+		//댓글 가져오기
+		public Reply getReply(int reply_no) {
+			
+			Reply reply = new Reply();
+			
+			ReplyDao replydao = sqlsession.getMapper(ReplyDao.class);
+			
+			reply = replydao.getReply(reply_no);
+			
+			return reply;
+		}
 
 }

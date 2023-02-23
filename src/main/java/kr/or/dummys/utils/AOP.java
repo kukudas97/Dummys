@@ -1,7 +1,5 @@
 package kr.or.dummys.utils;
 
-import java.util.Arrays;
-
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,6 +9,12 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import kr.or.dummys.dto.Alarm;
+import kr.or.dummys.dto.Board;
+import kr.or.dummys.dto.Message;
+import kr.or.dummys.dto.Reply;
+import kr.or.dummys.service.alarm.AlarmService;
+import kr.or.dummys.service.board.BoardService;
+import kr.or.dummys.service.reply.ReplyService;
 
 @Aspect
 @Component
@@ -18,7 +22,14 @@ public class AOP {
 	@Autowired
 	private SimpMessagingTemplate messagingTemplate;
 	
+	@Autowired
+	private AlarmService alarmservice;
 	
+	@Autowired
+	private BoardService boardservice;
+	
+	@Autowired
+	private ReplyService resplyservice;
 
 	@Pointcut("execution(* kr.or.dummys.service.reply.ReplyService.replyRegister(..)) || "
 	        + "execution(* kr.or.dummys.service.reply.ReplyService.reReplyRegister(..)) || "
@@ -28,35 +39,96 @@ public class AOP {
 	@AfterReturning(pointcut = "myEndpointExecution()", returning = "result")
 	public void afterMyEndpointExecution(JoinPoint joinPoint, Object result) {
 	    String methodName = joinPoint.getSignature().getName(); //함수 이름
-	    Object[] methodArgs = joinPoint.getArgs(); //파라미터
-	    Class<?> returnType = joinPoint.getSignature().getDeclaringType(); //타입불러오기
-	    String message = "";
-	    String userid = "mint@mint.com";	    
 	    
-	    Alarm alarm = null;
+	    Object[] methodArgs = joinPoint.getArgs(); //파라미터 > 모두다 이걸로 처리해야함
+	    /*
+	    Class<?> returnType = joinPoint.getSignature().getDeclaringType(); //타입불러오기
+	    */
+	    String message = "";
+	    String userid = "";	    
+	    
+	    Alarm alarm = new Alarm();
 	    
 	    if (methodName.equals("replyRegister")) {
-	        // replyRegister 함수인 경우 처리할 내용
-	        System.out.println("Reply registered with return value: " + result);
-	        System.out.println("reply : " + Arrays.toString(methodArgs));
+	        String board_no = (String)methodArgs[0];
 	        
-	        message = "댓글이 달렸습니다.";
+	        String reply_content = (String)methodArgs[1];
+	        
+	        Board board = boardservice.boardDetail(board_no);
+	        
+	        userid = board.getUserid();
+	        
+	        alarm.setUserid(userid);
+	        alarm.setAlarm_type("게시판");
+	        alarm.setAlarm_type_no(Integer.parseInt(board_no));
+	        
+	        if(reply_content.length() >= 10) {
+	        	alarm.setAlarm_content(reply_content.substring(0, 10) + "...");
+	        }else {
+	        	alarm.setAlarm_content(reply_content);
+	        }
+	        
+	        message = "\""+board.getBoard_name()+"\""+"게시글에 댓글이 달렸습니다.";
+	        
 	    } else if (methodName.equals("reReplyRegister")) {
-	        // reReplyRegister 함수인 경우 처리할 내용
-	        System.out.println("Re-reply registered with return value: " + result);
-	        System.out.println("re-reply : " + Arrays.toString(methodArgs));
-	        message = "대댓글이 달렸습니다.";
+	        int reply_no = (int)methodArgs[0];
+	        
+	        String reReply_content = (String)methodArgs[1];
+	        
+	        Reply reply = resplyservice.getReply(reply_no);
+	        
+	        userid = reply.getUserid();
+	        
+	        alarm.setUserid(userid);
+	        alarm.setAlarm_type("댓글");
+	        alarm.setAlarm_type_no(reply_no);
+	        
+	        if(reReply_content.length() >= 10) {
+	        	alarm.setAlarm_content(reReply_content.substring(0, 10) + "...");
+	        }else {
+	        	alarm.setAlarm_content(reReply_content);
+	        }
+	        
+	        String reply_user = reply.getReply_content();
+	        if(reply_user.length() >= 10) {
+	        	reply_user = reply_user.substring(0, 10) + "...";
+	        }
+	    	
+	    	message = "\""+reply_user+"\""+"댓글에 대댓글이 달렸습니다.";
 	    } else if (methodName.equals("messageWrite")) {
-	        // messageWrite 함수인 경우 처리할 내용
-	        System.out.println("Message written with return value: " + result);
-	        System.out.println("message : " + Arrays.toString(methodArgs));
-	        message = "쪽지가 왔습니다.";
+	        Message messagedto = (Message)methodArgs[0];
+	        
+	        userid = messagedto.getReceive_id();
+	        
+	        String sendid = messagedto.getSend_id();
+	        
+	        String message_content = messagedto.getMessage_content(); 
+	        
+	        alarm.setUserid(userid);
+	        alarm.setAlarm_type("쪽지");
+	        alarm.setAlarm_type_no(messagedto.getMessage_no());
+	        
+	        if(message_content.length() >= 10) {
+	        	alarm.setAlarm_content(message_content.substring(0, 10) + "...");
+	        }else {
+	        	alarm.setAlarm_content(message_content);
+	        }
+	        
+	        message = "\""+sendid+"\""+"님에게 쪽지가 왔습니다.";
 	    }
 	    
 	    // service로 DB >> Alarm
-	    
-	    
 		String topic = "/topic/"+userid;
-		messagingTemplate.convertAndSend(topic, message);
+		
+		int number = 0;
+		try {
+			number = alarmservice.insertAlarm(alarm);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(number > 0) {
+			messagingTemplate.convertAndSend(topic, message);
+		}
 	}
 }

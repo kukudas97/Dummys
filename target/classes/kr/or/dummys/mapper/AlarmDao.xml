@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="kr.or.dummys.dao.AlarmDao">
 	<insert id="insertAlarm" parameterType="kr.or.dummys.dto.Alarm">
 		insert into alarm(alarm_no, userid, alarm_type, alarm_type_no, alarm_content)
-		values(alarm_no_seq.nextval, #{userid}, #{alarm_type}, ${alarm_type_no}, ${alarm_content})
+		values(alarm_no_seq.nextval, #{userid}, #{alarm_type}, ${alarm_type_no}, #{alarm_content})
 	</insert>
 	
 	<delete id="deleteAlarm">
