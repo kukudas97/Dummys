@@ -116,7 +116,8 @@ font-family: 'Lato', sans-serif;
 					    </se:authorize>
 					    <se:authorize access="isAuthenticated()">
 					    	<span>반갑습니다 &nbsp;&nbsp; ${userid} 님 :) </span>
-					    	<img alt="메세지" src="/resources/images/message.png" onclick="location.href='${pageContext.request.contextPath}/message/message.do'">
+					    	<i id="message" class="menu-icon fa fa-envelope-o" style="padding-right:25px; cursor:pointer" onclick="location.href='${pageContext.request.contextPath}/message/message.do'"></i>
+					    	<i id="alarm" class="menu-icon fa fa-bell-o" style="padding-right:25px; cursor:pointer"></i>
 					    	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
 					    	<a href="${pageContext.request.contextPath}/users/mypage.do">마이페이지</a>
 					    	<se:authorize access="hasRole('ROLE_SLEEP')"><jsp:forward page="${pageContext.request.contextPath}/users/forgetPassword.do"/></se:authorize>
@@ -140,6 +141,7 @@ font-family: 'Lato', sans-serif;
 					            	  	2. 알림 리스트 업데이트하기
 					            	  	2.1 알림 리스트 업데이트 하면서 확인안한 알림 있는지 확인하고 이모티콘 바꿔주기
 					            	  */
+					            	  console.log(message);
 					              }
 					              );
 					           });
@@ -157,9 +159,25 @@ font-family: 'Lato', sans-serif;
 				</div>
             </div>
         </header>
-        
-
-
-
 </body>
+<script type="text/javascript">
+	//hover시 아이콘 변경
+	$("#message").mouseover(()=>{
+        $("#message").removeClass("fa-envelope-o");
+        $("#message").addClass("fa-envelope");
+    });
+	$("#alarm").mouseover(()=>{
+        $("#alarm").removeClass("fa-bell-o");
+        $("#alarm").addClass("fa-bell");
+    });
+	//out시 아이콘 변경
+	$("#message").mouseout(()=>{
+        $("#message").removeClass("fa-envelope");
+        $("#message").addClass("fa-envelope-o");
+    });
+	$("#alarm").mouseout(()=>{
+        $("#alarm").removeClass("fa-bell");
+        $("#alarm").addClass("fa-bell-o");
+    });
+</script>
 </html>
