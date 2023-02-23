@@ -1024,12 +1024,12 @@ header .form-inline {
     .header-left .dropdown .dropdown-toggle .count {
       border-radius: 50%;
       color: #fff;
-      font-size: 11px;
-      height: 15px;
-      width: 15px;
-      line-height: 15px;
+      font-size: 10px;
+      height: 20px;
+      width: 20px;
+      line-height: 20px;
       right: 0;
-      top: 12px;
+      top: -5px;
       position: absolute; }
     .header-left .dropdown .dropdown-toggle:active, .header-left .dropdown .dropdown-toggle:focus, .header-left .dropdown .dropdown-toggle:visited {
       background: none !important;
@@ -1084,10 +1084,10 @@ header .form-inline {
       -ms-flex-pack: end;
           justify-content: flex-end; }
   .header-menu .dropdown {
-    line-height: 55px;
+    line-height: 25px;
     margin-top: 0 !important; }
     .header-menu .dropdown .dropdown-toggle {
-      line-height: 55px; }
+      line-height: 25px; }
 
 .user-area .dropdown-toggle {
   position: relative;
@@ -2616,8 +2616,6 @@ text-shadow: 2px 2px 2px #123b48;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
      grid-gap: 0.3rem; 
-/*      row-gap: 0.1rem;
-    column-gap: 0.1rem;  */
 }
 
 .DataTypeToggle {
@@ -2671,8 +2669,6 @@ font-size: 17px;
   .card .add-reply {
   padding: 10px;
     display: flex; 
-/*   text-align: right;
-    justify-content: right; */
   }
 
 .reply-card{
@@ -2760,49 +2756,6 @@ font-size: 17px;
 	margin-top: 15px;
 }
 
-
-/* .bg-flat-color-7 .error-page{
-	margin: auto;
-	padding: auto;
-	animation-fill-mode: forwards;
- 	display: block; 
-	vertical-align:middle;
-   align-items: center;
-  justify-content: center; 
-	
-}
-
-.error-page h2{
-	text-align: center;
-	font-family: 'IBM Plex Sans KR', sans-serif;
-	color: #29b545;
-	font-weight: bold;
-	
-}
-
- .error-page .align-content .logo{
-	width: 130%;
-	height: 130%;
-	align-items: center;
-	justify-content: center;
-}
-
-.error-page .align-content .monsterCaptain{
-	width: 115%;
-	height: 120%;
-	align-items: center;
-	justify-content: center;
-}
-
-.error-page .align-content .monsterFriends{
-	width: 90%;
-	height: 90%;
-	align-items: center;
-	justify-content: center;
-}  */
-
-
-
 /*재홍*/
 #main_content{
 	margin: 20px;
@@ -2853,29 +2806,10 @@ table .tablebtn{
     display: block;
 }
 
-/* .schema div[data-type]{
-	padding: 2px 2px 2px 2px;
-	-ms-user-select: none; 
-	-moz-user-select: -moz-none;
-	-khtml-user-select: none;
-	-webkit-user-select: none;
-	user-select: none;
-} */
-/* .schema input{
-	width : 100%;
-	border : none;
-} */
-/* .datasection, #adbtn{
-    border: 3px solid #086200;
-    padding: 5px;
-    border-radius: 10px;
-} */
 #adbtn{
 	margin-left:6%;
 }
-/* .dataSet >div , .createnav .navbtn, .inlineSet, .datasection{
-	display: inline-block;
-} */
+
 .createnav{
 	position: fixed;
 	background-color: green;
@@ -2897,12 +2831,6 @@ table .tablebtn{
 	margin-left : 1rem;
 	margin-right : 1rem;
 }
-/* div[data-type="click"] > .datasection{
-	float: right;
-} */
-/* div[data-type="name"] > .datasection, div[data-type="type"] > .datasection, div[data-type="options"] > .datasection, div[data-type="selectoptions"] > .datasection{
-	width: 90%;
-} */
 
 .btnArea a {
 	color:white;
@@ -2914,4 +2842,60 @@ table .tablebtn{
 .schema_name{
 	background : white !important;
 	cursor : pointer;
+}
+
+.snackbar {
+  visibility: hidden;
+  width: 400px;
+  margin-left: -125px;
+  background-color: #008080;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 10px;
+  position: fixed;
+  z-index: 1;
+  left: calc(100% - 280px);
+  bottom: 5px;
+  font-size: 17px;
+}
+
+.snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 5px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 5px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 5px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 5px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+.scroll{
+	-ms-overflow-style: none; /* 인터넷 익스플로러 */
+  	scrollbar-width: none; /* 파이어폭스 */
+}
+
+.scroll {
+  height: 150px;
+  overflow-y: scroll;
+}
+
+.scroll::-webkit-scrollbar {
+  display: none;
 }
