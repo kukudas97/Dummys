@@ -20,7 +20,7 @@ import kr.or.dummys.service.admin.AdminService;
 public class ajaxAdmin {
 	
 	@Autowired
-	public AdminService adminservice;
+	private AdminService adminservice;
 	
 	@PostMapping("/in_user.do")
 	public ResponseEntity<Map<String, Object>> inUser(@RequestBody List<String> userid){

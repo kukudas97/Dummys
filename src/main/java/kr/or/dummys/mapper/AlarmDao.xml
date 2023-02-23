@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<update id="updateDate">
-		update alarm set alarm_check
+		update alarm set alarm_check=0 where alarm_no = ${alarm_no}
 	</update>
 	
 	<select id="listAlarm" resultType="kr.or.dummys.dto.Alarm">
@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="countAlarm" resultType="int">
-		select count(*) from alarm where alarm_check = 1
+		select count(*) from alarm where alarm_check = 1 and userid = #{userid}
 	</select>
 	
 	<delete id="deleteAllAlarm">
