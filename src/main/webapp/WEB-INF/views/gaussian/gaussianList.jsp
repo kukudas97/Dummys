@@ -7,7 +7,7 @@
 <%-- <jsp:include page="/WEB-INF/views/include/head.jsp" /> --%>
 <style type="text/css">
 	#check{
-		width: 100px
+		width: 100px !important;
 	}
 	table {
 		text-align: center;
@@ -43,7 +43,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<table class="table table-hover table-striped">
+					<table id="gaussianTable"class="table table-hover table-striped">
 						<thead class="table-light">
 							<tr>
 								<th id="check">체크박스</th>
@@ -77,6 +77,16 @@
 		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	</div>
 </body>
+<script src="/resources/js/lib/data-table/datatables.min.js"></script>
+<script src="/resources/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+<script src="/resources/js/lib/data-table/dataTables.buttons.min.js"></script>
+<script src="/resources/js/lib/data-table/buttons.bootstrap.min.js"></script>
+<script src="/resources/js/lib/data-table/jszip.min.js"></script>
+<script src="/resources/js/lib/data-table/vfs_fonts.js"></script>
+<script src="/resources/js/lib/data-table/buttons.html5.min.js"></script>
+<script src="/resources/js/lib/data-table/buttons.print.min.js"></script>
+<script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
+<script src="/resources/js/init/datatables-init.js"></script>
 <script>
 	$('#createBtn').on({
 		click : ()=>{
@@ -120,5 +130,11 @@
 			}
 		})// $ajax end
 	}
+
+ 	$('#gaussianTable').DataTable({
+ 		"pageLength": 10,
+ 		"startSave" : true,
+ 		"lengthChange": false
+ 	});
 </script>
 </html>

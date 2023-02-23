@@ -54,7 +54,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<table class="table table-hover table-striped">
+					<table id="schemaTable"class="table table-hover table-striped">
 						<thead class="table-light">
 							<tr>
 								<c:if test="${param.type eq 'mine' }"><th id="check">체크박스</th></c:if>
@@ -108,6 +108,16 @@
 		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	</div>
 </body>
+<script src="/resources/js/lib/data-table/datatables.min.js"></script>
+<script src="/resources/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+<script src="/resources/js/lib/data-table/dataTables.buttons.min.js"></script>
+<script src="/resources/js/lib/data-table/buttons.bootstrap.min.js"></script>
+<script src="/resources/js/lib/data-table/jszip.min.js"></script>
+<script src="/resources/js/lib/data-table/vfs_fonts.js"></script>
+<script src="/resources/js/lib/data-table/buttons.html5.min.js"></script>
+<script src="/resources/js/lib/data-table/buttons.print.min.js"></script>
+<script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
+<script src="/resources/js/init/datatables-init.js"></script>
 <script>
 	$('#createBtn').on({
 		click : ()=>{
@@ -157,5 +167,10 @@
 			}
 		})// $ajax end
 	} 
+ 	$('#schemaTable').DataTable({
+ 		"pageLength": 10,
+ 		"startSave" : true,
+ 		"lengthChange": false
+ 	});
 </script>
 </html>
