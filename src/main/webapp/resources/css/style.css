@@ -2911,3 +2911,7 @@ table .tablebtn{
 #scrolltext{
 	 overflow: auto;
 }
+.schema_name{
+	background : white !important;
+	cursor : pointer;
+}

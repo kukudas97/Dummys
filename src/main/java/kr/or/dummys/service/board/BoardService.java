@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.dummys.dao.BoardDao;
 import kr.or.dummys.dto.Board;
+import kr.or.dummys.dto.Schema;
 
 @Service
 public class BoardService {
@@ -60,7 +61,7 @@ public class BoardService {
 	}
 	
 	//글쓰기 처리 서비스
-	public String boardWrite(Board board, HttpServletRequest request, Principal principal) {
+	public String boardWrite(Board board, HttpServletRequest request, Principal principal,String schema_no) {
 		//인증 객체
 		board.setUserid(principal.getName().trim());		
 		try {
@@ -68,6 +69,9 @@ public class BoardService {
 			BoardDao boardDao = sqlsession.getMapper(BoardDao.class);
 			boardDao.boardWrite(board); //DB insert
 			encodedParam = URLEncoder.encode(board.getBoard_kind(), "UTF-8");
+			if(!schema_no.equals("")) {
+				boardDao.insertBoardSchema(board.getBoard_no(), Integer.parseInt(schema_no));
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -126,7 +130,16 @@ public class BoardService {
 		}
 		return "redirect:boardList.do?board_kind=" + encodedParam;
 	}
-		
+	public Schema getBoardSchema(int board_no) {
+		BoardDao boardDao = sqlsession.getMapper(BoardDao.class);
+		Schema result = null;
+		try {
+			result = boardDao.getBoardSchema(board_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 
 }

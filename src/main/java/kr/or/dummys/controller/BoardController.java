@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.dummys.dto.Board;
+import kr.or.dummys.dto.Schema;
 import kr.or.dummys.service.board.BoardService;
 
 @Controller
@@ -45,13 +46,11 @@ public class BoardController {
 	  
 	  //게시글 작성 처리(DB에 insert)
 	  @PostMapping(value="boardWrite.do")
-	  public String boardWrite(Board board, HttpServletRequest request, Principal principal) {
-		  System.out.println("boardWrite.do 컨트롤러 탔다");
+	  public String boardWrite(Board board, @RequestParam(required =false, value="schema_no") String schema_no,HttpServletRequest request, Principal principal) {
+		  System.out.println(schema_no);
 		  String url = null;
-		  System.out.println("principal: " + principal.toString());
 			try {
-				url = boardService.boardWrite(board, request, principal);
-				System.out.println("url: " + url);
+				url = boardService.boardWrite(board, request, principal,schema_no);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -64,7 +63,10 @@ public class BoardController {
 	  public String boardDetail(String board_no, Model model) {
 		  System.out.println(board_no);	  
 		  Board board = boardService.boardDetail(board_no);
+		  Schema shareSchema= boardService.getBoardSchema(board.getBoard_no());
+		  
 		  model.addAttribute("board", board);
+		  model.addAttribute("shareSchema",shareSchema);
 		  return "board/boardDetail";
 	  }
 	  

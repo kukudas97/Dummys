@@ -186,68 +186,21 @@ public class ajaxSchema {
 		}
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 	}
+	@GetMapping("getSchemaList.do")
+	public ResponseEntity<Map<String, Object>> getSchemaList(Principal pri){
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(pri == null) {
+			map.put("result", "login-error");
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+		}
+		try {
+			List<Schema> list = service.getSchemaList("mine", pri);
+			map.put("list",list);
+			map.put("result","success");
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("result", "fail");
+		}
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+	}
 }
-
-
-
-
-//// =============== txt 파일 생성 ==================
-//String filename = "test.txt";
-//String content = "This is a test file.\n안녕하세요";
-//
-//// 1. 텍스트 파일 생성
-//byte[] bytes = content.getBytes();
-//
-//
-//
-//ByteArrayResource resource = new ByteArrayResource(bytes);
-//
-//// 2. 생성된 파일 다운로드
-//HttpHeaders headers = new HttpHeaders();
-//headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
-//headers.add(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
-//
-//return ResponseEntity.ok()
-//        .headers(headers)
-//        .contentLength(bytes.length)
-//        .contentType(MediaType.parseMediaType(MediaType.TEXT_PLAIN_VALUE))
-//        .body(resource);
-//// =============== ========== ==================
-// =============== Excel 파일 생성 ==================
-//Workbook workbook = new XSSFWorkbook();
-//Sheet sheet = workbook.createSheet("Sheet1");
-//Row row1 = sheet.createRow(0);
-//Cell cell1_1 = row1.createCell(0);
-//cell1_1.setCellValue("1");
-//Cell cell1_2 = row1.createCell(1);
-//cell1_2.setCellValue("2");
-//Cell cell1_3 = row1.createCell(2);
-//cell1_3.setCellValue("3");
-//
-//Row row2 = sheet.createRow(1);
-//Cell cell2_1 = row2.createCell(0);
-//cell2_1.setCellValue("a");
-//Cell cell2_2 = row2.createCell(1);
-//cell2_2.setCellValue("b");
-//Cell cell2_3 = row2.createCell(2);
-//cell2_3.setCellValue("c");
-//
-//ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//workbook.write(bos);
-//byte[] bytes = bos.toByteArray();
-//ByteArrayResource resource = new ByteArrayResource(bytes);
-//
-//  // Set response headers
-////HttpHeaders headers = new HttpHeaders();
-////headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=example.xlsx");
-////headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE);
-//
-//HttpHeaders headers = new HttpHeaders();
-//headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
-//headers.setContentDispositionFormData("attachment", "example.xlsx");
-//
-//return ResponseEntity.ok()
-//        .headers(headers)
-//        .contentLength(bytes.length)
-//        .contentType(MediaType.parseMediaType(MediaType.APPLICATION_OCTET_STREAM_VALUE))
-//        .body(resource);

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import kr.or.dummys.dto.Board;
+import kr.or.dummys.dto.Schema;
 
 public interface BoardDao {
 	
@@ -26,4 +27,8 @@ public interface BoardDao {
 	
 	//게시물 삭제(delete)
 	public int boardDelete(String seq) throws ClassNotFoundException, SQLException;
+	
+	public int insertBoardSchema(int board_no, int schema_no);
+	
+	public Schema getBoardSchema(int board_no);
 }
