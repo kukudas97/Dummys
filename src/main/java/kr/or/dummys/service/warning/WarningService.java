@@ -78,7 +78,7 @@ public class WarningService {
 	
 	
 	
-		
+	//신고 insert	
 	public String reportWarning(Warning warning, Principal principal) {
 		System.out.println("warning 서비스 탔다");
 		int result = 0;
@@ -87,11 +87,28 @@ public class WarningService {
 			warning.setSend_id(principal.getName());
 			System.out.println(warning.getSend_id());
 				
-			warningDao.reportWarning(warning);
+			result = warningDao.reportWarning(warning);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return(result>=1) ? "성공":"실패";
+		return(result>=1) ? "success":"fail";
+	}
+	
+	//신고 중복 체크
+	public String checkWarning(Warning warning, Principal principal) {
+
+		int result = 0;
+		try {
+			WarningDao warningDao = sqlsession.getMapper(WarningDao.class);
+			warning.setSend_id(principal.getName());
+			
+			result = warningDao.checkWarning(warning);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return (result==0)? "성공" : "실패";
 	}
 
 }

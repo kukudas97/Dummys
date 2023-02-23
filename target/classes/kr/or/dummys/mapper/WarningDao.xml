@@ -34,6 +34,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  DELETE FROM users_role where role_name='ROLE_BLOCK' and userid=#{userid}
  </delete>
  
+ <!-- 신고 중복 체크 -->
+ <select id="checkWarning" parameterType="kr.or.dummys.dto.Warning" resultType="int">
+ select count(*) from warning where warning_type=#{warning_type} and warning_type_no=${warning_type_no} and send_id=#{send_id}
+ </select>
+ 
 
  
 
