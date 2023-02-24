@@ -4,6 +4,8 @@ import java.security.Principal;
 import java.sql.SQLException;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +37,7 @@ public class MessageController {
 	
 	//쪽지 보내기 처리
 	@PostMapping("message.do")
-	public String messageSend(Message message) throws ClassNotFoundException, SQLException {
+	public String messageSend(Message message, HttpServletRequest request) throws ClassNotFoundException, SQLException {
 		
 		System.out.println(message);
 		int result = 0;
@@ -44,8 +46,11 @@ public class MessageController {
 		
 		result = messageservice.messageWrite(message);
 		if(result > 0) {
-			System.out.println("보내기 성공");
-			viewpage = "redirect:/message/message.do";
+			if(request.isUserInRole("ROLE_ADMIN")) {
+				viewpage = "redirect:/admin/admintendinous.do";
+			}else {
+				viewpage = "redirect:/message/message.do";
+			}
 		}
 		return viewpage;
 	}

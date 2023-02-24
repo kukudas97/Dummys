@@ -77,10 +77,8 @@ public class ajaxAdmin {
 	//정지
 	@PostMapping("/blockUser.do")
 	public String blockUser(@RequestParam String userid){
-		System.out.println(userid);
 		int insertRoleBlock = 0;
 		try {
-			System.out.println("blockUser.do 트라이문 탔다");
 			insertRoleBlock = adminservice.blockUser(userid);
 		} catch (Exception e) {
 			e.getStackTrace();
@@ -91,14 +89,35 @@ public class ajaxAdmin {
 	//정지 해제
 	@PostMapping("/releaseUser.do")
 	public String releaseUser(@RequestParam String userid) {
-		System.out.println(userid);
 		int deleteRoleBlock = 0;
 		try {
-			System.out.println("releaseUser.do 트라이문 탔다");
 			deleteRoleBlock = adminservice.releaseUser(userid);
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
 		return (deleteRoleBlock ==1) ? "성공" : " 실패";
+	}
+	
+	//처리완료
+	@PostMapping("/lead.do")
+	public ResponseEntity<Map<String, Object>> lead(int tendinous_no) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		int re = 0;
+		try {
+			re = adminservice.lead(tendinous_no);
+			if(re >= 1) {
+				map.put("result", "success");
+				map.put("msg", re);
+				return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+			}else {
+				map.put("result", "fail");
+				return new ResponseEntity<Map<String,Object>>(map,HttpStatus.BAD_REQUEST);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("result", "fail");
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.BAD_REQUEST);
+		}
+		
 	}
 }

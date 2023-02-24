@@ -24,10 +24,7 @@
                         <a href="/admin/admintendinous.do" class="dropdown-toggle"> <i class="menu-icon fa fa-question-circle"></i>문의사항</a>
                     </li>	
                     <li class="menu-item-has-children dropdown">
-                        <a href="/admin/adminmessage.do" class="dropdown-toggle"> <i class="menu-icon fa fa-comment"></i>쪽지보내기</a>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="/admin/admindummy.do" class="dropdown-toggle"> <i class="menu-icon fa fa-check-square-o"></i>스키마 확인</a>
+                        <a href="/message/message.do" class="dropdown-toggle"> <i class="menu-icon fa fa-comment"></i>쪽지보내기</a>
                     </li>
                     <li class="menu-title">페이지 이동</li>
                   	<li class="menu-item-has-children dropdown">

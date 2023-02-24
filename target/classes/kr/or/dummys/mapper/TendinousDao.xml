@@ -15,6 +15,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	//문의사항 세부 사항
 	public Tendinous detailTendinous(int tendinous_no);
+	
+	//문의사항 읽음 처리
+	public Tendinous lead(int tendinous_no);
  -->
 	<insert id="insertTendinous" parameterType="kr.or.dummys.dto.Tendinous">
 		insert into tendinous(tendinous_no, userid, tendinous_name, tendinous_content)
@@ -32,4 +35,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="detailTendinous" resultType="kr.or.dummys.dto.Tendinous">
 		select * from tendinous where tendinous_no = ${tendinous_no}
 	</select>
+	
+	<update id="lead">
+		update tendinous set tendinous_process = 0 where tendinous_no=${tendinous_no}
+	</update>
 </mapper>
