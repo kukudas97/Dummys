@@ -163,7 +163,25 @@
 					
                 	//해당 게시물 삭제 버튼
                 	$("button[data-oper='delete']").on("click", function(e){
-                		operForm.attr("action", "/board/boardDelete.do").submit();
+                		Swal.fire({
+                			  title: '해당 게시물을 삭제하시겠습니까?',
+                			  text: "",
+                			  icon: 'warning',
+                			  showCancelButton: true,
+                			  confirmButtonColor: '#3085d6',
+                			  cancelButtonColor: '#d33',
+                			  confirmButtonText: '삭제 합니다'
+                			}).then((result) => {
+                			  if (result.isConfirmed) {
+                			    Swal.fire(
+                			      '삭제 되었습니다',
+                			      '해당 게시물을 더 이상 볼 수 없습니다.',
+                			      'success'
+                			    ).then(()=>{
+                  				  operForm.attr("action", "/board/boardDelete.do").submit();
+                			    })
+                			  }
+                			})
                 	});
                 	
                 	//해당 게시물 신고 버튼 //20230218
@@ -296,35 +314,57 @@
               			  const content = $('#reply_content').val();
               			  
               			  if (content == "") {
-             	               alert("내용을 입력하세요");
-             	            } else if (confirm("댓글을 등록하시겠습니까?") == true) { //확인
-             	               
-             	            	//비동기 함수 호출
-             	               $.ajax({
-             	            		url: "/reply/reply.do", //컨트롤러로 보낼 uri
-             	            		type: "POST", //보내는 방식
-             	            		dataType : "JSON", //컨트롤러에서 데이터 받을 때 형식 JSON
-             	            		data: { //뷰에서 보내는 정보들
-             	            		 'board_no' : '${board.board_no}',
-          	                     	 'reply_content' : $('#reply_content').val()//댓글 내용 값
-          	                  },
-             	            		success: function(data){
-             	            			replyList();
-             	            			$('#reply_content').val('');
-             	            			$("#write-reply").removeClass("writeReplyForm");
-             	            			
-             	            		},
-             	            		error: function(request, status, error) { //에러 났을 경우 
-             	                      alert("code:" + request.status + "\n"
-            	                           + "message:" + request.responseText
-            	                           + "\n" + "error:" + error);
-                                  }	
-             	               });
+              				Swal.fire(
+                				      '내용을 입력하세요',
+                				      '',
+                				      'warning'
+                				    )
+             	            } else { 
+             	            	//확인
+             	            	Swal.fire({
+								  title: '댓글을 등록하시겠습니까?',
+								  text: "",
+								  icon: 'question',
+								  showCancelButton: true,
+								  confirmButtonColor: '#3085d6',
+								  cancelButtonColor: '#d33',
+								  confirmButtonText: '등록 확인'
+								}).then((result) => {
+								  if (result.isConfirmed) {
+									//비동기 함수 호출
+		             	               $.ajax({
+		             	            		url: "/reply/reply.do", //컨트롤러로 보낼 uri
+		             	            		type: "POST", //보내는 방식
+		             	            		dataType : "JSON", //컨트롤러에서 데이터 받을 때 형식 JSON
+		             	            		data: { //뷰에서 보내는 정보들
+		             	            		 'board_no' : '${board.board_no}',
+		          	                     	 'reply_content' : $('#reply_content').val()//댓글 내용 값
+		          	                  },
+		             	            		success: function(data){
+		             	            			replyList();
+		             	            			$('#reply_content').val('');
+		             	            			$("#write-reply").removeClass("writeReplyForm");
+		             	            			
+		             	            		},
+		             	            		error: function(request, status, error) { //에러 났을 경우 
+		             	                      alert("code:" + request.status + "\n"
+		            	                           + "message:" + request.responseText
+		            	                           + "\n" + "error:" + error);
+		                                  }	
+		             	               });
+									  
+									  
+								    Swal.fire(
+								      '등록 완료',
+								      '',
+								      'success'
+								    )
+								  }
+								  
+								  
+								})
+             	            
                           	}
-             	           	else { //취소
-            	               alert("취소하였습니다.");
-            	               return false;
-              		  		}
               	  	}     
               	  });
   
@@ -340,34 +380,54 @@
                 		console.log("parent_no : " + parent_no );
               			  
               			  if (content == "") {
-             	               alert("내용을 입력하세요");
-             	            } else if (confirm("댓글의 댓글을 등록하시겠습니까?") == true) { //확인
-             	               
-             	            	//비동기 함수 호출
-             	               $.ajax({
-             	            		url: "/reply/reReply.do", //컨트롤러로 보낼 uri
-             	            		type: "POST", //보내는 방식
-             	            		dataType : "JSON", //컨트롤러에서 데이터 받을 때 형식 JSON
-             	            		data: { //뷰에서 보내는 정보들	
-             	            		 'parent_reply_no' : parent_no, //부모 댓글의 번호 가져가야함
-          	                     	 'reReply_content' : content//댓글 내용 값
-          	                  },
-             	            		success: function(data){
-             	            			$("#addReReplyForm").addClass("afterRegisterReReply"); //등록 성공하면 대댓글 입력란 사라짐
-             	            			replyList();
-             	            			
-             	            		},
-             	            		error: function(request, status, error) { //에러 났을 경우 
-             	                      alert("code:" + request.status + "\n"
-            	                           + "message:" + request.responseText
-            	                           + "\n" + "error:" + error);
-                                  }	
-             	               });
-                          	}
-             	           	else { //취소
-            	               alert("취소하였습니다.");
-            	               return false;
-              		  		}
+              				Swal.fire(
+              				      '내용을 입력하세요',
+              				      '',
+              				      'warning'
+              				    )
+             	            } /// if (content == "") 끝
+              			  else { //확인
+             	               //스윗얼랏으로 입력하시겠습니까 띄우고
+             	               Swal.fire({
+								  title: '댓글의 댓글을 입력하시겠습니까?',
+								  text: "",
+								  icon: 'question',
+								  showCancelButton: true,
+								  confirmButtonColor: '#3085d6',
+								  cancelButtonColor: '#d33',
+								  confirmButtonText: '등록'
+								}).then((result) => {
+								  if (result.isConfirmed) {
+									//비동기 함수 호출
+		             	               $.ajax({
+		             	            		url: "/reply/reReply.do", //컨트롤러로 보낼 uri
+		             	            		type: "POST", //보내는 방식
+		             	            		dataType : "JSON", //컨트롤러에서 데이터 받을 때 형식 JSON
+		             	            		data: { //뷰에서 보내는 정보들	
+		             	            		 'parent_reply_no' : parent_no, //부모 댓글의 번호 가져가야함
+		          	                     	 'reReply_content' : content//댓글 내용 값
+		          	                  },
+		             	            		success: function(data){
+		             	            			$("#addReReplyForm").addClass("afterRegisterReReply"); //등록 성공하면 대댓글 입력란 사라짐
+		             	            			replyList();
+		             	            			
+		             	            		},
+		             	            		error: function(request, status, error) { //에러 났을 경우 
+		             	                      alert("code:" + request.status + "\n"
+		            	                           + "message:" + request.responseText
+		            	                           + "\n" + "error:" + error);
+		                                  }	
+		             	               }); // $ajax 끝
+									  
+								    Swal.fire(
+								      '등록 완료',
+								      '',
+								      'success'
+								    )
+								  }
+								})
+                          	} // else if 끝
+             	           	
               	  	}
                 
                 //비동기로 댓글 나열
@@ -442,23 +502,44 @@
                 //"data" : $(event.target).attr("data-value"),
                 $(".delete_reply").on({
             		  click : (event) => {
-            			  //let reply_no = $(event.target).attr("data-value");
+            			  Swal.fire({
+            				  title: '해당 댓글을 삭제하시겠습니까?',
+            				  text: "",
+            				  icon: 'warning',
+            				  showCancelButton: true,
+            				  confirmButtonColor: '#3085d6',
+            				  cancelButtonColor: '#d33',
+            				  confirmButtonText: '삭제 합니다'
+            				}).then((result) => {
+            				  if (result.isConfirmed) {
+            					  $.ajax({
+                                		"url" : "/reply/reply.do",
+                              		"type" : "delete",
+                              		"data" : JSON.stringify($(event.target).attr("data-value")),
+                              		"contentType":'application/json',
+                              		"success" : (result)=>{
+
+                              			console.log(result);
+                              			replyList();
+                              		},
+                              		"error" : (request, status, error)=>{
+                              			console.log(request.status);
+                   	                    console.log(request.responseText);
+                   	                    console.log(error);
+                              		}  
+                      			  }) 
+            					  
+            					  
+            					  
+            				    Swal.fire(
+            				      '댓글이 삭제되었습니다',
+            				      '',
+            				      'success'
+            				    )
+            				  }
+            				})
             			 
-            			   $.ajax({
-                      		"url" : "/reply/reply.do",
-                    		"type" : "delete",
-                    		"data" : JSON.stringify($(event.target).attr("data-value")),
-                    		"contentType":'application/json',
-                    		"success" : (result)=>{
-                    			console.log(result);
-                    			replyList();
-                    		},
-                    		"error" : (request, status, error)=>{
-                    			console.log(request.status);
-         	                    console.log(request.responseText);
-         	                    console.log(error);
-                    		}  
-            			  }) 
+            			   
             		  }  
                 }); 
                 }
