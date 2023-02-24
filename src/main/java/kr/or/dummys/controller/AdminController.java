@@ -68,14 +68,16 @@ public class AdminController {
 		 System.out.println("adminwarning 컨트롤러 탔다");
 		 List<Warning> warningBoardList = warningService.listWarning("게시글", pg, f, q);
 		 List<Warning> warningReplyList = warningService.listWarning("댓글", pg, f, q);
+		 List<Warning> warningMessageList = warningService.listWarning("쪽지",pg,f,q);
+		 
 		 List<Warning> warningCnt = warningService.getWarningCnt();
 		 List<String> getBlockUsers = warningService.getBlockUsers();
 		 
 		 model.addAttribute("warningBoardList", warningBoardList);
 		 model.addAttribute("warningReplyList", warningReplyList);
+		 model.addAttribute("warningMessageList", warningMessageList);
 		 model.addAttribute("reportWarningCnt", warningCnt);
 		 model.addAttribute("getBlockUsers", getBlockUsers);
-		 System.out.println("신고 관리 정지된 회원: " + getBlockUsers.toString());
 		 
 	 return "admin/adminWarning"; 
 	 }
