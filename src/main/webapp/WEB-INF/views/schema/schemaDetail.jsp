@@ -674,7 +674,10 @@
 						$('#typeChooseArea').toggle();
 					}
 				}) // click event end
-				$('#typeTable').DataTable();
+				$('#typeTable').DataTable({
+		 	 		"pageLength": 10,
+		 	 		"lengthChange": false
+		 	 	});
 			}, //success end
 			"error" : (error)=>{
 			}
@@ -721,7 +724,10 @@
 					}
 				})
 				// 데이터테이블로 만드는 곳
-				$(gaussianTable).DataTable();
+				$(gaussianTable).DataTable({
+		 	 		"pageLength": 10,
+		 	 		"lengthChange": false
+		 	 	});
 				// 보여주기
 				$('#gaussianChooseArea').toggle();
 			},
@@ -742,6 +748,5 @@
     <script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="/resources/js/init/datatables-init.js"></script>
     <script>
-    	$('#typeTable').DataTable();
     </script>
 </html>

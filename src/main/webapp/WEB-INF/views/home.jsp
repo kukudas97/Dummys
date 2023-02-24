@@ -39,7 +39,7 @@
 					<div class="QuickStartMsg"><span>데이터의 타입을 선택하세요</span></div>
 					</section>
 					<section class="DataType">
-						<div class="DataTypeToggle"  data-value="263">신용카드 식별번호</div>
+<!-- 						<div class="DataTypeToggle"  data-value="263">신용카드 식별번호</div>
 						<div class="DataTypeToggle"  data-value="265">ISBN</div>
 						<div class="DataTypeToggle"  data-value="266">핸드폰번호</div>
 						<div class="DataTypeToggle"  data-value="270">차량번호</div>
@@ -48,7 +48,10 @@
 						<div class="DataTypeToggle"  data-value="282">철도역</div>
 						<div class="DataTypeToggle"  data-value="283">공항</div>
 						<div class="DataTypeToggle"  data-value="286">참/거짓</div>
-						<div class="DataTypeToggle"  data-value="285">헥스색상코드</div>
+						<div class="DataTypeToggle"  data-value="285">헥스색상코드</div> -->
+						<c:forEach items="${typelist }" var="type">
+							<div class="DataTypeToggle"  data-value="${type.type_no}">${type.type_name }</div>
+						</c:forEach>
 					</section>
 				</section>
 				 
