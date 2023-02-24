@@ -168,6 +168,40 @@
                     </div>
                    </div>
                     
+                    <!-- 쪽지 신고 -->
+                      <div class="warning-table" style="padding-bottom: 30px">
+                       <div class="card">
+                        <div class="card-header">
+                            
+                            <h5 class="m-0 font-weight-bold">쪽지 신고</h5>
+                        </div>
+                        <div class="card-body">
+                            <table id="reportWarningMessage" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">신고자</th>
+                                        <th scope="col">쪽지 작성자</th>
+                                        <th scope="col">쪽지번호</th>
+                                        <th scope="col">신고 사유</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <c:forEach items="${warningMessageList}" var="warningMessageList">
+										<tr>
+											<td><c:out value="${warningMessageList.warning_no}" /></td>
+											<td><c:out value="${warningMessageList.send_id}" /></td>
+											<td><c:out value="${warningMessageList.receive_id}" /></td>
+											<td><c:out value="${warningMessageList.warning_type_no}" /></td>
+											<td><c:out value="${warningMessageList.warning_reason}" /></td>
+										</tr>
+									</c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                   </div> 
+                    
                    
                     
                 </div>
@@ -200,6 +234,7 @@
     $('#reportWarningBoard').DataTable();
     $('#reportWarningReply').DataTable();
     $('#reportWarningUsers').DataTable();
+    $('#reportWarningMessage').DataTable();
     $('#blockedUsers').DataTable();
     
     $(document).on("click", ".adminReportBtn", async function(e){
