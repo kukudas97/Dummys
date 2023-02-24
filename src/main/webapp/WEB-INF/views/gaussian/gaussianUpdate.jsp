@@ -135,7 +135,14 @@
 	}
 	function saveGaussian(){
 		if(!checkInputBox()){
-			alert('빈값있음');
+			Swal.fire({
+				title:'내용 모두 채워주세요.',
+				  imageUrl: '/resources/images/failMonster.png',
+				  imageWidth: 220,
+				  imageHeight: 250,
+				  imageAlt: 'Custom image',
+				  width:400
+				})
 			return;
 		}
 		const gaussianNameVal = $('#gaussianName').val();
@@ -143,16 +150,16 @@
 		const list = $('.gaussianDatas > tr');
 		let listdata = [];
 
-		listdata.push($(list).map((index,data)=>{			
+		$(list).each((index,data)=>{
 			let result = {
-				"gaussian_result_no" : "",
-				"gaussian_no" : '${gaussian.gaussian_no}',
-				"gaussian_result" : $(data).find('input[data-type=name]').val(),
-				"gaussian_result_avg" : $(data).find('input[data-type=average]').val(),
-				"standard_deviation" : $(data).find('input[data-type=deviation]').val()
-			}
-			return result;
-		})) //listdata.push end
+					"gaussian_result_no" : "",
+					"gaussian_no" : "",
+					"gaussian_result" : $(data).find('input[data-type=name]').val(),
+					"gaussian_result_avg" : $(data).find('input[data-type=average]').val(),
+					"standard_deviation" : $(data).find('input[data-type=deviation]').val()
+				}
+			listdata.push(result);
+		})
 
 		let datas = {
 			"gaussian" : {	
@@ -161,7 +168,7 @@
 				"gaussian_col" : gaussianColumnVal,
 				"gaussian_name" : gaussianNameVal
 			},
-			"list" : [...listdata[0]]
+			"list" : listdata
 		}
 		$.ajax({
 			"type":"post",
@@ -170,13 +177,36 @@
 			"contentType":"application/json",
 			success : (result)=>{
 				if(result.result == 'success'){
-					alert('성공!');
-					//location.href = "/gaussian/gaussianList.do";
+					Swal.fire({
+						title:'정규분포 저장을 성공했습니다.',
+						  imageUrl: '/resources/images/successMonster.png',
+						  imageWidth: 220,
+						  imageHeight: 250,
+						  imageAlt: 'Custom image',
+						  width:400
+						}).then(()=>{
+							location.href = "/gaussian/gaussianList.do";				
+						}) 
 				} else {
-					alert('실패...');
+					Swal.fire({
+						title:'정규분포 저장을 실패했습니다.',
+						  imageUrl: '/resources/images/failMonster.png',
+						  imageWidth: 220,
+						  imageHeight: 250,
+						  imageAlt: 'Custom image',
+						  width:400
+						})
 				}
 			},
 			error : (error)=>{
+				Swal.fire({
+					title:'정규분포 저장을 실패했습니다.',
+					  imageUrl: '/resources/images/failMonster.png',
+					  imageWidth: 220,
+					  imageHeight: 250,
+					  imageAlt: 'Custom image',
+					  width:400
+					})
 			}
 		})//ajax end
 	}//saveGaussian() end
