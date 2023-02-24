@@ -462,15 +462,23 @@
 							  '저장 성공!',
 							  '스키마 목록으로 이동합니다.',
 							  'success'
-							).than(()=>{
+							).then(()=>{
 								location.href="/schema/schemaList.do?type=mine";								
 							})
 				} else {
-					alert("저장 실패...");
+					Swal.fire(
+							  '저장 실패...',
+							  '입력값 또는 로그인 여부를 확인해주세요.',
+							  'error'
+							)
 				}
 			},
 			error : (error)=>{
-				alert("저장 실패...");
+				Swal.fire(
+						  '저장 실패...',
+						  '입력값 또는 로그인 여부를 확인해주세요.',
+						  'error'
+						)
 			}
 		}) // ajax end
 	}// saveDummy function end
@@ -493,14 +501,27 @@
 			contentType:'application/json',
 			success : (data)=>{
 				if(data.result == 'success'){
-					alert("저장 성공!");
-					location.href="/schema/schemaList.do?type=mine";
+					Swal.fire(
+							  '저장 성공!',
+							  '스키마 목록으로 이동합니다.',
+							  'success'
+							).then(()=>{
+								location.href="/schema/schemaList.do?type=mine";								
+							})
 				} else {
-					alert("저장 실패...");
+					Swal.fire(
+							  '저장 실패...',
+							  '입력값 또는 로그인 여부를 확인해주세요.',
+							  'error'
+							)
 				}
 			},
 			error : (error)=>{
-				alert("저장 실패...");
+				Swal.fire(
+						  '저장 실패...',
+						  '입력값 또는 로그인 여부를 확인해주세요.',
+						  'error'
+						)
 			}
 		}) // ajax end
 	}// createDummy function end

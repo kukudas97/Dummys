@@ -152,17 +152,28 @@
 			"contentType":"application/json",
 			"success" : (data)=>{
 				if(data.result == 'success'){
-					alert('성공!');
-					location.reload();
+					Swal.fire(
+							  '삭제 성공!',
+							  '페이지를 새로고침 합니다.',
+							  'success'
+							).then(()=>{
+								location.reload();					
+							})
 				} else if(data.result == 'fail'){
-					alert('실패...');
+					Swal.fire(
+							  '실패...',
+							  '스키마 삭제를 실패했습니다.',
+							  'error'
+							)
 				} else if(data.result == 'login-error'){
-					alert('로그인 필요...');
-					location.href = "/users/login.do";
+					Swal.fire(
+							  '로그인 에러',
+							  '로그인 상태를 확인해주세요.',
+							  'info'
+							)
 				}
 			},
 			"error" : (error)=>{
-				console.log(error)
 			}
 		})// $ajax end
 	} 

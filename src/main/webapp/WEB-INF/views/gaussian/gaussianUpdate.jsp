@@ -163,7 +163,6 @@
 			},
 			"list" : [...listdata[0]]
 		}
-		console.log(datas);
 		$.ajax({
 			"type":"post",
 			"url" : "updateGaussian.do",
@@ -178,7 +177,6 @@
 				}
 			},
 			error : (error)=>{
-				console.log(error);
 			}
 		})//ajax end
 	}//saveGaussian() end

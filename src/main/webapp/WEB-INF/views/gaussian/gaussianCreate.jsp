@@ -135,7 +135,11 @@
 	}
 	function saveGaussian(){
 		if(!checkInputBox()){
-			alert('빈값있음');
+			Swal.fire(
+					  '내용을 입력해주세요',
+					  '비어있는 칸이 있으면 안됩니다.',
+					  'warning'
+					)
 			return;
 		}
 		const gaussianNameVal = $('#gaussianName').val();

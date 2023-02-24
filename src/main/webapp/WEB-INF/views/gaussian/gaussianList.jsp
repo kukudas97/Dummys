@@ -97,35 +97,41 @@
 	})
 	function deleteGaussian(){
 		let list =[]; 
-		list.push($('input[type=checkbox]:checked').map((index,data)=>$(data).val()));
-		let listdata = [...list[0]];
-		// console.log(listdata);
 		
-		// let datas = [];
-		// datas.push($(listdata).map((index,data)=>{
-		// 	return {"list" : data}
-		// }));
-		// console.log(datas);
-		// console.log(datas[0]);
+		//list.push($('input[type=checkbox]:checked').map((index,data)=>$(data).val()));
+		$('input[type=checkbox]:checked').each((index,data)=>{
+			list.push($(data).val());
+		})
+		//let listdata = [...list[0]];
 		
 		$.ajax({
 			"type" : "post",
 			"url" : "deleteGaussian.do",
-			"data" : JSON.stringify([...list[0]]),
+			"data" : JSON.stringify(list),
 			"contentType":"application/json",
 			"success" : (data)=>{
 				if(data.result == 'success'){
-					alert('성공!');
-					location.reload();
-				} else if(data.result == 'fail'){
-					alert('실패...');
+					Swal.fire(
+							  '성공!',
+							  '정규분포 삭제를 성공했습니다. 페이지를 새로고침합니다.',
+							  'success'
+							).then(()=>{location.reload();})
+				} else if(data.result == 'fail'){Swal.fire(
+						  '실패...',
+						  '정규분포 삭제를 실패했습니다.',
+						  'error'
+						)
 				} else if(data.result == 'login-error'){
-					alert('로그인 필요...');
-					location.href = "/users/login.do";
+					Swal.fire(
+							  '로그인에러',
+							  '로그인이 필요한 서비스입니다. 로그인페이지로 이동합니다.',
+							  'warning'
+							).then(()=>{
+								location.href = "/users/login.do";
+							})
 				}
 			},
 			"error" : (error)=>{
-				console.log(error)
 			}
 		})// $ajax end
 	}
