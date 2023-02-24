@@ -270,8 +270,8 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 									<td class="col-sm-3 col-md-3 col-lg-3">
 										<div data-type="selectoptions"  >
 											<div class="datasection row">
-												<input type="text" value="1" class="col-sm-6 col-md-6 col-lg-6" placeholder="min">
-												<input type="text" value="100" class="col-sm-6 col-md-6 col-lg-6" placeholder="max">
+												<input type="text" value="1" class="col-sm-6 col-md-6 col-lg-6" placeholder="min"  min="–2147483647" max="2147483647">
+												<input type="text" value="100" class="col-sm-6 col-md-6 col-lg-6" placeholder="max" min="–2147483647" max="2147483647">
 											</div>
 										</div>
 									</td>
@@ -429,9 +429,6 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 		}
 	});// list on end
 	// ===== drag and drop end =====
-	// ===== DataTable =====
-   	$('#typeTable').DataTable();
-   	// ===== DataTable end =====
 	// createDummy() function start
 	function createDummy(){
 		let paramData = {
@@ -571,9 +568,13 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 												.append($('<div>').addClass('datasection row')
 																.append($('<input>').addClass('col-sm-6 col-md-6 col-lg-6')
 																					.attr('type', 'text')
+																					.attr('min','–2147483647')
+																					.attr('max','2147483646')
 																					.val('1'))
 																.append($('<input>').addClass('col-sm-6 col-md-6 col-lg-6')
 																					.attr('type', 'text')
+																					.attr('min','–2147483647')
+																					.attr('max','2147483646')
 																					.val('100'))));
 		const td5_span = $('<span>').addClass('ti-close delBtn');
 		$(td5_span).on({
@@ -716,7 +717,10 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 						$('#typeChooseArea').toggle();
 					}
 				}) // click event end
-				$('#typeTable').DataTable();
+				$('#typeTable').DataTable({
+		 	 		"pageLength": 10,
+		 	 		"lengthChange": false
+		 	 	});
 			}, //success end
 			"error" : (error)=>{
 			}
@@ -763,7 +767,10 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 					}
 				})
 				// 데이터테이블로 만드는 곳
-				$(gaussianTable).DataTable();
+				$(gaussianTable).DataTable({
+		 	 		"pageLength": 10,
+		 	 		"lengthChange": false
+		 	 	});
 				// 보여주기
 				$('#gaussianChooseArea').toggle();
 			},

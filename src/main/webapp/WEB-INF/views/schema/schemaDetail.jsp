@@ -184,8 +184,8 @@
 											<td class="col-sm-3 col-md-3 col-lg-3">
 												<div data-type="selectoptions"  >
 													<div class="datasection row">
-														<input type="text" value="${col.col_options[0]}" class="col-sm-6 col-md-6 col-lg-6" placeholder="min">
-														<input type="text" value="${col.col_options[1]}" class="col-sm-6 col-md-6 col-lg-6" placeholder="max">
+														<input type="text" value="${col.col_options[0]}" class="col-sm-6 col-md-6 col-lg-6" placeholder="min" min="–2147483647" max="2147483647">
+														<input type="text" value="${col.col_options[1]}" class="col-sm-6 col-md-6 col-lg-6" placeholder="max"  min="–2147483647" max="2147483647">
 													</div>
 												</div>
 											</td>
@@ -528,10 +528,14 @@
 							.append($('<div>').attr('data-type', 'selectoptions')
 												.append($('<div>').addClass('datasection row')
 																.append($('<input>').addClass('col-sm-6 col-md-6 col-lg-6')
-																					.attr('type', 'text')
+																					.attr('type', 'number')
+																					.attr('min','–2147483647')
+																					.attr('max','2147483646')
 																					.val('1'))
 																.append($('<input>').addClass('col-sm-6 col-md-6 col-lg-6')
-																					.attr('type', 'text')
+																					.attr('type', 'number')
+																					.attr('min','–2147483647')
+																					.attr('max','2147483646')
 																					.val('100'))));
 		const td5_span = $('<span>').addClass('ti-close delBtn');
 		$(td5_span).on({
