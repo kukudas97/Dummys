@@ -458,27 +458,36 @@
 			contentType:'application/json',
 			success : (data)=>{
 				if(data.result == 'success'){
-					Swal.fire(
-							  '저장 성공!',
-							  '스키마 목록으로 이동합니다.',
-							  'success'
-							).then(()=>{
-								location.href="/schema/schemaList.do?type=mine";								
-							})
+					Swal.fire({
+						title:'스키마 저장을 성공했습니다.',
+						  imageUrl: '/resources/images/successMonster.png',
+						  imageWidth: 220,
+						  imageHeight: 250,
+						  imageAlt: 'Custom image',
+						  width:400
+						}).then(()=>{
+							location.href="/schema/schemaList.do?type=mine";								
+						}) 
 				} else {
-					Swal.fire(
-							  '저장 실패...',
-							  '입력값 또는 로그인 여부를 확인해주세요.',
-							  'error'
-							)
+					Swal.fire({
+						title:'스키마 저장을 실패했습니다.',
+						  imageUrl: '/resources/images/failMonster.png',
+						  imageWidth: 220,
+						  imageHeight: 250,
+						  imageAlt: 'Custom image',
+						  width:400
+						})
 				}
 			},
 			error : (error)=>{
-				Swal.fire(
-						  '저장 실패...',
-						  '입력값 또는 로그인 여부를 확인해주세요.',
-						  'error'
-						)
+				Swal.fire({
+					title:'스키마 저장을 실패했습니다.',
+					  imageUrl: '/resources/images/failMonster.png',
+					  imageWidth: 220,
+					  imageHeight: 250,
+					  imageAlt: 'Custom image',
+					  width:400
+					})
 			}
 		}) // ajax end
 	}// saveDummy function end
@@ -501,27 +510,36 @@
 			contentType:'application/json',
 			success : (data)=>{
 				if(data.result == 'success'){
-					Swal.fire(
-							  '저장 성공!',
-							  '스키마 목록으로 이동합니다.',
-							  'success'
-							).then(()=>{
+							Swal.fire({
+							title:'스키마 저장을 성공했습니다.',
+							  imageUrl: '/resources/images/successMonster.png',
+							  imageWidth: 220,
+							  imageHeight: 250,
+							  imageAlt: 'Custom image',
+							  width:400
+							}).then(()=>{
 								location.href="/schema/schemaList.do?type=mine";								
-							})
+							}) 
 				} else {
-					Swal.fire(
-							  '저장 실패...',
-							  '입력값 또는 로그인 여부를 확인해주세요.',
-							  'error'
-							)
+					Swal.fire({
+						title:'스키마 저장을 실패했습니다.',
+						  imageUrl: '/resources/images/failMonster.png',
+						  imageWidth: 220,
+						  imageHeight: 250,
+						  imageAlt: 'Custom image',
+						  width:400
+						})
 				}
 			},
 			error : (error)=>{
-				Swal.fire(
-						  '저장 실패...',
-						  '입력값 또는 로그인 여부를 확인해주세요.',
-						  'error'
-						)
+				Swal.fire({
+					title:'스키마 저장을 실패했습니다.',
+					  imageUrl: '/resources/images/failMonster.png',
+					  imageWidth: 220,
+					  imageHeight: 250,
+					  imageAlt: 'Custom image',
+					  width:400
+					})
 			}
 		}) // ajax end
 	}// createDummy function end

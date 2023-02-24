@@ -111,27 +111,45 @@
 			"contentType":"application/json",
 			"success" : (data)=>{
 				if(data.result == 'success'){
-					Swal.fire(
-							  '성공!',
-							  '정규분포 삭제를 성공했습니다. 페이지를 새로고침합니다.',
-							  'success'
-							).then(()=>{location.reload();})
+					Swal.fire({
+						title:'정규분포 삭제를 성공했습니다.',
+						  imageUrl: '/resources/images/successMonster.png',
+						  imageWidth: 220,
+						  imageHeight: 250,
+						  imageAlt: 'Custom image',
+						  width:400
+						}).then(()=>{
+							location.relaod()			
+						}) 
 				} else if(data.result == 'fail'){Swal.fire(
-						  '실패...',
-						  '정규분포 삭제를 실패했습니다.',
-						  'error'
-						)
-				} else if(data.result == 'login-error'){
-					Swal.fire(
-							  '로그인에러',
-							  '로그인이 필요한 서비스입니다. 로그인페이지로 이동합니다.',
-							  'warning'
-							).then(()=>{
-								location.href = "/users/login.do";
+						Swal.fire({
+							title:'정규분포 삭제를 실패했습니다.',
+							  imageUrl: '/resources/images/failMonster.png',
+							  imageWidth: 220,
+							  imageHeight: 250,
+							  imageAlt: 'Custom image',
+							  width:400
 							})
+				} else if(data.result == 'login-error'){
+					Swal.fire({
+						title:'로그인이 필요한 서비스입니다.',
+						  imageUrl: '/resources/images/failMonster.png',
+						  imageWidth: 220,
+						  imageHeight: 250,
+						  imageAlt: 'Custom image',
+						  width:400
+						})
 				}
 			},
 			"error" : (error)=>{
+				Swal.fire({
+					title:'정규분포 삭제를 실패했습니다.',
+					  imageUrl: '/resources/images/failMonster.png',
+					  imageWidth: 220,
+					  imageHeight: 250,
+					  imageAlt: 'Custom image',
+					  width:400
+					})
 			}
 		})// $ajax end
 	}

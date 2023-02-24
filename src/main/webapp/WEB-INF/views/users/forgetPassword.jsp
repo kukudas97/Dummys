@@ -144,9 +144,15 @@ let warningColor = "#ff0000"; //틀렸을 때 출력되는 색깔
 
 $("#check-btn").click(()=>{
     let email = $("#email").val();
-    alert(email);
     if(email == ''){
-        alert("이메일을 입력해주세요.")
+    	Swal.fire({
+		title:'이메일을 입력해주세요.',
+		  imageUrl: '/resources/images/failMonster.png',
+		  imageWidth: 220,
+		  imageHeight: 250,
+		  imageAlt: 'Custom image',
+		  width:400
+		})
         return false;
     }
     $.ajax({
@@ -168,11 +174,25 @@ $("#check-btn").click(()=>{
 
 			checknumber = result.authnumber;
 
-			alert("인증번호 발송이 완료되었습니다.");
+			Swal.fire({
+				title:'인증번호 발송이 완료되었습니다.',
+				  imageUrl: '/resources/images/successMonster.png',
+				  imageWidth: 220,
+				  imageHeight: 250,
+				  imageAlt: 'Custom image',
+				  width:400
+				})
         },
         error : ()=>{
             document.getElementById("email").removeAttribute("disabled");
-            alert("실패");
+			Swal.fire({
+				title:'인증번호 발송을 실패했습니다.',
+				  imageUrl: '/resources/images/failMonster.png',
+				  imageWidth: 220,
+				  imageHeight: 250,
+				  imageAlt: 'Custom image',
+				  width:400
+				})
         }
     })
 })

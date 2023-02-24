@@ -150,11 +150,17 @@ let checknumber = 0;
 /* 인증하기 버튼 구현(재홍) */
 $("#mail-check-btn").click(()=>{
 	let email = $("#email").val();
-	alert(email)
 	let certification = $("#certification");
 	
 	if(email == ''){
-		alert("이메일을 입력해주세요")
+    	Swal.fire({
+    		title:'이메일을 입력해주세요.',
+    		  imageUrl: '/resources/images/failMonster.png',
+    		  imageWidth: 220,
+    		  imageHeight: 250,
+    		  imageAlt: 'Custom image',
+    		  width:400
+    		})
 		return false;
 	}
 	$.ajax({
@@ -177,12 +183,26 @@ $("#mail-check-btn").click(()=>{
 			$("#mail").append(tag);
 
 			checknumber = result.authnumber;
-
-			alert("인증번호 발송이 완료되었습니다.")
+			
+			Swal.fire({
+				title:'인증번호 발송이 완료되었습니다.',
+				  imageUrl: '/resources/images/successMonster.png',
+				  imageWidth: 220,
+				  imageHeight: 250,
+				  imageAlt: 'Custom image',
+				  width:400
+				})
 		},
 		error : function(){
 			document.getElementById("email").readOnly = false;
-			alert("실패")
+			Swal.fire({
+				title:'인증번호 발송을 실패했습니다.',
+				  imageUrl: '/resources/images/failMonster.png',
+				  imageWidth: 220,
+				  imageHeight: 250,
+				  imageAlt: 'Custom image',
+				  width:400
+				})
 		}
 	})
 })

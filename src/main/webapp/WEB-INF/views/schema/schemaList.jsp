@@ -152,28 +152,45 @@
 			"contentType":"application/json",
 			"success" : (data)=>{
 				if(data.result == 'success'){
-					Swal.fire(
-							  '삭제 성공!',
-							  '페이지를 새로고침 합니다.',
-							  'success'
-							).then(()=>{
+						Swal.fire({
+							title:'스키마 삭제를 성공했습니다.',
+							  imageUrl: '/resources/images/successMonster.png',
+							  imageWidth: 220,
+							  imageHeight: 250,
+							  imageAlt: 'Custom image',
+							  width:400
+							}).then(()=>{
 								location.reload();					
-							})
+							}) 
 				} else if(data.result == 'fail'){
-					Swal.fire(
-							  '실패...',
-							  '스키마 삭제를 실패했습니다.',
-							  'error'
-							)
+					Swal.fire({
+						title:'스키마 삭제를 실패했습니다.',
+						  imageUrl: '/resources/images/failMonster.png',
+						  imageWidth: 220,
+						  imageHeight: 250,
+						  imageAlt: 'Custom image',
+						  width:400
+						})
 				} else if(data.result == 'login-error'){
-					Swal.fire(
-							  '로그인 에러',
-							  '로그인 상태를 확인해주세요.',
-							  'info'
-							)
+					Swal.fire({
+						title:'로그인 상태를 확인해주세요.',
+						  imageUrl: '/resources/images/failMonster.png',
+						  imageWidth: 220,
+						  imageHeight: 250,
+						  imageAlt: 'Custom image',
+						  width:400
+						})
 				}
 			},
 			"error" : (error)=>{
+				Swal.fire({
+					title:'스키마 삭제를 실패했습니다.',
+					  imageUrl: '/resources/images/failMonster.png',
+					  imageWidth: 220,
+					  imageHeight: 250,
+					  imageAlt: 'Custom image',
+					  width:400
+					})
 			}
 		})// $ajax end
 	} 
