@@ -458,8 +458,13 @@
 			contentType:'application/json',
 			success : (data)=>{
 				if(data.result == 'success'){
-					alert("저장 성공!");
-					location.href="/schema/schemaList.do?type=mine";
+					Swal.fire(
+							  '저장 성공!',
+							  '스키마 목록으로 이동합니다.',
+							  'success'
+							).than(()=>{
+								location.href="/schema/schemaList.do?type=mine";								
+							})
 				} else {
 					alert("저장 실패...");
 				}
@@ -563,7 +568,6 @@
 	// Column 목록 읽어오기 
 	function readColumn(){
 		const read = $('.schema');
-		/* console.log(read); */
 		let colList = [];
 		
 		$(read).each((index,data)=>{
@@ -593,7 +597,6 @@
 			}
 			colList.push(result) //colList.push() end
 		})
-		console.log(colList);
 		return colList;
 	}//readColumn function end
 	
@@ -735,7 +738,6 @@
 				$('#gaussianChooseArea').toggle();
 			},
 			"error" : (error)=>{
-				console.log(error);
 			}
 		})
 	}
