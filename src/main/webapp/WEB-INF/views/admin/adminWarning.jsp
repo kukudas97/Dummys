@@ -5,7 +5,6 @@
 <html>
 <head>
 <jsp:include page="/WEB-INF/views/include/adminHead.jsp" />
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <style>
 .adminReportBtn, .blockReleaseBtn {
