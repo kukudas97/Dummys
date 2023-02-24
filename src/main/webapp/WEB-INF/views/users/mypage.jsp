@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%-- <jsp:include page="/WEB-INF/views/include/head.jsp" /> --%>
 </head>
 <body>
 <se:authentication property="name" var="userid" />
