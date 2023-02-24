@@ -2899,3 +2899,6 @@ table .tablebtn{
 .scroll::-webkit-scrollbar {
   display: none;
 }
+.dataTables_filter label{
+	float:right !important;
+}

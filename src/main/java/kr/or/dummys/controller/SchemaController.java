@@ -68,6 +68,8 @@ public class SchemaController {
 					// 스키마 비밀번호가 있는데 입력된 비밀번호가 없으면 false
 				}
 			}
+		} else {
+			passwordCheck = true;
 		}
 
 		// 스키마 작성자와 보려는 사람이 다르면 정보 지우기

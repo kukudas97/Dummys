@@ -66,7 +66,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:if test="${fn:length(list) == 0 }">
+<%-- 							<c:if test="${fn:length(list) == 0 }">
 								<tr>
 									<td
 										<c:if test="${param.type eq 'all' }">
@@ -77,7 +77,7 @@
 										</c:if>
 									><h1>데이터가 없어요</h1></td>
 								</tr>
-							</c:if>
+							</c:if> --%>
 							<c:forEach items="${list }" var="data">
 								<tr data-value="${data.schema_no }">
 									<c:if test="${param.type eq 'mine' }"><td><input type="checkbox" value="${data.schema_no }"/></td></c:if>
@@ -167,10 +167,14 @@
 			}
 		})// $ajax end
 	} 
- 	$('#schemaTable').DataTable({
- 		"pageLength": 10,
- 		"startSave" : true,
- 		"lengthChange": false
- 	});
+ 	$(window).on({
+ 			"load" :()=>{
+					 	 	$('#schemaTable').DataTable({
+					 	 		"pageLength": 10,
+					 	 		"startSave" : true,
+					 	 		"lengthChange": false
+					 	 	}); //datatable end
+ 			}
+ 	})
 </script>
 </html>

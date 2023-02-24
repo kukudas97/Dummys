@@ -103,6 +103,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 </select>
 	 
 	 <select id="getChartType" resultType="kr.or.dummys.dto.Type">
-	 	select t1.type_no, userid, type_name, type_count from (select type_no, count(type_no)as type_count from col group by type_no order by type_count desc) t1 join type t2 on t1.type_no = t2.type_no where ROWNUM &lt; 10 order by type_count desc 
+	 	select t1.type_no, userid, type_name, type_count from (select type_no, count(type_no)as type_count from col group by type_no order by type_count desc) t1 join type t2 on t1.type_no = t2.type_no where ROWNUM &lt; 11 order by type_count desc 
 	 </select>
 </mapper>
