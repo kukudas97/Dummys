@@ -177,11 +177,19 @@ document.getElementById("delete").onclick = function() {
 		data : JSON.stringify(checklist),
 		"contentType":"application/json",
 		success : function(result){
-			alert("삭제되었습니다.")
+			Swal.fire(
+			  '문의사항 삭제처리가 완료되었습니다.',
+			  '',
+			  'success'
+			)
 			location.reload(); 
 		},
 		error : function(){
-			alert("삭제 실패")
+			Swal.fire(
+			  '삭제에 실패했습니다..',
+			  '',
+			  'error'
+			)
 		}
 	})
 }
@@ -213,11 +221,20 @@ $("#messageSubmit").on({
            			 if(data >= 1){
 						 lead();
            			 }else {
-           				 alert("꺼져");
+         				Swal.fire(
+     					  '메세지 전송에 실패했습니다.',
+     					  '',
+     					  'error'
+     					)
+
            			 }         			
            		},
            		error: function() { //에러 났을 경우 
-                     alert("에러입니다.");
+           			Swal.fire(
+   					  '메세지 전송에 실패했습니다.',
+   					  '',
+   					  'error'
+   					)
                 }	
               });
         	} 
@@ -230,12 +247,17 @@ $("#messageSubmit").on({
 		"type" : "POST",
 		"data" : {"tendinous_no" : tendinous_no},
 		"success" : (result)=>{
-			alert("처리완료");
-			$("#formdata").submit();
-			alert("메세지 전송이 완료 되었습니다.")
+			swal("메세지 전송에 성공하였습니다.", "", "success").then(()=>{
+				$("#formdata").submit();			
+			})
+			
 		},
 		"error" : ()=>{
-			alert("처리불가");
+			Swal.fire(
+			  '메세지 전송에 실패했습니다.',
+			  '',
+			  'error'
+			)
 		}
 	 })
  }
