@@ -528,14 +528,29 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 			contentType:'application/json',
 			success : (data)=>{
 				if(data.result == 'success'){
-					alert("저장 성공!");
-					location.href="/schema/schemaList.do?type=mine";
+					Swal.fire(
+							  '저장 성공!',
+							  '스키마 리스트로 이동합니다.',
+							  'success'
+							).then(()=>{
+								location.href="/schema/schemaList.do?type=mine";					
+							})
 				} else {
-					alert("저장 실패...");
+
+					Swal.fire(
+							  '저장 실패...',
+							  '입력값 또는 로그인 여부를 확인해주세요.',
+							  'error'
+							)
 				}
 			},
 			error : (error)=>{
-				alert("저장 실패...");
+
+				Swal.fire(
+						  '저장 실패...',
+						  '입력값 또는 로그인 여부를 확인해주세요.',
+						  'error'
+						)
 			}
 		}) // ajax end
 	}// saveDummy function end
@@ -602,7 +617,6 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 	// Column 목록 읽어오기 
 	function readColumn(){
 		const read = $('.schema');
-		/* console.log(read); */
 		let colList = [];
 		
 		$(read).each((index,data)=>{
@@ -632,7 +646,6 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 			}
 			colList.push(result) //colList.push() end
 		})
-		console.log(colList);
 		return colList;
 	}//readColumn function end
 	
@@ -774,7 +787,6 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 				$('#gaussianChooseArea').toggle();
 			},
 			"error" : (error)=>{
-				console.log(error);
 			}
 		})
 	}

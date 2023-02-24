@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select gaussian_no, userid, gaussian_col, gaussian_name from gaussian where userid = #{param1}
 	</select>
 	<delete id="deleteGaussianByNo">
-		delete from gaussian from gaussian_no=${param1} 
+		delete from gaussian where gaussian_no=${param1} 
 	</delete>
 	<select id="getGaussianByNo" resultType="kr.or.dummys.dto.Gaussian">
 		select gaussian_no, gaussian_col, gaussian_name from gaussian where gaussian_no = ${gaussian_no}
