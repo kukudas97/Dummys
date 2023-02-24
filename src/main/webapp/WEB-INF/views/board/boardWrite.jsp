@@ -141,7 +141,7 @@
 						Swal.fire("로그인이 필요한 서비스 입니다");
 						location.href = "/users/login.do"
 					} else if(result == 'fail'){
-						Swal.fire("데이터 불러오기를 실패했습니다.\n다시 시도해주세요");
+						Swal.fire('데이터 불러오기를 실패했습니다.\n다시 시도해주세요')
 					} else if(result == 'success'){
 						$('#schemaChooseArea').toggle();			
 						const list = data.list;
@@ -199,11 +199,14 @@
 				  confirmButtonText: '등록'
 				}).then((result) => {
 				  if (result.isConfirmed) {
-				    Swal.fire(
-				      '등록 완료',
-				      '',
-				      ''
-				    ).then(()=>{
+					  Swal.fire({
+						  title: '게시물 등록',
+						  imageUrl: '/resources/images/successMonster.png',
+						  imageWidth: 220,
+						  imageHeight: 250,
+						  imageAlt: 'Custom image',
+						  width:400
+						}).then(()=>{
 				    $(".boardWriteForm").submit();  
 				    })
 				  }
