@@ -13,11 +13,15 @@
 <!-- Bootstrap 5 -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
  .sendTr, .receiveTr{
  	cursor : pointer;
+ }
+ #receivecheck1{
+ 	opacity : 0.3;
  }
 </style>
 </head>
@@ -42,16 +46,16 @@
 								</h5>
 							</div>
 							<div class="card-body">
-								<div class="myBoard">
+								<div class="sendmessagestorage">
 									<h3>보낸 쪽지함</h3>
-									<table class="table table-striped table-bordered">
+									<table class="table table-striped table-bordered" id="sendmessagestorage">
 										<thead>
 											<tr>
 												<th>#</th>
 												<th>받은사람</th>
 												<th>제목</th>
 												<th>보낸시간</th>
-												<th>/</th>
+												<th>삭제</th>
 											</tr>
 										</thead>
 								 		<tbody>
@@ -68,27 +72,40 @@
 									</table>
 								</div>
 
-								<div class="myBoard">
+								<div class="receivemessagestorage">
 									<h3>받은 쪽지함</h3>
-									<table class="table table-striped table-bordered">
+									<table class="table table-striped table-bordered" id="receivemessagestorage">
 										<thead>
 											<tr>
 												<th>#</th>
 												<th>보낸사람</th>
 												<th>제목</th>
 												<th>받은시간</th>
-												<th>/</th>
+												<th>삭제</th>
 											</tr>
 										</thead>
 								 		<tbody>
 											<c:forEach items="${myMessagereceiveList}" var="myMessagereceiveList">
-												<tr id="receivecheck">
-													<td><c:out value="${myMessagereceiveList.message_no}" /></td>
-													<td><c:out value="${myMessagereceiveList.send_id}" /></td>
-													<td class="receiveTr"  data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@getbootstrap"><c:out value="${myMessagereceiveList.message_name}" /><input class="message_content" type="hidden" value="${myMessagereceiveList.message_content }"></td>
-													<td><c:out value="${myMessagereceiveList.message_date}" /></td>
-													<td><button class="receive_delBtn" data-value="${myMessagereceiveList.message_no}">삭제</button></td>
-												</tr>
+												<c:choose>
+													<c:when test="${myMessagereceiveList.message_check eq 1}">
+														<tr id="receivecheck1" >
+															<td><c:out value="${myMessagereceiveList.message_no}" /></td>
+															<td><c:out value="${myMessagereceiveList.send_id}" /></td>
+															<td class="receiveTr"  data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@getbootstrap"><c:out value="${myMessagereceiveList.message_name}" /><input class="message_content" type="hidden" value="${myMessagereceiveList.message_content }"></td>
+															<td><c:out value="${myMessagereceiveList.message_date}" /></td>
+															<td><button class="receive_delBtn" data-value="${myMessagereceiveList.message_no}">삭제</button></td>
+														</tr>
+													</c:when>
+													<c:otherwise>
+														<tr id="receivecheck">
+														<td><c:out value="${myMessagereceiveList.message_no}" /></td>
+														<td><c:out value="${myMessagereceiveList.send_id}" /></td>
+														<td class="receiveTr"  data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@getbootstrap"><c:out value="${myMessagereceiveList.message_name}" /><input class="message_content" type="hidden" value="${myMessagereceiveList.message_content }"></td>
+														<td><c:out value="${myMessagereceiveList.message_date}" /></td>
+														<td><button class="receive_delBtn" data-value="${myMessagereceiveList.message_no}">삭제</button></td>
+													</tr>
+													</c:otherwise>
+												</c:choose>
 											</c:forEach>
 										</tbody> 
 									</table>
@@ -211,7 +228,7 @@
 			          </div>
 			          <div class="mb-3">
 			            <label for="recipient-name" class="col-form-label">받는 사람:</label>
-			            <input type="text" class="form-control" name="receive_id" value="${userid }" readonly id="recipient-name">
+			            <input type="text" class="form-control" name="receive_id" value="${userid}" readonly id="recipient-name">
 			          </div>
 			          
 			          <div class="mb-3">
@@ -229,7 +246,7 @@
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-			        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">신고하기</button>
+			        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-value="report">신고하기</button>
 			        <button type="button" id="resendmessage" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">답장 보내기</button>
 			      </div>
 			       </form>
@@ -239,6 +256,7 @@
 		
 <!-- 받는사람 있는지 확인하는 ajax -->
 <script type="text/javascript">
+let chooseMessageNo = 0; //변수선언 receivetr 클릭하면 message_no 가져온다. 거기서 저장된 chooseMessageNO를 button[data-value='report'] 여기서 receive_id 가져올때 쓴다...
 $("#messageSubmit").on({
 	  click : () => {
 		  const receive_id = $("#recipient-name").val();
@@ -276,7 +294,7 @@ $('.receiveTr').on({
 		$(modal).find('[name=send_id]').val($(td[1]).text());
 		$(modal).find('[name=message_name]').val($(td[2]).text());
 		$(modal).find('[name=message_content]').val($(td[2]).find('input').val());
-		
+		chooseMessageNo = $(td[0]).text();
 		const message_no = $(td[0]).text()
 		console.log(message_no)
 		$.ajax({
@@ -287,7 +305,7 @@ $('.receiveTr').on({
 			},
 			success :function(){
 				console.log('읽음처리되었음');
-				document.getElementById("receivecheck").style.opacity = "0.3";
+				$(event.target).closest('tr').css("opacity","0.3");
 			}
 		})
 	}
@@ -362,7 +380,66 @@ $('.receive_delBtn').on({
 	}
 })
 
+$("button[data-value='report']").on("click", async function(e){
+                		const { value: text } = await Swal.fire({
+                			  input: 'textarea',
+                			  inputLabel: '본 쪽지를 신고하시겠습니까?',
+                			  inputPlaceholder: '신고 사유를 입력해 주세요',
+                			  showCancelButton: true
+                			})
+                			let datas = {
+		                			receive_id:$("#receive_modal").find('[name=send_id]').val(),
+		                			warning_type:"쪽지",
+		                			warning_type_no: chooseMessageNo,
+		                			warning_reason: text
+		                		}
+
+                		if (text) {
+            				$.ajax({
+         	            		url: "/warning/reportWarning.do", //컨트롤러로 보낼 uri
+         	            		type: "POST", //보내는 방식
+         	            		data: datas,
+         	            		success: function(result){
+         	            			if(result=="success"){
+           	            				Swal.fire("신고가 완료되었습니다")
+           	            			} else if(result=="already"){
+           	            				Swal.fire("이미 신고한 게시글 입니다")
+									}
+         	            			
+         	            		},
+         	            		error: function(request, status, error) { //에러 났을 경우 
+         	                      	console.log(request);
+         	            			console.log(status);
+         	            			console.log(error);
+
+                    			  Swal.fire("신고 실패");
+                              }	
+         	               });
+            			}
+        	});
+
+
+
 </script>
+
+	<script src="/resources/js/lib/data-table/datatables.min.js"></script>
+    <script src="/resources/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="/resources/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="/resources/js/lib/data-table/jszip.min.js"></script>
+    <script src="/resources/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="/resources/js/init/datatables-init.js"></script>
+
+
+    <script type="text/javascript">
+    $('#sendmessagestorage').DataTable();
+    $('#receivemessagestorage').DataTable();
+
+  </script>
+
 	</div>
 </body>
 </html>

@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  select count(*) from warning where warning_type=#{warning_type} and warning_type_no=${warning_type_no} and send_id=#{send_id}
  </select>
  
-
+<!-- 쪽지 신고리스트 -->
  
 
 </mapper>
