@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/include/head.jsp" />
 <style>
 	input {
 	      display: inline-block;

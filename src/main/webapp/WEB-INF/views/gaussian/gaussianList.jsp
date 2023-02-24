@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%-- <jsp:include page="/WEB-INF/views/include/head.jsp" /> --%>
 <style type="text/css">
 	#check{
 		width: 100px !important;

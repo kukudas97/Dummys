@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%-- <jsp:include page="/WEB-INF/views/include/head.jsp" /> --%>
 <style>
 	.content{
 		position: relative;

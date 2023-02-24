@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/include/head.jsp" />
 </head>
 <body>
 	<div id="right-panel" class="right-panel">
