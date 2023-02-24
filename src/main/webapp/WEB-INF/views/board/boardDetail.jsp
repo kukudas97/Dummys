@@ -165,18 +165,21 @@
                 		Swal.fire({
                 			  title: '해당 게시물을 삭제하시겠습니까?',
                 			  text: "",
-                			  icon: 'warning',
+                			  icon: 'question',
                 			  showCancelButton: true,
                 			  confirmButtonColor: '#3085d6',
                 			  cancelButtonColor: '#d33',
                 			  confirmButtonText: '삭제 합니다'
                 			}).then((result) => {
                 			  if (result.isConfirmed) {
-                			    Swal.fire(
-                			      '삭제 되었습니다',
-                			      '해당 게시물을 더 이상 볼 수 없습니다.',
-                			      ''
-                			    ).then(()=>{
+                				  Swal.fire({
+	            				      title: '게시글 삭제',
+									  imageUrl: '/resources/images/successMonster.png',
+									  imageWidth: 220,
+									  imageHeight: 250,
+									  imageAlt: 'Custom image',
+									  width:400
+									}).then(()=>{
                   				  operForm.attr("action", "/board/boardDelete.do").submit();
                 			    })
                 			  }
@@ -205,15 +208,28 @@
          	            		data: datas,
          	            		success: function(result){
          	            			if(result=="success"){
-           	            				Swal.fire("신고가 완료되었습니다")
+           	            				Swal.fire({
+		            				      title: '게시글 신고',
+										  imageUrl: '/resources/images/successMonster.png',
+										  imageWidth: 220,
+										  imageHeight: 250,
+										  imageAlt: 'Custom image',
+										  width:400
+										})
            	            			} else if(result=="already"){
            	            				Swal.fire("이미 신고한 게시글 입니다")
 									}
          	            			
          	            		},
          	            		error: function(request, status, error) { //에러 났을 경우 
-
-                    			  Swal.fire("신고 실패");
+         	            			Swal.fire({
+		            				      title: '게시글 신고 에러',
+										  imageUrl: '/resources/images/failMonster.png',
+										  imageWidth: 220,
+										  imageHeight: 250,
+										  imageAlt: 'Custom image',
+										  width:400
+										})
                               }	
          	               });
             			}
@@ -273,14 +289,28 @@
          	            		data: datas,
          	            		success: function(result){
          	            			if(result=="success"){
-           	            				Swal.fire("신고가 완료되었습니다")
+           	            				Swal.fire({
+                      				      title: '신고가 완료되었습니다',
+          								  imageUrl: '/resources/images/successMonster.png',
+          								  imageWidth: 220,
+          								  imageHeight: 250,
+          								  imageAlt: 'Custom image',
+          								  width:400
+          								})
            	            			} else if(result=="already"){
            	            				Swal.fire("이미 신고한 게시글 입니다")
 									}
          	            			
          	            		},
          	            		error: function(request, status, error) { //에러 났을 경우 
-                    			  Swal.fire("신고 실패");
+         	            			Swal.fire({
+                  				      title: '신고 실패',
+      								  imageUrl: '/resources/images/failMonster.png',
+      								  imageWidth: 220,
+      								  imageHeight: 250,
+      								  imageAlt: 'Custom image',
+      								  width:400
+      								})
                               }	
          	               });
             			}
@@ -326,16 +356,17 @@
 		             	            			
 		             	            		},
 		             	            		error: function(request, status, error) { //에러 났을 경우 
-
+		             	            			Swal.fire({
+		                        				      title: '댓글 삽입 에러',
+		            								  imageUrl: '/resources/images/failMonster.png',
+		            								  imageWidth: 220,
+		            								  imageHeight: 250,
+		            								  imageAlt: 'Custom image',
+		            								  width:400
+		            								})
 		                                  }	
 		             	               });
-									  
-									  
-								    Swal.fire(
-								      '등록 완료',
-								      '',
-								      ''
-								    )
+		             	           
 								  }
 								  
 								  
@@ -350,12 +381,9 @@
              
              	//대댓글 등록 함수
 				function register_reReply(event){
-            	 
-              			const content = $('#reReply_content').val();
-              			  
+              			const content = $('#reReply_content').val();  
               			let parent_no = $(event).parent().parent().parent().attr("value"); //멀쓸지 구분
-                		console.log("parent_no : " + parent_no );
-              			  
+
               			  if (content == "") {
               				Swal.fire(
               				      '내용을 입력하세요',
@@ -385,19 +413,25 @@
 		          	                     	 'reReply_content' : content//댓글 내용 값
 		          	                  },
 		             	            		success: function(data){
+		             	            			
 		             	            			$("#addReReplyForm").addClass("afterRegisterReReply"); //등록 성공하면 대댓글 입력란 사라짐
 		             	            			replyList();
 		             	            			
 		             	            		},
 		             	            		error: function(request, status, error) { //에러 났을 경우 
+		             	            			Swal.fire({
+		  		            				      title: '댓글의 댓글 삽입 에러',
+		  										  imageUrl: '/resources/images/failMonster.png',
+		  										  imageWidth: 220,
+		  										  imageHeight: 250,
+		  										  imageAlt: 'Custom image',
+		  										  width:400
+		  										})
+		             	            			
 		                                  }	
 		             	               }); // $ajax 끝
 									  
-								    Swal.fire(
-								      '등록 완료',
-								      '',
-								      ''
-								    )
+		             	              
 								  }
 								})
                           	} // else if 끝
@@ -427,12 +461,16 @@
     		                                '<strong class="card-title">'+replyList.nickname+'</strong> ';
 											if(replyList.userid == '${userid}'){
 												listReply +=
-												'<span class="delete_reply badge float-right mt-1" data-value="'+replyList.reply_no +'">삭제</span>' ;
+												'<span class="delete_reply badge float-right mt-1" data-value="'+replyList.reply_no+'">삭제</span>' ;
+											}else if(replyList.userid !='${userid}'){
+												listReply += 
+													'<span class="report badge float-right mt-1" data-value="'+replyList.reply_no+'" reply-writer="'+replyList.userid+'">신고</span>' ;
 											}
+											
     		                                
-    		                   listReply += '<span class="add_reply badge float-right mt-1" data-value="'+replyList.reply_no +'">대댓글</span>'+
-    		                   				'<span class="report badge float-right mt-1" data-value="'+replyList.reply_no +'" reply-writer="'+replyList.userid+'">신고</span>'+
-    		                                '<span class="badge mt-1">'+'&nbsp'+'&nbsp'+'&nbsp'+ replyList.reply_date+'</span>'+
+    		                   listReply += '<span class="add_reply badge float-right mt-1" data-value="'+replyList.reply_no+'">대댓글</span>'+
+    		                   				
+    		                                '<span class="badge mt-1">'+'&nbsp'+'&nbsp'+'&nbsp'+replyList.reply_date+'</span>'+
     		                            '</div>'+
     		                            '<div class="card-body">'+
     		                                '<p class="card-text">'+replyList.reply_content+'</p>'+
@@ -463,6 +501,14 @@
                 		},
                 		
                 		"error" : (request, status, error)=>{
+                			Swal.fire({
+            				      title: '댓글의 나열 에러',
+								  imageUrl: '/resources/images/failMonster.png',
+								  imageWidth: 220,
+								  imageHeight: 250,
+								  imageAlt: 'Custom image',
+								  width:400
+								})
                 		}
                 	})
                 }
@@ -489,21 +535,20 @@
                               		"data" : JSON.stringify($(event.target).attr("data-value")),
                               		"contentType":'application/json',
                               		"success" : (result)=>{
-
-                              			console.log(result);
                               			replyList();
                               		},
                               		"error" : (request, status, error)=>{
-                              			console.log(request.status);
-                   	                    console.log(request.responseText);
-                   	                    console.log(error);
+                              			Swal.fire({
+	  		            				      title: '댓글 삭제 에러',
+	  										  imageUrl: '/resources/images/failMonster.png',
+	  										  imageWidth: 220,
+	  										  imageHeight: 250,
+	  										  imageAlt: 'Custom image',
+	  										  width:400
+	  										})
+
                               		}  
                       			  }) 
-            				    Swal.fire(
-            				      '댓글이 삭제되었습니다',
-            				      '',
-            				      ''
-            				    )
             				  }
             				})
             			 
