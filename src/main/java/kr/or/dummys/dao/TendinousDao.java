@@ -17,4 +17,7 @@ public interface TendinousDao {
 	
 	//문의사항 세부 사항
 	public Tendinous detailTendinous(int tendinous_no);
+	
+	//문의사항 읽음 처리
+	public int lead(int tendinous_no);
 }

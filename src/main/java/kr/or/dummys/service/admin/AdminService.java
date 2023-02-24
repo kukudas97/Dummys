@@ -125,4 +125,12 @@ public class AdminService {
 		
 		return (deleteRoleBlock == 1) ? 1:0 ;
 	}
+	
+	//문의사항 처리
+	public int lead(int tendinous_no) {
+		TendinousDao tendinousdao = sqlsession.getMapper(TendinousDao.class);
+		
+		int result = tendinousdao.lead(tendinous_no);
+		return result;
+	}
 }
