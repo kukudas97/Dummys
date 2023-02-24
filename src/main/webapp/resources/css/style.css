@@ -685,8 +685,8 @@ font-family: 'IBM Plex Sans KR', sans-serif;
             border-style: solid;
             border-width: 1px;
             border-color: #607d8b #607d8b transparent transparent;
-            -webkit-transform: rotate(45deg);
-                    transform: rotate(45deg);
+            /* -webkit-transform: rotate(45deg);
+                    transform: rotate(45deg); */
             -webkit-transition: all .25s ease;
             transition: all .25s ease; }
           .navbar .navbar-nav li.menu-item-has-children a:hover:before {

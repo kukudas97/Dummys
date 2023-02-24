@@ -127,9 +127,8 @@
                 	$('button').on("click", function(e){
                 		e.preventDefault();
                 		
-                		var operation = $(this).data("oper");
-                		
-                		console.log(operation);
+                		var operation = $(this).data("data-oper");
+
                 		
                 		if(operation ==='cancel'){
                 			 window.history.back();
