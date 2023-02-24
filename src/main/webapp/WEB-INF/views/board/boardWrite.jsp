@@ -83,7 +83,7 @@
                             <strong>${param.board_kind} 글쓰기</strong>
                         </div>
                         <div class="card-body card-block">
-                            <form role="form" action="/board/boardWrite.do" method="post">
+                            <form role="form" action="/board/boardWrite.do" class="boardWriteForm" method="post">
                         		<div class="form-group">
                         			<label>Title</label> 
                         			<input type="hidden" value="${param.board_kind}" name="board_kind">
@@ -103,7 +103,7 @@
 		    								</div>
 	                        		</div>
                         		</c:if>
-                        		<input class="btn btn-success" type="submit" value="글쓰기">
+                        		<input class="btn btn-success" id="writeOK" type="button" value="글쓰기">
                         		<input class="btn btn-warning" type="reset" value="Reset">
                         	</form>
                         </div>
@@ -138,10 +138,10 @@
 				"success" : (data)=>{
 					let result = data.result;
 					if(result == 'login-error'){
-						alert('로그인이 필요한 서비스입니다.')
+						Swal.fire("로그인이 필요한 서비스 입니다");
 						location.href = "/users/login.do"
 					} else if(result == 'fail'){
-						alert('데이터 불러오기를 실패했습니다.\n다시 시도해주세요')
+						Swal.fire("데이터 불러오기를 실패했습니다.\n다시 시도해주세요");
 					} else if(result == 'success'){
 						$('#schemaChooseArea').toggle();			
 						const list = data.list;
@@ -172,7 +172,6 @@
 					}// if success end
 				}, //ajax success end
 				"error" : (error)=>{
-					console.log(error);
 				}
 			})
 		}
@@ -186,4 +185,31 @@
 		}
 	</script>
 </c:if>
+
+<script>
+	$("#writeOK").on({
+		click: () =>{
+			Swal.fire({
+				  title: '게시글을 등록 하시겠습니까?',
+				  text: "",
+				  icon: 'question',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '등록'
+				}).then((result) => {
+				  if (result.isConfirmed) {
+				    Swal.fire(
+				      '등록 완료',
+				      '',
+				      ''
+				    ).then(()=>{
+				    $(".boardWriteForm").submit();  
+				    })
+				  }
+				})
+		}
+		
+	})
+</script>
 </html>

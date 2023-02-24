@@ -175,7 +175,7 @@
                 			    Swal.fire(
                 			      '삭제 되었습니다',
                 			      '해당 게시물을 더 이상 볼 수 없습니다.',
-                			      'success'
+                			      ''
                 			    ).then(()=>{
                   				  operForm.attr("action", "/board/boardDelete.do").submit();
                 			    })
@@ -212,9 +212,6 @@
          	            			
          	            		},
          	            		error: function(request, status, error) { //에러 났을 경우 
-         	                      	console.log(request);
-         	            			console.log(status);
-         	            			console.log(error);
 
                     			  Swal.fire("신고 실패");
                               }	
@@ -238,25 +235,15 @@
                 	
                 	  //대댓글 뷰 추가 230212
 					$(document).on("click", ".add_reply", function(){
-                    		let test1 = $(this).parents(); //멀쓸지 구분
-                    		console.log("test2 : "+  test1);
 
-                    		//var test = $(this).parents().eq(1); //쓸꺼
-                    		
-                    		let test = $(this).parents().children().eq(7);
-                    		
-                    		console.log(test);
-                    		//$("#addReReplyForm").addClass(".writeReReplyForm");
                     		let area = $(this).parents().siblings('.reReplyForm');
                     		$(area).empty();
                     		$(area).append(
-                    		//$(this).().append(
                     			'<div id="addReReplyForm" class="form-floating " style="width: 90%; float: right; padding-right: 10px;">'+
 	                                '<textarea class="form-control" placeholder="댓글의 댓글을 작성하세요" ' +
 	                                   ' id="reReply_content" style="height: 75px; margin-bottom: 5px; "></textarea> '+
 	                                 '<hidden id="reply_userid"/>' +
 	                                 '<button class="btn" id="register_reReply" onclick="register_reReply(this);" parent-value="15" style="float: right; margin-bottom: 5px;">등록</button>' +
-	                                 /* '<button class="btn" id="reply_reset" style="float: right;">취소</button>' + */
 	                            '</div>'
 	                            
                     		);
@@ -270,16 +257,13 @@
               			  inputPlaceholder: '신고 사유를 입력해 주세요',
               			  showCancelButton: true
               			});
-                		
-                		console.log(e.target)
+
               			let datas = {
 		                			"receive_id":$(e.target).attr("reply-writer"),
 		                			"warning_type":"댓글",
 		                			"warning_type_no": $(e.target).attr("data-value"),
 		                			"warning_reason": text
 		                		}
-                		
-                		console.log(datas);
                 		
 
                 		if (text) {
@@ -296,10 +280,6 @@
          	            			
          	            		},
          	            		error: function(request, status, error) { //에러 났을 경우 
-         	                      	console.log(request);
-         	            			console.log(status);
-         	            			console.log(error);
-
                     			  Swal.fire("신고 실패");
                               }	
          	               });
@@ -346,9 +326,7 @@
 		             	            			
 		             	            		},
 		             	            		error: function(request, status, error) { //에러 났을 경우 
-		             	                      alert("code:" + request.status + "\n"
-		            	                           + "message:" + request.responseText
-		            	                           + "\n" + "error:" + error);
+
 		                                  }	
 		             	               });
 									  
@@ -356,7 +334,7 @@
 								    Swal.fire(
 								      '등록 완료',
 								      '',
-								      'success'
+								      ''
 								    )
 								  }
 								  
@@ -412,16 +390,13 @@
 		             	            			
 		             	            		},
 		             	            		error: function(request, status, error) { //에러 났을 경우 
-		             	                      alert("code:" + request.status + "\n"
-		            	                           + "message:" + request.responseText
-		            	                           + "\n" + "error:" + error);
 		                                  }	
 		             	               }); // $ajax 끝
 									  
 								    Swal.fire(
 								      '등록 완료',
 								      '',
-								      'success'
+								      ''
 								    )
 								  }
 								})
@@ -443,7 +418,6 @@
                     	$(result).each(function(index, replyList){
                     		
                     		 let dept= 6*(replyList.dept);
-                    		console.log('${userid}'); 
                     		
                     		let listReply = 
                                 '<li>'+
@@ -489,7 +463,6 @@
                 		},
                 		
                 		"error" : (request, status, error)=>{
-                			console.log(request);
                 		}
                 	})
                 }
@@ -497,8 +470,7 @@
                 
                 //댓글 삭제 함수
                 function deleteReply(){
-                //"data" : JSON.stringify({"reply_no": $(event.target).attr("data-value")}),
-                //"data" : $(event.target).attr("data-value"),
+
                 $(".delete_reply").on({
             		  click : (event) => {
             			  Swal.fire({
@@ -527,13 +499,10 @@
                    	                    console.log(error);
                               		}  
                       			  }) 
-            					  
-            					  
-            					  
             				    Swal.fire(
             				      '댓글이 삭제되었습니다',
             				      '',
-            				      'success'
+            				      ''
             				    )
             				  }
             				})
