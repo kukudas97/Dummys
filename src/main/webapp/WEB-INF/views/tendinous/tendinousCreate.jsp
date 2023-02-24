@@ -17,7 +17,7 @@
 				<p>불편을 드려서 죄송합니다. 문의사항을 입력하시면 성심성의것 대답해드리겠습니다.</p>
 				<p>관련 내용은 문의사항 관리팀에서 확인 후 쪽지로 답변드리겠습니다.</p>
 			</div>
-			<form action="" method="post">
+			<form action="" method="post" id="forma">
 				<div class="card-body">
 	
 					<div class="form-group">
@@ -37,7 +37,8 @@
 						<label>작성자</label> <input class="form-control board_detail"
 							name='userid' value="${userid }" readonly="readonly">
 					</div>
-					<button id="submit" class="btn btn-primary" disabled>전송</button>
+					<button id="submit" type="button" class="btn btn-primary" disabled>전송</button>
+					<button id="sub" type="submit" style="visibility: hidden"></button>
 				</div>
 			</form>
 		</div>
@@ -77,7 +78,17 @@ function activateBtn(){
 }
 
 $("#submit").click(()=>{
-	alert("문의 감사합니다. 답변은 3~7일 정도 걸리나 문의사항이 많을 경우 최대한 빠른 시일에 답변드리겠습니다.")
+	Swal.fire({
+		title: '문의 감사합니다!',
+		text: '답변은 3~7일 정도 걸리나 문의사항이 많을 경우 최대한 빠른 시일에 답변드리겠습니다.',
+		imageUrl: '/resources/images/successMonster.png',
+		imageWidth: 220,
+		imageHeight: 250,
+		imageAlt: '성공',
+		width:400
+	}).then(()=>{
+		$("#sub").click();
+	})
 })
 </script>
 </html>

@@ -113,11 +113,29 @@ document.getElementById("inuser").onclick = ()=>{
 		data : JSON.stringify(inusers),
 		"contentType":"application/json",
 		success : (result)=>{
-			alert("총" + result.msg +"명의 회원이 활성화 되었습니다.")
-			location.reload();
+			Swal.fire({
+				title: '활성화 성공!',
+			  	text: '총'+ result.msg +'명의 회원이 활성화 되었습니다.',
+			  	imageUrl: '/resources/images/successMonster.png',
+			  	imageWidth: 220,
+			  	imageHeight: 250,
+			  	width:400,
+			  	imageAlt: '성공',
+			}).then(()=>{
+				location.reload();	
+			})
+			
 		},
 		error : ()=>{
-			alert("활성화 실패");
+			Swal.fire({
+				title: '활성화 실패...',
+				text: '',
+				imageUrl: '/resources/images/failMonster.png',
+				imageWidth: 220,
+				imageHeight: 250,
+				width:400,
+				imageAlt: '실패',
+			})
 		}
 	})
 }
@@ -135,11 +153,28 @@ document.getElementById("outuser").onclick= ()=>{
 		data : JSON.stringify(outusers),
 		"contentType":"application/json",
 		success : (result)=>{
-			alert("총" + result.msg +"명의 회원이 비활성화 되었습니다.")
-			location.reload();
+			Swal.fire({
+				title: '비활성화 성공!',
+			  	text: '총'+ result.msg +'명의 회원이 비활성화 되었습니다.',
+			  	imageUrl: '/resources/images/successMonster.png',
+			  	imageWidth: 220,
+			  	imageHeight: 250,
+			  	width:400,
+			  	imageAlt: '성공',
+			}).then(()=>{
+				location.reload();	
+			})
 		},
 		error : ()=>{
-			alert("비활성화 실패");
+			Swal.fire({
+				title: '비활성화 실패...',
+				text: '',
+				imageUrl: '/resources/images/failMonster.png',
+				imageWidth: 220,
+				imageHeight: 250,
+				width:400,
+				imageAlt: '실패',
+			})
 		}
 	})
 }
