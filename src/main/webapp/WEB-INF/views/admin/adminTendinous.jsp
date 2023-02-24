@@ -72,9 +72,7 @@
 										<c:otherwise>
 											<td>${listTendinous.tendinous_name}</td>
 											<td>${listTendinous.tendinous_content}</td>
-											<td>
-												완료
-											</td>
+											<td>완료</td>
 										</c:otherwise>
 									</c:choose>
 								</tr>
@@ -177,19 +175,29 @@ document.getElementById("delete").onclick = function() {
 		data : JSON.stringify(checklist),
 		"contentType":"application/json",
 		success : function(result){
-			Swal.fire(
-			  '문의사항 삭제처리가 완료되었습니다.',
-			  '',
-			  'success'
-			)
-			location.reload(); 
+			Swal.fire({
+				title: '삭제 성공!',
+				text: '',
+				imageUrl: '/resources/images/successMonster.png',
+				imageWidth: 220,
+				imageHeight: 250,
+				imageAlt: '성공',
+				width:400
+			}).then(()=>{
+				location.reload();	
+			})
+			 
 		},
 		error : function(){
-			Swal.fire(
-			  '삭제에 실패했습니다..',
-			  '',
-			  'error'
-			)
+			Swal.fire({
+				title: '실패...',
+				text: '',
+				imageUrl: '/resources/images/failMonster.png',
+				imageWidth: 220,
+				imageHeight: 250,
+				width:400,
+				imageAlt: '실패',
+			})
 		}
 	})
 }
@@ -221,20 +229,28 @@ $("#messageSubmit").on({
            			 if(data >= 1){
 						 lead();
            			 }else {
-         				Swal.fire(
-     					  '메세지 전송에 실패했습니다.',
-     					  '',
-     					  'error'
-     					)
+           				Swal.fire({
+           					title: '실패...',
+          				  	text: '',
+           				  	imageUrl: '/resources/images/failMonster.png',
+           				  	imageWidth: 220,
+           				  	imageHeight: 250,
+           					width:400,
+           				  	imageAlt: '실패',
+           				})
 
            			 }         			
            		},
            		error: function() { //에러 났을 경우 
-           			Swal.fire(
-   					  '메세지 전송에 실패했습니다.',
-   					  '',
-   					  'error'
-   					)
+           			Swal.fire({
+        				title: '실패...',
+      				  	text: '',
+          			  	imageUrl: '/resources/images/failMonster.png',
+	          			imageWidth: 220,
+	          			imageHeight: 250,
+	          			width:400,
+	          			imageAlt: '실패',
+          			})
                 }	
               });
         	} 
@@ -247,17 +263,30 @@ $("#messageSubmit").on({
 		"type" : "POST",
 		"data" : {"tendinous_no" : tendinous_no},
 		"success" : (result)=>{
-			swal("메세지 전송에 성공하였습니다.", "", "success").then(()=>{
+			Swal.fire({
+				title: '성공!',
+				text: '',
+			  	imageUrl: '/resources/images/successMonster.png',
+				imageWidth: 220,
+				imageHeight: 250,
+				width:400,
+				imageAlt: '성공',
+			})
+			.then(()=>{
 				$("#formdata").submit();			
 			})
 			
 		},
 		"error" : ()=>{
-			Swal.fire(
-			  '메세지 전송에 실패했습니다.',
-			  '',
-			  'error'
-			)
+			Swal.fire({
+				title: '실패...',
+				text: '',
+				imageUrl: '/resources/images/failMonster.png',
+				imageWidth: 220,
+				imageHeight: 250,
+				width:400,
+				imageAlt: '실패',
+			})
 		}
 	 })
  }

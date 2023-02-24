@@ -271,14 +271,39 @@ $("#messageSubmit").on({
               },
            		success: function(data){
            			 if(data >= 1){
-           				 $("#formdata").submit();
-           				 alert("메세지 전송이 완료 되었습니다.")
+           				Swal.fire({
+           					title: '메세지 전송에 성공!',
+           					text: '',
+           				  	imageUrl: '/resources/images/successMonster.png',
+           					imageWidth: 220,
+           					imageHeight: 250,
+           					width:400,
+           					imageAlt: '성공',
+           				}).then(()=>{
+           					$("#formdata").submit();	
+           				})
            			 }else {
-           				 alert("꺼져");
+           				Swal.fire({
+           					title: '메세지 전송에 실패...',
+           					text: '',
+           					imageUrl: '/resources/images/failMonster.png',
+           					imageWidth: 220,
+           					imageHeight: 250,
+           					width:400,
+           					imageAlt: '실패',
+           				})
            			 }         			
            		},
            		error: function() { //에러 났을 경우 
-                     alert("에러입니다.");
+           			Swal.fire({
+       					title: '메세지 전송에 실패...',
+       					text: '',
+       					imageUrl: '/resources/images/failMonster.png',
+       					imageWidth: 220,
+       					imageHeight: 250,
+       					width:400,
+       					imageAlt: '실패',
+       				})
                 }	
               });
         	}
@@ -304,7 +329,6 @@ $('.receiveTr').on({
 				'message_no' : message_no
 			},
 			success :function(){
-				console.log('읽음처리되었음');
 				$(event.target).closest('tr').css("opacity","0.3");
 			}
 		})
@@ -343,13 +367,37 @@ $(".send_delBtn").on({
 			success : function(data){
 				if(data>0){
 					tr.remove();
-					alert("삭제가 완료되었습니다.");
+					Swal.fire({
+						title: '삭제 성공!',
+						text: '',
+					  	imageUrl: '/resources/images/successMonster.png',
+						imageWidth: 220,
+						imageHeight: 250,
+						width:400,
+						imageAlt: '성공',
+					})
 				}else{
-					alert("motherfuck");
+					Swal.fire({
+						title: '삭제 실패...',
+						text: '',
+						imageUrl: '/resources/images/failMonster.png',
+						imageWidth: 220,
+						imageHeight: 250,
+						width:400,
+						imageAlt: '실패',
+					})
 				}
 			}, //success
 			error: function() { //에러 났을 경우 
-                alert("에러입니다.");
+				Swal.fire({
+					title: '삭제 실패...',
+					text: '',
+					imageUrl: '/resources/images/failMonster.png',
+					imageWidth: 220,
+					imageHeight: 250,
+					width:400,
+					imageAlt: '실패',
+				})
 			} //error
 	 	 }); //ajax  
 	}//click event
@@ -368,13 +416,37 @@ $('.receive_delBtn').on({
 			success : function(data){
 				if(data>0){
 					tr.remove();
-					alert("삭제가 완료되었습니다.");
+					Swal.fire({
+						title: '삭제 성공!',
+						text: '',
+					  	imageUrl: '/resources/images/successMonster.png',
+						imageWidth: 220,
+						imageHeight: 250,
+						width:400,
+						imageAlt: '성공',
+					})
 				} else{
-					alert("motherfuck");
+					Swal.fire({
+						title: '삭제 실패...',
+						text: '',
+						imageUrl: '/resources/images/failMonster.png',
+						imageWidth: 220,
+						imageHeight: 250,
+						width:400,
+						imageAlt: '실패',
+					})
 				}
 			},
 			error: function() { //에러 났을 경우 
-                alert("에러입니다.");
+				Swal.fire({
+					title: '삭제 실패...',
+					text: '',
+					imageUrl: '/resources/images/failMonster.png',
+					imageWidth: 220,
+					imageHeight: 250,
+					width:400,
+					imageAlt: '실패',
+				})
 			}
 		  });  
 	}
@@ -401,20 +473,36 @@ $("button[data-value='report']").on("click", async function(e){
          	            		data: datas,
          	            		success: function(result){
          	            			if(result=="success"){
-           	            				Swal.fire("신고가 완료되었습니다")
+         	            				Swal.fire({
+         	            					title: '신고 성공!',
+         	            					text: '',
+         	            				  	imageUrl: '/resources/images/successMonster.png',
+         	            					imageWidth: 220,
+         	            					imageHeight: 250,
+         	            					width:400,
+         	            					imageAlt: '성공',
+         	            				})
            	            			} else if(result=="already"){
-           	            				Swal.fire("이미 신고한 게시글 입니다")
+           	            				Swal.fire(
+           	            					'이미 신고된 게시판입니다!',
+           	            				  	'',
+           	            				 	 'question'
+           	            				)
 									}
          	            			
          	            		},
          	            		error: function(request, status, error) { //에러 났을 경우 
-         	                      	console.log(request);
-         	            			console.log(status);
-         	            			console.log(error);
-
-                    			  Swal.fire("신고 실패");
+         	            			Swal.fire({
+	        	           				title: '실패...',
+	        	           				text: '',
+	        	           				imageUrl: '/resources/images/failMonster.png',
+	        	           				imageWidth: 220,
+	        	           				imageHeight: 250,
+	        	           				width:400,
+	        	           				imageAlt: '실패',
+	        	           			})
                               }	
-         	               });
+            				});
             			}
         	});
 
