@@ -484,7 +484,7 @@ $("button[data-value='report']").on("click", async function(e){
          	            				})
            	            			} else if(result=="already"){
            	            				Swal.fire(
-           	            					'이미 신고된 게시판입니다!',
+           	            					'이미 신고된 쪽지입니다!',
            	            				  	'',
            	            				 	 'question'
            	            				)
