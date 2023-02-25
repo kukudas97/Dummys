@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="/resources/images/DummysFavicon.png" type="image/x-icon" sizes="16x16">
 </head>
 <body>
 <se:authentication property="name" var="userid" />
@@ -101,20 +102,6 @@
     </div><!-- /#right-panel -->
 
     <!-- Right Panel -->
-
-
-
-
-    <script src="/resources/js/lib/data-table/datatables.min.js"></script>
-    <script src="/resources/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-    <script src="/resources/js/lib/data-table/dataTables.buttons.min.js"></script>
-    <script src="/resources/js/lib/data-table/buttons.bootstrap.min.js"></script>
-    <script src="/resources/js/lib/data-table/jszip.min.js"></script>
-    <script src="/resources/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="/resources/js/lib/data-table/buttons.html5.min.js"></script>
-    <script src="/resources/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
-    <script src="/resources/js/init/datatables-init.js"></script>
 
 
     <script type="text/javascript">

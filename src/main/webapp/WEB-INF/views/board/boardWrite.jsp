@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="/resources/images/DummysFavicon.png" type="image/x-icon" sizes="16x16">
 <style>
 	.content{
 		position: relative;

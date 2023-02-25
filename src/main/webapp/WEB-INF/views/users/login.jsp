@@ -8,6 +8,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 <head>
+<link rel="icon" href="/resources/images/DummysFavicon.png" type="image/x-icon" sizes="16x16">
    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Dummy's</title>
@@ -109,9 +110,6 @@ font-family: 'Lato', sans-serif;
                             <input type="password" name="password" class="form-control" placeholder="Password">
                         </div>
                         <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> 로그인 유지하기
-                            </label>
                             <label class="pull-right">
                                 <a href="${pageContext.request.contextPath}/users/forgetPassword.do">비밀번호를 잊으셨습니까?</a>
                             </label>

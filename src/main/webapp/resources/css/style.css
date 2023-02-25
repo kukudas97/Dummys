@@ -2128,7 +2128,9 @@ footer.site-footer {
 font-family: 'IBM Plex Sans KR', sans-serif;
     font-size: 14px;
     line-height: 1.5;
-    padding: 2.45em 1.125em; }
+    padding: 2.45em 1.125em;
+    padding-top : 6em;
+     }
     footer.site-footer .footer-inner a {
       color: #6a7074; }
 
@@ -2565,6 +2567,7 @@ text-shadow: 2px 2px 2px #123b48;
 .QuickStart {
 	width: 80%;
     margin: 0 auto;
+    margin-top : 14px;
 }
 
 .QuickStartContent {
@@ -2578,7 +2581,8 @@ text-shadow: 2px 2px 2px #123b48;
 
 .QuickStartMsg p {
 	font-family: 'IBM Plex Sans KR', sans-serif;
-	font-size: 32px;
+	font-size: 40px;
+	margin : 20px;
 }
 
 .QuickStartMsg .QuickStartBtn{
@@ -2613,8 +2617,8 @@ text-shadow: 2px 2px 2px #123b48;
 
 .DataTypeSelection .DataType, .DataFormatSelection .DataFormat {
 	display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(125px, 1fr));
      grid-gap: 0.3rem; 
 }
 
@@ -2623,10 +2627,10 @@ text-shadow: 2px 2px 2px #123b48;
   background: #123b48;
   font-weight: bold;
   color: white;
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   border-radius: 12px;
-  margin: 20px;
+  margin: 10px;
   padding: 10px;
   animation-fill-mode: forwards;
   display: flex; 

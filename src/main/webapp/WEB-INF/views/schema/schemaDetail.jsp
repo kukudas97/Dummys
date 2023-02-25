@@ -6,6 +6,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+<link rel="icon" href="/resources/images/DummysFavicon.png" type="image/x-icon" sizes="16x16">
 <style>
 	input {
 	      display: inline-block;
@@ -29,7 +30,7 @@
 	div[data-type=type] input{
 		cursor: pointer;
 	}
-	#typeChooseArea, #gaussianChooseArea {
+	#typeChooseArea, #gaussianChooseArea, #previewArea {
 		position: absolute;
 		background-color: rgba(0, 0, 0, 0.5); /* 검정색 배경색에 50% 투명도 적용 */
 		width: 100%;
@@ -39,7 +40,7 @@
 		left: 0;
 		min-height: 1000px;
 	}
-	#typeChooseArea .child, #gaussianChooseArea .child {
+	#typeChooseArea .child, #gaussianChooseArea .child, #previewArea .child {
 	    position: absolute;
 	    width: 90%;
 	    height: 90%;
@@ -47,11 +48,20 @@
 	    left: 5%;
 	  	opacity: 1;
 	}
-	.type-content, .gaussian-content{
+	#previewArea .child {
+	   overflow : scroll;
+	}
+	#previewArea .child::-webkit-scrollbar {
+	  display: none;
+	}
+	.type-content, .gaussian-content, .preview-content{
 		height: calc(100% - 40px);
 	}
-	.type-bottom, .gaussian-bottom{
+	.type-bottom, .gaussian-bottom, .preview-bottom{
 		height: 40px;
+	}
+	pre{
+		margin-bottom:0px !important;
 	}
 	</style>
 </head>
@@ -71,6 +81,108 @@
 	<div id="right-panel" class="right-panel">
 		<section id="header"> <jsp:include page="/WEB-INF/views/include/header.jsp" /> </section>
 		<div class="content">
+			<!-- 미리보기 DIV -->
+			<div id="previewArea">
+				<div class="card child">
+					<div class="card-header">
+                        <strong class="card-title">
+	                        <span class="float-left mt-2">
+	                        	미리보기
+	                        </span>
+							<div class="badge float-right mt-1">
+								<button type="button" class="btn btn-secondary btn-sm" id="previewCloseBtn">닫기</button>
+							</div>
+						</strong>
+                    </div>
+					<div class="card-body">
+						<div class="preview-content">
+							<div class="card">
+								<div class="card-header">
+							        <strong class="card-title">
+								         <span class="float-left mt-2">
+								         	JSON
+								         </span>
+									</strong>
+							                </div>
+								<div class="card-body">
+<pre>
+[
+	{ "컬럼1" : "값1-1", "컬럼2" : "값2-1", "컬럼3" : "값3-1"},
+	{ "컬럼1" : "값1-2", "컬럼2" : "값2-2", "컬럼3" : "값3-2"},
+	{ "컬럼1" : "값1-3", "컬럼2" : "값2-3", "컬럼3" : "값3-3"},
+]
+</pre>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-header">
+							        <strong class="card-title">
+								         <span class="float-left mt-2">
+								         	CSV
+								         </span>
+									</strong>
+							                </div>
+								<div class="card-body">
+<pre>
+컬럼1, 컬럼2, 컬럼3, 컬럼4, 컬럼5
+값1-1, 값2-1, 값3-1, 값4-1, 값5-1
+값1-2, 값2-2, 값3-2, 값4-2, 값5-2
+값1-3, 값2-3, 값3-3, 값4-3, 값5-3
+</pre>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-header">
+							        <strong class="card-title">
+								         <span class="float-left mt-2">
+								         	HTML TABLE
+								         </span>
+									</strong>
+							                </div>
+								<div class="card-body">
+<pre>
+&#60;table&#62;
+	&#60;thead&#62;
+		&#60;tr&#62;
+			&#60;th&#62;컬럼1&#60;/th&#62;
+			&#60;th&#62;컬럼2&#60;/th&#62;
+		&#60;/tr&#62;
+	&#60;/thead&#62;
+	&#60;tbody&#62;
+		&#60;tr&#62;
+			&#60;td&#62;값1-1&#60;/td&#62;
+			&#60;td&#62;값2-1&#60;/td&#62;
+		&#60;/tr&#62;
+		&#60;tr&#62;
+			&#60;td&#62;값1-2&#60;/td&#62;
+			&#60;td&#62;값2-2&#60;/td&#62;
+		&#60;/tr&#62;
+	&#60;/tbody&#62;
+&#60;/table&#62;
+</pre>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-header">
+							        <strong class="card-title">
+								         <span class="float-left mt-2">
+								         	SQL
+								         </span>
+									</strong>
+							                </div>
+								<div class="card-body">
+<pre>
+insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-1, 값2-1, 값3-1);
+insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-2, 값2-2, 값3-2);
+insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, 값3-3);
+</pre>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
 			<!-- 타입 선택 DIV -->
 			<div id="typeChooseArea">
 				<div class="card child">
@@ -127,11 +239,11 @@
 				<div class="row">
 					<div class="col">
 						<div class="row">
-							<h1>스키마 상세</h1>
+							<h1 class="col-12">스키마 상세</h1>
 						</div>
 						<br>
 						<div class="row">
-							<div>
+							<div class="col-12">
 								<p>${schema.userid } 님의 스키마입니다.</p>
 								<p>${schema.schema_content }</p>
 							</div>
@@ -159,7 +271,7 @@
 								<tr>
 									<th>이름</th>
 									<th>타입</th>
-									<th>옵션</th>
+									<th>옵션(공백 %)</th>
 									<th colspan="2">선택옵션</th>
 								</tr>
 							</thead>
@@ -225,9 +337,8 @@
 											<select name="select" id="printType" class="form-control">
 												<option value="1">JSON</option>
 												<option value="2">CSV</option>
-												<option value="3">HTML TABLE</option>
+												<option value="3">HTML</option>
 												<option value="4">SQL</option>
-												<!-- <option value="5">Excel</option> -->
 	                                         </select>
                                          </div>
 									</td>
@@ -238,11 +349,12 @@
 					</div>
 				</div>
 				<!-- footer -->
-				<!-- <div class="row"> -->
-					<jsp:include page="/WEB-INF/views/include/footer.jsp" /> </section>
-				<!-- </div> -->
+				<div class="row">
+					<div class="col-12">
+						<jsp:include page="/WEB-INF/views/include/footer.jsp" /><%--  </section> --%>
+					</div>
+				</div>
 			</div>
-		</div>
 	</div>
 	<!-- .content -->
 	<div class="createnav">
@@ -284,8 +396,11 @@
 		click : delColumn
 	})
 	$("#previewBtn").on({
-		click: createDummy
+		click: ()=>{
+			$('#previewArea').toggle()
+		}
 	})
+	$('#previewArea').toggle()
 	$("#createBtn").on({
 		click: downloadFile
 	})
@@ -338,6 +453,7 @@
 			$('#gaussianChooseArea').toggle();
 		}
 	})
+	
 	// ===== drag and drop set =====
 	list.on({
 		'dragstart':(e)=>{
@@ -400,14 +516,13 @@
 			data : JSON.stringify(paramData),
 			contentType:'application/json',
 			  success: function(data, status, xhr) {
-				    var filename = "";
-				    var disposition = xhr.getResponseHeader('Content-Disposition');
-				    if (disposition && disposition.indexOf('attachment') !== -1) {
-				      var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-				      var matches = filenameRegex.exec(disposition);
-				      if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
-				    }
+				  var filename;
 
+				  if($('#schemaName').val() == ''){
+					  filename = 'Schema.' + $('#printType option:selected').text().toLowerCase();
+				  } else {
+					  filename = $('#schemaName').val() + '.' + $('#printType option:selected').text().toLowerCase();
+				  }
 				    var blob = new Blob([data], {type: 'text/plain'});
 				    if (typeof window.navigator.msSaveBlob !== 'undefined') {
 				      window.navigator.msSaveBlob(blob, filename);
@@ -566,7 +681,7 @@
 		const td3 = $('<td>').addClass('col-sm-3 col-md-3 col-lg-3')
 							.append($('<div>').attr('data-type', 'options')
 												.append($('<div>').addClass('datasection')
-																.append($('<input>').attr('type', 'text').val('1'))));
+																.append($('<input>').attr('type', 'text').val('0'))));
 		const td4 = $('<td>').addClass('col-sm-3 col-md-3 col-lg-3')
 							.append($('<div>').attr('data-type', 'selectoptions')
 												.append($('<div>').addClass('datasection row')
@@ -781,16 +896,4 @@
 		})
 	}
 	</script>
-	<script src="/resources/js/lib/data-table/datatables.min.js"></script>
-    <script src="/resources/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-    <script src="/resources/js/lib/data-table/dataTables.buttons.min.js"></script>
-    <script src="/resources/js/lib/data-table/buttons.bootstrap.min.js"></script>
-    <script src="/resources/js/lib/data-table/jszip.min.js"></script>
-    <script src="/resources/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="/resources/js/lib/data-table/buttons.html5.min.js"></script>
-    <script src="/resources/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
-    <script src="/resources/js/init/datatables-init.js"></script>
-    <script>
-    </script>
 </html>
