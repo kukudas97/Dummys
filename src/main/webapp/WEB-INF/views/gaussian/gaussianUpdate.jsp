@@ -26,15 +26,15 @@
 	<div id="right-panel" class="right-panel">
 		<jsp:include page="/WEB-INF/views/include/header.jsp" />
 		<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
-		<div id="main_content">
+		<div id="main_content" class="content">
 			<div class="row">
 				<div class="col">
 					<div class="row">
-						<h1>${gaussian.gaussian_name } 수정</h1>
+						<h1 class="col-12">${gaussian.gaussian_name } 수정</h1>
 					</div>
 					<br>
 					<div class="row">
-						<div>
+						<div class="col-12">
 							<p>원하는 페이지를 만들어 보아요! 무조건 txt파일로 올리세요</p>
 							<p>불편하면 자세를 고쳐앉아</p>
 						</div>

@@ -1,5 +1,6 @@
 package kr.or.dummys.ajax;
 
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
