@@ -23,19 +23,6 @@
 	<div id="right-panel" class="right-panel">
 		<jsp:include page="/WEB-INF/views/include/header.jsp" />
 		<div class="content">
-		<div class="row">
-			<div class="card col">
-                  <div class="card-header">
-                      <strong class="card-title">Card with switch</strong>
-                  </div>
-                  <div class="card-body">
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-                  <div class="card-footer">
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-              </div>
-        </div>
 			<div class="row">
 				<div class="col">
 					<div class="row">
