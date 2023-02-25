@@ -50,7 +50,7 @@ public class SchemaService {
 			
 		// 옵션이 있으면 옵션 insert
 			if(col.getCol_options().size()>0) {
-				for(int option : col.getCol_options()) {
+				for(long option : col.getCol_options()) {
 					dao.insertOptions(col.getCol_no(), option);
 				}
 			}
@@ -139,7 +139,7 @@ public class SchemaService {
 			
 		// 옵션이 있으면 옵션 insert
 			if(col.getCol_options().size()>0) {
-				for(int option : col.getCol_options()) {
+				for(long option : col.getCol_options()) {
 					dao.insertOptions(col.getCol_no(), option);
 				}
 			}
@@ -213,7 +213,7 @@ public class SchemaService {
 					dataInfo.put(col,map);
 				} // 랜덤 숫자
 				else if(col.getProcess_no() == 2) {
-					List<Integer> option = col.getCol_options();
+					List<Long> option = col.getCol_options();
 					Map<String,Object> map = new HashMap<String, Object>();
 					map.put("min",option.get(0));
 					map.put("max",option.get(1));

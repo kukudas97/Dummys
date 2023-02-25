@@ -263,14 +263,14 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 							</thead>
 							<tbody id="schemaarea">
 								<tr class="schema">
-									<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="name" ><div class="datasection"><input type="text" value="1"></div></div></td>
+									<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="name" ><div class="datasection"><input type="text" value="컬럼 이름"></div></div></td>
 									<td class="col-sm-2 col-md-2 col-lg-2"><div data-type="type" data-value="201" ><div class="datasection"><input data-value="201" process-value="2" type="text" value="랜덤 숫자" readonly/></div></div></td>
 									<td class="col-sm-3 col-md-3 col-lg-3"><div data-type="options"  ><div class="datasection"><input type="text" value="0"  min="0" max="100"></div></div></td>
 									<td class="col-sm-3 col-md-3 col-lg-3">
 										<div data-type="selectoptions"  >
 											<div class="datasection row">
-												<input type="text" value="1" class="col-sm-6 col-md-6 col-lg-6" placeholder="min"  min="–2147483647" max="2147483647">
-												<input type="text" value="100" class="col-sm-6 col-md-6 col-lg-6" placeholder="max" min="–2147483647" max="2147483647">
+												<input type="text" value="1" class="col-sm-6 col-md-6 col-lg-6" placeholder="min"  min="-9223372036854775806" max="9223372036854775806">
+												<input type="text" value="100" class="col-sm-6 col-md-6 col-lg-6" placeholder="max" min="–9223372036854775806" max="9223372036854775806">
 											</div>
 										</div>
 									</td>
@@ -589,13 +589,13 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 												.append($('<div>').addClass('datasection row')
 																.append($('<input>').addClass('col-sm-6 col-md-6 col-lg-6')
 																					.attr('type', 'text')
-																					.attr('min','–2147483647')
-																					.attr('max','2147483646')
+																					.attr('min','–9223372036854775806')
+																					.attr('max','9223372036854775806')
 																					.val('1'))
 																.append($('<input>').addClass('col-sm-6 col-md-6 col-lg-6')
 																					.attr('type', 'text')
-																					.attr('min','–2147483647')
-																					.attr('max','2147483646')
+																					.attr('min','–9223372036854775806')
+																					.attr('max','9223372036854775806')
 																					.val('100'))));
 		const td5_span = $('<span>').addClass('ti-close delBtn');
 		$(td5_span).on({
