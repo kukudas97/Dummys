@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="/resources/images/DummysFavicon.png" type="image/x-icon" sizes="16x16">
 <style>
 	input {
 	      display: inline-block;
@@ -44,9 +45,9 @@
 </style>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
 	<div id="right-panel" class="right-panel">
 		<jsp:include page="/WEB-INF/views/include/header.jsp" />
-		<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
 		<div id="main_content" class="content">
 			<div class="row">
 				<div class="col">
@@ -119,20 +120,26 @@
 						</tfoot>
 					</table>
 				</div>
-
 			</div>
-		</div>
-		
-		<section>
-			<div class="createnav">
-				<div class="btnArea">
-					<div class="navbtn btn btn-outline-success" id="saveBtn">저장하기</div>
-					<div class="navbtn btn btn-outline-success" id="listBtn">목록으로</div>
-					<div class="navbtn btn btn-outline-success" id="homeBtn">홈으로</div>
+			<div  class="row">
+				<div class="col-12">
+					<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 				</div>
 			</div>
-		</section>
-		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+			<div  class="row">
+				<div class="col-12">
+					<section>
+						<div class="createnav">
+							<div class="btnArea">
+								<div class="navbtn btn btn-outline-success" id="saveBtn">저장하기</div>
+								<div class="navbtn btn btn-outline-success" id="listBtn">목록으로</div>
+								<div class="navbtn btn btn-outline-success" id="homeBtn">홈으로</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 <script>

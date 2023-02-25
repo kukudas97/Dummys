@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="/resources/images/DummysFavicon.png" type="image/x-icon" sizes="16x16">
 <style type="text/css">
 	#check{
 		width: 100px
@@ -19,24 +20,26 @@
 </style>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
 	<div id="right-panel" class="right-panel">
 		<jsp:include page="/WEB-INF/views/include/header.jsp" />
-		<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
 		<div id="main_content" class="main_content_height">
 			<div class="row">
 				<div class="col">
 					<div class="row">
-						<h1>나의 타입 생성</h1>
+						<h1 class="col-12">나의 타입 생성</h1>
 					</div>
 					<br>
 					<div class="row">
-						<div>
-							<p>원하는 페이지를 만들어 보아요! 무조건 txt파일로 올리세요</p>
-							<p>불편하면 자세를 고쳐앉아</p>
+						<div class="col-12">
+							<p>타입을 통해 직접 더미데이터 리스트를 생성해보세요!</p>
+							<p>텍스트 파일을 통해 형태와 목록을 원하는대로 생성할 수 있습니다!</p>
 						</div>
 					</div>
 					<div class="row">
-						<button class="btn btn-outline-secondary newbtn"><a href="/type/typecreate.do">새로운 타입!</a></button>
+						<div class="col-12">
+							<button class="btn btn-outline-secondary newbtn"><a href="/type/typecreate.do">새로운 타입!</a></button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -103,21 +106,14 @@
 					</section>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-12">
+					<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+				</div>
+			</div>
 		</div>
-		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	</div>
 </body>
-
-    <script src="/resources/js/lib/data-table/datatables.min.js"></script>
-    <script src="/resources/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-    <script src="/resources/js/lib/data-table/dataTables.buttons.min.js"></script>
-    <script src="/resources/js/lib/data-table/buttons.bootstrap.min.js"></script>
-    <script src="/resources/js/lib/data-table/jszip.min.js"></script>
-    <script src="/resources/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="/resources/js/lib/data-table/buttons.html5.min.js"></script>
-    <script src="/resources/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
-    <script src="/resources/js/init/datatables-init.js"></script>
 
 <script type="text/javascript">
 

@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/include/adminHead.jsp" />
+<link rel="icon" href="/resources/images/DummysFavicon.png" type="image/x-icon" sizes="16x16">
+<%-- <jsp:include page="/WEB-INF/views/include/adminHead.jsp" /> --%>
 </head>
 <style>
 .adminReportBtn, .blockReleaseBtn {

@@ -48,7 +48,13 @@ public class ajaxSchema {
 	private GaussianService gaussianService;
 	
 	@PostMapping("schemaDownload.do")
-	public ResponseEntity<Resource> createDatas(@RequestBody CreateData data){
+	public ResponseEntity<Resource> createDatas(@RequestBody CreateData data, Principal pri){
+		if(pri == null) {
+			if(data.getRow() > 100) {
+				data.setRow(100);
+			}
+		}
+		
 		// 서비스로 데이터 생성/가공 하고...
 		List<Map<String,Object>> result = service.getDummyData(data);
 		String filename =(data.getSchema_name() != null) ? ((!data.getSchema_name().equals("")) ? data.getSchema_name() : "Schema") : "Schema";

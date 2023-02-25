@@ -3,12 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="/resources/images/DummysFavicon.png" type="image/x-icon" sizes="16x16">
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
 	<div id="right-panel" class="right-panel">
 		<jsp:include page="/WEB-INF/views/include/header.jsp" />
-		<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
-		<div id="main_content" class="main_content_height">
+		<div id="main_content" class="main_content_height content">
 			<div class="row">
 				<div class="col">
 					<div class="row">
@@ -83,11 +84,12 @@
 					</div>
 				</div>
 			</div>
-			<div>
-				<h1>설명칸</h1>
+			<div class="row">
+				<div class="col-12">
+					<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+				</div>
 			</div>
 		</div>
-		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	</div>
 </body>
 <script type="text/javascript">

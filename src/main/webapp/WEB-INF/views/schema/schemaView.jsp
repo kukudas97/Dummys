@@ -6,6 +6,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+<link rel="icon" href="/resources/images/DummysFavicon.png" type="image/x-icon" sizes="16x16">
 
 <style>
 	input {
@@ -229,11 +230,11 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 				<div class="row">
 					<div class="col">
 						<div class="row">
-							<h1>나만의 스키마 생성</h1>
+							<h1 class="col-12">나만의 스키마 생성</h1>
 						</div>
 						<br>
 						<div class="row">
-							<div>
+							<div class="col-12">
 								<p>컬럼의 이름과 타입, 옵션을 선택하세요!</p>
 								<p>미리보기, 생성하기 버튼으로 더미데이터를 생성합니다.</p>
 							</div>
@@ -292,7 +293,7 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 											<select name="select" id="printType" class="form-control">
 	                                             <option value="1">JSON</option>
 	                                             <option value="2">CSV</option>
-	                                             <option value="3">HTML TABLE</option>
+	                                             <option value="3">HTML</option>
 	                                             <option value="4">SQL</option>
 	                                             <!-- <option value="5">Excel</option> -->
 	                                         </select>
@@ -304,13 +305,13 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 						</table>
 					</div>
 				</div>
-				<!-- footer -->
-				<!-- <div class="row"> -->
-					<jsp:include page="/WEB-INF/views/include/footer.jsp" /> </section>
-				<!-- </div> -->
+				<div  class="row">
+					<div  class="col-12">
+						<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
 	<!-- .content -->
 	<div class="createnav">
 		<div class="btnArea">
@@ -326,16 +327,6 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 	</div>
 
 </body>
-<script src="/resources/js/lib/data-table/datatables.min.js"></script>
-<script src="/resources/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-<script src="/resources/js/lib/data-table/dataTables.buttons.min.js"></script>
-<script src="/resources/js/lib/data-table/buttons.bootstrap.min.js"></script>
-<script src="/resources/js/lib/data-table/jszip.min.js"></script>
-<script src="/resources/js/lib/data-table/vfs_fonts.js"></script>
-<script src="/resources/js/lib/data-table/buttons.html5.min.js"></script>
-<script src="/resources/js/lib/data-table/buttons.print.min.js"></script>
-<script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
-<script src="/resources/js/init/datatables-init.js"></script>
 <script>
 	// variable setting
 	const list = $('#schemaarea');
@@ -470,13 +461,13 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 			data : JSON.stringify(paramData),
 			contentType:'application/json',
 			  success: function(data, status, xhr) {
-				    var filename = "";
-				    var disposition = xhr.getResponseHeader('Content-Disposition');
-				    if (disposition && disposition.indexOf('attachment') !== -1) {
-				      var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-				      var matches = filenameRegex.exec(disposition);
-				      if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
-				    }
+				  var filename;
+
+				  if($('#schemaName').val() == ''){
+					  filename = 'Schema.' + $('#printType option:selected').text().toLowerCase();
+				  } else {
+					  filename = $('#schemaName').val() + '.' + $('#printType option:selected').text().toLowerCase();
+				  }
 					
 				    var blob = new Blob([data], {type: 'text/plain'});
 				    if (typeof window.navigator.msSaveBlob !== 'undefined') {

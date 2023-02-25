@@ -12,17 +12,18 @@
                 <ul class="nav navbar-nav">
                 
                     <li class="menu-title">Dummy Data</li><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Schema</a>
-                        <ul class="sub-menu children dropdown-menu">
+
+                     <li class="menu-item-has-children dropdown open">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-area-chart"></i>스키마</a>
+                        <ul class="sub-menu children dropdown-menu"><li class="subtitle"> <i class="menu-icon fa fa-area-chart"></i>Maps</li><li class="subtitle"> <i class="menu-icon fa fa-area-chart"></i>스키마</li>
                             <li><i class="fa fa-table"></i><a href="/schema/schemaList.do?type=all">전체 스키마 리스트</a></li>
                             <li><i class="fa fa-table"></i><a href="/schema/schemaList.do?type=mine">내 스키마 리스트</a></li>
                             <li><i class="fa fa-table"></i><a href="/schema/schemaCreate.do">스키마 만들기</a></li>
                         </ul>
                     </li>
-                        
+
                     <li class="menu-item-has-children dropdown">
-                        <a href="/type/typelist.do" class="dropdown-toggle" > <i class="menu-icon fa fa-table"></i>Datasets</a>
+                        <a href="/type/typelist.do" class="dropdown-toggle" > <i class="menu-icon fa fa-table"></i>타입</a>
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="/gaussian/gaussianList.do" class="dropdown-toggle"> <i class="menu-icon fa fa-th"></i>정규분포</a>

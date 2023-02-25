@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="/resources/images/DummysFavicon.png" type="image/x-icon" sizes="16x16">
 <!-- CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -21,25 +22,25 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
+		<jsp:include page="/WEB-INF/views/include/adminSidebar.jsp" />
 	<div id="right-panel" class="right-panel">
 		<jsp:include page="/WEB-INF/views/include/adminHeader.jsp" />
-		<jsp:include page="/WEB-INF/views/include/adminSidebar.jsp" />
-		<div id="main_content" class="main_content_height">
+		<div id="main_content" class="main_content_height content">
 			<div class="row">
 				<div class="col">
 					<div class="row">
-						<h1>문의사항 관리</h1>
+						<h1 class="col-12">문의사항 관리</h1>
 					</div>
 					<br>
 					<div class="row">
-						<div>
+						<div class="col-12">
 							<p>유저들의 문의사항입니다.</p>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div style="width: 100%">
+				<div style="width: 100%" class="col-12">
 					<table id="tendinousListTable"
 						class="table table-hover table-striped data-table">
 						<thead class="table-light">
@@ -89,10 +90,13 @@
 							</tr>
 						</tfoot>
 					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
 					<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 				</div>
 			</div>
-
 			<!-- 모델창 -->
 			<div class="modal fade" id="exampleModal" tabindex="-1"
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -141,7 +145,6 @@
 				</div>
 			</div>
 			<!-- 모델창 끝 -->
-
 		</div>
 	</div>
 </body>

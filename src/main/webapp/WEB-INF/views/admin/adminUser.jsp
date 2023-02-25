@@ -4,20 +4,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/include/adminHead.jsp" />
+<link rel="icon" href="/resources/images/DummysFavicon.png" type="image/x-icon" sizes="16x16">
+<%-- <jsp:include page="/WEB-INF/views/include/adminHead.jsp" /> --%>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/include/adminSidebar.jsp" />
 	<div id="right-panel" class="right-panel">
 		<jsp:include page="/WEB-INF/views/include/adminHeader.jsp" />
-		<jsp:include page="/WEB-INF/views/include/adminSidebar.jsp" />
-		<div id="main_content" class="main_content_height">
+		<div id="main_content" class="main_content_height content">
 			<div class="row">
 				<div class="col">
 					<div class="row margin15">
-						<h1><b>회원관리</b></h1>
+						<h1 class="col-12"><b>회원관리</b></h1>
 					</div>
-					<div class="전체 회원관리">
-						<p>회원 정보를 확인해보세요~</p>
+					<div class="row">
+						<p class="col-12">회원 정보를 확인해보세요~</p>
 					</div>
 				</div>
 			</div>
@@ -73,8 +74,12 @@
 					</table>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-12">
+					<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+				</div>
+			</div>
 		</div>
-		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	</div>
 </body>
 
