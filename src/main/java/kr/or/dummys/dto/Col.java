@@ -15,5 +15,5 @@ public class Col {
 	private int col_blank;
 	private String col_function;
 	private int col_order;
-	private List<Integer> col_options;
+	private List<Long> col_options;
 }

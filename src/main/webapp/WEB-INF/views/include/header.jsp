@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Dummy's</title>
@@ -43,6 +44,17 @@
 
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+ 
+	<script src="/resources/js/lib/data-table/datatables.min.js"></script>
+	<script src="/resources/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+	<script src="/resources/js/lib/data-table/dataTables.buttons.min.js"></script>
+	<script src="/resources/js/lib/data-table/buttons.bootstrap.min.js"></script>
+	<script src="/resources/js/lib/data-table/jszip.min.js"></script>
+	<script src="/resources/js/lib/data-table/vfs_fonts.js"></script>
+	<script src="/resources/js/lib/data-table/buttons.html5.min.js"></script>
+	<script src="/resources/js/lib/data-table/buttons.print.min.js"></script>
+	<script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
+	<script src="/resources/js/init/datatables-init.js"></script>
  
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');

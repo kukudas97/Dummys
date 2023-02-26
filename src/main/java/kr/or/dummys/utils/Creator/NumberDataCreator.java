@@ -5,18 +5,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.commons.math3.random.RandomDataGenerator;
+
 public class NumberDataCreator implements DummyDataCreator {
 
 	@Override
 	public List<String> run(Map<String, Object> map, int row) {
 		List<String> dummyData = new ArrayList<String>();
-		int min = (int)map.get("min");
-		int max = (int)map.get("max");
-		Random random = new Random();
+		long min = (long)map.get("min");
+		long max = (long)map.get("max");
+		RandomDataGenerator randomLong = new RandomDataGenerator();
 		
 		for(int i = 0; i < row; i++) {
-			int randomNumber = random.nextInt(max - min + 1) + min;
-			dummyData.add(randomNumber+"");
+		    long generatedLong = randomLong.nextLong(min, max);
+			dummyData.add(generatedLong+"");
 		}
 		
 		return dummyData;

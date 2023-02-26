@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="/resources/images/DummysFavicon.png" type="image/x-icon" sizes="16x16">
 <style>
 #write-reply {
 	display: none;
@@ -42,92 +43,94 @@
 		<!-- Header-->
 		<jsp:include page="/WEB-INF/views/include/header.jsp" />
 		<!-- /Header-->
-		<div class="card shadow mb-4">
-			<div class="card-header py-3">
-				<strong class="card-title board_kind" name='board_kind'><c:out
-						value="${board.board_kind}" /></strong>
-			</div>
-
-			<div class="card-body">
-
-				<div class="form-group">
-					<label>#</label> <input class="form-control board_detail"
-						name='board_no' value='<c:out value="${board.board_no}"/>'
-						readonly="readonly">
+		<div class="content">
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<strong class="card-title board_kind" name='board_kind'><c:out
+							value="${board.board_kind}" /></strong>
 				</div>
-
-				<div class="form-group">
-					<label>제목</label> <input class="form-control board_detail"
-						name='board_name' value='<c:out value="${board.board_name}"/>'
-						readonly="readonly">
-				</div>
-
-				<div class="form-group">
-					<label>내용</label>
-					<textarea class="form-control board_detail" rows="3"
-						name='board_content' readonly="readonly"><c:out
-							value="${board.board_content}" /></textarea>
-				</div>
-
-				<div class="form-group">
-					<label>작성자</label> <input class="form-control board_detail"
-						name='nickname' value='<c:out value="${board.nickname}"/>'
-						readonly="readonly">
-				</div>
-
-				<div class="form-group">
-					<label>작성일</label> <input class="form-control board_detail"
-						name='board_date' value='<c:out value="${board.board_date}" />'
-						readonly="readonly">
-				</div>
-				<c:if test="${board.board_kind eq '공유게시판' }">
-					<c:if test="${!empty shareSchema}">
-						<div class="form-group">
-							<label>공유 스키마</label><input id="shareBtn" class="form-control board_detail" value="&#35;${shareSchema.schema_no } &#39;${shareSchema.schema_name}&#39; 공유받기" readonly="readonly">
-						</div>
+	
+				<div class="card-body">
+	
+					<div class="form-group">
+						<label>#</label> <input class="form-control board_detail"
+							name='board_no' value='<c:out value="${board.board_no}"/>'
+							readonly="readonly">
+					</div>
+	
+					<div class="form-group">
+						<label>제목</label> <input class="form-control board_detail"
+							name='board_name' value='<c:out value="${board.board_name}"/>'
+							readonly="readonly">
+					</div>
+	
+					<div class="form-group">
+						<label>내용</label>
+						<textarea class="form-control board_detail" rows="3"
+							name='board_content' readonly="readonly"><c:out
+								value="${board.board_content}" /></textarea>
+					</div>
+	
+					<div class="form-group">
+						<label>작성자</label> <input class="form-control board_detail"
+							name='nickname' value='<c:out value="${board.nickname}"/>'
+							readonly="readonly">
+					</div>
+	
+					<div class="form-group">
+						<label>작성일</label> <input class="form-control board_detail"
+							name='board_date' value='<c:out value="${board.board_date}" />'
+							readonly="readonly">
+					</div>
+					<c:if test="${board.board_kind eq '공유게시판' }">
+						<c:if test="${!empty shareSchema}">
+							<div class="form-group">
+								<label>공유 스키마</label><input id="shareBtn" class="form-control board_detail" value="&#35;${shareSchema.schema_no } &#39;${shareSchema.schema_name}&#39; 공유받기" readonly="readonly">
+							</div>
+						</c:if>
 					</c:if>
-				</c:if>
-        
-				<c:if test="${userid eq board.userid }">
-				<button data-oper='modify' class="btn btn-success">수정</button>
-				</c:if>
-				<button data-oper='list' class="btn btn-info">목록</button>
-				<c:if test="${userid eq board.userid }">
-				<button data-oper='delete' class="btn btn-danger">삭제</button>
-				</c:if>
-				<c:if test="${userid ne board.userid }">
-				<button data-oper='report' class="btn btn-warning">신고</button>
-				</c:if>
-				
-				<%-- <a href="/board/boardList.do?board_kind=${board.board_kind}">목록</a> --%>
-
-				<form id='operForm' action="" method="get">
-					<input type='hidden' id="board_no" name='board_no' value='<c:out value="${board.board_no}" />'> 
-					<input type='hidden' id="board_kind" name='board_kind' value='<c:out value="${board.board_kind}" />'>
-				</form>
-
-
-			</div>
-
-			<div class="col-md-12">
-				<div class="reply-card">
-					<strong class="reply-title">댓글 </strong>
-
-					<div class="reply-view row">
-						<ul class="chat" id="reply" style="width: 100%"></ul>
-					</div>
-
-					<div class="add-reply">
-						<button type="button" class="btn btn-outline-success btn-sm"
-							id="addReplyBtn">댓글작성</button>
-					</div>
-
-					<div id="write-reply" class="form-floating ">
-						<textarea class="form-control" placeholder="댓글을 작성하세요"
-							id="reply_content" style="height: 110px; margin-bottom: 5px;"></textarea>
-						<hidden id="reply_userid">
-						<button class="btn" id="register_reply">등록</button>
-						<button class="btn" id="reply_reset">취소</button>
+	        
+					<c:if test="${userid eq board.userid }">
+					<button data-oper='modify' class="btn btn-success">수정</button>
+					</c:if>
+					<button data-oper='list' class="btn btn-info">목록</button>
+					<c:if test="${userid eq board.userid }">
+					<button data-oper='delete' class="btn btn-danger">삭제</button>
+					</c:if>
+					<c:if test="${userid ne board.userid }">
+					<button data-oper='report' class="btn btn-warning">신고</button>
+					</c:if>
+					
+					<%-- <a href="/board/boardList.do?board_kind=${board.board_kind}">목록</a> --%>
+	
+					<form id='operForm' action="" method="get">
+						<input type='hidden' id="board_no" name='board_no' value='<c:out value="${board.board_no}" />'> 
+						<input type='hidden' id="board_kind" name='board_kind' value='<c:out value="${board.board_kind}" />'>
+					</form>
+	
+	
+				</div>
+	
+				<div class="col-md-12">
+					<div class="reply-card">
+						<strong class="reply-title">댓글 </strong>
+	
+						<div class="reply-view row">
+							<ul class="chat" id="reply" style="width: 100%"></ul>
+						</div>
+	
+						<div class="add-reply">
+							<button type="button" class="btn btn-outline-success btn-sm"
+								id="addReplyBtn">댓글작성</button>
+						</div>
+	
+						<div id="write-reply" class="form-floating ">
+							<textarea class="form-control" placeholder="댓글을 작성하세요"
+								id="reply_content" style="height: 110px; margin-bottom: 5px;"></textarea>
+							<hidden id="reply_userid">
+							<button class="btn" id="register_reply">등록</button>
+							<button class="btn" id="reply_reset">취소</button>
+						</div>
 					</div>
 				</div>
 			</div>

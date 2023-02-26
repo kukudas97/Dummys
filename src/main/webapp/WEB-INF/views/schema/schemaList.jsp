@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="/resources/images/DummysFavicon.png" type="image/x-icon" sizes="16x16">
 <style type="text/css">
 	#check{
 		width: 100px
@@ -23,31 +24,33 @@
 </style>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
 	<div id="right-panel" class="right-panel">
 		<jsp:include page="/WEB-INF/views/include/header.jsp" />
-		<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
-		<div id="main_content">
+		<div id="main_content" class="content conatiner">
 			<div class="row">
 				<div class="col">
 					<div class="row">
 						<c:choose>
 							<c:when test="${param.type eq 'mine'}">
-								<h1>나의 스키마</h1>
+								<h1 class="col-12">나의 스키마</h1>
 							</c:when>
 							<c:otherwise>
-								<h1>전체 스키마</h1>
+								<h1 class="col-12">전체 스키마</h1>
 							</c:otherwise>
 						</c:choose>
 					</div>
 					<br>
 					<div class="row">
-						<div>
-							<p>원하는 더미데이터 그룹을 선택하고 생성하세요!</p>
-							<p>저장 및 수정도 자유롭게 가능합니다.</p>
+						<div class="col-12">
+							<p>원하는 더미데이터 그룹을 생성하고 선택하세요!</p>
+							<p>저장 및 수정도 자유롭게 가능합니다!</p>
 						</div>
 					</div>
 					<div class="row">
-						<button class="btn btn-outline-secondary newbtn" id="createBtn">스키마 만들기</button>
+						<div class="col-12">
+							<button class="btn btn-outline-secondary newbtn" id="createBtn">스키마 만들기</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -103,20 +106,14 @@
 				</div>
 
 			</div>
+			<div class="row">
+				<div class="col-12">
+					<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+				</div>
+			</div>
 		</div>
-		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	</div>
 </body>
-<script src="/resources/js/lib/data-table/datatables.min.js"></script>
-<script src="/resources/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-<script src="/resources/js/lib/data-table/dataTables.buttons.min.js"></script>
-<script src="/resources/js/lib/data-table/buttons.bootstrap.min.js"></script>
-<script src="/resources/js/lib/data-table/jszip.min.js"></script>
-<script src="/resources/js/lib/data-table/vfs_fonts.js"></script>
-<script src="/resources/js/lib/data-table/buttons.html5.min.js"></script>
-<script src="/resources/js/lib/data-table/buttons.print.min.js"></script>
-<script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
-<script src="/resources/js/init/datatables-init.js"></script>
 <script>
 	$('#createBtn').on({
 		click : ()=>{

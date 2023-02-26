@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="/resources/images/DummysFavicon.png" type="image/x-icon" sizes="16x16">
 <style>
 	input {
 	      display: inline-block;
@@ -19,23 +20,65 @@
 	.delBtn {
 		cursor : pointer;
 	}
+		
+.collapsible {
+    display: inherit;
+  background: none;
+  border: none;
+  outline: none;
+  cursor:pointer;
+  margin-bottom:16px;
+}
+.collapsible:after {
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.collapsiblecontent {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
 </style>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
 	<div id="right-panel" class="right-panel">
 		<jsp:include page="/WEB-INF/views/include/header.jsp" />
-		<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
-		<div id="main_content">
+		<div id="main_content" class="content">
 			<div class="row">
 				<div class="col">
 					<div class="row">
-						<h1>나만의 정규분포 규칙 생성</h1>
+						<h1 class="col-12">나만의 정규분포 규칙 생성</h1>
 					</div>
 					<br>
 					<div class="row">
-						<div>
-							<p>원하는 페이지를 만들어 보아요! 무조건 txt파일로 올리세요</p>
-							<p>불편하면 자세를 고쳐앉아</p>
+						<div class="col-12">
+							<div class="row">
+								<button class="collapsible col-1"><h3 style="margin: 0 auto;"><i class="fa fa-question-circle"></i></h3></button>
+								<div class="collapsiblecontent col-11">
+								  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+								</div>
+							</div>
+							<script>
+							var coll = document.getElementsByClassName("collapsible");
+							var i;
+							
+							for (i = 0; i < coll.length; i++) {
+							  coll[i].addEventListener("click", function() {
+							    this.classList.toggle("active");
+							    var content = this.nextElementSibling;
+							    if (content.style.maxHeight){
+							      content.style.maxHeight = null;
+							    } else {
+							      content.style.maxHeight = content.scrollHeight + "px";
+							    } 
+							  });
+							}
+							</script>
 						</div>
 					</div>
 				</div>
@@ -77,20 +120,26 @@
 						</tfoot>
 					</table>
 				</div>
-
 			</div>
-		</div>
-		
-		<section>
-			<div class="createnav">
-				<div class="btnArea">
-					<div class="navbtn btn btn-outline-success" id="saveBtn">저장하기</div>
-					<div class="navbtn btn btn-outline-success" id="listBtn">목록으로</div>
-					<div class="navbtn btn btn-outline-success" id="homeBtn">홈으로</div>
+			<div  class="row">
+				<div class="col-12">
+					<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 				</div>
 			</div>
-		</section>
-		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+			<div  class="row">
+				<div class="col-12">
+					<section>
+						<div class="createnav">
+							<div class="btnArea">
+								<div class="navbtn btn btn-outline-success" id="saveBtn">저장하기</div>
+								<div class="navbtn btn btn-outline-success" id="listBtn">목록으로</div>
+								<div class="navbtn btn btn-outline-success" id="homeBtn">홈으로</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 <script>
