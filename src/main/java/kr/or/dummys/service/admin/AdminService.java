@@ -122,7 +122,6 @@ public class AdminService {
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
-		
 		return (deleteRoleBlock == 1) ? 1:0 ;
 	}
 	

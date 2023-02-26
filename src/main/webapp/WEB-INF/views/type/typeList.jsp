@@ -130,11 +130,27 @@
 			data : JSON.stringify(checklist),
 			"contentType":"application/json",
 			success : function(result){
-				alert("총 " + result.msg + "개가 삭제되었습니다.")
-				location.reload(); 
+				Swal.fire({
+					title:'타입 삭제를 성공했습니다.',
+					text: '총'+ result.msg +'개의 타입이 삭제되었습니다.',
+					  imageUrl: '/resources/images/successMonster.png',
+					  imageWidth: 220,
+					  imageHeight: 250,
+					  imageAlt: 'Custom image',
+					  width:400
+					}).then(()=>{
+						location.reload()	
+					}) 
 			},
 			error : function(){
-				alert("삭제 실패")
+				Swal.fire({
+					title:'삭제를 실패했습니다.',
+					  imageUrl: '/resources/images/failMonster.png',
+					  imageWidth: 220,
+					  imageHeight: 250,
+					  imageAlt: 'Custom image',
+					  width:400
+					})
 			}
 		})
 	}
@@ -167,7 +183,14 @@
 				
 			},
 			error : function(){
-				alert("불러오는데 실패했습니다.");
+				Swal.fire({
+					title:'불러오는데 실패했습니다.',
+					  imageUrl: '/resources/images/failMonster.png',
+					  imageWidth: 220,
+					  imageHeight: 250,
+					  imageAlt: 'Custom image',
+					  width:400
+					})
 			}
 		})
 	})

@@ -53,7 +53,7 @@
 									</div>
 									<div class="card-body">
 										<div class="row">
-											<div class="col-lg-5" style="margin: auto; display: inline">
+											<div class="col-lg-6 col-md-12">
 												<h3 class="margin15">누적 신고</h3>
 												<table id="reportWarningUsers"
 													class="table table-striped table-bordered"
@@ -80,7 +80,7 @@
 											</div>
 
 
-											<div class="col-lg-5" style="margin: auto; display: inline">
+											<div class="col-lg-6 col-md-12">
 												<h3 class="margin15">정지 해제</h3>
 												<table id="blockedUsers"
 													class="table table-striped table-bordered"
@@ -274,7 +274,7 @@
            		success: function(data){
            			Swal.fire({
         				title: '정지 성공!',
-        			  	text: '회원에게  ROlE_BLOCK 권한이 부여하였습니다.',
+        			  	text: '회원에게  ROlE_BLOCK 권한이 부여',
         			  	imageUrl: '/resources/images/successMonster.png',
         			  	imageWidth: 220,
         			  	imageHeight: 250,

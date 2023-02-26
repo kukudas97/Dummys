@@ -84,6 +84,13 @@ public class TypeController {
 		} catch (Exception e) {
 			
 		}
+		
+		if(random_word_form == null) {
+			random_word_form = "지정하지 않았습니다.";
+		}else if(random_word_form != null && random_word_form.equals("")) {
+			random_word_form = "지정하지 않았습니다.";
+		}
+		
 		try {
 			
 			int insert =
