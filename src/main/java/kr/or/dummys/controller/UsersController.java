@@ -62,6 +62,7 @@ public class UsersController {
 	}
 	*/
 	
+	//회원 정지 페이지
 	@GetMapping("/blockUser.do")
 	public String blockUserPage() {
 		return "users/blockUser";
@@ -97,8 +98,6 @@ public class UsersController {
 	
 	@PostMapping("/forgetPassword.do")
 	public String returnPassword(Users users, Model model, Principal principal) {
-		System.out.println("asdf");
-		System.out.println(users);
 		/*  
 		아이디랑 비밀번호를 찾는거임
 		그럼 닉네임도 동일하게 업데이트 할때 넣어줘야하니깐
