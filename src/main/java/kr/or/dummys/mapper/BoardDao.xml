@@ -19,7 +19,7 @@ select BOARD_NO, users.USERID, users.NICKNAME, BOARD_KIND, BOARD_NAME, BOARD_CON
  
  <insert id="boardWrite" parameterType="kr.or.dummys.dto.Board">
  insert into board (board_no, userid, board_kind, board_name, board_content, board_date)
- values(board_no_seq.nextval, #{userid}, #{board_kind}, #{board_name}, #{board_content}, sysdate)
+ values(board_no_seq.nextval, #{userid}, #{board_kind}, #{board_name}, #{board_content}, current_date)
 <selectKey keyProperty="board_no" resultType="Integer" order="AFTER">
 select board_no_seq.currval from dual
 </selectKey>
@@ -42,7 +42,7 @@ select board_no_seq.currval from dual
  UPDATE board
  SET board_name=#{board_name},
  	 board_content=#{board_content},
-    board_date=sysdate
+    board_date=current_date
 where board_no=${board_no}
  </update>
  
