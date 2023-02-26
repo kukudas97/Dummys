@@ -193,7 +193,7 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 	                        </span>
 							<div class="badge float-right mt-1">
 								<button type="button" class="btn btn-outline-primary btn-sm" id="type_all_btn"><i class="fa fa-star"></i>&nbsp; 전체 타입</button>
-								<button type="button" class="btn btn-outline-secondary btn-sm"id="type_admin_btn"><i class="fa fa-lightbulb-o"></i>&nbsp; 공식 타입</button>
+								<button type="button" class="btn btn-outline-secondary btn-sm"id="type_admin_btn"><i class="fa fa-lightbulb-o"></i>&nbsp; 기본 타입</button>
 	                    		<se:authorize access="isAuthenticated()">
 									<button type="button" class="btn btn-outline-success btn-sm"id="type_mine_btn"><i class="fa fa-magic"></i>&nbsp; 내 타입</button>
 									<button type="button" class="btn btn-outline-warning btn-sm"id="type_gaussian_btn"><i class="fa fa-map-marker"></i>&nbsp; 정규분포</button>
