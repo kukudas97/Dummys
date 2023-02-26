@@ -30,20 +30,13 @@ public class JoinController {
 	//회원가입 처리
 	@PostMapping("/join.do")
 	public String join(Users users) {
-		System.out.println(users.toString());
 		int result = 0;
-		String viewpage="";
-		
+		String viewpage=null;
 		users.setPassword(this.bCryptPasswordEncoder.encode(users.getPassword()));
-		
 		result = joinService.insertUser(users);
 		if(result > 0) {
-			System.out.println("삽입 성공");
 			viewpage = "redirect:/index.do";
 		}
-		                
-		
-		
 		return viewpage;
 	}
 	
