@@ -237,6 +237,30 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 							<div class="col-12">
 								<p>컬럼의 이름과 타입, 옵션을 선택하세요!</p>
 								<p>미리보기, 생성하기 버튼으로 더미데이터를 생성합니다.</p>
+								<div class="row">
+								<button class="collapsible col-1"><h3 style="margin: 0 auto;"><i class="fa fa-question-circle"></i></h3></button>
+								<div class="collapsiblecontent col-11">
+								  <p>나오는 정보는 미리보기를 통해 확인해주시기 바랍니다.</p>
+								  <p>컬럼 이름과 타입을 선택해주고, 공백은 얼마나 많은 값을 비울껀지 %로 작성해주시기 바랍니다.</p>
+								  <p>가장 우측에 있는 선택옵션에 경우 있을 시 범위를 지정해주시기 바랍니다.</p>
+								</div>
+							</div>
+							<script>
+								var coll = document.getElementsByClassName("collapsible");
+								var i;
+								
+								for (i = 0; i < coll.length; i++) {
+								  coll[i].addEventListener("click", function() {
+								    this.classList.toggle("active");
+								    var content = this.nextElementSibling;
+								    if (content.style.maxHeight){
+								      content.style.maxHeight = null;
+								    } else {
+								      content.style.maxHeight = content.scrollHeight + "px";
+								    } 
+								  });
+								}
+							</script>
 							</div>
 						</div>
 					</div>
@@ -270,8 +294,8 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 									<td class="col-sm-3 col-md-3 col-lg-3">
 										<div data-type="selectoptions"  >
 											<div class="datasection row">
-												<input type="text" value="1" class="col-sm-6 col-md-6 col-lg-6" placeholder="min"  min="-9223372036854775806" max="9223372036854775806">
-												<input type="text" value="100" class="col-sm-6 col-md-6 col-lg-6" placeholder="max" min="–9223372036854775806" max="9223372036854775806">
+												<input type="number" value="1" class="col-sm-6 col-md-6 col-lg-6" placeholder="min"  min="-9223372036854775806" max="9223372036854775806">
+												<input type="number" value="100" class="col-sm-6 col-md-6 col-lg-6" placeholder="max" min="–9223372036854775806" max="9223372036854775806">
 											</div>
 										</div>
 									</td>
@@ -579,12 +603,12 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 							.append($('<div>').attr('data-type', 'selectoptions')
 												.append($('<div>').addClass('datasection row')
 																.append($('<input>').addClass('col-sm-6 col-md-6 col-lg-6')
-																					.attr('type', 'text')
+																					.attr('type', 'number')
 																					.attr('min','–9223372036854775806')
 																					.attr('max','9223372036854775806')
 																					.val('1'))
 																.append($('<input>').addClass('col-sm-6 col-md-6 col-lg-6')
-																					.attr('type', 'text')
+																					.attr('type', 'number')
 																					.attr('min','–9223372036854775806')
 																					.attr('max','9223372036854775806')
 																					.val('100'))));
@@ -710,7 +734,7 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 						if(process_no == 0 || process_no == 1){
 							col_target.close[0].after(col_target.selectoption[0]);
 						} else if (process_no == 2){
-							const txt = '<input type="text" value="1" class="col-sm-6 col-md-6 col-lg-6" placeholder="min"><input type="text" value="100" class="col-sm-6 col-md-6 col-lg-6" placeholder="max">';
+							const txt = '<input type="number" value="1" class="col-sm-6 col-md-6 col-lg-6" placeholder="min"><input type="number" value="100" class="col-sm-6 col-md-6 col-lg-6" placeholder="max">';
 							$(col_target.datasection).append(txt);
 							col_target.option[0].after(col_target.selectoption[0]);
 						} else if (process_no == 3){

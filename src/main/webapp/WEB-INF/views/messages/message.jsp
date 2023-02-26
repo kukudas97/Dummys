@@ -494,7 +494,7 @@ $("button[data-value='report']").on("click", async function(e){
          	            		},
          	            		error: function(request, status, error) { //에러 났을 경우 
          	            			Swal.fire({
-	        	           				title: '실패...',
+	        	           				title: '신고 실패...',
 	        	           				text: '',
 	        	           				imageUrl: '/resources/images/failMonster.png',
 	        	           				imageWidth: 220,

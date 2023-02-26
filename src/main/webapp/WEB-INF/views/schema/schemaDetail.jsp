@@ -295,8 +295,8 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 											<td class="col-sm-3 col-md-3 col-lg-3">
 												<div data-type="selectoptions"  >
 													<div class="datasection row">
-														<input type="text" value="${col.col_options[0]}" class="col-sm-6 col-md-6 col-lg-6" placeholder="min" min="–2147483647" max="2147483647">
-														<input type="text" value="${col.col_options[1]}" class="col-sm-6 col-md-6 col-lg-6" placeholder="max"  min="–2147483647" max="2147483647">
+														<input type="number" value="${col.col_options[0]}" class="col-sm-6 col-md-6 col-lg-6" placeholder="min" min="–2147483647" max="2147483647">
+														<input type="number" value="${col.col_options[1]}" class="col-sm-6 col-md-6 col-lg-6" placeholder="max"  min="–2147483647" max="2147483647">
 													</div>
 												</div>
 											</td>
@@ -817,7 +817,7 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 						if(process_no == 0 || process_no == 1){
 							col_target.close[0].after(col_target.selectoption[0]);
 						} else if (process_no == 2){
-							const txt = '<input type="text" value="1" class="col-sm-6 col-md-6 col-lg-6" placeholder="min"><input type="text" value="100" class="col-sm-6 col-md-6 col-lg-6" placeholder="max">';
+							const txt = '<input type="number" value="1" class="col-sm-6 col-md-6 col-lg-6" placeholder="min"><input type="number" value="100" class="col-sm-6 col-md-6 col-lg-6" placeholder="max">';
 							$(col_target.datasection).append(txt);
 							col_target.option[0].after(col_target.selectoption[0]);
 						} else if (process_no == 3){

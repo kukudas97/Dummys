@@ -65,10 +65,10 @@
 							<div id="rm" name="rm"></div>
 							
 							<h4 class="margin5">제목</h4>
-							<input type="text" class="margin15" name="title" value="${type.type_name}">
+							<input type="text" class="margin15" name="title" value="${type.type_name}" id="title" onkeyup="activeBtn()">
 							
 							<h4 class="margin5">설명</h4>
-							<input type="text" class="margin15" name="reason" value="${type.type_reason }">
+							<input type="text" class="margin15" name="reason" value="${type.type_reason }" id="reason" onkeyup="activeBtn()">
 							
 							<h4>파일</h4>
 							<input type="text" readonly="readonly" name="fileName" id="fileName">
@@ -83,7 +83,7 @@
 							</div>
 							<div class="createnav">
 								<div class="btnArea">
-									<button type="submit" class="navbtn btn btn-outline-success">수정</button>
+									<button type="submit" class="navbtn btn btn-outline-success" id="Btn" disabled>수정</button>
 									<button class="navbtn btn btn-outline-success"><a href="/index.do">메인화면</a></button>
 									<button class="navbtn btn btn-outline-success"><a href="javascript:window.history.go(-1);">뒤로가기</a></button>
 								</div>
@@ -104,6 +104,22 @@
 	</div>
 </body>
 <script type="text/javascript">
+
+	let checkFile = false;
+	
+	//버튼 활성화
+	function activeBtn(){
+		
+		let title = $("#title").val().trim();
+		let reason = $("#reason").val().trim();
+		
+		if(checkFile && title != null && title != "" && reason != null && reason != ""){
+			document.getElementById("Btn").removeAttribute("disabled");
+		}else{
+			document.getElementById("Btn").setAttribute("disabled", "disabled");
+		}
+	}
+
 	$("#file").change(()=>{
 		let fileobj = document.getElementById("file").value; 
 		
@@ -114,15 +130,40 @@
 			if(commafile == "txt"){
 				if(slashfile != null && commafile != ""){
 					document.getElementById("fileName").value = slashfile;
+					checkFile = true;
 				}else{
-					alert("파일을 확인해주세요")
+					checkFile = false;
+					Swal.fire(
+           					'파일을 확인해주세요!',
+           				  	'',
+           				 	 'question'
+           				)
 				}
 			}else{
-				alert("파일 형식이 잘못되었습니다.")
+				checkFile = false;
+				Swal.fire({
+       				title: '파일 형식이 잘못되었습니다.',
+       				text: '',
+       				imageUrl: '/resources/images/failMonster.png',
+       				imageWidth: 220,
+       				imageHeight: 250,
+       				width:400,
+       				imageAlt: '실패',
+       			})
 			}
 		}else{
-			alert("파일을 넣어주세요.");
+			checkFile = false;
+			Swal.fire({
+   				title: '파일을 넣어주세요',
+   				text: '',
+   				imageUrl: '/resources/images/failMonster.png',
+   				imageWidth: 220,
+   				imageHeight: 250,
+   				width:400,
+   				imageAlt: '실패',
+   			})
 		}
+		activeBtn();
 	})
 	
 	$('#kindSelect').change(()=>{
