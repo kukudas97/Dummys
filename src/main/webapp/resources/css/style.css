@@ -2906,3 +2906,25 @@ table .tablebtn{
 .dataTables_filter label{
 	float:right !important;
 }
+
+.collapsible {
+    display: inherit;
+  background: none;
+  border: none;
+  outline: none;
+  cursor:pointer;
+  margin-bottom:16px;
+}
+.collapsible:after {
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.collapsiblecontent {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}

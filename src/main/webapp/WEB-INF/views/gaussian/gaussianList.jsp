@@ -18,27 +18,7 @@
 		border-radius: 10px;
 	}
 	
-.collapsible {
-    display: inherit;
-  background: none;
-  border: none;
-  outline: none;
-  cursor:pointer;
-  margin-bottom:16px;
-}
-.collapsible:after {
-  color: white;
-  font-weight: bold;
-  float: right;
-  margin-left: 5px;
-}
 
-.collapsiblecontent {
-  padding: 0 18px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-}
 #gaussianTable > tbody > tr{
 	cursor : pointer;
 }
@@ -59,28 +39,7 @@
 						<div class="col-12">
 							<p>정규분포 규칙을 사용하면 스키마의 다른 열을 기반으로 숫자 분포를 형성할 수 있습니다.</p>
 							<p>이를 통해 모든 데이터의 평균값이 같은 문제를 해결할 수 있습니다.</p>
-							<div class="row">
-								<button class="collapsible col-1"><h3 style="margin: 0 auto;"><i class="fa fa-question-circle"></i></h3></button>
-								<div class="collapsiblecontent col-11">
-								  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-								</div>
-							</div>
-							<script>
-							var coll = document.getElementsByClassName("collapsible");
-							var i;
 							
-							for (i = 0; i < coll.length; i++) {
-							  coll[i].addEventListener("click", function() {
-							    this.classList.toggle("active");
-							    var content = this.nextElementSibling;
-							    if (content.style.maxHeight){
-							      content.style.maxHeight = null;
-							    } else {
-							      content.style.maxHeight = content.scrollHeight + "px";
-							    } 
-							  });
-							}
-							</script>
 						</div>
 					</div>
 					<div class="row">

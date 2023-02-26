@@ -60,7 +60,8 @@
 							<div class="row">
 								<button class="collapsible col-1"><h3 style="margin: 0 auto;"><i class="fa fa-question-circle"></i></h3></button>
 								<div class="collapsiblecontent col-11">
-								  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+									<video src="/resources/video/gaussaian_video.mp4" width="500" height="300" controls></video>
+									<p>만일 설정 외의 값도 지정하고 싶다면 "$else"라는 값으로 컬럼명을 지정 정하면 설정외의 모든 값에 적용됩니다.</p>
 								</div>
 							</div>
 							<script>
