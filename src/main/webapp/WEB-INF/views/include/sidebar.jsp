@@ -15,7 +15,8 @@
 
                      <li class="menu-item-has-children dropdown open">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-area-chart"></i>스키마</a>
-                        <ul class="sub-menu children dropdown-menu"><li class="subtitle"> <i class="menu-icon fa fa-area-chart"></i>Maps</li><li class="subtitle"> <i class="menu-icon fa fa-area-chart"></i>스키마</li>
+                        <ul class="sub-menu children dropdown-menu">
+                        <li class="subtitle"> <i class="menu-icon fa fa-area-chart"></i>스키마</li>
                             <li><i class="fa fa-table"></i><a href="/schema/schemaList.do?type=all">전체 스키마 리스트</a></li>
                             <li><i class="fa fa-table"></i><a href="/schema/schemaList.do?type=mine">내 스키마 리스트</a></li>
                             <li><i class="fa fa-table"></i><a href="/schema/schemaCreate.do">스키마 만들기</a></li>

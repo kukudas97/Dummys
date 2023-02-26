@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="messageWrite" parameterType="kr.or.dummys.dto.Message">
  		insert into message (message_no, message_content, send_id, receive_id, message_name, message_date ,message_check, send, receive)
- 		values(message_no_seq.nextval, #{message_content}, #{send_id}, #{receive_id}, #{message_name}, sysdate, 0, 0, 0)
+ 		values(message_no_seq.nextval, #{message_content}, #{send_id}, #{receive_id}, #{message_name}, current_date, 0, 0, 0)
 	    <selectKey keyProperty="message_no" resultType="Integer" order="AFTER">
 				select message_no_seq.currval from dual
 		</selectKey>

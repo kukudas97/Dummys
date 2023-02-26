@@ -137,7 +137,7 @@ public class AOP {
 		
 		int number = 0;
 		try {
-			if(sendid != userid) {
+			if(!sendid.equals(userid)) {
 				number = alarmservice.insertAlarm(alarm);
 			}
 		} catch (Exception e) {

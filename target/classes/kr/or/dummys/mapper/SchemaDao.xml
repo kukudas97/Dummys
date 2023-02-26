@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="insertSchema" parameterType="kr.or.dummys.dto.Schema">
 		insert into schema(schema_no,userid,schema_name,schema_content,schema_date,schema_delete) 
-		values(schema_no_seq.nextval, #{userid}, #{schema_name}, #{schema_content}, sysdate, 1)
+		values(schema_no_seq.nextval, #{userid}, #{schema_name}, #{schema_content}, current_date, 1)
 		<selectKey keyProperty="schema_no" resultType="Integer" order="AFTER">
 			select schema_no_seq.currval from dual
 		</selectKey>
@@ -65,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update schema set 
 		schema_name = #{schema_name}, 
 		schema_content = #{schema_content}, 
-		schema_date = sysdate
+		schema_date = current_date
 		where schema_no = ${schema_no}
 	</update>
 	

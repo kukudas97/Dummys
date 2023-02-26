@@ -45,6 +45,7 @@ public class SchemaService {
 		
 		// column insert 하고
 		for(Col col : list) {
+			if(col.getCol_name() == null) col.setCol_name("Column" + col.getCol_order());
 			col.setSchema_no(schema.getSchema_no());
 			dao.insertColumn(col);
 			
@@ -264,13 +265,14 @@ public class SchemaService {
 			}
 			// wordList = 컬럼 하나의 더미데이터 리스트
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("name",col.getCol_name());
+			String n = (col.getCol_name() == null) ? "Column" + col.getCol_order() : col.getCol_name();
+			map.put("name",n);
 			map.put("list",wordList);
 			
 			resultDatas.add(col.getCol_order(), map);
 			
 			// 정규분포에서 사용할 이름-데이터 Map put 작업
-			columnNameMap.put(col.getCol_name(),wordList);
+			columnNameMap.put(n,wordList);
 		}
 		// 정규분포 데이터 만들기
 		for(Col col : list) {

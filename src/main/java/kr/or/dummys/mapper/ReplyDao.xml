@@ -50,7 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into reply (reply_no, userid, board_no, reply_content,
 		reply_activate, reply_date, ref, dept, step)
 		values(reply_no_seq.nextval, #{userid}, #{board_no}, #{reply_content},
-		1, sysdate, #{ref},0, 1)
+		1, current_date, #{ref},0, 1)
 	</insert>
 
 	<!-- <update id="replyUpdate" parameterType="kr.or.dummys.dto.Reply"> UPDATE 
@@ -72,7 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into reply (reply_no, userid, board_no, reply_content,
 		reply_activate, reply_date, ref, dept, step)
 		values(reply_no_seq.nextval, #{userid}, #{board_no}, #{reply_content},
-		1, sysdate, #{ref}, #{dept}, #{step})
+		1, current_date, #{ref}, #{dept}, #{step})
 	</insert>
 
 	<select id="getUncleStepList"

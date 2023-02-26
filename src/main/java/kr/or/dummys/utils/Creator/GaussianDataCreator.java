@@ -36,8 +36,11 @@ public class GaussianDataCreator implements DummyDataCreator {
 			} else {
 				String word = dummylist.get(i);
 				Map<String,Integer> m =  info.get(word);
+				
+				if(m == null) m = info.get("$else");
+				
 				if(m != null) {
-					int r = m.get("avg") + (int)(random.nextGaussian() * m.get("dev"));
+					int r = m.get("avg") + (int)(random.nextGaussian() * (m.get("dev") != 0 ? m.get("dev") : 1));
 					dummyData.add(Integer.toString(r));
 				} else {
 					dummyData.add("");

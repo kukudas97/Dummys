@@ -14,6 +14,11 @@ public class NumberDataCreator implements DummyDataCreator {
 		List<String> dummyData = new ArrayList<String>();
 		long min = (long)map.get("min");
 		long max = (long)map.get("max");
+		if(min>max) {
+			long temp = min;
+			min = max;
+			max = temp;
+		}
 		RandomDataGenerator randomLong = new RandomDataGenerator();
 		
 		for(int i = 0; i < row; i++) {
