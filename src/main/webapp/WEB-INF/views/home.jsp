@@ -104,12 +104,14 @@
 		    type_name_list.push($(data).text());
 		  });
 
-		  // 데이터를 로컬 스토리지에 저장
-		  localStorage.setItem('colData', JSON.stringify({
-		    type_no_list: type_no_list,
-		    typeFormat: typeFormat,
-		    type_name_list: type_name_list
-		  }));
+		  if(type_no_list.length >0){
+			  // 데이터를 로컬 스토리지에 저장
+			  localStorage.setItem('colData', JSON.stringify({
+			    type_no_list: type_no_list,
+			    typeFormat: typeFormat,
+			    type_name_list: type_name_list
+			  }));
+		  }
 		  location.href = "/schema/schemaCreate.do";
 		});
 	</script>

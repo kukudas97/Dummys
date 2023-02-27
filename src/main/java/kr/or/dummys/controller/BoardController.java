@@ -47,7 +47,6 @@ public class BoardController {
 	  //게시글 작성 처리(DB에 insert)
 	  @PostMapping(value="boardWrite.do")
 	  public String boardWrite(Board board, @RequestParam(required =false, value="schema_no") String schema_no,HttpServletRequest request, Principal principal) {
-		  System.out.println(schema_no);
 		  String url = null;
 			try {
 				url = boardService.boardWrite(board, request, principal,schema_no);
@@ -61,7 +60,6 @@ public class BoardController {
 	  //게시글 상세보기
 	  @RequestMapping("boardDetail.do")
 	  public String boardDetail(String board_no, Model model) {
-		  System.out.println(board_no);	  
 		  Board board = boardService.boardDetail(board_no);
 		  Schema shareSchema= boardService.getBoardSchema(board.getBoard_no());
 		  
@@ -87,7 +85,6 @@ public class BoardController {
 	  //수정 처리
 	  @PostMapping(value="boardUpdate.do")
 	  public String boardUpdate(Board board, HttpServletRequest request) {
-		  System.out.println("boardUpdate.do: " + board.toString());
 		  return boardService.boardUpdate(board,  request);
 	  }
 	  

@@ -79,7 +79,9 @@ public class TypeController {
 			
 			while(sc.hasNextLine()) {
 				String str =sc.nextLine();
-				dummy.add(str);
+				if(!str.equals("")) {
+					dummy.add(str);
+				}
 			}
 		} catch (Exception e) {
 			

@@ -825,7 +825,7 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
       	'load' : ()=> {
       	  // 로컬스토리지에서 'formData' 아이템 가져오기
       	  const formData = localStorage.getItem('colData');
-      	  
+      	  console.log(formData)
       	  // formData가 존재한다면, 필요한 작업 수행
       	  if (formData) {
       		const col = JSON.parse(formData);
