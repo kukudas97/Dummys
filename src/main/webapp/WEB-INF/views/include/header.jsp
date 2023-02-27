@@ -55,7 +55,15 @@
 	<script src="/resources/js/lib/data-table/buttons.print.min.js"></script>
 	<script src="/resources/js/lib/data-table/buttons.colVis.min.js"></script>
 	<script src="/resources/js/init/datatables-init.js"></script>
- 
+ <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-258410966-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-258410966-1');
+</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 </style>
