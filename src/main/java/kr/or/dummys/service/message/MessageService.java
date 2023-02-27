@@ -46,17 +46,14 @@ public class MessageService {
 	
 	//DB에 동일한 아이디 있나 확인
 	public int idcheck(String id) throws ClassNotFoundException, SQLException {
-		System.out.println("aassdd");
 		MessageDao messagedao = sqlsession.getMapper(MessageDao.class);
 		int cnt = messagedao.idCheck(id);
-		System.out.println(id);
 		
 		return cnt;
 	}
 	//메세지 쓰기 처리
 	public int messageWrite(Message message) throws ClassNotFoundException, SQLException {
 		
-		System.out.println("메세지 처리 서비스다");
 		int result = 0;
 		MessageDao messagedao = sqlsession.getMapper(MessageDao.class);
 		result = messagedao.messageWrite(message);

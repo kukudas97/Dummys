@@ -31,10 +31,7 @@ public class ajaxReplyController {
 	@GetMapping(value="reply.do")	
 	public ResponseEntity<List<Reply>> replyFunction(@RequestParam(value="pg", required=false, defaultValue="1") String pg,
 			@RequestParam(value="ps", required=false, defaultValue="100") String ps, String board_no){
-		System.out.println("============================");
-		System.out.println(board_no);
 		List<Reply> replyList= replyService.replyList(pg, ps, board_no);
-		System.out.println(replyList.toString());
 		
 		return new ResponseEntity<List<Reply>>(replyList, HttpStatus.OK);
 	}
@@ -43,8 +40,6 @@ public class ajaxReplyController {
 	//댓글 달기(insert)
 	@PostMapping(value="reply.do")
 	  public ResponseEntity<Map<String, Object>> registerReply(String board_no, String reply_content, Principal principal) {
-		  System.out.println("reply.do 컨트롤러 탔다");
-		  System.out.println("principal: " + principal.toString());
 		  
 		  Map<String, Object> result = new HashMap<String, Object>();
 		  
@@ -61,7 +56,6 @@ public class ajaxReplyController {
 	//댓글 삭제(delete)
 	@DeleteMapping(value="reply.do")
 	public ResponseEntity<Map<String, Object>> deleteReply(@RequestBody int reply_no){
-		System.out.println("delet 컨트롤러 탔다: " + reply_no);
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		try {
@@ -76,8 +70,6 @@ public class ajaxReplyController {
 	//대댓글 달기(insert)
 	@PostMapping(value="reReply.do")
 	  public ResponseEntity<Map<String, Object>> registerReReply(int parent_reply_no, String reReply_content, Principal principal) {
-		  System.out.println("reReply.do 컨트롤러 탔다");
-		  System.out.println("principal: " + principal.getName());
 		  
 		  Map<String, Object> result = new HashMap<String, Object>();
 		  

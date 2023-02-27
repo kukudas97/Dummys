@@ -30,7 +30,6 @@ public class ajaxAlarm {
 		
 		try {
 			int count = alarmservice.countAlarm(userid);
-			System.out.println("갯수 셈" + count);
 			map.put("msg", count);
 			map.put("result", "success");
 			return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
@@ -100,7 +99,6 @@ public class ajaxAlarm {
 	public ResponseEntity<Map<String, Object>> listAlarm(String userid){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println("알람 리스트 controller");
 		userid.replaceAll("\"", "");
 		try {
 			List<Alarm> alarm_list = alarmservice.listAlarm(userid);

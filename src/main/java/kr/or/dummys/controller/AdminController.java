@@ -65,7 +65,6 @@ public class AdminController {
 	//신고 관리 리스트
 	 @GetMapping("/adminwarning.do") 
 	 public String listWarning(String pg, String f, String q, Model model){
-		 System.out.println("adminwarning 컨트롤러 탔다");
 		 List<Warning> warningBoardList = warningService.listWarning("게시글", pg, f, q);
 		 List<Warning> warningReplyList = warningService.listWarning("댓글", pg, f, q);
 		 List<Warning> warningMessageList = warningService.listWarning("쪽지",pg,f,q);
