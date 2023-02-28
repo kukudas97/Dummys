@@ -166,6 +166,9 @@ public class SchemaService {
 	public List<Map<String,Object>> getDummyData(CreateData data){
 		
 		int row = data.getRow();
+		if(row > 1000) {
+			row = 10000;
+		}
 		int type = data.getType();
 		List<Col> list = data.getList();
 		

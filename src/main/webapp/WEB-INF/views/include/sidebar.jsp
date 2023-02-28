@@ -4,6 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+	li.subtitle{
+		display:none !important;
+	}
+</style>
 </head>
 <body>
     <aside id="left-panel" class="left-panel">
