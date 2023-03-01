@@ -25,14 +25,19 @@ public class SchemaDownLoad {
 				sb.append("{");
 				for(int j = 0; j< result.size(); j++) {
 					Map<String,Object> m = result.get(j);
-					sb.append("'"); // '
+					sb.append("\""); // '
 					sb.append((String)m.get("name")); // 이름
-					sb.append("':'"); // ' : '
+					sb.append("\":\""); // ' : '
 					sb.append(((List<String>)m.get("list")).get(i)); // 값
-					sb.append("'"); // '
+					sb.append("\""); // '
 					if(j < result.size()-1) sb.append(",");
 				}
-				sb.append("}\n");
+				sb.append("}");
+				if(i+1< row) {
+					sb.append(",\n");
+				} else {
+					sb.append('\n');
+				}
 			}
 			sb.append("]"); 
 		//===========================================

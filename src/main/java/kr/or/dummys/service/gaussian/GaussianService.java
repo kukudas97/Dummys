@@ -99,9 +99,10 @@ public class GaussianService {
 		
 		// gauusian_result delete -> insert 
 		// 해당 gaussian_no에 들어있던 result 삭제하고
-		dao.deleteGaussianResultByGaussianNo(list.get(0).getGaussian_no());
+		dao.deleteGaussianResultByGaussianNo(gaussian.getGaussian_no());
 		// 다시 삽입하기
 		for(Gaussian_result  result : list) {
+			result.setGaussian_no(gaussian.getGaussian_no());
 			dao.insertGaussian_result(result);
 		}
 		

@@ -38,19 +38,19 @@
 					</section>
 					<section class="DataType">
 						<c:if test="${empty typelist }">
-							<div class="DataTypeToggle"  data-value="263">신용카드 식별번호</div>
-							<div class="DataTypeToggle"  data-value="265">ISBN</div>
-							<div class="DataTypeToggle"  data-value="266">핸드폰번호</div>
-							<div class="DataTypeToggle"  data-value="270">차량번호</div>
-							<div class="DataTypeToggle"  data-value="272">색깔</div>
-							<div class="DataTypeToggle"  data-value="271">성별</div>
-							<div class="DataTypeToggle"  data-value="282">철도역</div>
-							<div class="DataTypeToggle"  data-value="283">공항</div>
-							<div class="DataTypeToggle"  data-value="286">참/거짓</div>
-							<div class="DataTypeToggle"  data-value="285">헥스색상코드</div>
+							<div class="DataTypeToggle"  data-value="263" process-value="1">신용카드 식별번호</div>
+							<div class="DataTypeToggle"  data-value="265" process-value="1">ISBN</div>
+							<div class="DataTypeToggle"  data-value="266" process-value="1">핸드폰번호</div>
+							<div class="DataTypeToggle"  data-value="270" process-value="1">차량번호</div>
+							<div class="DataTypeToggle"  data-value="272" process-value="0">색깔</div>
+							<div class="DataTypeToggle"  data-value="271" process-value="0">성별</div>
+							<div class="DataTypeToggle"  data-value="282" process-value="0">철도역</div>
+							<div class="DataTypeToggle"  data-value="283" process-value="0">공항</div>
+							<div class="DataTypeToggle"  data-value="286" process-value="0">참/거짓</div>
+							<div class="DataTypeToggle"  data-value="285" process-value="1">헥스색상코드</div>
 						</c:if>
 						<c:forEach items="${typelist }" var="type">
-							<div class="DataTypeToggle"  data-value="${type.type_no}">${type.type_name }</div>
+							<div class="DataTypeToggle"  data-value="${type.type_no}" process-value="${type.process_no }">${type.type_name }</div>
 						</c:forEach>
 					</section>
 				</section>
@@ -60,10 +60,10 @@
 					<div class="QuickStartMsg"><span>생성할 데이터의 형식을 선택하세요</span></div>
 					</section>
 					<section class="DataFormat">
-					<div class="DataTypeToggle DataTypeOn"  data-value="1">JSON</div>
-					<div class="DataTypeToggle"  data-value="2">CSV</div>
-					<div class="DataTypeToggle"  data-value="3">HTML</div>
-					<div class="DataTypeToggle"  data-value="4">SQL</div>
+					<div class="DataTypeToggle DataTypeOn"  data-value="0">JSON</div>
+					<div class="DataTypeToggle"  data-value="1">CSV</div>
+					<div class="DataTypeToggle"  data-value="2">HTML</div>
+					<div class="DataTypeToggle"  data-value="3">SQL</div>
 					<!-- <div class="DataTypeToggle" >XML</div> -->
 					<!-- <div class="DataTypeToggle" >JavaScript</div> -->
 					<!-- <div class="DataTypeToggle" >EXCEL</div> -->
@@ -99,17 +99,21 @@
 		  const typeFormat = $('.DataFormat').find('.DataTypeToggle.DataTypeOn').attr('data-value');
 		  const type_no_list = [];
 		  const type_name_list = [];
+		  const process_no_list = [];
+		  
 		  $(typeList).each((index, data) => {
-		    type_no_list.push($(data).attr('data-value'));
+			type_no_list.push($(data).attr('data-value'));
+			process_no_list.push($(data).attr('process-value'));
 		    type_name_list.push($(data).text());
 		  });
 
 		  if(type_no_list.length >0){
 			  // 데이터를 로컬 스토리지에 저장
 			  localStorage.setItem('colData', JSON.stringify({
-			    type_no_list: type_no_list,
-			    typeFormat: typeFormat,
-			    type_name_list: type_name_list
+			    "type_no_list": type_no_list,
+			    "typeFormat": typeFormat,
+			    "type_name_list": type_name_list,
+			    "process_no_list": process_no_list
 			  }));
 		  }
 		  location.href = "/schema/schemaCreate.do";

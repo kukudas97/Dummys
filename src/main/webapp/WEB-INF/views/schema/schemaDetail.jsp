@@ -311,8 +311,8 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 											<td class="col-sm-3 col-md-3 col-lg-3">
 												<div data-type="selectoptions"  >
 													<div class="datasection row">
-														<span class="col-5 gaussianReasonText">#정규분포번호</span>
-														<input type="text" class="col-7" placeholder="정규분포를 선택해주세요" value="${col.col_options[0]}" readonly>
+														<span class="col-5 gaussianReasonText"  style="padding-top: 7px;">#정규분포번호</span>
+														<input type="text" class="col-7" placeholder="정규분포를 선택해주세요" value="${col.col_options[0]}" readonly style="cursor: pointer;">
 													</div>
 												</div>
 											</td>
@@ -401,6 +401,7 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 		}
 	})
 	$('#previewArea').toggle()
+	$('#previewCloseBtn').click(()=>{$('#previewArea').toggle()})
 	$("#createBtn").on({
 		click: downloadFile
 	})
