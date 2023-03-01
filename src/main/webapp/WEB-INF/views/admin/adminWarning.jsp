@@ -316,7 +316,7 @@
         	  showCancelButton: true,
         	  confirmButtonColor: '#5D6DBE',
         	  cancelButtonColor: '#d33',
-        	  confirmButtonText: '정지'
+        	  confirmButtonText: '해지'
         	}).then((result) => {
         	  if (result.isConfirmed) {
         		  const userid = $(e.target).attr("value");

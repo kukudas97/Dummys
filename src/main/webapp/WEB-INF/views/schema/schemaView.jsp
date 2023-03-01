@@ -825,14 +825,18 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
       	'load' : ()=> {
       	  // 로컬스토리지에서 'formData' 아이템 가져오기
       	  const formData = localStorage.getItem('colData');
-      	  
       	  // formData가 존재한다면, 필요한 작업 수행
       	  if (formData) {
       		const col = JSON.parse(formData);
 
       		const type_no_list = col.type_no_list;
       		const type_name_list = col.type_name_list;
+      		const process_no_list = col.process_no_list;
       		const typeFormat = col.typeFormat;
+      		
+      		const options = $('#printType option');
+      		$(options[typeFormat]).attr('selected',true);
+      		
       		$('#schemaarea').empty();
 			$(type_no_list).each((index, data) => {
 				let $tr = $('<tr>', {class: 'schema',draggable: true});
@@ -851,7 +855,7 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 
 				let $typeSection = $('<div>', {class: 'datasection'}).appendTo($typeDiv);
 
-				let $typeinput = $('<input>', {'data-value': type_no_list[index],'process-value': 0,type: 'text',value: type_name_list[index],readonly: true}).appendTo($typeSection);
+				let $typeinput = $('<input>', {'data-value': type_no_list[index],'process-value': process_no_list[index],type: 'text',value: type_name_list[index],readonly: true}).appendTo($typeSection);
 				$($typeinput).on({click : typeClickEventFunction})
 
 				let $optionTd = $('<td>', {class: 'col-sm-3 col-md-3 col-lg-3'}).appendTo($tr);
@@ -880,8 +884,9 @@ insert into 스키마이름(컬럼1, 컬럼2, 컬럼3) values(값1-3, 값2-3, �
 				let $selectSection = $('<div>', {class: 'datasection row'}).appendTo($selectDiv);
 
 				$('#schemaarea').append($tr);
-				});
-      	  }
+				}); //each end
+				
+      	  } // if(formData) end
       	},
       	'keydown': function(e) {
       	  if (e.which === 116) { // 새로고침 이벤트를 감지하기 위한 키 코드

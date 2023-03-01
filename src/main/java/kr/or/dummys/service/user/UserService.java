@@ -57,7 +57,6 @@ public class UserService {
 	public int updateLogin_date(String userid) {
 		UserDao userdao = sqlsession.getMapper(UserDao.class);
 		int result = userdao.updateLogin_date(userid);
-		System.out.println(result);
 		return result;
 	}
 	
@@ -143,9 +142,6 @@ public class UserService {
 			myReportBoard = userDao.getReportBoard(userid);
 			myReportReply = userDao.getReportReply(userid);
 
-			System.out.println("myReportBoard: " + myReportBoard.toString());
-
-			System.out.println("myReportBoard size: " + myReportBoard.size());
 			
 			myReportMap.put("myReportBoard", myReportBoard);
 			myReportMap.put("myReportReply", myReportReply);

@@ -39,7 +39,6 @@ public class MessageController {
 	@PostMapping("message.do")
 	public String messageSend(Message message, HttpServletRequest request) throws ClassNotFoundException, SQLException {
 		
-		System.out.println(message);
 		int result = 0;
 		
 		String viewpage="";

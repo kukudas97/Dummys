@@ -44,7 +44,6 @@ public class GaussianController {
 		
 		// 번호 입력 없으면 리스트로
 		if(gaussian_no.equals("") || gaussian_no == null) {
-			System.out.println("입력없음");
 			return "gaussian/gaussianList.do";
 		}
 		

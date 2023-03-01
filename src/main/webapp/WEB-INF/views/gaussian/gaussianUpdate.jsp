@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -20,7 +20,28 @@
 	}
 	.delBtn {
 		cursor : pointer;
-	}
+	}	
+.collapsible {
+    display: inherit;
+  background: none;
+  border: none;
+  outline: none;
+  cursor:pointer;
+  margin-bottom:16px;
+}
+.collapsible:after {
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.collapsiblecontent {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
 </style>
 </head>
 <body>
@@ -36,8 +57,29 @@
 					<br>
 					<div class="row">
 						<div class="col-12">
-							<p>원하는 페이지를 만들어 보아요! 무조건 txt파일로 올리세요</p>
-							<p>불편하면 자세를 고쳐앉아</p>
+							<div class="row">
+								<button class="collapsible col-1"><h3 style="margin: 0 auto;"><i class="fa fa-question-circle"></i></h3></button>
+								<div class="collapsiblecontent col-11">
+									<video src="/resources/video/gaussaian_video.mp4" width="500" height="300" controls></video>
+									<p>만일 설정 외의 값도 지정하고 싶다면 "$else"라는 값으로 컬럼명을 지정 정하면 설정외의 모든 값에 적용됩니다.</p>
+								</div>
+							</div>
+							<script>
+							var coll = document.getElementsByClassName("collapsible");
+							var i;
+							
+							for (i = 0; i < coll.length; i++) {
+							  coll[i].addEventListener("click", function() {
+							    this.classList.toggle("active");
+							    var content = this.nextElementSibling;
+							    if (content.style.maxHeight){
+							      content.style.maxHeight = null;
+							    } else {
+							      content.style.maxHeight = content.scrollHeight + "px";
+							    } 
+							  });
+							}
+							</script>
 						</div>
 					</div>
 				</div>
